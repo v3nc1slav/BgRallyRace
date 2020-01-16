@@ -23,7 +23,17 @@ namespace BgRallyRace.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Opinion()
+        {
+            return View();
+        }
+
+        public IActionResult FAQ()
+        {
+            return View();
+        }
+
+        public IActionResult Gallery()
         {
             return View();
         }

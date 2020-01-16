@@ -2,7 +2,40 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <div class="background">
+        <form>
+            <fieldset>
+                <div class="form-group">
+                    <div class="form-group row">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            <label for="exampleInputEmail1">Потребителско Име:</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                   placeholder="Потребителско Име:" maxlength="50">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4"></div>
+                <div class="form-group">
+                    <div class="form-group row">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            <label for="exampleInputPassword1">Парола:</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Парола:" maxlength="50">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4"></div>
+            </fieldset>
+        </form>
+        <p>
+            <button tabindex="5" type="button" class="btn btn-success">Вход</button>
+        </p>
+        <p>
+            <a href="#" onclick="setBox('pwforgotten')">Забравена парола?</a>
+        </p>
+        <p>
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Регистрация</a>
+        </p>
+    </div>
+

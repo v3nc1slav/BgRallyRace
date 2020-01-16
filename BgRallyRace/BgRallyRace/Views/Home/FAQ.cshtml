@@ -1,0 +1,65 @@
+@{
+    ViewData["Title"] = "FAQ";
+}
+
+<div class="form-group row">
+    <div class="col-sm-3">
+        <div class="tabs">
+            <button class="tablinks" onclick="hoverTabs(event, 'London')" id="defaultOpen">London</button>
+            <button class="tablinks" onclick="hoverTabs(event, 'Paris')">Paris</button>
+            <button class="tablinks" onclick="hoverTabs(event, 'Tokyo')">Tokyo</button>
+            <button class="tablinks" onclick="hoverTabs(event, 'Tokyo1')">Tokyo1</button>
+            <button class="tablinks" onclick="hoverTabs(event, 'Tokyo2')">Tokyo2</button>
+            <button class="tablinks" onclick="hoverTabs(event, 'Tokyo3')">Tokyo3</button>
+            <button class="tablinks" onclick="hoverTabs(event, 'Tokyo4')">Tokyo4</button>
+        </div>
+    </div>
+</div>
+<div class="col-sm-9">
+    <div id="London" class="tabcontent">
+        <h3>London</h3>
+        <p>London is the capital city of England.</p>
+    </div>
+    <div id="Paris" class="tabcontent">
+        <h3>Paris</h3>
+        <p>Paris is the capital of France.</p>
+    </div>
+    <div id="Tokyo" class="tabcontent">
+        <h3>Tokyo</h3>
+        <p>Tokyo is the capital of Japan.</p>
+    </div>
+    <div id="Tokyo1" class="tabcontent">
+        <h3>Tokyo1</h3>
+        <p>111111111111111111</p>
+    </div>
+    <div id="Tokyo2" class="tabcontent">
+        <h3>Tokyo2</h3>
+        <p>222222222222222</p>
+    </div>
+    <div id="Tokyo3" class="tabcontent">
+        <h3>Tokyo3</h3>
+        <p>33333333333333333</p>
+    </div>
+    <div id="Tokyo4" class="tabcontent">
+        <h3>Tokyo4</h3>
+        <p>444444444444444444</p>
+    </div>
+</div>
+
+<script>
+    function hoverTabs(evt, name) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(name).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+</script>

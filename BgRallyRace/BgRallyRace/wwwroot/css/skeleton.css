@@ -1,0 +1,184 @@
+header * {
+    text-decoration: none;
+    font-size: 15px;
+}
+
+header div last-child {
+    float: right;
+    text-align: right;
+}
+
+main {
+    text-decoration: none;
+    padding: 11rem;
+    text-align: center;
+    color: #3366FF;
+    font-size: 18px;
+    background-image: url(/images/DS3WRC.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+
+.background {
+    background: #839496 linear-gradient(180deg, #96a4a6, #839496) repeat-x;
+    border-color: #d6d8db;
+    background-clip: border-box;
+    border-radius: 10px;
+    width: 50%;
+    height: 50%;
+    display: block;
+    opacity: 0.95;
+}
+
+#backgroundOthers {
+    width: 100%;
+    height: 100%;
+}
+
+footer * {
+    text-decoration: none;
+    font-size: 15px;
+    letter-spacing: 8px;
+    text-align: right;
+}
+
+link {
+    float: right;
+    color: brown;
+    text-align: right;
+}
+
+.tabs {
+    float: left;
+    border: 1px solid #d6d8db;
+    width: 100%;
+    height: 500px;
+    background: #839496 linear-gradient(180deg, #96a4a6, #839496) repeat-x;
+    border-color: #d6d8db;
+    border-radius: 10px;
+    opacity: 0.95;
+}
+
+.tabs button {
+    display: block;
+    background: #839496 linear-gradient(180deg, #96a4a6, #839496) repeat-x;
+    border-color: #d6d8db;
+    border-radius: 10px;
+    opacity: 0.95;
+    color: black;
+    padding: 22px 16px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 17px;
+    }
+
+.tabs button:hover {
+    margin: 1rem;
+    background: #839496 linear-gradient(180deg, #eff3f3, #839496) repeat-x;
+    border-color: #d6d8db;
+    border-radius: 10px;
+    opacity: 0.95;
+}
+
+.tabs button.active {
+    background: #eff3f3 linear-gradient(180deg, #eff3f3, #839496) repeat-x;
+    border-color: #d6d8db;
+    border-radius: 10px;
+    opacity: 0.95;
+}
+
+.tabcontent {
+    float: left;
+    background: #839496 linear-gradient(180deg, #96a4a6, #839496) repeat-x;
+    border-color: #d6d8db;
+    border-radius: 10px;
+    opacity: 0.95;
+    width: 100%;
+    border-left: none;
+    height: 500px;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+
+.container {
+    position: relative;
+}
+
+.mySlides {
+    display: none;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+/* Next & previous buttons */
+.Prev,
+.Next {
+    cursor: pointer;
+    position: absolute;
+    top: 40%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.Next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+    .Prev:hover,
+    .Next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+.caption-container {
+    text-align: center;
+    background-color: #222;
+    padding: 2px 16px;
+    color: white;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Six columns side by side */
+.column {
+    float: left;
+    width: 16.66%;
+}
+
+.demo {
+    opacity: 0.6;
+}
+
+    .active,
+    .demo:hover {
+        opacity: 1;
+    }
