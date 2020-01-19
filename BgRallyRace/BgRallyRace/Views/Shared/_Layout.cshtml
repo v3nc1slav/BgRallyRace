@@ -17,8 +17,8 @@
 </head>
 <body>
     <header>
-        @if (ViewData["Title"] == "Home Page")
-        {
+        @{ if (ViewData["Title"] == "Home Page")
+            {
             <div class="bs-component">
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-flag-checkered"> </i> </a>
@@ -47,9 +47,9 @@
                     </div>
                 </nav>
             </div>
-        }
-        else if (ViewData["Title"] == "Opinion")
-        {
+            }
+            else if (ViewData["Title"] == "Opinion")
+            {
             <div class="bs-component">
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-flag-checkered"> </i> </a>
@@ -78,9 +78,9 @@
                     </div>
                 </nav>
             </div>
-        }
-        else if (ViewData["Title"] == "FAQ")
-        {
+            }
+            else if (ViewData["Title"] == "FAQ")
+            {
             <div class="bs-component">
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-flag-checkered"> </i> </a>
@@ -109,9 +109,9 @@
                     </div>
                 </nav>
             </div>
-        }
-        else if (ViewData["Title"] == "Gallery")
-        {
+            }
+            else if (ViewData["Title"] == "Gallery")
+            {
             <div class="bs-component">
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-flag-checkered"> </i> </a>
@@ -140,9 +140,9 @@
                     </div>
                 </nav>
             </div>
-        }
-        else
-        {
+            }
+            else
+            {
             <div class="bs-component">
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-flag-checkered"> </i> </a>
@@ -171,7 +171,8 @@
                     </div>
                 </nav>
             </div>
-        }
+                } 
+            }
     </header>
   <main >
           @RenderBody()
