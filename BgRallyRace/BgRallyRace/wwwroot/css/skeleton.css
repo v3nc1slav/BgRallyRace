@@ -10,8 +10,8 @@ header div last-child {
 
 main {
     text-decoration: none;
-    padding: 11rem;
     text-align: center;
+    padding: 11rem;
     color: #3366FF;
     font-size: 18px;
     background-image: url(/images/DS3WRC.jpg);
@@ -50,9 +50,6 @@ link {
 }
 
 .tabs {
-    text-decoration: none;
-    font-size: 15px;
-    text-align: right;
     float: left;
     border: 1px solid #d6d8db;
     width: 100%;
@@ -64,7 +61,7 @@ link {
 }
 
     .tabs button {
-        display: none block;
+        display: block;
         background: #839496 linear-gradient(180deg, #96a4a6, #839496) repeat-x;
         border-color: #d6d8db;
         border-radius: 10px;
@@ -78,32 +75,31 @@ link {
         font-size: 17px;
     }
 
-.tabs button:hover {
-    margin: 1rem;
-    background: #839496 linear-gradient(180deg, #eff3f3, #839496) repeat-x;
-    border-color: #d6d8db;
-    border-radius: 10px;
-    opacity: 0.95;
-}
+        .tabs button:hover {
+            margin: 1rem;
+            background: #839496 linear-gradient(180deg, #eff3f3, #839496) repeat-x;
+            border-color: #d6d8db;
+            border-radius: 10px;
+            opacity: 0.95;
+        }
 
-.tabs button.active {
-    background: #eff3f3 linear-gradient(180deg, #eff3f3, #839496) repeat-x;
-    border-color: #d6d8db;
-    border-radius: 10px;
-    opacity: 0.95;
-}
+        .tabs button.active {
+            background: #eff3f3 linear-gradient(180deg, #eff3f3, #839496) repeat-x;
+            border-color: #d6d8db;
+            border-radius: 10px;
+            opacity: 0.95;
+        }
 
 .tabcontent {
-    display: none block;
-    color : black;
     float: left;
     background: #839496 linear-gradient(180deg, #96a4a6, #839496) repeat-x;
     border-color: #d6d8db;
     border-radius: 10px;
     opacity: 0.95;
+    color: black;
     width: 100%;
     border-left: none;
-    height: 500px;
+    height: 850px;
 }
 
 .clearfix::after {
@@ -112,78 +108,51 @@ link {
     display: table;
 }
 
-
-.container {
-    position: relative;
+/*Gallery*/
+.column {
+    float: left;
+    width: 25%;
+    padding: 10px;
 }
 
-.mySlides {
-    display: none;
-}
-
-.cursor {
+    /* Style the images inside the grid */
+.column img {
+    opacity: 0.8;
     cursor: pointer;
 }
 
-/* Next & previous buttons */
-.Prev,
-.Next {
-    cursor: pointer;
-    position: absolute;
-    top: 40%;
-    width: auto;
-    padding: 16px;
-    margin-top: -50px;
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-    -webkit-user-select: none;
+.column img:hover {
+    opacity: 1;
 }
 
-.Next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-}
-
-    .Prev:hover,
-    .Next:hover {
-        background-color: rgba(0, 0, 0, 0.8);
-    }
-
-.numbertext {
-    color: #f2f2f2;
-    font-size: 12px;
-    padding: 8px 12px;
-    position: absolute;
-    top: 0;
-}
-
-.caption-container {
-    text-align: center;
-    background-color: #222;
-    padding: 2px 16px;
-    color: white;
-}
-
+/* Clear floats after the columns */
 .row:after {
     content: "";
     display: table;
     clear: both;
 }
 
-/* Six columns side by side */
-.column {
-    float: left;
-    width: 16.66%;
+/* The expanding image container */
+.GalleryContainer {
+    position: relative;
+    display: none;
 }
 
-.demo {
-    opacity: 0.6;
+/* Expanding image text */
+#imgtext {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    color: white;
+    font-size: 20px;
 }
 
-    .active,
-    .demo:hover {
-        opacity: 1;
-    }
+/* Closable button inside the expanded image */
+.closebtn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: white;
+    font-size: 35px;
+    cursor: pointer;
+}

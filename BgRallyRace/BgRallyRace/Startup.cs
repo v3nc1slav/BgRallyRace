@@ -12,6 +12,7 @@ using BgRallyRace.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using BgRallyRace.Models;
 
 namespace BgRallyRace
 {
@@ -34,6 +35,9 @@ namespace BgRallyRace
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddResponseCaching();
+            services.AddMemoryCache();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

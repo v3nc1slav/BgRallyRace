@@ -7,28 +7,38 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BgRallyRace.Models;
 using Microsoft.AspNetCore.Authorization;
+using BgRallyRace.Data;
+using BgRallyRace.Models.Home;
 
 namespace BgRallyRace.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
+     //private readonly ApplicationDbContext dbContext;
+     //public HomeController(ApplicationDbContext dbContext)
+     //{
+     //    this.dbContext = dbContext;
+     //}
+      
+         private readonly ILogger<HomeController> _logger;
+        
+         public HomeController(ILogger<HomeController> logger)
+         {
+             _logger = logger;
+         }
+   
         public IActionResult Index()
         {
             return View();
         }
 
-        [Authorize]
         public IActionResult Opinion()
         {
             return View();
+           
         }
+
+        //[Authorize]
 
         public IActionResult FAQ()
         {
@@ -39,7 +49,7 @@ namespace BgRallyRace.Controllers
         {
             return View();
         }
-
+     
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

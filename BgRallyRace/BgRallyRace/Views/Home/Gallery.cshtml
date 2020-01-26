@@ -1,64 +1,39 @@
 ﻿@{
     ViewData["Title"] = "Gallery";
 }
-<div class="container">
 
-    <div class="mySlides">
-        <div class="numbertext">1 / 6</div>
-        <img src="~/images/images.jpg" style="width:100%">
+<div class="row">
+    <div class="column">
+        <img src="~/images/images.jpg" alt="Nature" style="width:100%" onclick="myFunction(this);">
     </div>
-
-    <div class="mySlides">
-        <div class="numbertext">2 / 6</div>
-        <img src="~/images/images (2).jpg" style="width:100%">
+    <div class="column">
+        <img src="~/images/images (2).jpg" alt="Snow" style="width:100%" onclick="myFunction(this);">
     </div>
-
-    <div class="mySlides">
-        <div class="numbertext">3 / 6</div>
-        <img src="~/images/images.jpg" style="width:100%">
+    <div class="column">
+        <img src="~/images/images2.jpg" alt="Mountains" style="width:100%" onclick="myFunction(this);">
     </div>
-
-    <div class="mySlides">
-        <div class="numbertext">4 / 6</div>
-        <img src="~/images/images2.jpg" style="width:100%">
-    </div>
-
-    <div class="mySlides">
-        <div class="numbertext">5 / 6</div>
-        <img src="~/images/images6.jpg" style="width:100%">
-    </div>
-
-    <div class="mySlides">
-        <div class="numbertext">6 / 6</div>
-        <img src="~/images/img_snow_wide.jpg" style="width:100%">
-    </div>
-
-    <a class="Prev" onclick="plusSlides(-1)">&#10094;</a>
-    <a class="Next" onclick="plusSlides(1)">&#10095;</a>
-
-    <div class="caption-container">
-        <p id="caption"></p>
-    </div>
-
-    <div class="row">
-        <div class="column">
-            <img class="demo cursor" src="~/images/images (1).jfif" style="width:100%" onclick="currentSlide(1)" alt="The Woods">
-        </div>
-        <div class="column">
-            <img class="demo cursor" src="~/images/images (2).jpg" style="width:100%" onclick="currentSlide(2)" alt="Cinque Terre">
-        </div>
-        <div class="column">
-            <img class="demo cursor" src="~/images/images.jpg" style="width:100%" onclick="currentSlide(3)" alt="Mountains and fjords">
-        </div>
-        <div class="column">
-            <img class="demo cursor" src="~/images/images2.jpg" style="width:100%" onclick="currentSlide(4)" alt="Northern Lights">
-        </div>
-        <div class="column">
-            <img class="demo cursor" src="~/images/images6.jpg" style="width:100%" onclick="currentSlide(5)" alt="Nature and sunrise">
-        </div>
-        <div class="column">
-            <img class="demo cursor" src="~/images/img_snow.jpg" style="width:100%" onclick="currentSlide(6)" alt="Snowy Mountains">
-        </div>
+    <div class="column">
+        <img src="~/images/car.jpg" alt="Lights" style="width:100%" onclick="myFunction(this);">
     </div>
 </div>
+
+<div class="GalleryContainer">
+    <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+    <img id="expandedImg" style="width:100%">
+    <div id="imgtext"></div>
+</div>
+
+<script>
+    function myFunction(imgs) {
+        var expandImg = document.getElementById("expandedImg");
+        var imgText = document.getElementById("imgtext");
+        expandImg.src = imgs.src;
+        imgText.innerHTML = imgs.alt;
+        expandImg.parentElement.style.display = "block";
+    }
+</script>
+
+
+
+
 
