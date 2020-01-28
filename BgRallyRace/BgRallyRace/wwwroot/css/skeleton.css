@@ -1,9 +1,14 @@
 header * {
     text-decoration: none;
-    font-size: 15px;
+    font-size: 20px;
+    display: block;
+}
+.SearchBar {
+    margin-left: 54rem;
 }
 
-header div last-child {
+
+.collapse navbar-collapse {
     float: right;
     text-align: right;
 }
@@ -13,7 +18,7 @@ main {
     text-align: center;
     padding: 11rem;
     color: #3366FF;
-    font-size: 18px;
+    font-size: 20px;
     background-image: url(/images/DS3WRC.jpg);
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -38,7 +43,7 @@ main {
 
 footer * {
     text-decoration: none;
-    font-size: 15px;
+    font-size: 20px;
     letter-spacing: 8px;
     text-align: right;
 }
@@ -109,7 +114,7 @@ link {
 }
 
 /*Gallery*/
-.column {
+    .column {
     float: left;
     width: 25%;
     padding: 10px;

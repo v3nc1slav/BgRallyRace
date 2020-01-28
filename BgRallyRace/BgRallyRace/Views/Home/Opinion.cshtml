@@ -1,7 +1,11 @@
-﻿@{
+﻿@using BgRallyRace.Services;
+@{
     ViewData["Title"] = "Opinion";
 }
-  
+
+@{var opinion =  new OpinionsServices();
+   var opinions =  opinion.GetOpinions(); }
+
 <div class="form-group">
     <textarea class="form-control" id="exampleTextarea" cols="50" rows="2" class="flL w200"></textarea>
 </div>
@@ -9,7 +13,10 @@
 <p>
     <div class="background" id="backgroundOthers">
         <div class="alert alert-dismissible alert-secondary">
-            <strong>Тук</strong> ще се побликуват мнения!
+            @foreach (var item in opinions)
+            {
+                <a>@item</a>
+            }
         </div>
     </div>
 </p>

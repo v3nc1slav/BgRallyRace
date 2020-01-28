@@ -8,8 +8,8 @@
     <link rel="icon" type="image/x-icon" sizes="16x16" href="~/images/download.jfif">
     <script src="https://kit.fontawesome.com/fdeca5c444.js" crossorigin="anonymous"></script>
     <link rel="icon" type="image/x-icon" sizes="16x16" href="download.jfif">
-    <link rel="stylesheet" href="~/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/skeleton.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css " />
     <script>src = " https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js "</script>
     <script>src = "https://code.jquery.com/jquery-3.4.1.min.js"</script>
@@ -19,32 +19,34 @@
     <header>
         <div class="bs-component">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-flag-checkered"> </i> </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarColor02">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Opinion">Мнения</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="FAQ">ЧЗВ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Gallery">Галерия</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav mr">
-                        <partial name="_LoginPartial" />
-                    </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Търсене</button>
-                    </form>
+                     <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/car hd.png" alt="Title"></a>
+                <div>
+                    <div class="SearchBar">
+                        <form class="form-inline my-2 my-lg-0">
+                            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Търсене</button>
+                        </form>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbarColor02">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Opinion">Мнения</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="FAQ">ЧЗВ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Gallery">Галерия</a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav mr">
+                            <partial name="_LoginPartial" />
+                        </ul>
+                    </div>
                 </div>
             </nav>
         </div>
