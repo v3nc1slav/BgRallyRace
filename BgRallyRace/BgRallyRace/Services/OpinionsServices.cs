@@ -20,15 +20,15 @@ namespace BgRallyRace.Services
         {
             this.dbContext = dbContext;
         }
-        public void  AddOpinion(string text, IdentityUser user)
+        public void AddOpinion(string text)
         {
-            dbContext.Opinions.Add(new Opinions { Content= text, DateOfPublication = DateTime.UtcNow, User =  user });
-            dbContext.SaveChanges();
+            dbContext.Opinions.AddAsync(new Opinions { Content= text, DateOfPublication = DateTime.UtcNow });
+            dbContext.SaveChangesAsync();
         }
 
         public string[] GetOpinions()
         {
-            var result = dbContext.Opinions.Select(x=>x.Content).ToArray();
+            var result = dbContext.Opinions.Select(X=>X.Content).ToArray();
             return result;
         }
     }
