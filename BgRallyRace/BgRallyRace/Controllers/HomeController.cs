@@ -13,14 +13,16 @@ using BgRallyRace.Services;
 using System.IO;
 using System.Text;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace BgRallyRace.Controllers
 {
     public class HomeController : Controller
     {
          private readonly ILogger<HomeController> _logger;
-        
-         public HomeController(ILogger<HomeController> logger)
+
+        public HomeController(ILogger<HomeController> logger)
          {
              _logger = logger;
          }
@@ -50,9 +52,20 @@ namespace BgRallyRace.Controllers
         {
             var db = new ApplicationDbContext();
             var opinions = new OpinionsServices(db);
-            var result = Request.Body.ToString().Split('&').ToList();
-            //opinions.AddOpinion(result);
+            var result = Request.Body.ToString();
+            var user = User.Identity.Name;
+            opinions.AddOpinion(result, user);
             return RedirectToAction("Opinion", "Home");
+        }
+
+        [Authorize]
+        public IActionResult Team()
+        {
+            var db = new ApplicationDbContext();
+            var team = new TeamServices(db);
+            var user = User.Identity.Name;
+            team.CreateTeam("BgTeam", user);
+            return RedirectToAction("Index", "Home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

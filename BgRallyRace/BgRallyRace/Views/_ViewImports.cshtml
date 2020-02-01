@@ -1,3 +1,8 @@
 ﻿@using BgRallyRace
 @using BgRallyRace.Models
+@using Microsoft.AspNetCore.Identity
+@using BgRallyRace.Services;
+@using BgRallyRace.Data;
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager

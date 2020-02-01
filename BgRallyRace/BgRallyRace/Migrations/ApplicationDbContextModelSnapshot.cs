@@ -71,6 +71,12 @@ namespace BgRallyRace.Migrations
                     b.Property<decimal>("Balance")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("User")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("MoneyAccount");
@@ -89,15 +95,13 @@ namespace BgRallyRace.Migrations
                     b.Property<DateTime>("DateOfPublication")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("User")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("Opinions");
                 });
@@ -219,11 +223,11 @@ namespace BgRallyRace.Migrations
                     b.Property<int>("RallyPilotId")
                         .HasColumnType("int");
 
+                    b.Property<string>("User")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -232,8 +236,6 @@ namespace BgRallyRace.Migrations
                     b.HasIndex("CompetitionId");
 
                     b.HasIndex("MoneyAccountId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("Teams");
                 });
@@ -471,13 +473,6 @@ namespace BgRallyRace.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BgRallyRace.Models.Opinions", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
-                });
-
             modelBuilder.Entity("BgRallyRace.Models.RallyFitters", b =>
                 {
                     b.HasOne("BgRallyRace.Models.Teams", "Teams")
@@ -516,10 +511,6 @@ namespace BgRallyRace.Migrations
                         .HasForeignKey("MoneyAccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

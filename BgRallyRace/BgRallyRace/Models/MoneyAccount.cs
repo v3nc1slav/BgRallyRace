@@ -9,5 +9,9 @@ namespace BgRallyRace.Models
 
         [Required]
         public decimal Balance { get; set; }
+
+        [Required]
+        public int UserId { get; set; }
+        public string User { get; set; }
     }
 }

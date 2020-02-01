@@ -15,7 +15,6 @@ namespace BgRallyRace.Models
         [Required]
         public string Name { get; set; }
 
-        [Required]
         public int CompetitionId { get; set; }
 
         public Competitions Competition { get; set; } 
@@ -30,19 +29,20 @@ namespace BgRallyRace.Models
 
         public ICollection< RallyNavigators> RallyNavigator { get; set; } = new HashSet<RallyNavigators>();
 
-        [Required]
         public int FitterId { get; set; }
 
         public ICollection<RallyFitters> Fitter { get; set; } = new HashSet<RallyFitters>();
 
         [Required]
         public int UserId { get; set; }
-        public IdentityUser User { get; set; }
+        public string User { get; set; }
 
+        [Required]
         public int MoneyAccountId { get; set; }
 
         public MoneyAccount MoneyAccount { get; set; }
 
+        [Required]
         public int CarId { get; set; }
 
         public Cars Cars { get; set; }

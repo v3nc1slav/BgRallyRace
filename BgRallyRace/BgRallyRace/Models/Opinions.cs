@@ -12,7 +12,7 @@
         public DateTime DateOfPublication { get; set; }
 
         public int UserId { get; set; }
-        public IdentityUser  User { get; set; }
+        public string  User { get; set; }
 
         //public ICollection<string> FullData { get; set; } = new HashSet<string>(); ??
     }

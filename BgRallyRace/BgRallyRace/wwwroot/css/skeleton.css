@@ -3,6 +3,7 @@ header * {
     font-size: 20px;
     display: block;
 }
+
 .SearchBar {
     margin-left: 54rem;
 }
@@ -14,6 +15,7 @@ header * {
 }
 
 main {
+    display: block;
     text-decoration: none;
     text-align: center;
     padding: 11rem;
@@ -30,15 +32,10 @@ main {
     border-color: #d6d8db;
     background-clip: border-box;
     border-radius: 10px;
-    width: 50%;
-    height: 50%;
-    display: block;
-    opacity: 0.95;
-}
-
-#backgroundOthers {
     width: 100%;
     height: 100%;
+    opacity: 0.95;
+    display: block;
 }
 
 footer * {
@@ -114,21 +111,21 @@ link {
 }
 
 /*Gallery*/
-    .column {
+.column {
     float: left;
     width: 25%;
     padding: 10px;
 }
 
     /* Style the images inside the grid */
-.column img {
-    opacity: 0.8;
-    cursor: pointer;
-}
+    .column img {
+        opacity: 0.8;
+        cursor: pointer;
+    }
 
-.column img:hover {
-    opacity: 1;
-}
+        .column img:hover {
+            opacity: 1;
+        }
 
 /* Clear floats after the columns */
 .row:after {
