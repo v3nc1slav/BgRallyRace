@@ -11,8 +11,7 @@ namespace BgRallyRace.Services
     public class TeamServices
     {
         private readonly ApplicationDbContext dbContext;
-
-     
+    
         public TeamServices()
         {
 
@@ -24,12 +23,16 @@ namespace BgRallyRace.Services
 
         public void CreateTeam(string text, string user)
         {
-            var db = new ApplicationDbContext();
-            var money = new MoneyAccountServices(db);
-            money.ExpenseAccount(2000, user);
+            var money = new MoneyAccountServices(dbContext);
             money.CreateMoneyAccount(user);
-            //dbContext.Teams.Add(new Teams {Name = text, User = user });
+            dbContext.Teams.Add(new Team {Name = text, User = user });
             dbContext.SaveChangesAsync();
+        }
+
+        public Team FindUser(string user)
+        {
+            var findUser = dbContext.Teams.FirstOrDefault(a => a.User == user);
+            return findUser;
         }
     }
 }

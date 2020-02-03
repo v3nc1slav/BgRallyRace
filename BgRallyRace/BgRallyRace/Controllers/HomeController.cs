@@ -52,9 +52,9 @@ namespace BgRallyRace.Controllers
         {
             var db = new ApplicationDbContext();
             var opinions = new OpinionsServices(db);
-            var result = Request.Body.ToString();
+            var result = Request.ToString();
             var user = User.Identity.Name;
-            opinions.AddOpinion(result, user);
+           // opinions.AddOpinion(result, user);
             return RedirectToAction("Opinion", "Home");
         }
 
@@ -64,7 +64,7 @@ namespace BgRallyRace.Controllers
             var db = new ApplicationDbContext();
             var team = new TeamServices(db);
             var user = User.Identity.Name;
-            team.CreateTeam("BgTeam", user);
+           // team.CreateTeam("BgTeam", user);
             return RedirectToAction("Index", "Home");
         }
 

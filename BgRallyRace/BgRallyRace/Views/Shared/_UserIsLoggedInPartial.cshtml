@@ -4,7 +4,11 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-@if (true)
+@{var db = new ApplicationDbContext();
+    TeamServices team = new TeamServices(db);}
+
+
+@if (SignInManager.IsSignedIn(User) && !(team.FindUser(User.Identity.Name) == null))
 {
     <div class="background">
         <form

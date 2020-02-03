@@ -2,9 +2,20 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
+@{var db = new ApplicationDbContext();
+    MoneyAccountServices money = new MoneyAccountServices(db);}
+
+@if (money.FindUser(User.Identity.Name) == null)
+{
+    money.CreateMoneyAccount(User.Identity.Name);
+
+}
 
 @if (SignInManager.IsSignedIn(User))
 {
+    <li class="nav-item">
+        <a class="nav-link ">@money.GetBalance(User.Identity.Name)лв.</a>
+    </li>
     <li class="nav-item">
         <a class="nav-link " asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравей @User.Identity.Name!</a>
     </li>

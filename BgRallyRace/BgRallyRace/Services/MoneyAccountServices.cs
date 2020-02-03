@@ -17,7 +17,6 @@ namespace BgRallyRace.Services
         }
         public MoneyAccountServices(ApplicationDbContext dbContext)
         {
-
             this.dbContext = dbContext;
         }
         public void CreateMoneyAccount(string user)
@@ -26,10 +25,31 @@ namespace BgRallyRace.Services
             dbContext.SaveChangesAsync();
         }
 
-        public void ExpenseAccount(int expense, string user)
+        public void ExpenseAccount(decimal expense, string user)
         {
-            var db = dbContext.MoneyAccount.Update(Balance, -expense).Where(x=>x.user = user);
+            var db = FindUser(user);
+            db.Balance = (db.Balance-expense);  
             dbContext.SaveChangesAsync();
         }
+
+        public void RevenueAccount(decimal revenue, string user)
+        {
+           var db = FindUser(user);
+            db.Balance = (db.Balance + revenue);
+            dbContext.SaveChangesAsync();
+        }
+
+        public MoneyAccount FindUser( string user)
+        {
+            var db = dbContext.MoneyAccount.FirstOrDefault(a => a.User == user);
+            return db;
+        }
+
+        public decimal GetBalance(string user)
+        {
+            var db = dbContext.MoneyAccount.FirstOrDefault(a => a.User == user);
+            return db.Balance;
+        }
+     
     }
 }
