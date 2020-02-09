@@ -1,0 +1,62 @@
+﻿@using BgRallyRace.Services;
+@using BgRallyRace.Data;
+@using BgRallyRace;
+@{
+    ViewData["Title"] = "Team";
+}
+
+<div class="teamTab">
+    <button class="teamTablink" onclick="openPage('First', this, 'green')" id="defaultOpen">Първи пилот</button>
+    <button class="teamTablink" onclick="openPage('Secand', this, 'blue')">Втори пилот</button>
+</div>
+<div id="First" class="teamTabcontent">
+    <h3>Името на пилота ....</h3>
+    <p></p>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: 25%;">Години</div>
+    </div>
+    <p></p>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: 5%;">Рефлекс</div>
+    </div>
+</div>
+
+<div id="Secand" class="teamTabcontent">
+    <h3>Името на пилота ....</h3>
+    <div class="bs-component">
+        <a>Години</a>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 25%;"></div>
+        </div>
+        <a>Рефлекс</a>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 5%;"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openPage(pageName, elmnt, color) {
+        // Hide all elements with class="tabcontent" by default * /
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("teamTabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Remove the background color of all tablinks/buttons
+        tablinks = document.getElementsByClassName("teamTablink");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.backgroundColor = "";
+        }
+
+        // Show the specific tab content
+        document.getElementById(pageName).style.display = "block";
+
+        // Add the specific color to the button used to open the tab content
+        elmnt.style.backgroundColor = color;
+    }
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+</script>

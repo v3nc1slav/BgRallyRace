@@ -10,6 +10,6 @@ namespace BgRallyRace.Models
 
         public int TeamId { get; set; }
 
-        public ICollection<TeamsRallyFitters> Teams { get; set; } = new HashSet<TeamsRallyFitters>();
+        public ICollection<Team> Teams { get; set; } = new HashSet<Team>();
     }
 }

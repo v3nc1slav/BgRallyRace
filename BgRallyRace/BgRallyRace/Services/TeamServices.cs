@@ -21,12 +21,26 @@ namespace BgRallyRace.Services
             this.dbContext = dbContext;
         }
 
-        public void CreateTeam(string text, string user)
+        public async Task CreateTeam(string text, string user)
         {
-            var money = new MoneyAccountServices(dbContext);
-            money.CreateMoneyAccount(user);
-            dbContext.Teams.Add(new Team {Name = text, User = user });
-            dbContext.SaveChangesAsync();
+            var moneyId = new MoneyAccountServices(dbContext);
+            var pilot = new RallyPilotsServices(dbContext);
+            var navigator = new RallyNavigatorsServices(dbContext);
+            var car = new CarServices(dbContext);
+            moneyId.FindIdMonyeAccount(user);
+            //await pilot.CreateRallyPilotsAsync();
+            //await navigator.CreateRallyNavigatorsAsync();
+            await car.CreateCarsAsync();
+            await dbContext.Teams.AddAsync(new Team 
+            {
+                Name = text,
+                User = user, 
+                MoneyAccountId =1,//int.Parse(moneyId.ToString()),
+                RallyPilotId = 1,//int.Parse(pilot.ToString()),
+                RallyNavigatorId = int.Parse(navigator.ToString()),
+                CarId = int.Parse(car.ToString()),
+            });
+            await dbContext.SaveChangesAsync();
         }
 
         public Team FindUser(string user)

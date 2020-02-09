@@ -5,12 +5,6 @@
 @{var db = new ApplicationDbContext();
     MoneyAccountServices money = new MoneyAccountServices(db);}
 
-@if (money.FindUser(User.Identity.Name) == null)
-{
-    money.CreateMoneyAccount(User.Identity.Name);
-
-}
-
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">

@@ -11,7 +11,10 @@ namespace BgRallyRace.Models
         public int Id { get; set; }
 
         public string FirstName { get; set; }
+
         public string LastName { get; set; }
+
+        public int Salary { get; set; }
 
         public int Age { get; set; }
 
@@ -22,6 +25,8 @@ namespace BgRallyRace.Models
         public int Energy { get; set; }
 
         public int Attachment { get; set; }
+
+        public int PhysicalTraining { get; set; }
 
     }
 }

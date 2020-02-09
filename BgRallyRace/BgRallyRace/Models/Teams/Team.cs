@@ -21,9 +21,9 @@ namespace BgRallyRace.Models
         public int RallyNavigatorId { get; set; }
 
         public RallyNavigators RallyNavigator { get; set; }
-
         public int FitterId { get; set; }
 
-        public RallyFitters RallyFitter { get; set; } 
+        public RallyFitters RallyFitter { get; set; }
+
     }
 }

@@ -21,7 +21,7 @@ namespace BgRallyRace.Services
         }
         public void CreateMoneyAccount(string user)
         {
-            dbContext.MoneyAccount.Add(new MoneyAccount {Balance=10000, User =user});
+            dbContext.MoneyAccount.AddAsync(new MoneyAccount {Balance=10000, User =user});
             dbContext.SaveChangesAsync();
         }
 
@@ -42,6 +42,12 @@ namespace BgRallyRace.Services
         public MoneyAccount FindUser( string user)
         {
             var db = dbContext.MoneyAccount.FirstOrDefault(a => a.User == user);
+            return db;
+        }
+
+        public int FindIdMonyeAccount(string user)
+        {
+            var db = dbContext.MoneyAccount.FirstOrDefault(a => a.User == user).Id;
             return db;
         }
 

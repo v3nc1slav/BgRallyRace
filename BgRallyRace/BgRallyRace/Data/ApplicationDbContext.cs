@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using BgRallyRace.Models;
+using BgRallyRace.Models.RandomName;
 using BgRallyRace.Models.Teams;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -38,7 +39,9 @@ namespace BgRallyRace.Data
         public DbSet<ModelsCars> ModelsCars { get; set; }
         public DbSet<Mountings> Mountings { get; set; }
         public DbSet<Turbo> Turbos { get; set; }
-
+        public DbSet<CompetitionsRallyTracks> CompetitionsRallyTracks { get; set; }
+        public DbSet<FirstNames> FirstNames { get; set; }
+        public DbSet<LastNames> LastNames { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -56,6 +59,8 @@ namespace BgRallyRace.Data
                 .HasOne<Team>(sc => sc.Team)
                 .WithMany(s => s.CompetitionsTeams)
                 .HasForeignKey(sc => sc.TeamId);
+
+              builder.Entity<CompetitionsRallyTracks>().HasKey(sc => new { sc.CompetitionsId, sc.RallyTracksId });
 
         }
 

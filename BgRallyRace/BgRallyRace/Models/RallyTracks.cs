@@ -23,5 +23,9 @@ namespace BgRallyRace.Models
 
         [Required]
         public string Description { get; set; }
+
+        public int CompetitionsRallyTracksId { get; set; }
+
+        public ICollection< CompetitionsRallyTracks> CompetitionsRallyTracks { get; set; }  = new HashSet<CompetitionsRallyTracks>();
     }
 }

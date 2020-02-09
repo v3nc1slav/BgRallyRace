@@ -14,27 +14,43 @@ using System.IO;
 using System.Text;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-
+using BgRallyRace.ViewModels;
+using BgRallyRace.Models.RandomName;
 
 namespace BgRallyRace.Controllers
 {
     public class HomeController : Controller
     {
-         private readonly ILogger<HomeController> _logger;
-
+        private readonly ILogger<HomeController> _logger;
+        private ApplicationDbContext db { get; set; } = new ApplicationDbContext();
         public HomeController(ILogger<HomeController> logger)
-         {
-             _logger = logger;
-         }
-   
+        {
+            _logger = logger;
+        }
+
         public IActionResult Index()
         {
+            MoneyAccountServices money = new MoneyAccountServices(db);
+            if (money.FindUser(User.Identity.Name) == null)
+            {
+                money.CreateMoneyAccount(User.Identity.Name);
+
+            }
+            // var viewModel = new MoneyAccountViewModels
+            // {
+            //     Balance = money.GetBalance(User.Identity.Name)
+            // };
             return View();
         }
 
         public IActionResult Opinion()
         {
-            return View();
+            var opinion = new OpinionsServices(db);
+            var viewModel = new OpinionsViewModels
+            {
+                Opinions = opinion.GetOpinions()
+            };
+            return this.View(viewModel);
         }
 
         public IActionResult FAQ()
@@ -48,25 +64,15 @@ namespace BgRallyRace.Controllers
         }
 
         [Authorize]
-        public IActionResult Contact()
+        [HttpPost]
+        public IActionResult Contact(string content)
         {
-            var db = new ApplicationDbContext();
             var opinions = new OpinionsServices(db);
-            var result = Request.ToString();
-            var user = User.Identity.Name;
-           // opinions.AddOpinion(result, user);
+            opinions.AddOpinion(content, User.Identity.Name);
             return RedirectToAction("Opinion", "Home");
         }
 
-        [Authorize]
-        public IActionResult Team()
-        {
-            var db = new ApplicationDbContext();
-            var team = new TeamServices(db);
-            var user = User.Identity.Name;
-           // team.CreateTeam("BgTeam", user);
-            return RedirectToAction("Index", "Home");
-        }
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

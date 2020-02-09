@@ -8,13 +8,13 @@
     TeamServices team = new TeamServices(db);}
 
 
-@if (SignInManager.IsSignedIn(User) && !(team.FindUser(User.Identity.Name) == null))
+@if (SignInManager.IsSignedIn(User) && (team.FindUser(User.Identity.Name) == null))
 {
     <div class="background">
         <form
-            asp-controller="Home" asp-action="Team" method="post" class="form-group">
+            asp-controller="Team" asp-action="CreateTeam" method="post" class="form-group">
             <a>Дай име на Отбора си!</a>
-            <textarea class="form-control" id="exampleTextarea" cols="5" rows="2" class="flL w200"></textarea>
+            <textarea class="form-control" id="exampleTextarea" name = "textTeam" cols="5" rows="2" class="flL w200"></textarea>
             <button type="submit" class="btn btn-secondary">Побликувай</button>
         </form>
     </div>
@@ -25,7 +25,7 @@
     <div class="form-group row">
         <div class="col-sm-3">
             <div class="background">
-                <p>Екип</p>
+                <p><a  asp-controller="Team" asp-action="Team">Екип</a></p>
                 <p>Кола</p>
                 <p>Състезание</p>
             </div>

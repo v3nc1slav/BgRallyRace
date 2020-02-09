@@ -23,7 +23,8 @@ namespace BgRallyRace.Services
         }
         public void AddOpinion(string text, string user)
         {
-            dbContext.Opinions.AddAsync(new Opinions { Content= text, DateOfPublication = DateTime.UtcNow, User = user } );
+            dbContext.Opinions.AddAsync(new Opinions { Content= text, 
+                DateOfPublication = DateTime.UtcNow, User = user } );
             dbContext.SaveChangesAsync();
         }
 

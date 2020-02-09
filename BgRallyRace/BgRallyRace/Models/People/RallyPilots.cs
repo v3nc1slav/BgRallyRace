@@ -5,14 +5,10 @@ namespace BgRallyRace.Models
 {
     public class RallyPilots :People
     {
-        public int PhysicalTraining { get; set; }
-
-        public int Pounds { get; set; }
-
         public int Reflexes { get; set; }
 
         public int TeamId { get; set; }
 
-        public ICollection<TeamsRallyPilots> Teams { get; set; } = new HashSet<TeamsRallyPilots>();
+        public ICollection<Team> Teams { get; set; } = new HashSet<Team>();
     }
 }
