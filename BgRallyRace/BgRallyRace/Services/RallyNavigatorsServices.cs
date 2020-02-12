@@ -24,8 +24,9 @@ namespace BgRallyRace.Services
         public async Task<int> CreateRallyNavigatorsAsync()
         {
             Random rnd = new Random();
-            int first = rnd.Next(1, 98);
-            int last = rnd.Next(1, 100);
+            //ToDo
+            int first = rnd.Next(1, 4);
+            int last = rnd.Next(1, 4);
             var  firstName = await dbContext.FirstNames.Select(x=>new { x.FirstName, x.Id })
                 .FirstOrDefaultAsync(x => x.Id == first);
             var lastName = await dbContext.LastNames.Select(x => new { x.LastName, x.Id })

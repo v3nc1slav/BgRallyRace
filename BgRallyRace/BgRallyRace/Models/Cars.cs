@@ -6,18 +6,23 @@ namespace BgRallyRace.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
-        public ModelsCars ModelCar { get; set; }
-        [Required]
+
+        public ModelsCars ModelCar { get; set; } 
+
         public Engines Engine { get; set; }
-        [Required]
-        public Mountings Mounting { get; set; }
-        [Required]
-        public Brakes Brakes { get; set; }
-        [Required]
-        public Gearboxs Gearbox { get; set; }
-        [Required]
-        public Aerodynamics Aerodynamics { get; set; }
+
+        public Mountings Mounting { get; set; } 
+
+        public Brakes Brakes { get; set; } 
+
+        public Gearboxs Gearbox { get; set; } 
+
+        public Aerodynamics Aerodynamics { get; set; } 
+
         public Turbo? Turbo { get; set; } 
-   }
+
+        public int? TeamId { get; set; }
+
+        public Team? Team { get; set; }
+    }
 }

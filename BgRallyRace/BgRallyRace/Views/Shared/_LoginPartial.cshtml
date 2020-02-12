@@ -8,7 +8,7 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a class="nav-link ">@Model.Balance лв.</a>
+        <a class="nav-link ">@money.GetBalanceAsync(User.Identity.Name) лв.</a>
     </li>
     <li class="nav-item">
         <a class="nav-link " asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравей @User.Identity.Name!</a>

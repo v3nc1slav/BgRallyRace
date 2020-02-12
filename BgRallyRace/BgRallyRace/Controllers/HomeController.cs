@@ -36,10 +36,10 @@ namespace BgRallyRace.Controllers
                 money.CreateMoneyAccount(User.Identity.Name);
             }
 
-            var viewModel = new MoneyAccountViewModels
-            {
-                Balance = money.GetBalanceAsync(User.Identity.Name)
-            };
+           // var viewModel = new MoneyAccountViewModels
+           // {
+           //     Balance = money.GetBalanceAsync(User.Identity.Name)
+           // };
 
             return View();
         }

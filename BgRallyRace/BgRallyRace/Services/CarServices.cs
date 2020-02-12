@@ -47,8 +47,6 @@ namespace BgRallyRace.Services
                 Engine = engines,
                 Gearbox = gearboxs,
                 ModelCar = model,
-
-
                 Mounting = mountings,
             });
             dbContext.SaveChanges();

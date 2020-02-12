@@ -74,22 +74,25 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AerodynamicsId")
+                    b.Property<int?>("AerodynamicsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("BrakesId")
+                    b.Property<int?>("BrakesId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EngineId")
+                    b.Property<int?>("EngineId")
                         .HasColumnType("int");
 
-                    b.Property<int>("GearboxId")
+                    b.Property<int?>("GearboxId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ModelCarId")
+                    b.Property<int?>("ModelCarId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MountingId")
+                    b.Property<int?>("MountingId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TeamId")
                         .HasColumnType("int");
 
                     b.Property<int?>("TurboId")
@@ -108,6 +111,10 @@ namespace BgRallyRace.Migrations
                     b.HasIndex("ModelCarId");
 
                     b.HasIndex("MountingId");
+
+                    b.HasIndex("TeamId")
+                        .IsUnique()
+                        .HasFilter("[TeamId] IS NOT NULL");
 
                     b.HasIndex("TurboId");
 
@@ -517,9 +524,6 @@ namespace BgRallyRace.Migrations
                     b.Property<int>("CarId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CarsId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CompetitionId")
                         .HasColumnType("int");
 
@@ -549,8 +553,6 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CarsId");
 
                     b.HasIndex("MoneyAccountId");
 
@@ -815,39 +817,31 @@ namespace BgRallyRace.Migrations
                 {
                     b.HasOne("BgRallyRace.Models.Aerodynamics", "Aerodynamics")
                         .WithMany()
-                        .HasForeignKey("AerodynamicsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AerodynamicsId");
 
                     b.HasOne("BgRallyRace.Models.Brakes", "Brakes")
                         .WithMany()
-                        .HasForeignKey("BrakesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BrakesId");
 
                     b.HasOne("BgRallyRace.Models.Engines", "Engine")
                         .WithMany()
-                        .HasForeignKey("EngineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EngineId");
 
                     b.HasOne("BgRallyRace.Models.Gearboxs", "Gearbox")
                         .WithMany()
-                        .HasForeignKey("GearboxId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GearboxId");
 
                     b.HasOne("BgRallyRace.Models.ModelsCars", "ModelCar")
                         .WithMany()
-                        .HasForeignKey("ModelCarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ModelCarId");
 
                     b.HasOne("BgRallyRace.Models.Mountings", "Mounting")
                         .WithMany()
-                        .HasForeignKey("MountingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MountingId");
+
+                    b.HasOne("BgRallyRace.Models.Team", "Team")
+                        .WithOne("Cars")
+                        .HasForeignKey("BgRallyRace.Models.Cars", "TeamId");
 
                     b.HasOne("BgRallyRace.Models.Turbo", "Turbo")
                         .WithMany()
@@ -886,10 +880,6 @@ namespace BgRallyRace.Migrations
 
             modelBuilder.Entity("BgRallyRace.Models.Team", b =>
                 {
-                    b.HasOne("BgRallyRace.Models.Cars", "Cars")
-                        .WithMany()
-                        .HasForeignKey("CarsId");
-
                     b.HasOne("BgRallyRace.Models.MoneyAccount", "MoneyAccount")
                         .WithMany()
                         .HasForeignKey("MoneyAccountId")
