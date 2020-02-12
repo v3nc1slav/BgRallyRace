@@ -1,5 +1,6 @@
 ﻿using BgRallyRace.Data;
 using BgRallyRace.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,41 +20,41 @@ namespace BgRallyRace.Services
         {
             this.dbContext = dbContext;
         }
-        public void CreateMoneyAccount(string user)
+        public async Task CreateMoneyAccount(string user)
         {
-            dbContext.MoneyAccount.AddAsync(new MoneyAccount {Balance=10000, User =user});
-            dbContext.SaveChangesAsync();
+            await dbContext.MoneyAccount.AddAsync(new MoneyAccount {Balance=10000, User =user});
+            await dbContext.SaveChangesAsync();
         }
 
-        public void ExpenseAccount(decimal expense, string user)
+        public async Task ExpenseAccountAsync(decimal expense, string user)
         {
-            var db = FindUser(user);
-            db.Balance = (db.Balance-expense);  
-            dbContext.SaveChangesAsync();
+            var dbUser = await FindUserAsync(user);
+            dbUser.Balance = (dbUser.Balance-expense);
+            await dbContext.SaveChangesAsync();
         }
 
-        public void RevenueAccount(decimal revenue, string user)
+        public async Task RevenueAccountAsync(decimal revenue, string user)
         {
-           var db = FindUser(user);
-            db.Balance = (db.Balance + revenue);
-            dbContext.SaveChangesAsync();
+           var dbUser = await FindUserAsync(user);
+            dbUser.Balance = (dbUser.Balance + revenue);
+            await dbContext.SaveChangesAsync();
         }
 
-        public MoneyAccount FindUser( string user)
+        public async Task<MoneyAccount> FindUserAsync( string user)
         {
-            var db = dbContext.MoneyAccount.FirstOrDefault(a => a.User == user);
-            return db;
+             var dbUser = await dbContext.MoneyAccount.FirstOrDefaultAsync(a => a.User == user);
+            return dbUser;
         }
 
-        public int FindIdMonyeAccount(string user)
+        public int FindIdMoneyAccountAsync(string user)
         {
-            var db = dbContext.MoneyAccount.FirstOrDefault(a => a.User == user).Id;
-            return db;
+            var id = dbContext.MoneyAccount.FirstOrDefault(a=> a.User == user).Id;
+            return id;
         }
 
-        public decimal GetBalance(string user)
+        public decimal GetBalanceAsync(string user)
         {
-            var db = dbContext.MoneyAccount.FirstOrDefault(a => a.User == user);
+             var db =  dbContext.MoneyAccount.FirstOrDefault(a => a.User == user);
             return db.Balance;
         }
      

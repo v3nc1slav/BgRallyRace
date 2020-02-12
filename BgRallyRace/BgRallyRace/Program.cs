@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BgRallyRace.Data;
+using BgRallyRace.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -14,17 +15,6 @@ namespace BgRallyRace
     {
         public static void Main(string[] args)
         {
-            ApplicationDbContext db = new ApplicationDbContext();
-            string[] name = new string[]{
-        "Ivan",
-        "Petyr"
-        };
-
-            for (int i = 0; i < name.Length; i++)
-            {
-                
-            }
-
             CreateHostBuilder(args).Build().Run();
         }
 

@@ -30,7 +30,7 @@ namespace BgRallyRace.Services
                .FirstOrDefaultAsync(x => x.Id == first);
             var lastName = await dbContext.LastNames.Select(x => new { x.LastName, x.Id })
                 .FirstOrDefaultAsync(x => x.Id == last);
-            await dbContext.RallyPilots.AddAsync(new RallyPilots
+            var rallyPilot = await dbContext.RallyPilots.AddAsync(new RallyPilots
             {
                 FirstName = firstName.FirstName,
                 LastName = lastName.LastName,
@@ -44,9 +44,8 @@ namespace BgRallyRace.Services
                 Reflexes = 5,  
             }) ;
             await  dbContext.SaveChangesAsync();
-            var id = await dbContext.RallyPilots.Select(x => new { x.FirstName, x.Id } )
-                .FirstOrDefaultAsync(x => x.FirstName == firstName.FirstName);
-            return id.Id;
+            var id = rallyPilot.Entity.Id;
+            return id;
         }
     }
 }

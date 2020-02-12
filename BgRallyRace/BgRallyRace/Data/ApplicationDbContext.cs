@@ -32,7 +32,7 @@ namespace BgRallyRace.Data
         public DbSet<RallyFitters> RallyFitters { get; set; }
         public DbSet<Cars> Cars { get; set; }
         public DbSet<CompetitionsTeams> CompetitionsTeam { get; set; }
-        public DbSet<Aerodynamics> aerodynamics { get; set; }
+        public DbSet<Aerodynamics> Aerodynamics { get; set; }
         public DbSet<Brakes> Brakes { get; set; }
         public DbSet<Engines> Engines { get; set; }
         public DbSet<Gearboxs> Gearboxs { get; set; }

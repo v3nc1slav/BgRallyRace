@@ -31,15 +31,16 @@ namespace BgRallyRace.Controllers
         public IActionResult Index()
         {
             MoneyAccountServices money = new MoneyAccountServices(db);
-            if (money.FindUser(User.Identity.Name) == null)
+            if (money.FindUserAsync(User.Identity.Name) == null)
             {
                 money.CreateMoneyAccount(User.Identity.Name);
-
             }
-            // var viewModel = new MoneyAccountViewModels
-            // {
-            //     Balance = money.GetBalance(User.Identity.Name)
-            // };
+
+            var viewModel = new MoneyAccountViewModels
+            {
+                Balance = money.GetBalanceAsync(User.Identity.Name)
+            };
+
             return View();
         }
 
@@ -68,7 +69,7 @@ namespace BgRallyRace.Controllers
         public IActionResult Contact(string content)
         {
             var opinions = new OpinionsServices(db);
-            opinions.AddOpinion(content, User.Identity.Name);
+            opinions.AddOpinionAsync(content, User.Identity.Name);
             return RedirectToAction("Opinion", "Home");
         }
 

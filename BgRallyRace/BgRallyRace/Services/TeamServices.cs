@@ -1,6 +1,7 @@
 ﻿using BgRallyRace.Data;
 using BgRallyRace.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,25 +28,26 @@ namespace BgRallyRace.Services
             var pilot = new RallyPilotsServices(dbContext);
             var navigator = new RallyNavigatorsServices(dbContext);
             var car = new CarServices(dbContext);
-            moneyId.FindIdMonyeAccount(user);
-            //await pilot.CreateRallyPilotsAsync();
-            //await navigator.CreateRallyNavigatorsAsync();
-            await car.CreateCarsAsync();
-            await dbContext.Teams.AddAsync(new Team 
+            var numberMoney =  moneyId.FindIdMoneyAccountAsync(user);
+            var numberPilot = await pilot.CreateRallyPilotsAsync();
+            var numberNavigator = await navigator.CreateRallyNavigatorsAsync();
+            var numberCar = await car.CreateCarsAsync();
+            await dbContext.Teams.AddAsync(new Team
             {
                 Name = text,
-                User = user, 
-                MoneyAccountId =1,//int.Parse(moneyId.ToString()),
-                RallyPilotId = 1,//int.Parse(pilot.ToString()),
-                RallyNavigatorId = int.Parse(navigator.ToString()),
-                CarId = int.Parse(car.ToString()),
-            });
+                User = user,
+                MoneyAccountId = numberMoney,
+                RallyPilotId = numberPilot,
+                RallyNavigatorId = numberNavigator,
+                CarId = numberCar,
+            }
+            ) ;
             await dbContext.SaveChangesAsync();
         }
 
-        public Team FindUser(string user)
+        public async Task<Team> FindUser(string user)
         {
-            var findUser = dbContext.Teams.FirstOrDefault(a => a.User == user);
+            var findUser = await dbContext.Teams.FirstOrDefaultAsync(a => a.User == user);
             return findUser;
         }
     }

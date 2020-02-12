@@ -21,34 +21,39 @@ namespace BgRallyRace.Services
             this.dbContext = dbContext;
         }
 
+        public List<Cars> GetCars()
+        {
+            var car =  dbContext.Cars.ToList();
+            return car;
+        }
+
+        public async Task GetNewEngine()
+        {
+            var engine = await dbContext.Cars.FirstOrDefaultAsync(x => x.Id == 23);
+            await dbContext.SaveChangesAsync();
+        }
         public async Task<int> CreateCarsAsync()
         {
-            var aerodynamics = await dbContext.aerodynamics.Select(x => new { x.Id, x.Name, x.Price, x.Speed, x.Strength })
-             .FirstOrDefaultAsync(x => x.Id == 1);
-            var brakes = await dbContext.Brakes.Select(x => new { x.Id, x.Name, x.Price, x.Speed, x.Strength })
-              .FirstOrDefaultAsync(x => x.Id == 1);
-            var engines = await dbContext.Engines.Select(x => new { x.Id, x.Name, x.Price, x.Speed, x.Strength })
-              .FirstOrDefaultAsync(x => x.Id == 1);
-            var gearboxs = await dbContext.Gearboxs.Select(x => new { x.Id, x.Name, x.Price, x.Speed, x.Strength })
-            .FirstOrDefaultAsync(x => x.Id == 1);
-            var model = await dbContext.ModelsCars.Select(x => new { x.Id, x.Name, x.Price, x.Speed, x.Strength })
-              .FirstOrDefaultAsync(x => x.Id == 1);
-            var mountings = await dbContext.Mountings.Select(x => new { x.Id, x.Name, x.Price, x.Speed, x.Strength })
-            .FirstOrDefaultAsync(x => x.Id == 1);
-            await dbContext.Cars.AddAsync(new Cars
+            var aerodynamics = await dbContext.Aerodynamics.FirstOrDefaultAsync(x => x.Id == 1);
+            var brakes = await dbContext.Brakes.FirstOrDefaultAsync(x => x.Id == 1);
+            var engines = await dbContext.Engines.FirstOrDefaultAsync(x => x.Id == 1);
+            var gearboxs = await dbContext.Gearboxs.FirstOrDefaultAsync(x => x.Id == 1);
+            var model = await dbContext.ModelsCars.FirstOrDefaultAsync(x => x.Id == 1);
+            var mountings = await dbContext.Mountings.FirstOrDefaultAsync(x => x.Id == 1);
+            var car = await dbContext.Cars.AddAsync(new Cars
             {
-                Aerodynamics = new Aerodynamics { Name = aerodynamics.Name, Price = aerodynamics.Price, Speed = aerodynamics.Speed, Strength = aerodynamics.Strength },
-                Brakes = new Brakes { Name = brakes.Name, Price = brakes.Price, Speed = brakes.Speed, Strength = brakes.Strength },
-                Engine = new Engines { Name = engines.Name, Price = engines.Price, Speed = engines.Speed, Strength = engines.Strength },
-                Gearbox = new Gearboxs { Name = gearboxs.Name, Price = gearboxs.Price, Speed = gearboxs.Speed, Strength = gearboxs.Strength },
-                ModelCar = new ModelsCars { Name = model.Name, Price = model.Price, Speed = model.Speed, Strength = model.Strength },
-                Mounting = new Mountings { Name = mountings.Name, Price = mountings.Price, Speed = mountings.Speed, Strength = mountings.Strength },
-                Turbo = new Turbo { Name = "va", Price=0, Speed=0, Strength =0},
-                TeamId = 1
+                Aerodynamics = aerodynamics,
+                Brakes = brakes,
+                Engine = engines,
+                Gearbox = gearboxs,
+                ModelCar = model,
+
+
+                Mounting = mountings,
             });
-            await dbContext.SaveChangesAsync();
-            var id = dbContext.Cars.Select(x => x.Id);
-            return int.Parse(id.ToString());
+            dbContext.SaveChanges();
+            var id = car.Entity.Id;
+            return id;
         }
     }
 }

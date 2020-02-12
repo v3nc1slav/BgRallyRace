@@ -5,6 +5,10 @@
     ViewData["Title"] = "Team";
 }
 
+@{var db = new ApplicationDbContext();
+    CarServices car = new CarServices(db);
+    }
+
 <div class="teamTab">
     <button class="teamTablink" onclick="openPage('First', this, 'green')" id="defaultOpen">Първи пилот</button>
     <button class="teamTablink" onclick="openPage('Secand', this, 'blue')">Втори пилот</button>
@@ -19,6 +23,14 @@
     <div class="progress">
         <div class="progress-bar" role="progressbar" style="width: 5%;">Рефлекс</div>
     </div>
+    @{ car.GetNewEngine();
+        var cars = car.GetCars();
+        @foreach (var item in cars)
+        {
+            <il>@item.Id</il>
+            <il>@item.Brakes.Speed</il>
+        }
+    }
 </div>
 
 <div id="Secand" class="teamTabcontent">
