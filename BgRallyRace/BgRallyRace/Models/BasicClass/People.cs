@@ -24,9 +24,11 @@ namespace BgRallyRace.Models
 
         public int Energy { get; set; }
 
-        public int Attachment { get; set; }
+        public int Devotion { get; set; }
 
         public int PhysicalTraining { get; set; }
+
+        public int Pounds { get; set; }
 
     }
 }

@@ -32,7 +32,7 @@ namespace BgRallyRace.Services
             var numberPilot = await pilot.CreateRallyPilotsAsync();
             var numberNavigator = await navigator.CreateRallyNavigatorsAsync();
             var numberCar = await car.CreateCarsAsync();
-            await dbContext.Teams.AddAsync(new Team
+            var newTeam = await dbContext.Teams.AddAsync(new Team
             {
                 Name = text,
                 User = user,
@@ -42,6 +42,12 @@ namespace BgRallyRace.Services
                 CarId = numberCar,
             }
             ) ;
+            var addCarId = car.GetCarsTeams(numberCar);
+            var addPilotId = pilot.GetPilot(numberPilot);
+            var addNavigatorId = navigator.GetNavigator(numberPilot);
+            addCarId.TeamId = newTeam.Entity.Id;
+            addPilotId.TeamId = newTeam.Entity.Id;
+            addNavigatorId.TeamId = newTeam.Entity.Id;
             await dbContext.SaveChangesAsync();
         }
 

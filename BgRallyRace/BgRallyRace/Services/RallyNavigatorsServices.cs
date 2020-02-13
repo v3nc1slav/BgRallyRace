@@ -8,17 +8,18 @@ using System.Threading.Tasks;
 
 namespace BgRallyRace.Services
 {
-    public class RallyNavigatorsServices
+    public class RallyNavigatorsServices : IRallyNavigatorsServices
     {
         private readonly ApplicationDbContext dbContext;
-
-        public RallyNavigatorsServices()
-        {
-
-        }
         public RallyNavigatorsServices(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
+        }
+
+        public RallyNavigators? GetNavigator(int id)
+        {
+            var navigator = dbContext.RallyNavigators.Where(x => x.Id == id).FirstOrDefault();
+            return navigator;
         }
 
         public async Task<int> CreateRallyNavigatorsAsync()
@@ -40,14 +41,109 @@ namespace BgRallyRace.Services
                 Concentration = 5,
                 Experience = 5,
                 Energy = 100,
-                Attachment = 5,
+                Devotion = 5,
                 PhysicalTraining = 5,
-                Communication = 5
+                Communication = 5,
+                Pounds = 80,
             });
 
             await dbContext.SaveChangesAsync();
             var id = rallyNavigator.Entity.Id;
             return id;
+        }
+        public Task Fired(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task IncreaseCommunication(int id, int variable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DecreaseCommunication(int id, int variable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<RallyNavigators> GetNavigators(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task IncreaseAge(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task IncreaseConcentration(int id, int variable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DecreaseConcentration(int id, int variable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task IncreaseDevotion(int id, int variable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DecreaseDevotion(int id, int variable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task IncreaseEnergy(int id, int variable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DecreaseEnergy(int id, int variable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task IncreaseExperience(int id, int variable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DecreaseExperience(int id, int variable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task IncreasePhysicalTraining(int id, int variable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DecreasePhysicalTraining(int id, int variable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task IncreasePounds(int id, int variable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DecreasePounds(int id, int variable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task IncreaseSalary(int id, int variable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DecreaseSalary(int id, int variable)
+        {
+            throw new NotImplementedException();
         }
     }
 }

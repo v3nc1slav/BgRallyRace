@@ -7,7 +7,7 @@ namespace BgRallyRace.Models
     {
         public int Reflexes { get; set; }
 
-        public int TeamId { get; set; }
+        public int? TeamId { get; set; }
 
         public ICollection<Team> Teams { get; set; } = new HashSet<Team>();
     }

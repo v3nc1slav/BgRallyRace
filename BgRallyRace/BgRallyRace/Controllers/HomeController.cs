@@ -28,12 +28,12 @@ namespace BgRallyRace.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public  IActionResult  Index()
         {
             MoneyAccountServices money = new MoneyAccountServices(db);
             if (money.FindUserAsync(User.Identity.Name) == null)
             {
-                money.CreateMoneyAccount(User.Identity.Name);
+                 money.CreateMoneyAccount(User.Identity.Name);
             }
 
            // var viewModel = new MoneyAccountViewModels

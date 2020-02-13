@@ -23,6 +23,7 @@ namespace BgRallyRace.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private ApplicationDbContext db { get; set; } = new ApplicationDbContext();
+
         public TeamController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -30,7 +31,13 @@ namespace BgRallyRace.Controllers
 
         public IActionResult Team()
         {
-            return View();
+            var dbPilots = new RallyPilotsServices(db);
+            var pilot = dbPilots.GetPilots(User.Identity.Name);
+            var viewModel = new PilotViewModels
+            {
+                Pilot = pilot
+            };
+            return this.View(viewModel);
         }
 
         [Authorize]

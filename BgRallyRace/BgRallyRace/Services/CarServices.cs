@@ -21,15 +21,22 @@ namespace BgRallyRace.Services
             this.dbContext = dbContext;
         }
 
-        public List<Cars> GetCars()
+        public List<Engines> GetCars(string user)
         {
-            var car =  dbContext.Cars.ToList();
+            var car =  dbContext.Cars.Where(x=>x.Id == 1).Select(x=>x.Engine ).ToList();
             return car;
         }
 
-        public async Task GetNewEngine()
+        public Cars GetCarsTeams(int id)
         {
-            var engine = await dbContext.Cars.FirstOrDefaultAsync(x => x.Id == 23);
+            var car = dbContext.Cars.Where(x => x.Id == id).FirstOrDefault();
+            return car;
+        }
+
+        public async Task GetNewEngine(string user)
+        {
+            var engine = await dbContext.Cars.FirstOrDefaultAsync(x => x.Team.User == user);
+            engine.Engine.Speed = 100;
             await dbContext.SaveChangesAsync();
         }
         public async Task<int> CreateCarsAsync()

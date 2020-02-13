@@ -5,47 +5,125 @@
     ViewData["Title"] = "Team";
 }
 
-@{var db = new ApplicationDbContext();
-    CarServices car = new CarServices(db);
-    }
-
 <div class="teamTab">
     <button class="teamTablink" onclick="openPage('First', this, 'green')" id="defaultOpen">Първи пилот</button>
     <button class="teamTablink" onclick="openPage('Secand', this, 'blue')">Втори пилот</button>
 </div>
+@if (Model.Pilot.Count == 0)
+{
 <div id="First" class="teamTabcontent">
-    <h3>Името на пилота ....</h3>
-    <p></p>
-    <div class="progress">
-        <div class="progress-bar" role="progressbar" style="width: 25%;">Години</div>
-    </div>
-    <p></p>
-    <div class="progress">
-        <div class="progress-bar" role="progressbar" style="width: 5%;">Рефлекс</div>
-    </div>
-    @{ car.GetNewEngine();
-        var cars = car.GetCars();
-        @foreach (var item in cars)
-        {
-            <il>@item.Id</il>
-            <il>@item.Brakes.Speed</il>
-        }
-    }
+    <h3>Нямате пилот</h3>
+    <h5>Идете на пазара и си наемете</h5>
 </div>
-
 <div id="Secand" class="teamTabcontent">
-    <h3>Името на пилота ....</h3>
-    <div class="bs-component">
-        <a>Години</a>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 25%;"></div>
-        </div>
-        <a>Рефлекс</a>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 5%;"></div>
-        </div>
+    <h3>Нямате пилот</h3>
+    <h5>Идете на пазара и си наемете</h5>
+</div>
+}
+<div id="First" class="teamTabcontent">
+    <h3>@Model.Pilot[0].FirstName @Model.Pilot[0].LastName</h3>
+    <p></p>
+    <a>Години</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilot[0].Age%;">@Model.Pilot[0].Age</div>
+    </div>
+    <p></p>
+    <a>Концентрация</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilot[0].Concentration%;">@Model.Pilot[0].Concentration</div>
+    </div>
+    <p></p>
+    <a>Рефлекси</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilot[0].Reflexes%;">@Model.Pilot[0].Reflexes</div>
+    </div>
+    <p></p>
+    <a>Опит</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilot[0].Experience%;">@Model.Pilot[0].Experience</div>
+    </div>
+    <p></p>
+    <a>Енергия</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilot[0].Energy%;">@Model.Pilot[0].Energy</div>
+    </div>
+    <p></p>
+    <a>Преданост</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilot[0].Devotion%;">@Model.Pilot[0].Devotion</div>
+    </div>
+    <p></p>
+    <a>Физическа пдготовка/състояние</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilot[0].PhysicalTraining%;">@Model.Pilot[0].PhysicalTraining</div>
+    </div>
+    <a>Килограми</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilot[0].Pounds%;">@Model.Pilot[0].Pounds</div>
+    </div>
+    <p></p>
+    <a>Заплата</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilot[0].Salary%;">@Model.Pilot[0].Salary</div>
     </div>
 </div>
+@if (Model.Pilot.Count == 1)
+{
+    <div id="Secand" class="teamTabcontent">
+        <h3>Все още нямате втори пилот</h3>
+    </div>
+}
+else
+{
+<div id="Secand" class="teamTabcontent">
+    <h3>@Model.Pilot[1].FirstName @Model.Pilot[1].LastName</h3>
+    <p></p>
+    <a>Години</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilot[1].Age%;">@Model.Pilot[1].Age</div>
+    </div>
+    <p></p>
+    <a>Концентрация</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilot[1].Concentration%;">@Model.Pilot[1].Concentration</div>
+    </div>
+    <p></p>
+    <a>Рефлекси</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilot[1].Reflexes%;">@Model.Pilot[1].Reflexes</div>
+    </div>
+    <p></p>
+    <a>Опит</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilot[1].Experience%;">@Model.Pilot[1].Experience</div>
+    </div>
+    <p></p>
+    <a>Енергия</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilot[1].Energy%;">@Model.Pilot[1].Energy</div>
+    </div>
+    <p></p>
+    <a>Преданост</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilot[1].Devotion%;">@Model.Pilot[1].Devotion</div>
+    </div>
+    <p></p>
+    <a>Физическа пдготовка/състояние</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilot[1].PhysicalTraining%;">@Model.Pilot[1].PhysicalTraining</div>
+    </div>
+    <a>Килограми</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilot[1].Pounds%;">@Model.Pilot[1].Pounds</div>
+    </div>
+    <p></p>
+    <a>Заплата</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilot[1].Salary%;">@Model.Pilot[1].Salary</div>
+    </div>
+</div>
+}
+
 
 <script>
     function openPage(pageName, elmnt, color) {
