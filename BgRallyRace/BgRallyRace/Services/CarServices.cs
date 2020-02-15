@@ -8,28 +8,29 @@ using System.Threading.Tasks;
 
 namespace BgRallyRace.Services
 {
-    public class CarServices
+    public class CarServices : ICarServices
     {
         private readonly ApplicationDbContext dbContext;
-
-        public CarServices()
-        {
-
-        }
         public CarServices(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        public List<Engines> GetCars(string user)
+        public async Task<List<Cars>> GetCars(string user)
         {
-            var car =  dbContext.Cars.Where(x=>x.Id == 1).Select(x=>x.Engine ).ToList();
+            var car = await dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars).ToListAsync();
             return car;
         }
 
-        public Cars GetCarsTeams(int id)
+        public async Task<Engines> GetCar(string user)
         {
-            var car = dbContext.Cars.Where(x => x.Id == id).FirstOrDefault();
+            var car = await dbContext.Teams.Where(x => x.User == user).Select(c=>c.Cars.Engine).FirstOrDefaultAsync();
+            return car;
+        }
+
+        public async Task <Cars> GetCar(int id)
+        {
+            var car = await dbContext.Cars.Where(x => x.Id == id).FirstOrDefaultAsync();
             return car;
         }
 

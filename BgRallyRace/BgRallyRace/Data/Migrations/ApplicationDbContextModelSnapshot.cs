@@ -327,10 +327,10 @@ namespace BgRallyRace.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int>("Attachment")
+                    b.Property<int>("Concentration")
                         .HasColumnType("int");
 
-                    b.Property<int>("Concentration")
+                    b.Property<int>("Devotion")
                         .HasColumnType("int");
 
                     b.Property<int>("Energy")
@@ -346,6 +346,9 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PhysicalTraining")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Pounds")
                         .HasColumnType("int");
 
                     b.Property<int>("Salary")
@@ -375,13 +378,13 @@ namespace BgRallyRace.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int>("Attachment")
-                        .HasColumnType("int");
-
                     b.Property<int>("Communication")
                         .HasColumnType("int");
 
                     b.Property<int>("Concentration")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Devotion")
                         .HasColumnType("int");
 
                     b.Property<int>("Energy")
@@ -399,10 +402,13 @@ namespace BgRallyRace.Migrations
                     b.Property<int>("PhysicalTraining")
                         .HasColumnType("int");
 
+                    b.Property<int>("Pounds")
+                        .HasColumnType("int");
+
                     b.Property<int>("Salary")
                         .HasColumnType("int");
 
-                    b.Property<int>("TeamId")
+                    b.Property<int?>("TeamId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -420,10 +426,10 @@ namespace BgRallyRace.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int>("Attachment")
+                    b.Property<int>("Concentration")
                         .HasColumnType("int");
 
-                    b.Property<int>("Concentration")
+                    b.Property<int>("Devotion")
                         .HasColumnType("int");
 
                     b.Property<int>("Energy")
@@ -441,13 +447,16 @@ namespace BgRallyRace.Migrations
                     b.Property<int>("PhysicalTraining")
                         .HasColumnType("int");
 
+                    b.Property<int>("Pounds")
+                        .HasColumnType("int");
+
                     b.Property<int>("Reflexes")
                         .HasColumnType("int");
 
                     b.Property<int>("Salary")
                         .HasColumnType("int");
 
-                    b.Property<int>("TeamId")
+                    b.Property<int?>("TeamId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -756,12 +765,10 @@ namespace BgRallyRace.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -798,12 +805,10 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");

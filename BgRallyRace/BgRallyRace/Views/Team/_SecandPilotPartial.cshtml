@@ -1,0 +1,60 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+
+@if (Model.Pilots.Count == 1)
+{
+    <div id="SecandPilot" class="teamTabcontent">
+        <h3>Все още нямате втори пилот</h3>
+    </div>
+}
+else
+{
+<div id="SecandPilot" class="teamTabcontent">
+    <h3>@Model.Pilots[1].FirstName @Model.Pilots[1].LastName</h3>
+    <p></p>
+    <a>Години</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilots[1].Age%;">@Model.Pilots[1].Age</div>
+    </div>
+    <p></p>
+    <a>Концентрация</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilots[1].Concentration%;">@Model.Pilots[1].Concentration</div>
+    </div>
+    <p></p>
+    <a>Рефлекси</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilots[1].Reflexes%;">@Model.Pilots[1].Reflexes</div>
+    </div>
+    <p></p>
+    <a>Опит</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilots[1].Experience%;">@Model.Pilots[1].Experience</div>
+    </div>
+    <p></p>
+    <a>Енергия</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilots[1].Energy%;">@Model.Pilots[1].Energy</div>
+    </div>
+    <p></p>
+    <a>Преданост</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilots[1].Devotion%;">@Model.Pilots[1].Devotion</div>
+    </div>
+    <p></p>
+    <a>Физическа пдготовка/състояние</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilots[1].PhysicalTraining%;">@Model.Pilots[1].PhysicalTraining</div>
+    </div>
+    <a>Килограми</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilots[1].Pounds%;">@Model.Pilots[1].Pounds</div>
+    </div>
+    <p></p>
+    <a>Заплата</a>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Pilots[1].Salary%;">@Model.Pilots[1].Salary</div>
+    </div>
+    <partial name="_ TrainingOrDismissalPartial" />
+</div>
+}

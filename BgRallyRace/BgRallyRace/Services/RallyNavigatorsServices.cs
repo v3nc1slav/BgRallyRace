@@ -16,7 +16,17 @@ namespace BgRallyRace.Services
             this.dbContext = dbContext;
         }
 
+#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+        public ICollection<RallyNavigators>? GetNavigators(string user)
+#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+        {
+            var navigator = dbContext.Teams.Where(t => t.User == user).Select(x => x.RallyNavigator).ToList();
+            return navigator;
+        }
+
+#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         public RallyNavigators? GetNavigator(int id)
+#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         {
             var navigator = dbContext.RallyNavigators.Where(x => x.Id == id).FirstOrDefault();
             return navigator;
@@ -145,6 +155,7 @@ namespace BgRallyRace.Services
         {
             throw new NotImplementedException();
         }
-    }
+
+   }
 }
 

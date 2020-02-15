@@ -24,7 +24,6 @@ namespace BgRallyRace.Services
             var pilot = dbContext.Teams.Where(t => t.User == user).Select(x => x.RallyPilot).ToList();
             return pilot;
         }
-
         public async Task<int> CreateRallyPilotsAsync()
         {
             Random rnd = new Random();

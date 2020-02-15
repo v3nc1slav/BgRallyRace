@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace BgRallyRace.ViewModels
 {
-    public class PilotViewModels
+    public class NavigatorViewModels
     {
+
 #pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
-        public ICollection<RallyPilots>? Pilots { get; set; } = new HashSet<RallyPilots>();
+        public ICollection<RallyNavigators>? Navigators { get; set; } = new HashSet<RallyNavigators>();
 #pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
     }
 }
+

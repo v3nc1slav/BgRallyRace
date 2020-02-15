@@ -28,12 +28,12 @@ namespace BgRallyRace.Controllers
             _logger = logger;
         }
 
-        public  IActionResult  Index()
+        public async Task <IActionResult> Index()
         {
             MoneyAccountServices money = new MoneyAccountServices(db);
             if (money.FindUserAsync(User.Identity.Name) == null)
             {
-                 money.CreateMoneyAccount(User.Identity.Name);
+                await money.CreateMoneyAccount(User.Identity.Name);
             }
 
            // var viewModel = new MoneyAccountViewModels
@@ -66,10 +66,10 @@ namespace BgRallyRace.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult Contact(string content)
+        public async Task<IActionResult> Contact(string content)
         {
             var opinions = new OpinionsServices(db);
-            opinions.AddOpinionAsync(content, User.Identity.Name);
+            await opinions.AddOpinionAsync(content, User.Identity.Name);
             return RedirectToAction("Opinion", "Home");
         }
 

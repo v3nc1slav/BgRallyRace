@@ -11,10 +11,9 @@
 @if (SignInManager.IsSignedIn(User) && (await team.FindUser(User.Identity.Name) == null))
 {
     <div class="background">
-        <form
-            asp-controller="Team" asp-action="CreateTeam" method="post" class="form-group">
+        <form asp-controller="Team" asp-action="CreateTeam" method="post" class="form-group">
             <a>Дай име на Отбора си!</a>
-            <textarea class="form-control" id="exampleTextarea" name = "textTeam" cols="5" rows="2" class="flL w200"></textarea>
+            <textarea class="form-control" id="exampleTextarea" name="textTeam" cols="5" rows="2" class="flL w200"></textarea>
             <button type="submit" class="btn btn-secondary">Публикувай</button>
         </form>
     </div>
@@ -24,11 +23,7 @@
 {
     <div class="form-group row">
         <div class="col-sm-3">
-            <div class="background">
-                <p><a  asp-controller="Team" asp-action="Team">Екип</a></p>
-                <p>Кола</p>
-                <p>Състезание</p>
-            </div>
+            <partial name="_LeftBarPartial" />
         </div>
         <div class="col-sm-6">
             <div class="background">
@@ -38,10 +33,7 @@
             </div>
         </div>
         <div class="col-sm-3">
-            <div class="background">
-                <p>Статистика</p>
-                <p>Финанси</p>
-            </div>
+            <partial name="_RightBarPartial" />
         </div>
     </div>
 }
@@ -64,9 +56,3 @@ else
         </div>
     </div>
 }
-
-
-
-
-
-

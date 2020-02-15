@@ -17,12 +17,16 @@ namespace BgRallyRace.Models
 
         public Gearboxs Gearbox { get; set; } 
 
-        public Aerodynamics Aerodynamics { get; set; } 
+        public Aerodynamics Aerodynamics { get; set; }
 
-        public Turbo? Turbo { get; set; } 
+#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+        public Turbo? Turbo { get; set; }
+#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
 
         public int? TeamId { get; set; }
 
+#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         public Team? Team { get; set; }
+#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
     }
 }

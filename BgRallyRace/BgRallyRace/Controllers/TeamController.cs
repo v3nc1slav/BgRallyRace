@@ -23,29 +23,55 @@ namespace BgRallyRace.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private ApplicationDbContext db { get; set; } = new ApplicationDbContext();
+        private IRallyPilotsServices pilot { get; set; } 
+        private IRallyNavigatorsServices navigator { get; set; }
+        private ICarServices car { get; set; }
 
-        public TeamController(ILogger<HomeController> logger)
-        {
+        public TeamController(ILogger<HomeController> logger, IRallyPilotsServices dbPilot, 
+            IRallyNavigatorsServices dbNavigator, ICarServices dbCar )
+        { 
             _logger = logger;
+            pilot = dbPilot;
+            navigator = dbNavigator;
+            car = dbCar;
         }
 
-        public IActionResult Team()
+        [Authorize]
+        public IActionResult Pilot()
         {
-            var dbPilots = new RallyPilotsServices(db);
-            var pilot = dbPilots.GetPilots(User.Identity.Name);
             var viewModel = new PilotViewModels
             {
-                Pilot = pilot
+                Pilots = pilot.GetPilots(User.Identity.Name)
+            };
+            return this.View(viewModel);
+        }
+
+        [Authorize]
+        public IActionResult Car()
+        {
+            var viewModel = new CarViewModels
+            {
+                Engines = car.GetCar(User.Identity.Name)
+            };
+            return this.View(viewModel);
+        }
+
+        [Authorize]
+        public IActionResult Navigator()
+        {
+            var viewModel = new NavigatorViewModels
+            {
+                Navigators = navigator.GetNavigators(User.Identity.Name)
             };
             return this.View(viewModel);
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult CreateTeam(string textTeam)
+        public async Task< IActionResult> CreateTeam(string textTeam)
         {
             var team = new TeamServices(db);
-            team.CreateTeam(textTeam, User.Identity.Name);
+            await team.CreateTeam(textTeam, User.Identity.Name);
             return RedirectToAction("Index", "Home");
         }
 
