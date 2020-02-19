@@ -60,7 +60,9 @@ namespace BgRallyRace.Data
                 .WithMany(s => s.CompetitionsTeams)
                 .HasForeignKey(sc => sc.TeamId);
 
-              builder.Entity<CompetitionsRallyTracks>().HasKey(sc => new { sc.CompetitionsId, sc.RallyTracksId });
+           builder.Entity<CompetitionsRallyTracks>().HasKey(sc => new { sc.CompetitionsId, sc.RallyTracksId });
+
+
 
         }
 

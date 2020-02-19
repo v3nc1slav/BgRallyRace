@@ -4,5 +4,6 @@ namespace BgRallyRace.Models
 {
     public class Aerodynamics : Parts
     {
+
     }
 }

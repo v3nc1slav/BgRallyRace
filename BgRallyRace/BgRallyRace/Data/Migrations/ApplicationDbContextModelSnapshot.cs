@@ -26,6 +26,9 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CarId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -49,6 +52,9 @@ namespace BgRallyRace.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CarId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -74,22 +80,22 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AerodynamicsId")
+                    b.Property<int>("AerodynamicsId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("BrakesId")
+                    b.Property<int>("BrakesId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("EngineId")
+                    b.Property<int>("EngineId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("GearboxId")
+                    b.Property<int>("GearboxId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ModelCarId")
+                    b.Property<int>("ModelCarId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MountingId")
+                    b.Property<int>("MountingId")
                         .HasColumnType("int");
 
                     b.Property<int?>("TeamId")
@@ -100,23 +106,31 @@ namespace BgRallyRace.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AerodynamicsId");
+                    b.HasIndex("AerodynamicsId")
+                        .IsUnique();
 
-                    b.HasIndex("BrakesId");
+                    b.HasIndex("BrakesId")
+                        .IsUnique();
 
-                    b.HasIndex("EngineId");
+                    b.HasIndex("EngineId")
+                        .IsUnique();
 
-                    b.HasIndex("GearboxId");
+                    b.HasIndex("GearboxId")
+                        .IsUnique();
 
-                    b.HasIndex("ModelCarId");
+                    b.HasIndex("ModelCarId")
+                        .IsUnique();
 
-                    b.HasIndex("MountingId");
+                    b.HasIndex("MountingId")
+                        .IsUnique();
 
                     b.HasIndex("TeamId")
                         .IsUnique()
                         .HasFilter("[TeamId] IS NOT NULL");
 
-                    b.HasIndex("TurboId");
+                    b.HasIndex("TurboId")
+                        .IsUnique()
+                        .HasFilter("[TurboId] IS NOT NULL");
 
                     b.ToTable("Cars");
                 });
@@ -183,6 +197,9 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CarId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -207,6 +224,9 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CarId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -230,6 +250,9 @@ namespace BgRallyRace.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CarId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -275,6 +298,9 @@ namespace BgRallyRace.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CarId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -581,6 +607,9 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CarId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -821,36 +850,48 @@ namespace BgRallyRace.Migrations
             modelBuilder.Entity("BgRallyRace.Models.Cars", b =>
                 {
                     b.HasOne("BgRallyRace.Models.Aerodynamics", "Aerodynamics")
-                        .WithMany()
-                        .HasForeignKey("AerodynamicsId");
+                        .WithOne("Cars")
+                        .HasForeignKey("BgRallyRace.Models.Cars", "AerodynamicsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BgRallyRace.Models.Brakes", "Brakes")
-                        .WithMany()
-                        .HasForeignKey("BrakesId");
+                        .WithOne("Cars")
+                        .HasForeignKey("BgRallyRace.Models.Cars", "BrakesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BgRallyRace.Models.Engines", "Engine")
-                        .WithMany()
-                        .HasForeignKey("EngineId");
+                        .WithOne("Cars")
+                        .HasForeignKey("BgRallyRace.Models.Cars", "EngineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BgRallyRace.Models.Gearboxs", "Gearbox")
-                        .WithMany()
-                        .HasForeignKey("GearboxId");
+                        .WithOne("Cars")
+                        .HasForeignKey("BgRallyRace.Models.Cars", "GearboxId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BgRallyRace.Models.ModelsCars", "ModelCar")
-                        .WithMany()
-                        .HasForeignKey("ModelCarId");
+                        .WithOne("Cars")
+                        .HasForeignKey("BgRallyRace.Models.Cars", "ModelCarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BgRallyRace.Models.Mountings", "Mounting")
-                        .WithMany()
-                        .HasForeignKey("MountingId");
+                        .WithOne("Cars")
+                        .HasForeignKey("BgRallyRace.Models.Cars", "MountingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BgRallyRace.Models.Team", "Team")
                         .WithOne("Cars")
                         .HasForeignKey("BgRallyRace.Models.Cars", "TeamId");
 
                     b.HasOne("BgRallyRace.Models.Turbo", "Turbo")
-                        .WithMany()
-                        .HasForeignKey("TurboId");
+                        .WithOne("Cars")
+                        .HasForeignKey("BgRallyRace.Models.Cars", "TurboId");
                 });
 
             modelBuilder.Entity("BgRallyRace.Models.CompetitionsRallyTracks", b =>

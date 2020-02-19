@@ -30,21 +30,10 @@ namespace BgRallyRace.Controllers
 
         public async Task <IActionResult> Index()
         {
-            MoneyAccountServices money = new MoneyAccountServices(db);
-            if (money.FindUserAsync(User.Identity.Name) == null)
-            {
-                await money.CreateMoneyAccount(User.Identity.Name);
-            }
-
-           // var viewModel = new MoneyAccountViewModels
-           // {
-           //     Balance = money.GetBalanceAsync(User.Identity.Name)
-           // };
-
             return View();
         }
 
-        public IActionResult Opinion()
+        public async Task <IActionResult> Opinion()
         {
             var opinion = new OpinionsServices(db);
             var viewModel = new OpinionsViewModels
@@ -54,12 +43,12 @@ namespace BgRallyRace.Controllers
             return this.View(viewModel);
         }
 
-        public IActionResult FAQ()
+        public async Task<IActionResult> FAQ()
         {
             return View();
         }
 
-        public IActionResult Gallery()
+        public async Task<IActionResult> Gallery()
         {
             return View();
         }

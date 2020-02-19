@@ -51,7 +51,7 @@ namespace BgRallyRace.Services
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task<Team> FindUser(string user)
+        public async Task<Team>? FindUser(string user)
         {
             var findUser = await dbContext.Teams.FirstOrDefaultAsync(a => a.User == user);
             return findUser;

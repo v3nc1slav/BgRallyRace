@@ -11,7 +11,7 @@
 @if (SignInManager.IsSignedIn(User) && (await team.FindUser(User.Identity.Name) == null))
 {
     <div class="background">
-        <form asp-controller="Team" asp-action="CreateTeam" method="post" class="form-group">
+        <form asp-controller="Teams" asp-action="CreateTeam" method="post" class="form-group">
             <a>Дай име на Отбора си!</a>
             <textarea class="form-control" id="exampleTextarea" name="textTeam" cols="5" rows="2" class="flL w200"></textarea>
             <button type="submit" class="btn btn-secondary">Публикувай</button>

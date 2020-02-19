@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using BgRallyRace.Services;
 
 namespace BgRallyRace.Areas.Identity.Pages.Account
 {
@@ -20,12 +21,15 @@ namespace BgRallyRace.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IMoneyAccountServices money;
 
         public LoginModel(SignInManager<IdentityUser> signInManager, 
             ILogger<LoginModel> logger,
-            UserManager<IdentityUser> userManager)
+            UserManager<IdentityUser> userManager,
+            IMoneyAccountServices moneyServices)
         {
             _userManager = userManager;
+            money = moneyServices;
             _signInManager = signInManager;
             _logger = logger;
         }
@@ -39,6 +43,7 @@ namespace BgRallyRace.Areas.Identity.Pages.Account
 
         [TempData]
         public string ErrorMessage { get; set; }
+        public IMoneyAccountServices Money { get; }
 
         public class InputModel
         {
@@ -82,6 +87,7 @@ namespace BgRallyRace.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    money.CreateMoneyAccount(Input.Email);
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }

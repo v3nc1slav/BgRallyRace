@@ -8,22 +8,20 @@ using System.Threading.Tasks;
 
 namespace BgRallyRace.Services
 {
-    public class MoneyAccountServices
+    public class MoneyAccountServices : IMoneyAccountServices
     {
         private readonly ApplicationDbContext dbContext;
-
-        public MoneyAccountServices()
-        {
-
-        }
         public MoneyAccountServices(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
-        public async Task CreateMoneyAccount(string user)
+        public void CreateMoneyAccount(string user)
         {
-            await dbContext.MoneyAccount.AddAsync(new MoneyAccount {Balance=10000, User =user});
-            await dbContext.SaveChangesAsync();
+            if (FindUserAsync(user) == null)
+            {
+                 dbContext.MoneyAccount.Add(new MoneyAccount { Balance = 10000, User = user });
+                 dbContext.SaveChanges();
+            }
         }
 
         public async Task ExpenseAccountAsync(decimal expense, string user)
@@ -40,7 +38,7 @@ namespace BgRallyRace.Services
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task<MoneyAccount> FindUserAsync( string user)
+        public async Task<MoneyAccount>? FindUserAsync( string user)
         {
              var dbUser = await dbContext.MoneyAccount.FirstOrDefaultAsync(a => a.User == user);
             return dbUser;

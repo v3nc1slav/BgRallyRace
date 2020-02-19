@@ -36,8 +36,8 @@ namespace BgRallyRace.Services
         {
             Random rnd = new Random();
             //ToDo
-            int first = rnd.Next(1, 4);
-            int last = rnd.Next(1, 4);
+            int first = rnd.Next(1, 8);
+            int last = rnd.Next(1, 8);
             var  firstName = await dbContext.FirstNames.Select(x=>new { x.FirstName, x.Id })
                 .FirstOrDefaultAsync(x => x.Id == first);
             var lastName = await dbContext.LastNames.Select(x => new { x.LastName, x.Id })
