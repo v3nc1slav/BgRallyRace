@@ -11,7 +11,7 @@ namespace BgRallyRace.Models.Teams
 
         public Teams Teams { get; set; }
 
-        public int IPopleId { get; set; }
+        public int IPeopleId { get; set; }
 
         public People People { get; set; }
     }

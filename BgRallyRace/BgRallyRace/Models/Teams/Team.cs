@@ -10,9 +10,9 @@ namespace BgRallyRace.Models
 {
     public class Team : Teams.Teams
     {
-        public int CompetitionId { get; set; }
+        public int? CompetitionId { get; set; }
 
-        public ICollection<CompetitionsTeams> CompetitionsTeams { get; set; } = new HashSet<CompetitionsTeams>();
+        public ICollection<CompetitionsTeams>? CompetitionsTeams { get; set; } = new HashSet<CompetitionsTeams>();
 
         public int RallyPilotId { get; set; }
 
@@ -21,9 +21,9 @@ namespace BgRallyRace.Models
         public int RallyNavigatorId { get; set; }
 
         public RallyNavigators RallyNavigator { get; set; }
-        public int FitterId { get; set; }
+        public int? FitterId { get; set; }
 
-        public RallyFitters RallyFitter { get; set; }
+        public RallyFitters? RallyFitter { get; set; }
 
     }
 }

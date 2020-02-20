@@ -29,9 +29,9 @@ namespace BgRallyRace.Services
             var navigator = new RallyNavigatorsServices(dbContext);
             var car = new CarServices(dbContext);
             var numberMoney =  moneyId.FindIdMoneyAccountAsync(user);
-            var numberPilot = await pilot.CreateRallyPilotsAsync();
-            var numberNavigator = await navigator.CreateRallyNavigatorsAsync();
-            var numberCar = await car.CreateCarsAsync();
+            var numberPilot =  pilot.CreateRallyPilotsAsync();
+            var numberNavigator =  navigator.CreateRallyNavigatorsAsync();
+            var numberCar =  car.CreateCarsAsync();
             var newTeam = await dbContext.Teams.AddAsync(new Team
             {
                 Name = text,
@@ -40,15 +40,15 @@ namespace BgRallyRace.Services
                 RallyPilotId = numberPilot,
                 RallyNavigatorId = numberNavigator,
                 CarId = numberCar,
-            }
-            ) ;
+            }) ;
+            dbContext.SaveChanges();
             var addCarId = car.GetCar(numberCar);
             var addPilotId = pilot.GetPilot(numberPilot);
             var addNavigatorId = navigator.GetNavigator(numberPilot);
-            addCarId.Result.TeamId = newTeam.Entity.Id;
+            addCarId.TeamId = newTeam.Entity.Id;
             addPilotId.Result.TeamId = newTeam.Entity.Id;
             addNavigatorId.TeamId = newTeam.Entity.Id;
-            await dbContext.SaveChangesAsync();
+            dbContext.SaveChanges();
         }
 
         public async Task<Team>? FindUser(string user)

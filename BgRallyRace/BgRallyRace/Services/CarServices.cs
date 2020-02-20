@@ -20,48 +20,47 @@ namespace BgRallyRace.Services
             this.dbContext = dbContext;
         }
 
-        public async Task<List<Cars>> GetCars(string user)
+        public List<Cars> GetCars(string user)
         {
-            var car = await dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars).ToListAsync();
+            var car =  dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars).ToList();
             return car;
         }
 
-        public async Task<Engines> GetEngine(string user)
+        public Engines GetEngine(int id)
         {
-            var car = await dbContext.Teams.Where(x => x.User == user).Select(c=>c.Cars.Engine).FirstOrDefaultAsync();
+            var car = dbContext.Cars.Where(x => x.Id == id).Select(x => x.Engine).First();
             return car;
         }
 
-        public async Task <Cars> GetCar(int id)
+        public Cars GetCar(int id)
         {
-            var car = await dbContext.Cars.Where(x => x.Id == id).FirstOrDefaultAsync();
+            var car =  dbContext.Cars.Where(x => x.Id == id).FirstOrDefault();
             return car;
         }
 
-        public async Task GetNewEngine(string user)
+        public void GetNewEngine(string user)
         {
-            var engine = await dbContext.Cars.FirstOrDefaultAsync(x => x.Team.User == user);
+            var engine =  dbContext.Cars.FirstOrDefault(x => x.Team.User == user);
             engine.Engine.Speed = 100;
-            await dbContext.SaveChangesAsync();
+             dbContext.SaveChanges();
         }
-        public async Task<int> CreateCarsAsync()
+        public int CreateCarsAsync()
         {
-            var aerodynamics = await dbContext.Aerodynamics.AddAsync(new Aerodynamics { Name= name, Price = price, Strength = strength, Speed = 10, CarId= null });
-            dbContext.SaveChanges(); 
-            var brakes = await dbContext.Brakes.AddAsync(new Brakes { Name = name, Price = price, Strength = strength, Speed = 17, CarId = null });
-            var engines = await dbContext.Engines.AddAsync(new Engines { Name = name, Price = price, Strength = strength, Speed = 45, CarId = null });
-            var gearboxs = await dbContext.Gearboxs.AddAsync(new Gearboxs { Name = name, Price = price, Strength = strength, Speed = 30, CarId = null });
-            var model = await dbContext.ModelsCars.AddAsync(new ModelsCars { Name = name, Price = price, Strength = strength, Speed = 15, CarId = null });
-            var mountings = await dbContext.Mountings.AddAsync(new Mountings { Name = name, Price = price, Strength = strength, Speed = 25, CarId = null });
+            var aerodynamics =  dbContext.Aerodynamics.Add(new Aerodynamics { Name= name, Price = price, Strength = strength, Speed = 10 });
+            var brakes =  dbContext.Brakes.Add(new Brakes { Name = name, Price = price, Strength = strength, Speed = 17});
+            var engines =  dbContext.Engines.Add(new Engines { Name = name, Price = price, Strength = strength, Speed = 45 });
+            var gearboxs =  dbContext.Gearboxs.Add(new Gearboxs { Name = name, Price = price, Strength = strength, Speed = 30});
+            var model =  dbContext.ModelsCars.Add(new ModelsCars { Name = name, Price = price, Strength = strength, Speed = 15});
+            var mountings =  dbContext.Mountings.Add(new Mountings { Name = name, Price = price, Strength = strength, Speed = 25});
             dbContext.SaveChanges();
-            var car = await dbContext.Cars.AddAsync(new Cars
+            var car =  dbContext.Cars.Add(new Cars
             {
-                AerodynamicsId = aerodynamics.Entity.Id,
-                BrakesId = brakes.Entity.Id,
-                EngineId = engines.Entity.Id,
-                GearboxId = gearboxs.Entity.Id,
-                ModelCarId = model.Entity.Id,
-                MountingId = mountings.Entity.Id,
+                Aerodynamics  = aerodynamics.Entity,
+                Brakes = brakes.Entity,
+                Engine = engines.Entity,
+                Gearbox = gearboxs.Entity,
+                ModelCar = model.Entity,
+                Mounting = mountings.Entity,
             });
             dbContext.SaveChanges();
             var id = car.Entity.Id;

@@ -8,8 +8,8 @@ namespace BgRallyRace.Services
 {
     public interface IRallyNavigatorsServices : IPeople
     {
-       Task IncreaseCommunication(int id, int variable);
-       Task DecreaseCommunication(int id, int variable);
+       void IncreaseCommunication(int id, int variable);
+       void DecreaseCommunication(int id, int variable);
         ICollection<RallyNavigators>? GetNavigators(string user);
     }
 }

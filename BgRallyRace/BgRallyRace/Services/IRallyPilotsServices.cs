@@ -10,8 +10,8 @@ namespace BgRallyRace.Services
 {
     public interface IRallyPilotsServices :IPeople
     {
-      Task IncreaseReflexes(int id, int variable);
-      Task DecreaseReflexes(int id, int variable);
+      void IncreaseReflexes(int id, int variable);
+      void DecreaseReflexes(int id, int variable);
 #pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         ICollection<RallyPilots>? GetPilots(string user);
 #pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.

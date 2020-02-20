@@ -14,7 +14,7 @@ namespace BgRallyRace.Models.PartsCar
 
         public decimal Speed { get; set; }
 
-        public int? CarId { get; set; }
+        public int CarId { get; set; }
 
         public Cars Cars { get; set; }
     }

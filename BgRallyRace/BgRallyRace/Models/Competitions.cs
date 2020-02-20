@@ -17,13 +17,13 @@ namespace BgRallyRace.Models
         [Required]
         public DateTime StartRaceDate { get; set; }
 
-        public int CompetitionsRallyTracksId { get; set; }
+        public int? CompetitionsRallyTracksId { get; set; }
 
-        public ICollection<CompetitionsRallyTracks> CompetitionsRallyTracks { get; set; } = new HashSet<CompetitionsRallyTracks>();
+        public ICollection<CompetitionsRallyTracks>? CompetitionsRallyTracks { get; set; } = new HashSet<CompetitionsRallyTracks>();
 
-        public int TeamId { get; set; }
+        public int? TeamId { get; set; }
 
-        public ICollection<CompetitionsTeams> CompetitionsTeams { get; set; } = new HashSet<CompetitionsTeams>();
+        public ICollection<CompetitionsTeams>? CompetitionsTeams { get; set; } = new HashSet<CompetitionsTeams>();
 
     }
 }

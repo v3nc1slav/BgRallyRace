@@ -21,7 +21,9 @@ namespace BgRallyRace
     {
         public Startup(IConfiguration configuration)
         {
-            //new ApplicationDbContext().Database.Migrate();
+            // new ApplicationDbContext().Database.EnsureDeleted();
+            // new ApplicationDbContext().Database.EnsureCreated();
+            // new ApplicationDbContext().Database.Migrate();
             Configuration = configuration;
         }
 

@@ -10,21 +10,21 @@ namespace BgRallyRace.Services
 {
     public interface IPeople
     {
-    Task Fired(int id);
-    Task IncreaseAge(int id);
-    Task IncreaseConcentration(int id, int variable);
-    Task DecreaseConcentration(int id, int variable);
-    Task IncreaseDevotion(int id, int variable);
-    Task DecreaseDevotion(int id, int variable);
-    Task IncreaseEnergy(int id, int variable);
-    Task DecreaseEnergy(int id, int variable);
-    Task IncreaseExperience(int id, int variable);
-    Task DecreaseExperience(int id, int variable);
-    Task IncreasePhysicalTraining(int id, int variable);
-    Task DecreasePhysicalTraining(int id, int variable);
-    Task IncreasePounds(int id, int variable);
-    Task DecreasePounds(int id, int variable);
-    Task IncreaseSalary(int id, int variable);
-    Task DecreaseSalary(int id, int variable);
+        void Fired(int id);
+        void IncreaseAge(int id);
+        void IncreaseConcentration(int id, int variable);
+        void DecreaseConcentration(int id, int variable);
+        void IncreaseDevotion(int id, int variable);
+        void DecreaseDevotion(int id, int variable);
+        void IncreaseEnergy(int id, int variable);
+        void DecreaseEnergy(int id, int variable);
+        void IncreaseExperience(int id, int variable);
+        void DecreaseExperience(int id, int variable);
+        void IncreasePhysicalTraining(int id, int variable);
+        void DecreasePhysicalTraining(int id, int variable);
+        void IncreasePounds(int id, int variable);
+        void DecreasePounds(int id, int variable);
+        void IncreaseSalary(int id, int variable);
+        void DecreaseSalary(int id, int variable);
     }
 }

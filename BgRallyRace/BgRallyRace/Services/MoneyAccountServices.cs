@@ -24,23 +24,23 @@ namespace BgRallyRace.Services
             }
         }
 
-        public async Task ExpenseAccountAsync(decimal expense, string user)
+        public void ExpenseAccountAsync(decimal expense, string user)
         {
-            var dbUser = await FindUserAsync(user);
+            var dbUser = FindUserAsync(user);
             dbUser.Balance = (dbUser.Balance-expense);
-            await dbContext.SaveChangesAsync();
+             dbContext.SaveChanges();
         }
 
-        public async Task RevenueAccountAsync(decimal revenue, string user)
+        public void RevenueAccountAsync(decimal revenue, string user)
         {
-           var dbUser = await FindUserAsync(user);
+           var dbUser =  FindUserAsync(user);
             dbUser.Balance = (dbUser.Balance + revenue);
-            await dbContext.SaveChangesAsync();
+             dbContext.SaveChanges();
         }
 
-        public async Task<MoneyAccount>? FindUserAsync( string user)
+        public  MoneyAccount? FindUserAsync( string user)
         {
-             var dbUser = await dbContext.MoneyAccount.FirstOrDefaultAsync(a => a.User == user);
+             var dbUser =  dbContext.MoneyAccount.FirstOrDefault(a => a.User == user);
             return dbUser;
         }
 

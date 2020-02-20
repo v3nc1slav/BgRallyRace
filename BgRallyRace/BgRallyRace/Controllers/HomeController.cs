@@ -33,7 +33,7 @@ namespace BgRallyRace.Controllers
             return View();
         }
 
-        public async Task <IActionResult> Opinion()
+        public IActionResult Opinion()
         {
             var opinion = new OpinionsServices(db);
             var viewModel = new OpinionsViewModels
@@ -43,22 +43,22 @@ namespace BgRallyRace.Controllers
             return this.View(viewModel);
         }
 
-        public async Task<IActionResult> FAQ()
+        public IActionResult FAQ()
         {
             return View();
         }
 
-        public async Task<IActionResult> Gallery()
+        public IActionResult Gallery()
         {
             return View();
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Contact(string content)
+        public IActionResult Contact(string content)
         {
             var opinions = new OpinionsServices(db);
-            await opinions.AddOpinionAsync(content, User.Identity.Name);
+            opinions.AddOpinionAsync(content, User.Identity.Name);
             return RedirectToAction("Opinion", "Home");
         }
 

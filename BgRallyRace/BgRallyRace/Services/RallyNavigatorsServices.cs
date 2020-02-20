@@ -32,17 +32,17 @@ namespace BgRallyRace.Services
             return navigator;
         }
 
-        public async Task<int> CreateRallyNavigatorsAsync()
+        public int CreateRallyNavigatorsAsync()
         {
             Random rnd = new Random();
             //ToDo
-            int first = rnd.Next(1, 8);
-            int last = rnd.Next(1, 8);
-            var  firstName = await dbContext.FirstNames.Select(x=>new { x.FirstName, x.Id })
-                .FirstOrDefaultAsync(x => x.Id == first);
-            var lastName = await dbContext.LastNames.Select(x => new { x.LastName, x.Id })
-                .FirstOrDefaultAsync(x => x.Id == last);
-           var rallyNavigator =  await dbContext.RallyNavigators.AddAsync(new RallyNavigators
+            int first = rnd.Next(1, 100);
+            int last = rnd.Next(1, 100);
+            var  firstName =  dbContext.FirstNames.Select(x=>new { x.FirstName, x.Id })
+                .FirstOrDefault(x => x.Id == first);
+            var lastName =  dbContext.LastNames.Select(x => new { x.LastName, x.Id })
+                .FirstOrDefault(x => x.Id == last);
+           var rallyNavigator =   dbContext.RallyNavigators.Add(new RallyNavigators
             {
                 FirstName = firstName.FirstName,
                 LastName = lastName.LastName,
@@ -57,101 +57,101 @@ namespace BgRallyRace.Services
                 Pounds = 80,
             });
 
-            await dbContext.SaveChangesAsync();
+             dbContext.SaveChanges();
             var id = rallyNavigator.Entity.Id;
             return id;
         }
-        public Task Fired(int id)
+        public void Fired(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task IncreaseCommunication(int id, int variable)
+        public void IncreaseCommunication(int id, int variable)
         {
             throw new NotImplementedException();
         }
 
-        public Task DecreaseCommunication(int id, int variable)
+        public void DecreaseCommunication(int id, int variable)
         {
             throw new NotImplementedException();
         }
 
-        public Task<RallyNavigators> GetNavigators(int id)
+        public RallyNavigators GetNavigators(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task IncreaseAge(int id)
+        public void IncreaseAge(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task IncreaseConcentration(int id, int variable)
+        public void IncreaseConcentration(int id, int variable)
         {
             throw new NotImplementedException();
         }
 
-        public Task DecreaseConcentration(int id, int variable)
+        public void DecreaseConcentration(int id, int variable)
         {
             throw new NotImplementedException();
         }
 
-        public Task IncreaseDevotion(int id, int variable)
+        public void IncreaseDevotion(int id, int variable)
         {
             throw new NotImplementedException();
         }
 
-        public Task DecreaseDevotion(int id, int variable)
+        public void DecreaseDevotion(int id, int variable)
         {
             throw new NotImplementedException();
         }
 
-        public Task IncreaseEnergy(int id, int variable)
+        public void IncreaseEnergy(int id, int variable)
         {
             throw new NotImplementedException();
         }
 
-        public Task DecreaseEnergy(int id, int variable)
+        public void DecreaseEnergy(int id, int variable)
         {
             throw new NotImplementedException();
         }
 
-        public Task IncreaseExperience(int id, int variable)
+        public void IncreaseExperience(int id, int variable)
         {
             throw new NotImplementedException();
         }
 
-        public Task DecreaseExperience(int id, int variable)
+        public void DecreaseExperience(int id, int variable)
         {
             throw new NotImplementedException();
         }
 
-        public Task IncreasePhysicalTraining(int id, int variable)
+        public void IncreasePhysicalTraining(int id, int variable)
         {
             throw new NotImplementedException();
         }
 
-        public Task DecreasePhysicalTraining(int id, int variable)
+        public void DecreasePhysicalTraining(int id, int variable)
         {
             throw new NotImplementedException();
         }
 
-        public Task IncreasePounds(int id, int variable)
+        public void IncreasePounds(int id, int variable)
         {
             throw new NotImplementedException();
         }
 
-        public Task DecreasePounds(int id, int variable)
+        public void DecreasePounds(int id, int variable)
         {
             throw new NotImplementedException();
         }
 
-        public Task IncreaseSalary(int id, int variable)
+        public void IncreaseSalary(int id, int variable)
         {
             throw new NotImplementedException();
         }
 
-        public Task DecreaseSalary(int id, int variable)
+        public void DecreaseSalary(int id, int variable)
         {
             throw new NotImplementedException();
         }

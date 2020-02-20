@@ -14,7 +14,7 @@ namespace BgRallyRace.Models.Teams
         [Required]
         public string Name { get; set; }
   
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public string User { get; set; }
 
         [Required]

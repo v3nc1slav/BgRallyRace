@@ -8,10 +8,10 @@ namespace BgRallyRace.ViewModels
 {
     public class CarViewModels
     {
-        public Task< List<Cars>> Cars { get; set; }
-        public Task<Cars> Car { get; set; }
+        public Cars Cars { get; set; }
+        public Cars Car { get; set; }
         public string Name { get; set; }
-        public Task<Engines> Engines { get; set; }
+        public Engines Engines { get; set; }
 
     }
 }
