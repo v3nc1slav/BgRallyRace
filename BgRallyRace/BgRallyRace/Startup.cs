@@ -47,6 +47,8 @@ namespace BgRallyRace
             services.AddScoped<IRallyNavigatorsServices, RallyNavigatorsServices>();
             services.AddScoped<ICarServices, CarServices>();
             services.AddScoped<IMoneyAccountServices, MoneyAccountServices>();
+            services.AddScoped<ITeamServices, TeamServices>();
+            services.AddScoped<IOpinionsServices, OpinionsServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

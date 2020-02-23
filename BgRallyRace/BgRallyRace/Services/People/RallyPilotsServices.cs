@@ -51,56 +51,48 @@ namespace BgRallyRace.Services
             var id = rallyPilot.Entity.Id;
             return id;
         }
-
         public void Fired(int id)
         {
             var person = this.GetPilot(id);
             person.Result.TeamId = null;
              dbContext.SaveChanges();
         }
-
         public void IncreaseAge(int id)
         {
             var person = this.GetPilot(id);
             person.Result.Age = person.Result.Age + 1;
              dbContext.SaveChanges();
         }
-
         public void IncreaseConcentration(int id, int variable)
         {
             var person = this.GetPilot(id);
             person.Result.Concentration = person.Result.Concentration + variable;
             dbContext.SaveChanges();
         }
-
         public void DecreaseConcentration(int id, int variable)
         {
             var person = this.GetPilot(id);
             person.Result.Concentration = person.Result.Concentration - variable;
             dbContext.SaveChanges();
         }
-
         public void IncreaseDevotion(int id, int variable)
         {
             var person = this.GetPilot(id);
             person.Result.Devotion = person.Result.Devotion + variable;
             dbContext.SaveChanges();
         }
-
         public void DecreaseDevotion(int id, int variable)
         {
             var person = this.GetPilot(id);
             person.Result.Devotion = person.Result.Devotion - variable;
             dbContext.SaveChanges();
         }
-
         public void IncreaseEnergy(int id, int variable)
         {
             var person = this.GetPilot(id);
             person.Result.Energy = person.Result.Energy + variable;
             dbContext.SaveChanges();
         }
-
         public void DecreaseEnergy(int id, int variable)
         {
             var person = this.GetPilot(id);
@@ -113,21 +105,18 @@ namespace BgRallyRace.Services
             person.Result.Experience = person.Result.Experience + variable;
             dbContext.SaveChanges();
         }
-
         public void DecreaseExperience(int id, int variable)
         {
             var person = this.GetPilot(id);
             person.Result.Experience = person.Result.Experience - variable;
             dbContext.SaveChanges();
         }
-
         public void IncreasePhysicalTraining(int id, int variable)
         {
             var person = this.GetPilot(id);
             person.Result.PhysicalTraining = person.Result.PhysicalTraining + variable;
              dbContext.SaveChanges();
         }
-
         public void DecreasePhysicalTraining(int id, int variable)
         {
             var person = this.GetPilot(id);
@@ -140,35 +129,30 @@ namespace BgRallyRace.Services
             person.Result.Pounds = person.Result.Pounds + variable;
             dbContext.SaveChanges();
         }
-
         public void DecreasePounds(int id, int variable)
         {
             var person = this.GetPilot(id);
             person.Result.Pounds = person.Result.Pounds - variable;
             dbContext.SaveChanges();
         }
-
         public void IncreaseSalary(int id, int variable)
         {
             var person = this.GetPilot(id);
             person.Result.Salary = person.Result.Salary + variable;
             dbContext.SaveChanges();
         }
-
         public void DecreaseSalary(int id, int variable)
         {
             var person = this.GetPilot(id);
             person.Result.Salary = person.Result.Salary - variable;
              dbContext.SaveChanges();
         }
-
         public void IncreaseReflexes(int id, int variable)
         {
             var person = this.GetPilot(id);
             person.Result.Reflexes = person.Result.Reflexes + variable;
              dbContext.SaveChanges();
         }
-
         public void DecreaseReflexes(int id, int variable)
         {
             var person = this.GetPilot(id);

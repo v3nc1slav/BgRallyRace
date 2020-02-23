@@ -9,20 +9,16 @@ using System.Threading.Tasks;
 
 namespace BgRallyRace.Services
 {
-    public class TeamServices
+    public class TeamServices : ITeamServices
     {
         private readonly ApplicationDbContext dbContext;
-    
-        public TeamServices()
-        {
 
-        }
         public TeamServices(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        public async Task CreateTeam(string text, string user)
+        public void CreateTeam(string text, string user)
         {
             var moneyId = new MoneyAccountServices(dbContext);
             var pilot = new RallyPilotsServices(dbContext);
@@ -32,7 +28,7 @@ namespace BgRallyRace.Services
             var numberPilot =  pilot.CreateRallyPilotsAsync();
             var numberNavigator =  navigator.CreateRallyNavigatorsAsync();
             var numberCar =  car.CreateCarsAsync();
-            var newTeam = await dbContext.Teams.AddAsync(new Team
+            var newTeam =  dbContext.Teams.Add(new Team
             {
                 Name = text,
                 User = user,
@@ -51,9 +47,9 @@ namespace BgRallyRace.Services
             dbContext.SaveChanges();
         }
 
-        public async Task<Team>? FindUser(string user)
+        public Team FindUser(string user)
         {
-            var findUser = await dbContext.Teams.FirstOrDefaultAsync(a => a.User == user);
+            var findUser =  dbContext.Teams.FirstOrDefault(a => a.User == user);
             return findUser;
         }
     }

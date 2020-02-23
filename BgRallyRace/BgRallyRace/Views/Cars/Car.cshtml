@@ -1,0 +1,94 @@
+﻿@using BgRallyRace.Services;
+@using Microsoft.AspNetCore.Identity
+@using BgRallyRace.Data;
+@using BgRallyRace;
+@{
+    ViewData["Title"] = "Car";
+}
+
+<div class="form-group row">
+    <div class="col-sm-2">
+        <partial name="_LeftBarPartial" />
+    </div>
+    <div class="col-sm-8">
+        <a class=" background">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="table-success">
+                        <th scope="col">Част</th>
+                        <th scope="col">Здравина</th>
+                        <th scope="col">Максимална Скорост</th>
+                        <th scope="col">Текуща скорост</th>
+                        <th scope="col"> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Аеродинамика</th>
+                        <td>@Model.Aerodynamics.Strength</td>
+                        <td>@Model.Aerodynamics.Speed</td>
+                        <td> </td>
+                        <td> <partial name="_RepairPartial" /></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Спирачки</th>
+                        <td>@Model.Brakes.Strength</td>
+                        <td>@Model.Brakes.Speed</td>
+                        <td>Column content</td>
+                        <td> <partial name="_RepairPartial" /></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Двигател</th>
+                        <td>@Model.Engines.Strength</td>
+                        <td>@Model.Engines.Speed</td>
+                        <td>Column content</td>
+                        <td> <partial name="_RepairPartial" /></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Скоростна кутия</th>
+                        <td>@Model.Gearboxs.Strength</td>
+                        <td>@Model.Gearboxs.Speed</td>
+                        <td>Column content</td>
+                        <td> <partial name="_RepairPartial" /></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Купе</th>
+                        <td>@Model.ModelsCars.Strength</td>
+                        <td>@Model.ModelsCars.Speed</td>
+                        <td>Column content</td>
+                        <td> <partial name="_RepairPartial" /></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Шаси</th>
+                        <td>@Model.Mountings.Strength</td>
+                        <td>@Model.Mountings.Speed</td>
+                        <td>Column content</td>
+                        <td> <partial name="_RepairPartial" /></td>
+                    </tr>
+                    @if (!(Model.Turbo == null))
+                    {
+                        <tr>
+                            <th scope="row">Тирбо</th>
+                            <td>@Model.Turbo.Strength</td>
+                            <td>@Model.Turbo.Speed</td>
+                            <td>Column content</td>
+                            <td> <partial name="_RepairPartial" /></td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr class="table-primary">
+                        <th scope="row">Обща скорост</th>
+                        <td></td>
+                        <td>@Model.MaxSpeed</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </a>
+    </div>
+    <div class="col-sm-2">
+        <partial name="_RightBarPartial" />
+    </div>
+</div>

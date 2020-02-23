@@ -35,7 +35,6 @@ namespace BgRallyRace.Services
         public int CreateRallyNavigatorsAsync()
         {
             Random rnd = new Random();
-            //ToDo
             int first = rnd.Next(1, 100);
             int last = rnd.Next(1, 100);
             var  firstName =  dbContext.FirstNames.Select(x=>new { x.FirstName, x.Id })
@@ -63,99 +62,112 @@ namespace BgRallyRace.Services
         }
         public void Fired(int id)
         {
-            throw new NotImplementedException();
+            var person = this.GetNavigator(id);
+            person.TeamId = null;
+            dbContext.SaveChanges();
         }
-
-        public void IncreaseCommunication(int id, int variable)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DecreaseCommunication(int id, int variable)
-        {
-            throw new NotImplementedException();
-        }
-
-        public RallyNavigators GetNavigators(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public void IncreaseAge(int id)
         {
-            throw new NotImplementedException();
+            var person = this.GetNavigator(id);
+            person.Age = person.Age + 1;
+            dbContext.SaveChanges();
         }
-
-        public void IncreaseConcentration(int id, int variable)
+        public void IncreaseCommunication(int id, int variable)
         {
-            throw new NotImplementedException();
+            var person = this.GetNavigator(id);
+            person.Concentration = person.Communication + variable;
+            dbContext.SaveChanges();
         }
-
-        public void DecreaseConcentration(int id, int variable)
+        public void DecreaseCommunication(int id, int variable)
         {
-            throw new NotImplementedException();
+            var person = this.GetNavigator(id);
+            person.Concentration = person.Communication - variable;
+            dbContext.SaveChanges();
         }
-
         public void IncreaseDevotion(int id, int variable)
         {
-            throw new NotImplementedException();
+            var person = this.GetNavigator(id);
+            person.Devotion = person.Devotion + variable;
+            dbContext.SaveChanges();
         }
-
         public void DecreaseDevotion(int id, int variable)
         {
-            throw new NotImplementedException();
+            var person = this.GetNavigator(id);
+            person.Devotion = person.Devotion - variable;
+            dbContext.SaveChanges();
         }
-
         public void IncreaseEnergy(int id, int variable)
         {
-            throw new NotImplementedException();
+            var person = this.GetNavigator(id);
+            person.Energy = person.Energy + variable;
+            dbContext.SaveChanges();
         }
-
         public void DecreaseEnergy(int id, int variable)
         {
-            throw new NotImplementedException();
+            var person = this.GetNavigator(id);
+            person.Energy = person.Energy - variable;
+            dbContext.SaveChanges();
         }
-
         public void IncreaseExperience(int id, int variable)
         {
-            throw new NotImplementedException();
+            var person = this.GetNavigator(id);
+            person.Experience = person.Experience + variable;
+            dbContext.SaveChanges();
         }
-
         public void DecreaseExperience(int id, int variable)
         {
-            throw new NotImplementedException();
+            var person = this.GetNavigator(id);
+            person.Experience = person.Experience - variable;
+            dbContext.SaveChanges();
         }
-
         public void IncreasePhysicalTraining(int id, int variable)
         {
-            throw new NotImplementedException();
+            var person = this.GetNavigator(id);
+            person.PhysicalTraining = person.PhysicalTraining + variable;
+            dbContext.SaveChanges();
         }
-
         public void DecreasePhysicalTraining(int id, int variable)
         {
-            throw new NotImplementedException();
+            var person = this.GetNavigator(id);
+            person.PhysicalTraining = person.PhysicalTraining - variable;
+            dbContext.SaveChanges();
         }
-
         public void IncreasePounds(int id, int variable)
         {
-            throw new NotImplementedException();
+            var person = this.GetNavigator(id);
+            person.Pounds = person.Pounds + variable;
+            dbContext.SaveChanges();
         }
-
         public void DecreasePounds(int id, int variable)
         {
-            throw new NotImplementedException();
+            var person = this.GetNavigator(id);
+            person.Pounds = person.Pounds - variable;
+            dbContext.SaveChanges();
         }
-
         public void IncreaseSalary(int id, int variable)
         {
-            throw new NotImplementedException();
+            var person = this.GetNavigator(id);
+            person.Salary = person.Salary + variable;
+            dbContext.SaveChanges();
         }
-
         public void DecreaseSalary(int id, int variable)
         {
-            throw new NotImplementedException();
+            var person = this.GetNavigator(id);
+            person.Salary = person.Salary - variable;
+            dbContext.SaveChanges();
         }
-
-   }
+        public void IncreaseConcentration(int id, int variable)
+        {
+            var person = this.GetNavigator(id);
+            person.Concentration = person.Concentration + variable;
+            dbContext.SaveChanges();
+        }
+        public void DecreaseConcentration(int id, int variable)
+        {
+            var person = this.GetNavigator(id);
+            person.Concentration = person.Concentration - variable;
+            dbContext.SaveChanges();
+        }
+    }
 }
 

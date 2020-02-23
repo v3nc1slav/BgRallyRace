@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+
+    <div id="FirstPilot" class="teamTabcontent">
+        <h3>@Model.Pilots[0].FirstName @Model.Pilots[0].LastName</h3>
+        <p></p>
+        <a>Години</a>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: @Model.Pilots[0].Age%;">@Model.Pilots[0].Age</div>
+        </div>
+        <p></p>
+        <a>Концентрация</a>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: @Model.Pilots[0].Concentration%;">@Model.Pilots[0].Concentration</div>
+        </div>
+        <p></p>
+        <a>Рефлекси</a>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: @Model.Pilots[0].Reflexes%;">@Model.Pilots[0].Reflexes</div>
+        </div>
+        <p></p>
+        <a>Опит</a>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: @Model.Pilots[0].Experience%;">@Model.Pilots[0].Experience</div>
+        </div>
+        <p></p>
+        <a>Преданост</a>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: @Model.Pilots[0].Devotion%;">@Model.Pilots[0].Devotion</div>
+        </div>
+        <p></p>
+        <a>Физическа пдготовка/състояние</a>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: @Model.Pilots[0].PhysicalTraining%;">@Model.Pilots[0].PhysicalTraining</div>
+        </div>
+        <p></p>
+        <a>Енергия</a>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: @Model.Pilots[0].Energy%;">@Model.Pilots[0].Energy</div>
+        </div>
+        <a>Килограми</a>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: @Model.Pilots[0].Pounds%;">@Model.Pilots[0].Pounds</div>
+        </div>
+        <p></p>
+        <a>Заплата</a>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: @Model.Pilots[0].Salary%;">@Model.Pilots[0].Salary лв.</div>
+        </div>
+        <partial name="_ TrainingOrDismissalPartial" />
+    </div>
+
+
+
+

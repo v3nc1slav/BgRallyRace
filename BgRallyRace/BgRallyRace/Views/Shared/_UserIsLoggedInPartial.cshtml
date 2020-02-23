@@ -4,11 +4,9 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-@{var db = new ApplicationDbContext();
-    TeamServices team = new TeamServices(db);}
 
 
-@if (SignInManager.IsSignedIn(User) && (await team.FindUser(User.Identity.Name) == null))
+@if (SignInManager.IsSignedIn(User) && (Model.Team == null))
 {
     <div class="background">
         <form asp-controller="Teams" asp-action="CreateTeam" method="post" class="form-group">
@@ -22,17 +20,17 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <div class="form-group row">
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <partial name="_LeftBarPartial" />
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-8">
             <div class="background">
                 <p>Следващото състезание започва след:</p>
                 <p id="demo"></p>
                 <p>Подтотви си за него тук!</p>
             </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <partial name="_RightBarPartial" />
         </div>
     </div>

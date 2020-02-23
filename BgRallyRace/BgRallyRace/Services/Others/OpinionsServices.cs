@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BgRallyRace.Services
 {
-    public class OpinionsServices
+    public class OpinionsServices : IOpinionsServices
     {
         private readonly ApplicationDbContext dbContext;
         public OpinionsServices(ApplicationDbContext dbContext)

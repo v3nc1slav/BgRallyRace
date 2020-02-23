@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using BgRallyRace.Services;
+@using BgRallyRace.Data;
+
+<div class="background">
+    <p class="nav-item dropdown">Екип</p>
+    <div class="panel">
+        <p><a asp-controller="Teams" asp-action="Pilot">Пилот</a></p>
+        <p><a asp-controller="Teams" asp-action="Navigator">Навигатор</a></p>
+    </div>
+    <p><a asp-controller="Cars" asp-action="Car">Кола</a></p>
+    <p>Състезание</p>
+</div>
+
+
+<script>
+    var acc = document.getElementsByClassName("nav-item dropdown");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        });
+    }
+</script>
+
+
+
