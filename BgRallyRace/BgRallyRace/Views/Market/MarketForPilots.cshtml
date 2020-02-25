@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "MarketForPilots";
+}
+
+
+<div class="form-group row">
+    <div class="col-sm-2">
+        <partial name="_LeftBarPartial" />
+    </div>
+    <div class="col-sm-8">
+        <a class=" background">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="table">
+                        <th scope="col">Име</th>
+                        <th scope="col">Фамилия</th>
+                        <th scope="col">Години</th>
+                        <th scope="col">Концентрация</th>
+                        <th scope="col">Опит</th>
+                        <th scope="col">Физическо състояние</th>
+                        <th scope="col">Килограми</th>
+                        <th scope="col">Месечна Заплата</th>
+                        <th scope="col">Сума за наемане</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var pilot in Model.Pilots)
+                    {
+                    <tr>
+                        <th scope="row">@pilot.FirstName</th>
+                        <td>@pilot.LastName</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                     }
+                    </tbody>
+                <tfoot>
+                   
+                </tfoot>
+            </table>
+        </a>
+    </div>
+    <div class="col-sm-2">
+        <partial name="_RightBarPartial" />
+    </div>
+</div>
+

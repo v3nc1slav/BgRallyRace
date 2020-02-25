@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BgRallyRace.Models;
 using BgRallyRace.Services;
+using BgRallyRace.Services.Market;
 
 namespace BgRallyRace
 {
@@ -23,7 +24,7 @@ namespace BgRallyRace
         {
             // new ApplicationDbContext().Database.EnsureDeleted();
             // new ApplicationDbContext().Database.EnsureCreated();
-            // new ApplicationDbContext().Database.Migrate();
+            new ApplicationDbContext().Database.Migrate();
             Configuration = configuration;
         }
 
@@ -41,14 +42,15 @@ namespace BgRallyRace
             services.AddRazorPages();
             services.AddResponseCaching();
             services.AddMemoryCache();
-            services.AddScoped<IPeople, RallyPilotsServices>();
-            services.AddScoped<IPeople, RallyNavigatorsServices>();
-            services.AddScoped<IRallyPilotsServices, RallyPilotsServices>();
-            services.AddScoped<IRallyNavigatorsServices, RallyNavigatorsServices>();
-            services.AddScoped<ICarServices, CarServices>();
-            services.AddScoped<IMoneyAccountServices, MoneyAccountServices>();
-            services.AddScoped<ITeamServices, TeamServices>();
-            services.AddScoped<IOpinionsServices, OpinionsServices>();
+            services.AddTransient<IPeople, RallyPilotsServices>();
+            services.AddTransient<IPeople, RallyNavigatorsServices>();
+            services.AddTransient<IRallyPilotsServices, RallyPilotsServices>();
+            services.AddTransient<IRallyNavigatorsServices, RallyNavigatorsServices>();
+            services.AddTransient<ICarServices, CarServices>();
+            services.AddTransient<IMoneyAccountServices, MoneyAccountServices>();
+            services.AddTransient<ITeamServices, TeamServices>();
+            services.AddTransient<IOpinionsServices, OpinionsServices>();
+            services.AddTransient<IMarketServices, MarketServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

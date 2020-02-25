@@ -22,7 +22,6 @@ namespace BgRallyRace.Models
 
         public int Experience { get; set; }
 
-
         public int Energy { get; set; }
 
         public int Devotion { get; set; }

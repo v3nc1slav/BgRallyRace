@@ -1,29 +1,17 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using BgRallyRace.Models;
-using Microsoft.AspNetCore.Authorization;
-using BgRallyRace.Data;
-using BgRallyRace.Services;
-using System.IO;
-using System.Text;
-using BgRallyRace.ViewModels;
-using BgRallyRace.Models.PartsCar;
-
-namespace BgRallyRace.Controllers
+﻿namespace BgRallyRace.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
+    using BgRallyRace.Services;
+    using BgRallyRace.ViewModels;
+    using BgRallyRace.Models.PartsCar;
     public class CarsController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly ICarServices car;
 
-        private ApplicationDbContext db { get; set; } = new ApplicationDbContext();
 
-        public CarsController(ILogger<HomeController> logger, ICarServices carServices)
+        public CarsController(ICarServices carServices)
         {
-            _logger = logger;
             this.car = carServices;
         }
 

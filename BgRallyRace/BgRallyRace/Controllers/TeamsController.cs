@@ -35,6 +35,7 @@ namespace BgRallyRace.Controllers
             {
                 Pilots = pilot.GetPilots(User.Identity.Name)
             };
+            TempData["Pilots"] = viewModel.Pilots.Select(x => x.Id).ToArray();
             return this.View(viewModel);
         }
 

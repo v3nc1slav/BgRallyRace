@@ -33,8 +33,9 @@ namespace BgRallyRace.Controllers
             pilot = dbPilot;
             navigator = dbNavigator;
         }
-        public IActionResult Training(People person)
+        public IActionResult Training(int Id)
         {
+            var pilots = TempData["Pilots"] as int[] ;
             return this.View();
         }
 
