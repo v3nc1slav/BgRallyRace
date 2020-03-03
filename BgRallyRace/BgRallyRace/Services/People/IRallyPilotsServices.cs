@@ -13,7 +13,7 @@ namespace BgRallyRace.Services
       void IncreaseReflexes(int id, int variable);
       void DecreaseReflexes(int id, int variable);
 #pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
-        ICollection<RallyPilots>? GetPilots(string user);
+        List<RallyPilots> GetPilots(string user);
 #pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
 
         Task<RallyPilots> GetPilot(int id);

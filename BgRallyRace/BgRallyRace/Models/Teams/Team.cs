@@ -14,11 +14,11 @@ namespace BgRallyRace.Models
 
         public ICollection<CompetitionsTeams>? CompetitionsTeams { get; set; } = new HashSet<CompetitionsTeams>();
 
-        public int RallyPilotId { get; set; }
+        public int? RallyPilotId { get; set; }
 
         public RallyPilots RallyPilot { get; set; } 
 
-        public int RallyNavigatorId { get; set; }
+        public int? RallyNavigatorId { get; set; }
 
         public RallyNavigators RallyNavigator { get; set; }
         public int? FitterId { get; set; }

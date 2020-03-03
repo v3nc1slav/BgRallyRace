@@ -14,19 +14,23 @@
                 <button class="teamTablink" onclick="openPage('SecandNavigator', this, 'green')">Втори навигатор</button>
             </div>
 
-            @if (Model.Navigators.Count == 0)
-            {
-                <div id="FirstNavigator" class="teamTabcontent">
-                    <h3>Нямате навигатор</h3>
-                    <h5>Идете на пазара и си наемете</h5>
-                </div>
-                <div id="SecandNavigator" class="teamTabcontent">
-                    <h3>Нямате навигатор</h3>
-                    <h5>Идете на пазара и си наемете</h5>
-                </div>
+            @{ if (Model.Navigators[0] == null)
+                {
+                    <div id="FirstNavigator" class="teamTabcontent">
+                        <h3>Нямате навигатор</h3>
+                        <h5>Идете на пазара и си наемете</h5>
+                    </div>
+                    <div id="SecandNavigator" class="teamTabcontent">
+                        <h3>Нямате навигатор</h3>
+                        <h5>Идете на пазара и си наемете</h5>
+                    </div>
+                }
+                else
+                {
+                    <partial name="_FirstNavigatorPartial" />
+                    <partial name="_SecandNavigatorPartial" />
+                }
             }
-            <partial name="_FirstNavigatorPartial" />
-            <partial name="_SecandNavigatorPartial" />
         </div>
         <div class="col-sm-2">
             <partial name="_RightBarPartial" />

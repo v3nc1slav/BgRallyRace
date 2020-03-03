@@ -17,7 +17,7 @@ namespace BgRallyRace.Services
         }
 
 #pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
-        public ICollection<RallyNavigators>? GetNavigators(string user)
+        public List<RallyNavigators> GetNavigators(string user)
 #pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         {
             var navigator = dbContext.Teams.Where(t => t.User == user).Select(x => x.RallyNavigator).ToList();

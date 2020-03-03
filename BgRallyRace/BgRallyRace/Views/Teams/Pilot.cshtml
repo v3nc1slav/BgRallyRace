@@ -4,17 +4,16 @@
 @{
     ViewData["Title"] = "Pilot";
 }
-    <div class="form-group row">
-        <div class="col-sm-2">
-            <partial name="_LeftBarPartial" />
+<div class="form-group row">
+    <div class="col-sm-2">
+        <partial name="_LeftBarPartial" />
+    </div>
+    <div class="col-sm-8">
+        <div class="teamTab">
+            <button class="teamTablink" onclick="openPage('FirstPilot', this, 'green')" id="defaultOpen">Първи пилот</button>
+            <button class="teamTablink" onclick="openPage('SecandPilot', this, 'green')">Втори пилот</button>
         </div>
-        <div class="col-sm-8">
-            <div class="teamTab">
-                <button class="teamTablink" onclick="openPage('FirstPilot', this, 'green')" id="defaultOpen">Първи пилот</button>
-                <button class="teamTablink" onclick="openPage('SecandPilot', this, 'green')">Втори пилот</button>
-            </div>
-
-            @if (Model.Pilots.Count == 0)
+        @{ if (Model.Pilots[0] == null)
             {
                 <div id="FirstPilot" class="teamTabcontent">
                     <h3>Нямате пилот</h3>
@@ -25,13 +24,17 @@
                     <h5>Идете на пазара и си наемете</h5>
                 </div>
             }
-            <partial name="_FirstPilotPartial" />
-            <partial name="_SecandPilotPartial" />
-        </div>
-        <div class="col-sm-2">
-            <partial name="_RightBarPartial" />
-        </div>
+            else
+            {
+                <partial name="_FirstPilotPartial" />
+                <partial name="_SecandPilotPartial" />
+            }
+        }
     </div>
+    <div class="col-sm-2">
+        <partial name="_RightBarPartial" />
+    </div>
+</div>
 
 <script>
     function openPage(pageName, elmnt, color) {

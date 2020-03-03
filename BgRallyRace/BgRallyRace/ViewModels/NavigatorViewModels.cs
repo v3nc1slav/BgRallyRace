@@ -10,7 +10,7 @@ namespace BgRallyRace.ViewModels
     {
 
 #pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
-        public ICollection<RallyNavigators>? Navigators { get; set; } = new HashSet<RallyNavigators>();
+        public List<RallyNavigators> Navigators { get; set; } = new List<RallyNavigators>();
 #pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
     }
 }

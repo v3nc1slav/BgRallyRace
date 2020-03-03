@@ -10,6 +10,6 @@ namespace BgRallyRace.Services
     {
        void IncreaseCommunication(int id, int variable);
        void DecreaseCommunication(int id, int variable);
-        ICollection<RallyNavigators>? GetNavigators(string user);
+        List<RallyNavigators> GetNavigators(string user);
     }
 }

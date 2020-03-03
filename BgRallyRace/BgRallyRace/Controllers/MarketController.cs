@@ -46,6 +46,12 @@
             return this.View();
         }
 
+        [Authorize]
+        public IActionResult RentalsPilot(int id)
+        {
+            market.RentalsPilot(8, User.Identity.Name, 1000);
+            return this.RedirectToAction("Pilot", "Teams");
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

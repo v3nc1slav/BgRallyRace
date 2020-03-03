@@ -8,5 +8,7 @@
         List<RallyPilots> GetPilotsForMarket();
 
         List<RallyNavigators> GetNavigatorsForMarket();
+
+        void RentalsPilot(int id, string user, decimal expense);
     }
 }

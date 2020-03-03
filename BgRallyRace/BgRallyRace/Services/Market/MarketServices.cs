@@ -7,9 +7,11 @@
     public class MarketServices : IMarketServices
     {
         private readonly ApplicationDbContext dbContext;
-        public MarketServices(ApplicationDbContext dbContext)
+        private readonly IMoneyAccountServices money;
+        public MarketServices(ApplicationDbContext dbContext, IMoneyAccountServices moneyAccount)
         {
             this.dbContext = dbContext;
+            money = moneyAccount;
         }
 
         public List<RallyPilots> GetPilotsForMarket()
@@ -22,6 +24,15 @@
         {
             var navigators = dbContext.RallyNavigators.Where(x => x.TeamId == null).ToList();
             return navigators;
+        }
+
+        public void RentalsPilot(int id, string user, decimal expense)
+        {
+            var pilot = dbContext.RallyPilots.Where(x => x.Id == id).FirstOrDefault();
+            var team = dbContext.Teams.Where(x => x.User == user).FirstOrDefault();
+            pilot.TeamId = team.Id;
+            team.RallyPilotId = id;
+            money.ExpenseAccountAsync(expense, user);
         }
     }
 }

@@ -15,6 +15,8 @@ using Microsoft.Extensions.Hosting;
 using BgRallyRace.Models;
 using BgRallyRace.Services;
 using BgRallyRace.Services.Market;
+using BgRallyRace.Services.Training;
+using BgRallyRace.Services.Dismissal;
 
 namespace BgRallyRace
 {
@@ -51,6 +53,8 @@ namespace BgRallyRace
             services.AddTransient<ITeamServices, TeamServices>();
             services.AddTransient<IOpinionsServices, OpinionsServices>();
             services.AddTransient<IMarketServices, MarketServices>();
+            services.AddTransient<ITrainingServices, TrainingServices>();
+            services.AddTransient<IDismissalServices, DismissalServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

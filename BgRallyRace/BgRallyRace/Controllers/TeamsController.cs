@@ -35,10 +35,12 @@ namespace BgRallyRace.Controllers
             {
                 Pilots = pilot.GetPilots(User.Identity.Name)
             };
-            TempData["Pilots"] = viewModel.Pilots.Select(x => x.Id).ToArray();
+            if (!(viewModel.Pilots[0]==null))
+            {
+                TempData["Pilots"] = viewModel.Pilots.Select(x => x.Id).ToArray();
+            }
             return this.View(viewModel);
         }
-
 
         [Authorize]
         public IActionResult Navigator()
@@ -47,6 +49,10 @@ namespace BgRallyRace.Controllers
             {
                 Navigators = navigator.GetNavigators(User.Identity.Name)
             };
+            if (!(viewModel.Navigators[0] == null))
+            {
+                TempData["Navigators"] = viewModel.Navigators.Select(x => x.Id).ToArray();
+            }
             return this.View(viewModel);
         }
 

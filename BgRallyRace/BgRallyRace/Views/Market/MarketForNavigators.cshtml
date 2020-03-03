@@ -18,20 +18,20 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var pilot in Model.Pilots)
+            @foreach (var navigator in Model.Navigators)
             {
-                <tr>
-                    <th scope="row">@pilot.FirstName</th>
-                    <td>@pilot.LastName</td>
-                    <td>@pilot.Age</td>
-                    <td>@pilot.Concentration</td>
-                    <td>@pilot.Experience</td>
-                    <td>@pilot.PhysicalTraining</td>
-                    <td>@pilot.Pounds</td>
-                    <td>@pilot.Salary</td>
-                    <td>1000</td>
-                    <td><a class="nav-link" asp-controller="Market" asp-action="RentalsPilot" name="id">Наеми</a></td>
-                </tr>
+            <tr>
+                <th scope="row">@navigator.FirstName</th>
+                <td>@navigator.LastName</td>
+                <td>@navigator.Age</td>
+                <td>@navigator.Concentration</td>
+                <td>@navigator.Experience</td>
+                <td>@navigator.PhysicalTraining</td>
+                <td>@navigator.Pounds</td>
+                <td>@navigator.Salary</td>
+                <td>1000</td>
+                <td><a class="nav-link" asp-controller="Market" asp-action="RentalsNavigator">Наеми</a></td>
+            </tr>
             }
         </tbody>
         <tfoot>

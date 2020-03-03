@@ -386,7 +386,7 @@ namespace BgRallyRace.Migrations
                     b.Property<int>("Speed")
                         .HasColumnType("int");
 
-                    b.Property<int>("TeamId")
+                    b.Property<int?>("TeamId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -575,10 +575,10 @@ namespace BgRallyRace.Migrations
                     b.Property<int?>("RallyFitterId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RallyNavigatorId")
+                    b.Property<int?>("RallyNavigatorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RallyPilotId")
+                    b.Property<int?>("RallyPilotId")
                         .HasColumnType("int");
 
                     b.Property<string>("User")
@@ -794,12 +794,10 @@ namespace BgRallyRace.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -836,12 +834,10 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -942,15 +938,11 @@ namespace BgRallyRace.Migrations
 
                     b.HasOne("BgRallyRace.Models.RallyNavigators", "RallyNavigator")
                         .WithMany("Teams")
-                        .HasForeignKey("RallyNavigatorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RallyNavigatorId");
 
                     b.HasOne("BgRallyRace.Models.RallyPilots", "RallyPilot")
                         .WithMany("Teams")
-                        .HasForeignKey("RallyPilotId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RallyPilotId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

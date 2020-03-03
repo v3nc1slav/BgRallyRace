@@ -1,0 +1,31 @@
+﻿@{ if (ViewData["Title"] == "Pilot")
+    {
+        <p>
+            <div>
+                <a class="nav-link" asp-controller="Dismissal" asp-action="DismissalPilot">Освободи</a>
+            </div>
+        </p>
+    }
+    else if (ViewData["Title"] == "Navigator")
+    {
+        <p>
+            <div>
+                <a class="nav-link" asp-controller="Dismissal" asp-action="DismissalNavigator">Освободи</a>
+            </div>
+        </p>
+    }
+    else
+    {
+        <p>
+            <div>
+                <a class="nav-link " asp-controller="Dismissal" asp-action="DismissalFitter">Освободи</a>
+            </div>
+        </p>
+    }
+}
+
+
+
+
+
+

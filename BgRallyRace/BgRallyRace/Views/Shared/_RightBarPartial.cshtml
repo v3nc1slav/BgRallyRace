@@ -8,8 +8,11 @@
 </div>
 
 <div class="RightBackground">
-    <p class="nav-item dropdown">Пазар</p>
-    <div class="panel">
+    <button class="dropdown-btn">
+        Пазар
+        <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-container">
         <p><a asp-controller="Market" asp-action="MarketForPilots"> за Пилоти</a></p>
         <p><a asp-controller="Market" asp-action="MarketForNavigators">за Навигатори</a></p>
         <p><a asp-controller="Market" asp-action="MarketForParts">за Части</a></p>

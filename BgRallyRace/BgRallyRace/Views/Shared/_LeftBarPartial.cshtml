@@ -2,36 +2,17 @@
 @using BgRallyRace.Services;
 @using BgRallyRace.Data;
 
-<div class="leftBackground">
-    <p class="leftNav-item dropdown">Екип</p>
-    <div class="panel">
-        <p><a asp-controller="Teams" asp-action="Pilot">Пилот</a></p>
-        <p><a asp-controller="Teams" asp-action="Navigator">Навигатор</a></p>
+    <div class="leftBackground">
+        <button class="dropdown-btn">
+            Екип
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+            <p><a asp-controller="Teams" asp-action="Pilot">Пилот</a></p>
+            <p><a asp-controller="Teams" asp-action="Navigator">Навигатор</a></p>
+        </div>
     </div>
-    <p><a asp-controller="Cars" asp-action="Car">Кола</a></p>
-</div>
 
 <div class="leftBackground">
     <p>Състезание</p>
 </div>
-
-
-<script>
-    var acc = document.getElementsByClassName("leftNav-item dropdown");
-    var i;
-
-    for (i = 0; i < acc.length; i++) {
-        acc[i].addEventListener("click", function () {
-            this.classList.toggle("active");
-            var panel = this.nextElementSibling;
-            if (panel.style.display === "block") {
-                panel.style.display = "none";
-            } else {
-                panel.style.display = "block";
-            }
-        });
-    }
-</script>
-
-
-

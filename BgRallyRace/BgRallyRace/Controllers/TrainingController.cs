@@ -1,48 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using BgRallyRace.Models;
-using Microsoft.AspNetCore.Authorization;
-using BgRallyRace.Data;
-using BgRallyRace.Models.Home;
-using BgRallyRace.Services;
-using System.IO;
-using System.Text;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using BgRallyRace.ViewModels;
-using BgRallyRace.Models.RandomName;
-
-namespace BgRallyRace.Controllers
+﻿namespace BgRallyRace.Controllers
 {
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
+    using BgRallyRace.Data;
+    using BgRallyRace.Services;
+    using Microsoft.AspNetCore.Authorization;
+    using BgRallyRace.Services.Training;
+
     public class TrainingController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private ApplicationDbContext db { get; set; } = new ApplicationDbContext();
         private IRallyPilotsServices pilot { get; set; } 
         private IRallyNavigatorsServices navigator { get; set; }
+        public ITrainingServices training { get; set; }
 
         public TrainingController(ILogger<HomeController> logger, IRallyPilotsServices dbPilot, 
-            IRallyNavigatorsServices dbNavigator)
+            IRallyNavigatorsServices dbNavigator, ITrainingServices dbTraining)
         {
             _logger = logger;
             pilot = dbPilot;
             navigator = dbNavigator;
-        }
-        public IActionResult Training(int Id)
-        {
-            var pilots = TempData["Pilots"] as int[] ;
-            return this.View();
+            training = dbTraining;
         }
 
-        public IActionResult Dismissal(int id)
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Training(string values)
         {
-            pilot.Fired(id);
-            return this.RedirectToAction("Pilot", "Team");
+            var pilots = TempData["Pilots"] as int[] ;
+            var navigators = TempData["Navigator"] as int[];
+            training.Training(0, values);
+            return this.RedirectToAction("Home", "Index");
         }
+
     }
 }

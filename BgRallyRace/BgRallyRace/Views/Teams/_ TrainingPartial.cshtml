@@ -1,0 +1,69 @@
+﻿<form asp-controller="Training" asp-action=Training method="post" class="form-group">
+    <table class="table table-hover">
+        <thead>
+            <tr class="table">
+                <th scope="col">Тип тренировка</th>
+                <th scope="col">Цена</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">Фитнес</th>
+                <td>100лв.</td>
+            </tr>
+            <tr>
+                <th scope="row">Спа почивка</th>
+                <td>1000лв.</td>
+            </tr>
+            <tr>
+                <th scope="row">Тиймбилдинг</th>
+                <td>700лв.</td>
+            </tr>
+            <tr>
+                <th scope="row">Йога</th>
+                <td>100лв.</td>
+            </tr>
+            @{ if (ViewData["Title"] == "Pilot")
+                {
+                    <tr>
+                        <th scope="row">Скуош</th>
+                        <td>800лв.</td>
+                    </tr>
+                }
+                else if (ViewData["Title"] == "Navigator")
+                {
+                    <tr>
+                        <th scope="row">Interview</th>
+                        <td>800лв.</td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            Избор на тренировка
+            <select class="normal" name="SessionType" id="SessionType" name="values">
+                <option value="Fitness" selected="">Фитнес</option>
+                <option value="Yoga">Йога</option>
+                <option value="TeamBuilding">Тиймбилдинг</option>
+                <option value="Spa">Спа почивка</option>
+                @{ if (ViewData["Title"] == "Pilot")
+                    {
+                        <option value="Squash">Скуош</option>
+                    }
+                    else if (ViewData["Title"] == "Navigator")
+                    {
+                        <option value="Interview">Interview</option>
+                    }
+                }
+            </select>
+        </tfoot>
+    </table>
+    <button type="submit" class="btn btn-secondary">Тренировка</button>
+</form>
+
+
+
+
+
+
+
