@@ -271,6 +271,29 @@ namespace BgRallyRace.Migrations
                     b.ToTable("ModelsCars");
                 });
 
+            modelBuilder.Entity("BgRallyRace.Models.Money.FinancialStatistics", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Funds")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Mone")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("MoneyAccountId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MoneyAccountId");
+
+                    b.ToTable("FinancialStatistics");
+                });
+
             modelBuilder.Entity("BgRallyRace.Models.MoneyAccount", b =>
                 {
                     b.Property<int>("Id")
@@ -280,6 +303,9 @@ namespace BgRallyRace.Migrations
 
                     b.Property<decimal>("Balance")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("FinancialStatisticsId")
+                        .HasColumnType("int");
 
                     b.Property<string>("User")
                         .HasColumnType("nvarchar(max)");
@@ -368,6 +394,9 @@ namespace BgRallyRace.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsItWorking")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -422,6 +451,9 @@ namespace BgRallyRace.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsItWorking")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -466,6 +498,9 @@ namespace BgRallyRace.Migrations
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsItWorking")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
@@ -922,6 +957,13 @@ namespace BgRallyRace.Migrations
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("BgRallyRace.Models.Money.FinancialStatistics", b =>
+                {
+                    b.HasOne("BgRallyRace.Models.MoneyAccount", null)
+                        .WithMany("FinancialStatistics")
+                        .HasForeignKey("MoneyAccountId");
                 });
 
             modelBuilder.Entity("BgRallyRace.Models.Team", b =>

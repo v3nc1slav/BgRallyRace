@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using BgRallyRace.Models;
-using BgRallyRace.Models.RandomName;
-using BgRallyRace.Models.Teams;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-
-namespace BgRallyRace.Data
+﻿namespace BgRallyRace.Data
 {
+    using BgRallyRace.Models;
+    using BgRallyRace.Models.Money;
+    using BgRallyRace.Models.RandomName;
+    using BgRallyRace.Models.Teams;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
     public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -42,6 +39,7 @@ namespace BgRallyRace.Data
         public DbSet<CompetitionsRallyTracks> CompetitionsRallyTracks { get; set; }
         public DbSet<FirstNames> FirstNames { get; set; }
         public DbSet<LastNames> LastNames { get; set; }
+        public DbSet<FinancialStatistics> FinancialStatistics { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

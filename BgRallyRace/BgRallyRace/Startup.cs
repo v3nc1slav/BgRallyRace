@@ -1,25 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.EntityFrameworkCore;
-using BgRallyRace.Data;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using BgRallyRace.Models;
-using BgRallyRace.Services;
-using BgRallyRace.Services.Market;
-using BgRallyRace.Services.Training;
-using BgRallyRace.Services.Dismissal;
-
 namespace BgRallyRace
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.EntityFrameworkCore;
+    using BgRallyRace.Data;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using BgRallyRace.Services;
+    using BgRallyRace.Services.Market;
+    using BgRallyRace.Services.Training;
+    using BgRallyRace.Services.Dismissal;
+    using BgRallyRace.Services.Money;
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -55,6 +48,7 @@ namespace BgRallyRace
             services.AddTransient<IMarketServices, MarketServices>();
             services.AddTransient<ITrainingServices, TrainingServices>();
             services.AddTransient<IDismissalServices, DismissalServices>();
+            services.AddTransient<IFinanceServices, FinanceServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -65,11 +65,33 @@ namespace BgRallyRace.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize]
+        public IActionResult IncreaseSalarylPilot()
+        {
+            var pilots = TempData["Pilots"] as int[];
+            pilot.IncreaseSalary(pilots[0], 100);
+            return this.RedirectToAction("Pilot", "Teams");
+        }
+
+        [Authorize]
+        public IActionResult IncreaseSalaryNavigator()
+        {
+            var navigators = TempData["Navigator"] as int[];
+            navigator.IncreaseSalary(navigators[0], 100);
+            return this.RedirectToAction("Navigator", "Teams");
+        }
+
+        [Authorize]
+        public IActionResult IncreaseSalaryFitter()
+        {
+            return this.RedirectToAction("Index", "Home");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+      
     }
 }

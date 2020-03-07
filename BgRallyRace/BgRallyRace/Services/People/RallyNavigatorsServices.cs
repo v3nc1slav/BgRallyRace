@@ -149,12 +149,14 @@ namespace BgRallyRace.Services
             var person = this.GetNavigator(id);
             person.Salary = person.Salary + variable;
             dbContext.SaveChanges();
+            this.IncreaseDevotion(id, 2);
         }
         public void DecreaseSalary(int id, int variable)
         {
             var person = this.GetNavigator(id);
             person.Salary = person.Salary - variable;
             dbContext.SaveChanges();
+            this.DecreaseDevotion(id, 2);
         }
         public void IncreaseConcentration(int id, int variable)
         {

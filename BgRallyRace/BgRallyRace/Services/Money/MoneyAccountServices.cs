@@ -1,13 +1,11 @@
-﻿using BgRallyRace.Data;
-using BgRallyRace.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BgRallyRace.Services
+﻿namespace BgRallyRace.Services
 {
+    using BgRallyRace.Data;
+    using BgRallyRace.Models;
+    using BgRallyRace.Models.Enums;
+    using BgRallyRace.Models.Money;
+    using System.Linq;
+    using System.Threading.Tasks;
     public class MoneyAccountServices : IMoneyAccountServices
     {
         private readonly ApplicationDbContext dbContext;
@@ -28,14 +26,16 @@ namespace BgRallyRace.Services
         {
             var dbUser = FindUserAsync(user);
             dbUser.Balance = (dbUser.Balance-expense);
-             dbContext.SaveChanges();
+            dbUser.FinancialStatistics.Add(new FinancialStatistics { Funds = FundsType.разход, Mone = expense });
+            dbContext.SaveChanges();
         }
 
         public void RevenueAccountAsync(decimal revenue, string user)
         {
-           var dbUser =  FindUserAsync(user);
+            var dbUser =  FindUserAsync(user);
             dbUser.Balance = (dbUser.Balance + revenue);
-             dbContext.SaveChanges();
+            dbUser.FinancialStatistics.Add(new FinancialStatistics{Funds=FundsType.приход, Mone =revenue });
+            dbContext.SaveChanges();
         }
 
         public  MoneyAccount? FindUserAsync( string user)

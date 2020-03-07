@@ -140,12 +140,14 @@ namespace BgRallyRace.Services
             var person = this.GetPilot(id);
             person.Result.Salary = person.Result.Salary + variable;
             dbContext.SaveChanges();
+            this.IncreaseDevotion(id, 2);
         }
         public void DecreaseSalary(int id, int variable)
         {
             var person = this.GetPilot(id);
             person.Result.Salary = person.Result.Salary - variable;
              dbContext.SaveChanges();
+            this.DecreaseDevotion(id, 2);
         }
         public void IncreaseReflexes(int id, int variable)
         {

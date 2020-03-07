@@ -11,10 +11,10 @@
     public class TrainingController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private ApplicationDbContext db { get; set; } = new ApplicationDbContext();
-        private IRallyPilotsServices pilot { get; set; } 
-        private IRallyNavigatorsServices navigator { get; set; }
-        public ITrainingServices training { get; set; }
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
+        private readonly IRallyPilotsServices pilot;
+        private readonly IRallyNavigatorsServices navigator;
+        private readonly ITrainingServices training;
 
         public TrainingController(ILogger<HomeController> logger, IRallyPilotsServices dbPilot, 
             IRallyNavigatorsServices dbNavigator, ITrainingServices dbTraining)

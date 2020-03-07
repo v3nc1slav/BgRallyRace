@@ -9,7 +9,7 @@
 
     public class DismissalController : Controller
     {
-        public IDismissalServices dismissal { get; set; }
+        private readonly IDismissalServices dismissal;
 
         public DismissalController(IDismissalServices dismissalServices)
         {
@@ -23,6 +23,7 @@
             dismissal.DismissalPilot(pilots[0]);
             return this.RedirectToAction("Pilot","Teams");
         }
+
         [Authorize]
         public IActionResult DismissalNavigator()
         {
@@ -30,6 +31,7 @@
             dismissal.DismissalNavigator(navigators[0]);
             return this.RedirectToAction("Navigator", "Teams");
         }
+
         [Authorize]
         public IActionResult DismissalFitter()
         {
