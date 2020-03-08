@@ -1,10 +1,38 @@
-﻿@foreach (var item in Model.Funds)
-{
-    <p>@item</p>
-}
+﻿<div class="form-group row">
+    <div class="col-sm-2">
+        <partial name="_LeftBarPartial" />
+    </div>
+    <div class="col-sm-8">
+        <div id="curve_chart" style="width: 900px; height: 500px"></div>
+    </div>
+    <div class="col-sm-2">
+        <partial name="_RightBarPartial" />
+    </div>
+</div>
 
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
 
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Day', 'Разход', 'Приход'],
+            ['1', 1000, 100],
+            ['2', 1170, 460],
+            ['3', 660, 1120],
+            ['4', 1030, 540],
+        ]);
 
+        var options = {
+            title: 'Финансов резултат',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
 
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
+        chart.draw(data, options);
+    }
+</script>

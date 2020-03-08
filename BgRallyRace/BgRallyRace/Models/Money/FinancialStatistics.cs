@@ -1,6 +1,7 @@
 ﻿namespace BgRallyRace.Models.Money
 {
     using BgRallyRace.Models.Enums;
+    using System;
     using System.ComponentModel.DataAnnotations;
     public class FinancialStatistics
     {
@@ -11,6 +12,10 @@
         public FundsType Funds { get; set; }
 
         [Required]
-        public decimal Mone { get; set; }
+        public DateTime Date { get; set; }
+
+        public decimal MoneExpense { get; set; }
+
+        public decimal MoneRevenue { get; set; }
     }
 }

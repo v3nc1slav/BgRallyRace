@@ -7,7 +7,9 @@
     {
         public List<FundsType> Funds { get; set; }
 
-        public decimal Money { get; set; }
+        public List<decimal> MoneExpense { get; set; }
+       
+        public List<decimal> MoneRevenue { get; set; }
 
         public decimal InitialBalance { get; set; }
 

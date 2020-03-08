@@ -19,11 +19,10 @@
         {
             var viewModel = new FinanceViewModels
             {
-                 Funds = finance.GetFunds(User.Identity.Name)
+                MoneExpense = finance.GetExpense(User.Identity.Name),
+                MoneRevenue = finance.GetRevenue(User.Identity.Name),
             };
             return this.View(viewModel);
         }
-
- 
     }
 }

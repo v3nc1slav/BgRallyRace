@@ -278,10 +278,16 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Funds")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Mone")
+                    b.Property<decimal>("MoneExpense")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MoneRevenue")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("MoneyAccountId")

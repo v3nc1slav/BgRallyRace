@@ -5,5 +5,9 @@
     public interface IFinanceServices
     {
         List<FundsType> GetFunds (string user);
+
+        List<decimal> GetExpense(string user);
+
+        List<decimal> GetRevenue(string user);
     }
 }
