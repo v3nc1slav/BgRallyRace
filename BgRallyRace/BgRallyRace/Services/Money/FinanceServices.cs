@@ -3,6 +3,7 @@
     using BgRallyRace.Data;
     using BgRallyRace.Models.Enums;
     using BgRallyRace.Models.Money;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -41,10 +42,17 @@
                  .ToList();
             for (int i = 0; i < statistic.Count; i++)
             {
-                var variable = statistic[i].Select(x => x.MoneExpense).ToList();
-                for (int j = 0; j < variable.Count; j++)
+                var variable = statistic[i].Where(x=>x.Date.Month == DateTime.UtcNow.Month).Select(x => x.MoneExpense).ToList();
+                for (int j = 1; j <= DateTime.UtcNow.Month; j++)
                 {
-                    expense.Add(variable[j]);
+                    if (variable[j] == null)
+                    {
+                        expense.Add(0);
+                    }
+                    else
+                    {
+                        expense.Add(variable[j]);
+                    }
                 }
             }
             return expense;
@@ -59,10 +67,17 @@
                  .ToList();
             for (int i = 0; i < statistic.Count; i++)
             {
-                var variable = statistic[i].Select(x => x.MoneRevenue).ToList();
-                for (int j = 0; j < variable.Count; j++)
+                var variable = statistic[i].Where(x => x.Date.Month == DateTime.UtcNow.Month).Select(x => x.MoneRevenue).ToList();
+                for (int j = 1; j <= DateTime.UtcNow.Month; j++)
                 {
-                    revenue.Add(variable[j]);
+                    if (variable[j] == null)
+                    {
+                        revenue.Add(0);
+                    }
+                    else
+                    {
+                        revenue.Add(variable[j]);
+                    }
                 }
             }
             return revenue;

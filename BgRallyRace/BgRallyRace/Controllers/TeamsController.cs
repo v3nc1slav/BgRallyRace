@@ -17,12 +17,12 @@ namespace BgRallyRace.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private ApplicationDbContext db { get; set; } = new ApplicationDbContext();
-        private IRallyPilotsServices pilot { get; set; } 
+        private IRallyPilotsServices pilot { get; set; }
         private IRallyNavigatorsServices navigator { get; set; }
 
-        public TeamsController(ILogger<HomeController> logger, IRallyPilotsServices dbPilot, 
-            IRallyNavigatorsServices dbNavigator )
-        { 
+        public TeamsController(ILogger<HomeController> logger, IRallyPilotsServices dbPilot,
+            IRallyNavigatorsServices dbNavigator)
+        {
             _logger = logger;
             pilot = dbPilot;
             navigator = dbNavigator;
@@ -35,7 +35,7 @@ namespace BgRallyRace.Controllers
             {
                 Pilots = pilot.GetPilots(User.Identity.Name)
             };
-            if (!(viewModel.Pilots[0]==null))
+            if (!(viewModel.Pilots[0] == null))
             {
                 TempData["Pilots"] = viewModel.Pilots.Select(x => x.Id).ToArray();
             }
@@ -58,7 +58,7 @@ namespace BgRallyRace.Controllers
 
         [Authorize]
         [HttpPost]
-        public  IActionResult CreateTeam(string textTeam)
+        public IActionResult CreateTeam(string textTeam)
         {
             var team = new TeamServices(db);
             team.CreateTeam(textTeam, User.Identity.Name);
@@ -66,18 +66,18 @@ namespace BgRallyRace.Controllers
         }
 
         [Authorize]
-        public IActionResult IncreaseSalarylPilot()
+        [HttpGet ]
+        public IActionResult IncreaseSalarylPilot(int id)
         {
-            var pilots = TempData["Pilots"] as int[];
-            pilot.IncreaseSalary(pilots[0], 100);
+            pilot.IncreaseSalary(id, 100);
             return this.RedirectToAction("Pilot", "Teams");
         }
 
         [Authorize]
-        public IActionResult IncreaseSalaryNavigator()
+        [HttpGet ]
+        public IActionResult IncreaseSalaryNavigator(int id)
         {
-            var navigators = TempData["Navigator"] as int[];
-            navigator.IncreaseSalary(navigators[0], 100);
+            navigator.IncreaseSalary(id, 100);
             return this.RedirectToAction("Navigator", "Teams");
         }
 

@@ -1,25 +1,32 @@
-﻿@{ if (ViewData["Title"] == "Pilot")
+﻿@{ if (ViewData["Title"] == "FirstPilot")
     {
         <p>
-            <div>
-                <a class="nav-link" asp-controller="Dismissal" asp-action="DismissalPilot">Освободи</a>
-            </div>
+            <button type="submit" class="btn btn-secondary"> @Html.ActionLink("Освободи", "DismissalPilot", "Dismissal", new { id = Model.Pilots[0].Id })</button>
         </p>
     }
-    else if (ViewData["Title"] == "Navigator")
+    else if (ViewData["Title"] == "SecandPilot")
     {
         <p>
-            <div>
-                <a class="nav-link" asp-controller="Dismissal" asp-action="DismissalNavigator">Освободи</a>
-            </div>
+            <button type="submit" class="btn btn-secondary"> @Html.ActionLink("Освободи", "DismissalPilot", "Dismissal", new { id = Model.Pilots[1].Id })</button>
         </p>
     }
-    else
+    else if (ViewData["Title"] == "FirstNavigator")
     {
         <p>
-            <div>
-                <a class="nav-link " asp-controller="Dismissal" asp-action="DismissalFitter">Освободи</a>
-            </div>
+            <button type="submit" class="btn btn-secondary"> @Html.ActionLink("Освободи", "DismissalNavigator", "Dismissal", new { id = Model.Navigators[0].Id })</button>
+        </p>
+    }
+    else if (ViewData["Title"] == "SecandNavigator")
+    {
+        <p>
+            <button type="submit" class="btn btn-secondary"> @Html.ActionLink("Освободи", "DismissalNavigator", "Dismissal", new { id = Model.Navigators[1].Id })</button>
+        </p>
+    }
+
+    else if (ViewData["Title"] == "..")//ToDo
+    {
+        <p>
+            <button type="submit" class="btn btn-secondary"> @Html.ActionLink("Освободи", "DismissalFitter", "Dismissal", new { id = 0 })</button>
         </p>
     }
 }
