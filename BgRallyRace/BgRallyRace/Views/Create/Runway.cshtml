@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Runway";
+}
+
+<div class="form-group row">
+    <div class="col-sm-2">
+        <partial name="_LeftBarPartial" />
+    </div>
+    <div class="col-sm-8">
+        <a class=" background">
+                <p>Създаване на писта</p>
+            <form asp-controller="Create" asp-action="CreateRunway" method="post" class="form-group">
+                <p> Име на пистата <textarea class="form-check-inline" name="name" cols="50" rows="1"></textarea></p>
+                <p> Дължина на пистата <textarea class="form-check-inline" name="length" cols="50" rows="1"></textarea></p>
+                <p> Трудност на пистата <textarea class="form-check-inline" name="difficulty" cols="50" rows="1"></textarea></p>
+                <p> Описание <textarea class="form-check-inline" name="description" cols="50" rows="10"></textarea></p>
+                <button type="submit" class="btn btn-secondary">Създай</button>
+            </form>
+        </a>
+    </div>
+    <div class="col-sm-2">
+        <partial name="_RightBarPartial" />
+    </div>
+</div>

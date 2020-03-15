@@ -18,42 +18,59 @@
 
     function drawChart() {
 
-        var a = @Model.MoneExpense;
-        var b = @Model.MoneRevenue;
+        //var a = @Model.MoneExpense;
+        //var bbb = @Model.MoneRevenue;
         var data = new google.visualization.DataTable();
         data.addColumn('number', 'Дни');
         data.addColumn('number', 'Приходи   ');
         data.addColumn('number', 'Разходи   ');
 
-        for (let i = 0; i < @Model.MoneExpense.cocontinue; i++) {
-            data.addRows([
-                [i, a[i], b[i]]
-                ]);
-        }
-       // data.addRows([
-       //     [1, 37.8, 80.8],
-       //     [2, 30.9, 69.5],
-       //     [3, 25.4, 57],
-       //     [4, 11.7, 18.8],
-       //     [5, 11.9, 17.6],
-       //     [6, 8.8, 13.6],
-       //     [7, 7.6, 12.3],
-       //     [8, 12.3, 29.2],
-       //     [9, 16.9, 42.9],
-       //     [10, 12.8, 30.9],
-       //     [11, 5.3, 7.9],
-       //     [12, 6.6, 8.4],
-       //     [13, 4.8, 6.3],
-       //     [14, 4.2, 6.2]
-       // ]);
+       //for (let i = 1; i <= 31; i++) {
+       //    data.addRows([
+       //        [i, a[i], a[i]]
+       //        ]);
+       //}
+        data.addRows([
+            [1, @Model.MoneRevenue[0],  @Model.MoneExpense[0]], 
+            [2, @Model.MoneRevenue[1],  @Model.MoneExpense[1]], 
+            [3, @Model.MoneRevenue[2],  @Model.MoneExpense[2]], 
+            [4, @Model.MoneRevenue[3],  @Model.MoneExpense[3]], 
+            [5, @Model.MoneRevenue[4],  @Model.MoneExpense[4]], 
+            [6, @Model.MoneRevenue[5],  @Model.MoneExpense[5]], 
+            [7, @Model.MoneRevenue[6],  @Model.MoneExpense[6]], 
+            [8, @Model.MoneRevenue[7],  @Model.MoneExpense[7]], 
+            [9, @Model.MoneRevenue[8],  @Model.MoneExpense[8]], 
+            [10,@Model.MoneRevenue[9],  @Model.MoneExpense[9]], 
+            [11,@Model.MoneRevenue[10], @Model.MoneExpense[10]],
+            [12,@Model.MoneRevenue[11], @Model.MoneExpense[11]],
+            [13,@Model.MoneRevenue[12], @Model.MoneExpense[12]],
+            [14,@Model.MoneRevenue[13], @Model.MoneExpense[13]],
+            [15,@Model.MoneRevenue[14], @Model.MoneExpense[14]],
+            [16,@Model.MoneRevenue[15], @Model.MoneExpense[15]],
+            [17,@Model.MoneRevenue[16], @Model.MoneExpense[16]],
+            [18,@Model.MoneRevenue[17], @Model.MoneExpense[17]],
+            [19,@Model.MoneRevenue[18], @Model.MoneExpense[18]],
+            [20,@Model.MoneRevenue[19], @Model.MoneExpense[19]],
+            [21,@Model.MoneRevenue[20], @Model.MoneExpense[20]],
+            [22,@Model.MoneRevenue[21], @Model.MoneExpense[21]],
+            [23,@Model.MoneRevenue[22], @Model.MoneExpense[22]],
+            [24,@Model.MoneRevenue[23], @Model.MoneExpense[23]],
+            [25,@Model.MoneRevenue[24], @Model.MoneExpense[24]],
+            [26,@Model.MoneRevenue[25], @Model.MoneExpense[25]],
+            [27,@Model.MoneRevenue[26], @Model.MoneExpense[26]],
+            [28,@Model.MoneRevenue[27], @Model.MoneExpense[27]],
+            [29,@Model.MoneRevenue[28], @Model.MoneExpense[28]],
+            [30,@Model.MoneRevenue[29], @Model.MoneExpense[29]]
+        ]);                                                
 
         var options = {
             chart: {
                 title: 'Финансов резултат',
+                subtitle: 'Общи Приходи @Model.MoneRevenue[0] Общи Разходи @Model.MoneExpense[0]',
                 curveType: 'function',
                 legend: { position: 'bottom' }
             },
-            width: 900,
+            width: 950,
             height: 500,
             axes: {
                 x: {

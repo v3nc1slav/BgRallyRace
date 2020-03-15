@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BgRallyRace.Models
 {
-    public class RallyTracks
+    public class RallyRunway
     {
         [Key]
         public int Id { get; set; }
@@ -26,6 +26,6 @@ namespace BgRallyRace.Models
 
         public int? CompetitionsRallyTracksId { get; set; }
 
-        public ICollection< CompetitionsRallyTracks>? CompetitionsRallyTracks { get; set; }  = new HashSet<CompetitionsRallyTracks>();
+        public ICollection< CompetitionsRallyRunway>? CompetitionsRallyTracks { get; set; }  = new HashSet<CompetitionsRallyRunway>();
     }
 }

@@ -42,17 +42,19 @@
                  .ToList();
             for (int i = 0; i < statistic.Count; i++)
             {
-                var variable = statistic[i].Where(x=>x.Date.Month == DateTime.UtcNow.Month).Select(x => x.MoneExpense).ToList();
-                for (int j = 1; j <= DateTime.UtcNow.Month; j++)
+                var variable = statistic[i].Where(x=>x.Date.Month == DateTime.UtcNow.Month).Select(x => new { x.MoneExpense, x.Date }).ToList();
+                for (int j = 0; j < DateTime.DaysInMonth(DateTime.UtcNow.Year, DateTime.UtcNow.Month); j++)
                 {
-                    if (variable[j] == null)
+                    for (int k = 0; k < variable.Count; k++)
                     {
-                        expense.Add(0);
+                        if (int.Parse(variable[k].Date.Day.ToString()) == (j+1))
+                        {
+                            expense.Add(variable[k].MoneExpense);
+                            goto Found;
+                        }
                     }
-                    else
-                    {
-                        expense.Add(variable[j]);
-                    }
+                            expense.Add((decimal)0.00);
+                Found:;
                 }
             }
             return expense;
@@ -67,17 +69,19 @@
                  .ToList();
             for (int i = 0; i < statistic.Count; i++)
             {
-                var variable = statistic[i].Where(x => x.Date.Month == DateTime.UtcNow.Month).Select(x => x.MoneRevenue).ToList();
-                for (int j = 1; j <= DateTime.UtcNow.Month; j++)
+                var variable = statistic[i].Where(x => x.Date.Month == DateTime.UtcNow.Month).Select(x => new { x.MoneRevenue, x.Date }).ToList();
+                for (int j = 0; j < DateTime.DaysInMonth(DateTime.UtcNow.Year, DateTime.UtcNow.Month); j++)
                 {
-                    if (variable[j] == null)
+                    for (int k = 0; k < variable.Count; k++)
                     {
-                        revenue.Add(0);
+                        if (int.Parse(variable[k].Date.Day.ToString()) == (j + 1))
+                        {
+                            revenue.Add(variable[k].MoneRevenue);
+                            goto Found;
+                        }
                     }
-                    else
-                    {
-                        revenue.Add(variable[j]);
-                    }
+                    revenue.Add((decimal)0.00);
+                Found:;
                 }
             }
             return revenue;

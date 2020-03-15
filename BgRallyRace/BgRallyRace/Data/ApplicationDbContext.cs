@@ -21,7 +21,7 @@
         public DbSet<Opinions> Opinions { get; set; }
         public DbSet<UserRequest> UserRequests { get; set; }
         public DbSet<Competitions> Competitions { get; set; }
-        public DbSet<RallyTracks> RallyTracks { get; set; }
+        public DbSet<RallyRunway> RallyRunways { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<MoneyAccount> MoneyAccount { get; set; }
         public DbSet<RallyPilots> RallyPilots { get; set; }
@@ -36,7 +36,7 @@
         public DbSet<ModelsCars> ModelsCars { get; set; }
         public DbSet<Mountings> Mountings { get; set; }
         public DbSet<Turbo> Turbos { get; set; }
-        public DbSet<CompetitionsRallyTracks> CompetitionsRallyTracks { get; set; }
+        public DbSet<CompetitionsRallyRunway> CompetitionsRallyRunway { get; set; }
         public DbSet<FirstNames> FirstNames { get; set; }
         public DbSet<LastNames> LastNames { get; set; }
         public DbSet<FinancialStatistics> FinancialStatistics { get; set; }
@@ -58,7 +58,7 @@
                 .WithMany(s => s.CompetitionsTeams)
                 .HasForeignKey(sc => sc.TeamId);
 
-           builder.Entity<CompetitionsRallyTracks>().HasKey(sc => new { sc.CompetitionsId, sc.RallyTracksId });
+           builder.Entity<CompetitionsRallyRunway>().HasKey(sc => new { sc.CompetitionsId, sc.RallyRunwayId });
 
 
 

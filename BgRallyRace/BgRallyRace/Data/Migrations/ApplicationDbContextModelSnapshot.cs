@@ -142,7 +142,7 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CompetitionsRallyTracksId")
+                    b.Property<int?>("CompetitionsRallyRunwayId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -160,19 +160,19 @@ namespace BgRallyRace.Migrations
                     b.ToTable("Competitions");
                 });
 
-            modelBuilder.Entity("BgRallyRace.Models.CompetitionsRallyTracks", b =>
+            modelBuilder.Entity("BgRallyRace.Models.CompetitionsRallyRunway", b =>
                 {
                     b.Property<int>("CompetitionsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RallyTracksId")
+                    b.Property<int>("RallyRunwayId")
                         .HasColumnType("int");
 
-                    b.HasKey("CompetitionsId", "RallyTracksId");
+                    b.HasKey("CompetitionsId", "RallyRunwayId");
 
-                    b.HasIndex("RallyTracksId");
+                    b.HasIndex("RallyRunwayId");
 
-                    b.ToTable("CompetitionsRallyTracks");
+                    b.ToTable("CompetitionsRallyRunway");
                 });
 
             modelBuilder.Entity("BgRallyRace.Models.CompetitionsTeams", b =>
@@ -531,7 +531,7 @@ namespace BgRallyRace.Migrations
                     b.ToTable("RallyPilots");
                 });
 
-            modelBuilder.Entity("BgRallyRace.Models.RallyTracks", b =>
+            modelBuilder.Entity("BgRallyRace.Models.RallyRunway", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -557,7 +557,7 @@ namespace BgRallyRace.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RallyTracks");
+                    b.ToTable("RallyRunways");
                 });
 
             modelBuilder.Entity("BgRallyRace.Models.RandomName.FirstNames", b =>
@@ -935,17 +935,17 @@ namespace BgRallyRace.Migrations
                         .HasForeignKey("BgRallyRace.Models.Cars", "TurboId");
                 });
 
-            modelBuilder.Entity("BgRallyRace.Models.CompetitionsRallyTracks", b =>
+            modelBuilder.Entity("BgRallyRace.Models.CompetitionsRallyRunway", b =>
                 {
                     b.HasOne("BgRallyRace.Models.Competitions", "Competition")
-                        .WithMany("CompetitionsRallyTracks")
+                        .WithMany("CompetitionsRallyRunway")
                         .HasForeignKey("CompetitionsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BgRallyRace.Models.RallyTracks", "RallyTrack")
+                    b.HasOne("BgRallyRace.Models.RallyRunway", "RallyRunway")
                         .WithMany("CompetitionsRallyTracks")
-                        .HasForeignKey("RallyTracksId")
+                        .HasForeignKey("RallyRunwayId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

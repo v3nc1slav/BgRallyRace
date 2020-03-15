@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Runway";
+}
+
+<div class="form-group row">
+    <div class="col-sm-2">
+        <partial name="_LeftBarPartial" />
+    </div>
+    <div class="col-sm-8">
+        <a class=" background">
+                <p>Създаване на пилот</p>
+                <form asp-controller="Create" asp-action="CreatePilot" method="post" class="form-group">
+                    <p> Първо име <textarea class="form-check-inline" name="firstName" cols="50" rows="1"></textarea></p>
+                    <p> Фамилия <textarea class="form-check-inline" name="lastName" cols="50" rows="1"></textarea></p>
+                    <p> Години <textarea class="form-check-inline" name="age" cols="50" rows="1"></textarea></p>
+                    <p> Концентрация <textarea class="form-check-inline" name="concentration" cols="50" rows="1"></textarea></p>
+                    <p> Опит <textarea class="form-check-inline" name="experience" cols="50" rows="1"></textarea></p>
+                    <p> Енергия <textarea class="form-check-inline" name="energy" cols="50" rows="1"></textarea></p>
+                    <p> Преданост <textarea class="form-check-inline" name="devotion" cols="50" rows="1"></textarea></p>
+                    <p> Физическо състояние <textarea class="form-check-inline" name="physicalTraining" cols="50" rows="1"></textarea></p>
+                    <p> Килограми <textarea class="form-check-inline" name="pounds" cols="50" rows="1"></textarea></p>
+                    <p> Заплата <textarea class="form-check-inline" name="salary" cols="50" rows="1"></textarea></p>
+                    <p> Рефлекс <textarea class="form-check-inline" name="reflexes" cols="50" rows="1"></textarea></p>
+                    <button type="submit" class="btn btn-secondary">Създай</button>
+                </form>
+        </a>
+    </div>
+    <div class="col-sm-2">
+        <partial name="_RightBarPartial" />
+    </div>
+</div>
