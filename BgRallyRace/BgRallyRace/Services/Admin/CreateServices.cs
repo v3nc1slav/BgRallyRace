@@ -1,4 +1,4 @@
-﻿namespace BgRallyRace.Services.Create
+﻿namespace BgRallyRace.Services.Admin
 {
     using BgRallyRace.Data;
     using BgRallyRace.Models;

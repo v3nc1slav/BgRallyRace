@@ -3,16 +3,21 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
     using BgRallyRace.Models.Enums;
-    using BgRallyRace.Services.Create;
+    using BgRallyRace.Services.Admin;
+    using BgRallyRace.Services;
+    using BgRallyRace.ViewModels;
 
     //[Authorize(Roles = "Administrator")]
-    public class CreateController : Controller
+    public class AdminController : Controller
     {
         private readonly ICreateServices create;
 
-        public CreateController(ICreateServices createServices)
+        private readonly IOpinionsServices opinions;
+
+        public AdminController(ICreateServices createServices, IOpinionsServices opinionsServices)
         {
             this.create = createServices;
+            this.opinions = opinionsServices;
         }
 
         public IActionResult Runway()
@@ -24,7 +29,7 @@
         public IActionResult CreateRunway(string name, decimal length, DifficultyType difficulty, string description)
         {
             create.CreateRunwayServices(name, length, difficulty, description);
-            return RedirectToAction("Runway", "Create");
+            return RedirectToAction("Runway", "Admin");
         }
 
         public IActionResult Pilot()
@@ -38,7 +43,26 @@
         {
             create.CreatePilotServices(firstName, lastName, age, concentration, experience, energy, devotion, physicalTraining,
                 pounds, salary, reflexes);
-            return RedirectToAction("Pilot", "Create");
+            return RedirectToAction("Pilot", "Admin");
+        }
+
+        public IActionResult Opinions()
+        {
+            var viewModel = new OpinionsViewModels
+            {
+                OpinionsForAdmin = opinions.GetOpinionsForAdmin()
+            };
+
+            return this.View(viewModel);
+        }
+
+
+        [HttpPost]
+        public IActionResult AuthorizationOpinions(int[] opinionsVisible, int[] opinionsInvisible)
+        {
+            opinions.MadeOpinionsVisible(opinionsVisible);
+            opinions.MadeOpinionsInvisible(opinionsInvisible);
+            return RedirectToAction("Opinions", "Admin");
         }
     }
 }

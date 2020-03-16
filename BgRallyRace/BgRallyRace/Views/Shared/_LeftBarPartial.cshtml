@@ -1,27 +1,23 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using BgRallyRace.Services;
-@using BgRallyRace.Data;
-
-    <div class="leftBackground">
-        <button class="dropdown-btn">
-            Екип
-            <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-container">
-            <p><a asp-controller="Teams" asp-action="Pilot">Пилот</a></p>
-            <p><a asp-controller="Teams" asp-action="Navigator">Навигатор</a></p>
-        </div>
+﻿
+<div class="leftBackground">
+    <button class="dropdown-btn">
+        Екип
+        <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-container">
+        <p><a asp-controller="Teams" asp-action="Pilot">Пилот</a></p>
+        <p><a asp-controller="Teams" asp-action="Navigator">Навигатор</a></p>
     </div>
+</div>
 
 <div class="leftBackground">
     <p>Състезание</p>
 </div>
 
+
 @if (true)
 {
-<div class="leftBackground">
-    <p><a asp-controller="Create" asp-action="Runway">Създай писта</a></p>
-    <p><a asp-controller="Create" asp-action="....">Създай Състезание</a></p>
-    <p><a asp-controller="Create" asp-action="Pilot">Създай Пилот</a></p>
-</div>
+    <div class="leftBackground">
+        <p><a asp-controller="Admin" asp-action="Opinions">Оторизация на мнения</a></p>
+    </div>
 }

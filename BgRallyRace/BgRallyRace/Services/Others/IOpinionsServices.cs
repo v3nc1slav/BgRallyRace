@@ -1,14 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BgRallyRace.Services
+﻿namespace BgRallyRace.Services
 {
+    using BgRallyRace.Models;
+
     public interface IOpinionsServices
     {
         void AddOpinionAsync(string text, string user);
-        string[] GetOpinions();
 
+        Opinions[] GetOpinions();
+
+        Opinions[] GetOpinionsForAdmin();
+
+        void MadeOpinionsInvisible(int[] id);
+
+        void MadeOpinionsVisible(int[] id);
     }
 }

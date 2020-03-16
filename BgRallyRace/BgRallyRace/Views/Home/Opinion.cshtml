@@ -1,7 +1,4 @@
-﻿@using BgRallyRace.Services;
-@using BgRallyRace.Data;
-@using BgRallyRace;
-@{
+﻿@{
     ViewData["Title"] = "Opinion";
 }
 
@@ -13,10 +10,12 @@
 {
     <p>
         <div class="background" id="backgroundOthers">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">@opinion.User</h5>
+                <small class="text-muted">@opinion.DateOfPublication  &times;</small>
+            </div>
             <div class="alert alert-dismissible alert-secondary">
-
-                @opinion
-
+                @opinion.Content
             </div>
         </div>
     </p>

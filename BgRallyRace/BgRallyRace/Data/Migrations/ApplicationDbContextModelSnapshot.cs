@@ -364,10 +364,16 @@ namespace BgRallyRace.Migrations
                     b.Property<DateTime>("DateOfPublication")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("User")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("authorizationOpinions")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

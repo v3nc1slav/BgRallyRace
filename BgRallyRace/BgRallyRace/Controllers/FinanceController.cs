@@ -21,6 +21,8 @@
             {
                 MoneExpense = finance.GetExpense(User.Identity.Name),
                 MoneRevenue = finance.GetRevenue(User.Identity.Name),
+                TotalExpense = finance.GetTotalExpense(User.Identity.Name),
+                TotalRevenue = finance.GetTotalRevenue(User.Identity.Name),
             };
             return this.View(viewModel);
         }

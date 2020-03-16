@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "OpinionsForAdmin";
+}
+
+<div class="form-group row">
+    <div class="col-sm-2">
+        <partial name="_LeftBarPartial" />
+    </div>
+    <div class="col-sm-8">
+        <a class=" background">
+            <p>Оторизация на мнения</p>
+            <br />
+            @{ if (Model.OpinionsForAdmin.Length == 0)
+                {
+                        <p>Няма за Оторизация</p>
+                }
+                else
+                {
+                    <form asp-controller="Admin" asp-action="AuthorizationOpinions" method="post" class="form-group">
+                        @foreach (var item in Model.OpinionsForAdmin)
+                        {
+                            <p>
+                                <div class="background" id="backgroundOthers">
+                                    <div class="alert alert-dismissible alert-secondary">
+                                        @item.Content
+                                    </div>
+                                    <input type="checkbox" id="opinionsVisible" name="opinionsVisible" value=@item.Id>
+                                    <label for="opinionsVisible">Да</label>
+                                    <input type="checkbox" id="opinionsInvisible" name="opinionsInvisible" value=@item.Id>
+                                    <label for="opinionsInvisible">Не</label>
+                                </div>
+                            </p>
+                        }
+                        <button type="submit" class="btn btn-secondary">Оторизация</button>
+                    </form>
+                }
+                }
+        </a>
+    </div>
+    <div class="col-sm-2">
+        <partial name="_RightBarPartial" />
+    </div>
+</div>

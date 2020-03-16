@@ -20,7 +20,8 @@ namespace BgRallyRace.Services
         public List<RallyNavigators> GetNavigators(string user)
 #pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         {
-            var navigator = dbContext.Teams.Where(t => t.User == user).Select(x => x.RallyNavigator).ToList();
+            int timeId = dbContext.Teams.Where(t => t.User == user).Select(t => t.Id).First();
+            var navigator = dbContext.RallyNavigators.Where(x => x.TeamId == timeId).ToList();
             return navigator;
         }
 
@@ -37,11 +38,11 @@ namespace BgRallyRace.Services
             Random rnd = new Random();
             int first = rnd.Next(1, 100);
             int last = rnd.Next(1, 100);
-            var  firstName =  dbContext.FirstNames.Select(x=>new { x.FirstName, x.Id })
+            var firstName = dbContext.FirstNames.Select(x => new { x.FirstName, x.Id })
                 .FirstOrDefault(x => x.Id == first);
-            var lastName =  dbContext.LastNames.Select(x => new { x.LastName, x.Id })
+            var lastName = dbContext.LastNames.Select(x => new { x.LastName, x.Id })
                 .FirstOrDefault(x => x.Id == last);
-           var rallyNavigator =   dbContext.RallyNavigators.Add(new RallyNavigators
+            var rallyNavigator = dbContext.RallyNavigators.Add(new RallyNavigators
             {
                 FirstName = firstName.FirstName,
                 LastName = lastName.LastName,
@@ -56,7 +57,7 @@ namespace BgRallyRace.Services
                 Pounds = 80,
             });
 
-             dbContext.SaveChanges();
+            dbContext.SaveChanges();
             var id = rallyNavigator.Entity.Id;
             return id;
         }

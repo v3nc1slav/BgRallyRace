@@ -9,5 +9,9 @@
         List<decimal> GetExpense(string user);
 
         List<decimal> GetRevenue(string user);
+
+        decimal GetTotalExpense(string user);
+
+        decimal GetTotalRevenue(string user);
     }
 }

@@ -13,7 +13,7 @@ namespace BgRallyRace
     using BgRallyRace.Services.Training;
     using BgRallyRace.Services.Dismissal;
     using BgRallyRace.Services.Money;
-    using BgRallyRace.Services.Create;
+    using BgRallyRace.Services.Admin;
 
     public class Startup
     {

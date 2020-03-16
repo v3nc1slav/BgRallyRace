@@ -21,8 +21,9 @@ namespace BgRallyRace.Services
         public List<RallyPilots> GetPilots(string user)
 #pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
         {
-            var pilot = dbContext.Teams.Where(t => t.User == user).Select(x => x.RallyPilot).ToList();
-            return pilot;
+            int timeId = dbContext.Teams.Where(t => t.User == user).Select(t => t.Id).First();
+            var pilots = dbContext.RallyPilots.Where(x => x.TeamId == timeId).ToList();
+            return pilots;
         }
         public int CreateRallyPilotsAsync()
         {

@@ -1,8 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using BgRallyRace.Services;
-@using BgRallyRace.Data;
-
-<div class="RightBackground">
+﻿<div class="RightBackground">
     <p>Статистика</p>
     <p><a asp-controller="Finance" asp-action="FinancialStatistics">Финанси</a></p>
 </div>
@@ -18,6 +14,16 @@
         <p><a asp-controller="Market" asp-action="MarketForParts">за Части</a></p>
     </div>
 </div>
+
+
+@if (true)
+{
+    <div class="leftBackground">
+        <p><a asp-controller="Admin" asp-action="Runway">Създай писта</a></p>
+        <p><a asp-controller="Admin" asp-action="....">Създай Състезание</a></p>
+        <p><a asp-controller="Admin" asp-action="Pilot">Създай Пилот</a></p>
+    </div>
+}
 
 <script>
     var acc = document.getElementsByClassName("nav-item dropdown");

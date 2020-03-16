@@ -34,5 +34,14 @@
             team.RallyPilotId = id;
             money.ExpenseAccountAsync(expense, user);
         }
+
+        public void RentalsNavigator(int id, string user, decimal expense)
+        {
+            var pilot = dbContext.RallyNavigators.Where(x => x.Id == id).FirstOrDefault();
+            var team = dbContext.Teams.Where(x => x.User == user).FirstOrDefault();
+            pilot.TeamId = team.Id;
+            team.RallyNavigatorId = id;
+            money.ExpenseAccountAsync(expense, user);
+        }
     }
 }

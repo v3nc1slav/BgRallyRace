@@ -1,7 +1,4 @@
-﻿@using BgRallyRace.Services;
-@using BgRallyRace.Data;
-@using BgRallyRace;
-@{
+﻿@{
     ViewData["Title"] = "Pilot";
 }
 <div class="form-group row">
@@ -26,8 +23,12 @@
             }
             else
             {
-                <partial name="_FirstPilotPartial" />
-                <partial name="_SecandPilotPartial" />
+                <div id="FirstPilot" class="teamTabcontent">
+                    <partial name="_FirstPilotPartial" />
+                </div>
+                <div id="SecandPilot" class="teamTabcontent">
+                    <partial name="_SecandPilotPartial" />
+                </div>
             }
         }
     </div>

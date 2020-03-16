@@ -4,38 +4,42 @@
 @{
     ViewData["Title"] = "Navigator";
 }
-    <div class="form-group row">
-        <div class="col-sm-2">
-            <partial name="_LeftBarPartial" />
-        </div>
-        <div class="col-sm-8">
-            <div class="teamTab">
-                <button class="teamTablink" onclick="openPage('FirstNavigator', this, 'green')" id="defaultOpen">Първи навигатор</button>
-                <button class="teamTablink" onclick="openPage('SecandNavigator', this, 'green')">Втори навигатор</button>
-            </div>
-
-            @{ if (Model.Navigators[0] == null)
-                {
-                    <div id="FirstNavigator" class="teamTabcontent">
-                        <h3>Нямате навигатор</h3>
-                        <h5>Идете на пазара и си наемете</h5>
-                    </div>
-                    <div id="SecandNavigator" class="teamTabcontent">
-                        <h3>Нямате навигатор</h3>
-                        <h5>Идете на пазара и си наемете</h5>
-                    </div>
-                }
-                else
-                {
-                    <partial name="_FirstNavigatorPartial" />
-                    <partial name="_SecandNavigatorPartial" />
-                }
-            }
-        </div>
-        <div class="col-sm-2">
-            <partial name="_RightBarPartial" />
-        </div>
+<div class="form-group row">
+    <div class="col-sm-2">
+        <partial name="_LeftBarPartial" />
     </div>
+    <div class="col-sm-8">
+        <div class="teamTab">
+            <button class="teamTablink" onclick="openPage('FirstNavigator', this, 'green')" id="defaultOpen">Първи навигатор</button>
+            <button class="teamTablink" onclick="openPage('SecandNavigator', this, 'green')">Втори навигатор</button>
+        </div>
+
+        @{ if (Model.Navigators[0] == null)
+            {
+                <div id="FirstNavigator" class="teamTabcontent">
+                    <h3>Нямате навигатор</h3>
+                    <h5>Идете на пазара и си наемете</h5>
+                </div>
+                <div id="SecandNavigator" class="teamTabcontent">
+                    <h3>Нямате навигатор</h3>
+                    <h5>Идете на пазара и си наемете</h5>
+                </div>
+            }
+            else
+            {
+                <div id="FirstNavigator" class="teamTabcontent">
+                    <partial name="_FirstNavigatorPartial" />
+                </div>
+                <div id="SecandNavigator" class="teamTabcontent">
+                    <partial name="_SecandNavigatorPartial" />
+                </div>
+            }
+        }
+    </div>
+    <div class="col-sm-2">
+        <partial name="_RightBarPartial" />
+    </div>
+</div>
 
 <script>
     function openPage(pageName, elmnt, color) {

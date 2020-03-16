@@ -4,8 +4,6 @@
     using Microsoft.AspNetCore.Mvc;
     using BgRallyRace.Models;
     using Microsoft.AspNetCore.Authorization;
-    using BgRallyRace.Data;
-    using BgRallyRace.Services;
     using Microsoft.AspNetCore.Http;
     using BgRallyRace.ViewModels;
     using BgRallyRace.Services.Market;
@@ -51,6 +49,13 @@
         {
             market.RentalsPilot(id, User.Identity.Name, 1000);
             return this.RedirectToAction("Pilot", "Teams");
+        }
+
+        [Authorize]
+        public IActionResult RentalsNavigator(int id)
+        {
+            market.RentalsNavigator(id, User.Identity.Name, 1000);
+            return this.RedirectToAction("Navigator", "Teams");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
