@@ -1,4 +1,4 @@
-﻿<form asp-controller="Training" asp-action=Training method="post" class="form-group">
+﻿<form asp-controller="Training" asp-action=Training  method="post" class="form-group" >
     <table class="table table-hover">
         <thead>
             <tr class="table">
@@ -23,42 +23,72 @@
                 <th scope="row">Йога</th>
                 <td>100лв.</td>
             </tr>
-            @{ if (ViewData["Title"] == "Pilot")
+            @{ if (ViewData["Title"] == "FirstPilot" || ViewData["Title"] == "SecandPilot")
                 {
                     <tr>
                         <th scope="row">Скуош</th>
                         <td>800лв.</td>
                     </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td></td>
+                    </tr>
                 }
-                else if (ViewData["Title"] == "Navigator")
+                else if (ViewData["Title"] == "SecandNavigator" || ViewData["Title"] == "SecandNavigator" )
                 {
                     <tr>
                         <th scope="row">Interview</th>
                         <td>800лв.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td></td>
                     </tr>
                 }
             }
         </tbody>
         <tfoot>
             Избор на тренировка
-            <select class="normal" name="SessionType" id="SessionType" name="values">
-                <option value="Fitness" selected="">Фитнес</option>
-                <option value="Yoga">Йога</option>
-                <option value="TeamBuilding">Тиймбилдинг</option>
-                <option value="Spa">Спа почивка</option>
-                @{ if (ViewData["Title"] == "Pilot")
+            <select class="normal" name="sessionType" id="SessionType">
+                <option value="Fitness 100" selected="">Фитнес</option>
+                <option value="Yoga 100">Йога</option>
+                <option value="TeamBuilding 700">Тиймбилдинг</option>
+                <option value="Spa 1000">Спа почивка</option>
+                @{ if (ViewData["Title"] == "FirstPilot" || ViewData["Title"] == "SecandPilot")
                     {
-                        <option value="Squash">Скуош</option>
+                        <option value="Squash 800">Скуош</option>
                     }
-                    else if (ViewData["Title"] == "Navigator")
+                    else if (ViewData["Title"] == "SecandNavigator" || ViewData["Title"] == "SecandNavigator" )
                     {
-                        <option value="Interview">Interview</option>
+                        <option value="Interview 800">Interview</option>
                     }
                 }
             </select>
         </tfoot>
     </table>
-    <button type="submit" class="btn btn-secondary">Тренировка</button>
+    @{ if (ViewData["Title"] == "FirstPilot")
+        {
+        <button type="submit" class="btn btn-secondary" name="type" value="Pilot @Model.Pilots[0].Id" }>
+            Тренировка
+        </button>
+        }
+        else if (ViewData["Title"] == "SecandPilot")
+        {
+            <button type="submit" class="btn btn-secondary" name="type" value="Pilot @Model.Pilots[1].Id">Тренировка</button>
+        }
+        else if (ViewData["Title"] == "FirstNavigator")
+        {
+            <button type="submit" class="btn btn-secondary" name="type" value="Navigator @Model.Navigators[0].Id">Тренировка</button>
+        }
+        else if (ViewData["Title"] == "SecandNavigator")
+        {
+            <button type="submit" class="btn btn-secondary" name="type" value="Navigator @Model.Navigators[1].Id">Тренировка</button>
+        }
+        else if (ViewData["Title"] == "..")//ToDo
+        {
+            <button type="submit" class="btn btn-secondary">Тренировка</button>
+        }
+    }
 </form>
 
 

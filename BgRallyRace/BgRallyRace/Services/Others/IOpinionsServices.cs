@@ -13,5 +13,9 @@
         void MadeOpinionsInvisible(int[] id);
 
         void MadeOpinionsVisible(int[] id);
+
+        public int GetCountNotAuthorization();
+
+        void DeleteOpinion(int id);
     }
 }

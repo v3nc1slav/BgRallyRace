@@ -8,5 +8,7 @@
 
         public Opinions[] OpinionsForAdmin { get; set; }
 
+        public int CountNotAuthorization { get; set; }
+
     }
 }

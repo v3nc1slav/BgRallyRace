@@ -28,7 +28,7 @@
         [HttpPost]
         public IActionResult CreateRunway(string name, decimal length, DifficultyType difficulty, string description)
         {
-            create.CreateRunwayServices(name, length, difficulty, description);
+            create.CreateRunway(name, length, difficulty, description);
             return RedirectToAction("Runway", "Admin");
         }
 
@@ -41,16 +41,31 @@
         public IActionResult CreatePilot(string? firstName, string? lastName, int age, int concentration, int experience,
             int energy, int devotion, int physicalTraining, int pounds, int salary, int reflexes)
         {
-            create.CreatePilotServices(firstName, lastName, age, concentration, experience, energy, devotion, physicalTraining,
+            create.CreatePilot(firstName, lastName, age, concentration, experience, energy, devotion, physicalTraining,
                 pounds, salary, reflexes);
             return RedirectToAction("Pilot", "Admin");
+        }
+
+        public IActionResult Navigator()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateNavigator(string? firstName, string? lastName, int age, int concentration, int experience,
+            int energy, int devotion, int physicalTraining, int pounds, int salary, int communication)
+        {
+            create.CreateNavigator(firstName, lastName, age, concentration, experience, energy, devotion, physicalTraining,
+                pounds, salary, communication);
+            return RedirectToAction("Navigator", "Admin");
         }
 
         public IActionResult Opinions()
         {
             var viewModel = new OpinionsViewModels
             {
-                OpinionsForAdmin = opinions.GetOpinionsForAdmin()
+                OpinionsForAdmin = opinions.GetOpinionsForAdmin(),
+                CountNotAuthorization = opinions.GetCountNotAuthorization(),
             };
 
             return this.View(viewModel);

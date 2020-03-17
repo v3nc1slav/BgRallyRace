@@ -16,7 +16,7 @@ namespace BgRallyRace.Services
         void DecreaseConcentration(int id, int variable);
         void IncreaseDevotion(int id, int variable);
         void DecreaseDevotion(int id, int variable);
-        void IncreaseEnergy(int id, int variable);
+        void IncreaseEnergy(int id);
         void DecreaseEnergy(int id, int variable);
         void IncreaseExperience(int id, int variable);
         void DecreaseExperience(int id, int variable);
@@ -26,5 +26,7 @@ namespace BgRallyRace.Services
         void DecreasePounds(int id, int variable);
         void IncreaseSalary(int id, int variable);
         void DecreaseSalary(int id, int variable);
+        bool IsItBusy(int id);
+        void IsWorking(int id);
     }
 }

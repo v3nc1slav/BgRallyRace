@@ -4,8 +4,11 @@
 
     public interface ICreateServices
     {
-        void CreateRunwayServices(string name, decimal length, DifficultyType difficulty, string description);
-        void CreatePilotServices(string? firstName, string? lastName, int age, int concentration, int experience,
+        void CreateRunway(string name, decimal length, DifficultyType difficulty, string description);
+        void CreatePilot(string? firstName, string? lastName, int age, int concentration, int experience,
+            int energy, int devotion, int physicalTraining, int pounds, int salary, int reflexes);
+
+        void CreateNavigator(string? firstName, string? lastName, int age, int concentration, int experience,
             int energy, int devotion, int physicalTraining, int pounds, int salary, int reflexes);
     }
 }

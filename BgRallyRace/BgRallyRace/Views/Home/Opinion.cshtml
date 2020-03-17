@@ -3,7 +3,7 @@
 }
 
 <form asp-controller="Home" asp-action="Contact" method="post" class="form-group">
-    <textarea class="form-control" id="exampleTextarea" name= "content" cols="50" rows="2" class="flL w200"></textarea>
+    <textarea class="form-control" id="exampleTextarea" name="content" cols="50" rows="2" class="flL w200"></textarea>
     <button type="submit" class="btn btn-secondary">Сподели</button>
 </form>
 @foreach (var opinion in Model.Opinions)
@@ -11,8 +11,14 @@
     <p>
         <div class="background" id="backgroundOthers">
             <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">@opinion.User</h5>
-                <small class="text-muted">@opinion.DateOfPublication  &times;</small>
+                <h5 class="text-muted">@opinion.User</h5>
+                <small class="text-muted">
+                    @opinion.DateOfPublication
+                    @if (@opinion.User == User.Identity.Name)
+                    {
+                        @Html.ActionLink("x", "DeleteOpinion", "Home", new { id = @opinion.Id });;
+                    }
+                </small>
             </div>
             <div class="alert alert-dismissible alert-secondary">
                 @opinion.Content

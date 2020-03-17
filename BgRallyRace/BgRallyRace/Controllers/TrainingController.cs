@@ -7,34 +7,55 @@
     using BgRallyRace.Services;
     using Microsoft.AspNetCore.Authorization;
     using BgRallyRace.Services.Training;
+    using System.Linq;
 
     public class TrainingController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ITrainingServices training;
+        private readonly IMoneyAccountServices money;
         private readonly IRallyPilotsServices pilot;
         private readonly IRallyNavigatorsServices navigator;
-        private readonly ITrainingServices training;
 
-        public TrainingController(ILogger<HomeController> logger, IRallyPilotsServices dbPilot, 
-            IRallyNavigatorsServices dbNavigator, ITrainingServices dbTraining)
+        public TrainingController(ILogger<HomeController> logger, ITrainingServices dbTraining,
+            IMoneyAccountServices moneyAccountServices, IRallyPilotsServices rallyPilotsServices, IRallyNavigatorsServices rallyNavigatorsServices)
         {
             _logger = logger;
-            pilot = dbPilot;
-            navigator = dbNavigator;
             training = dbTraining;
+            this.money = moneyAccountServices;
+            this.pilot = rallyPilotsServices;
+            this.navigator = rallyNavigatorsServices;
         }
 
 
         [Authorize]
         [HttpPost]
-        public IActionResult Training(string values)
+        public IActionResult Training(string sessionType, string type)
         {
-            var pilots = TempData["Pilots"] as int[] ;
-            var navigators = TempData["Navigator"] as int[];
-            training.Training(0, values);
-            return this.RedirectToAction("Home", "Index");
+            var inputSessionType = sessionType.Split().ToArray();
+            var typeTreining = inputSessionType[0];
+            int money = int.Parse(inputSessionType[1]);
+
+            var input = type.Split().ToArray();
+            type = input[0];
+            int id = int.Parse(input[1]);
+
+            if (type == "Pilot" && (pilot.IsItBusy(id)==true) )
+            {
+                return this.RedirectToAction($"{type}", "Teams");
+            }
+            else if (type == "Navigator" && (navigator.IsItBusy(id) == true))
+            {
+                return this.RedirectToAction($"{type}", "Teams");
+            }
+           
+            training.Training(id, typeTreining, type);
+            this.money.ExpenseAccountAsync(money, User.Identity.Name);
+
+            return this.RedirectToAction($"{type}","Teams");
         }
 
     }
 }
+

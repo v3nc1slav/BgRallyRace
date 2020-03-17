@@ -69,5 +69,18 @@
             }
         }
 
+        public int GetCountNotAuthorization()
+        {
+            var opinions = this.GetOpinionsForAdmin();
+            var result = opinions.Length;
+            return result;
+        }
+
+        public void DeleteOpinion(int id)
+        {
+           var opinions= dbContext.Opinions.Where(x => x.Id == id).First();
+           opinions.IsDeleted = true;
+           dbContext.SaveChanges();
+        }
     }
 }

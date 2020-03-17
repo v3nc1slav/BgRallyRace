@@ -16,22 +16,22 @@ namespace BgRallyRace.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IOpinionsServices opinionsServices;
-        public readonly ITeamServices teamServices;
+        private readonly IOpinionsServices opinions;
+        public readonly ITeamServices team;
 
-        public HomeController(ILogger<HomeController> logger, ITeamServices teamServices, 
+        public HomeController(ILogger<HomeController> logger, ITeamServices teamServices,
             IOpinionsServices opinionsServices)
         {
             _logger = logger;
-            this.teamServices = teamServices;
-            this.opinionsServices = opinionsServices;
+            this.team = teamServices;
+            this.opinions = opinionsServices;
         }
 
         public IActionResult Index()
         {
             var viewModel = new TeamViewModels
             {
-                Team = teamServices.FindUser(User.Identity.Name)
+                Team = team.FindUser(User.Identity.Name)
             };
             return View(viewModel);
         }
@@ -40,7 +40,7 @@ namespace BgRallyRace.Controllers
         {
             var viewModel = new OpinionsViewModels
             {
-                Opinions = opinionsServices.GetOpinions()
+                Opinions = opinions.GetOpinions()
             };
             return this.View(viewModel);
         }
@@ -59,8 +59,16 @@ namespace BgRallyRace.Controllers
         [HttpPost]
         public IActionResult Contact(string content)
         {
-            opinionsServices.AddOpinionAsync(content, User.Identity.Name);
-            return RedirectToAction("Opinion", "Home");
+            opinions.AddOpinionAsync(content, User.Identity.Name);
+            return this.Opinion();
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult DeleteOpinion(int id)
+        {
+            opinions.DeleteOpinion(id);
+            return this.Opinion();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

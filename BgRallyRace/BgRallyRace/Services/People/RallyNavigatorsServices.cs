@@ -97,10 +97,10 @@ namespace BgRallyRace.Services
             person.Devotion = person.Devotion - variable;
             dbContext.SaveChanges();
         }
-        public void IncreaseEnergy(int id, int variable)
+        public void IncreaseEnergy(int id)
         {
             var person = this.GetNavigator(id);
-            person.Energy = person.Energy + variable;
+            person.Energy = 100;
             dbContext.SaveChanges();
         }
         public void DecreaseEnergy(int id, int variable)
@@ -170,6 +170,16 @@ namespace BgRallyRace.Services
             var person = this.GetNavigator(id);
             person.Concentration = person.Concentration - variable;
             dbContext.SaveChanges();
+        }
+        public bool IsItBusy(int id)
+        {
+            var result = dbContext.RallyNavigators.Where(x => x.Id == id).Select(x => x.IsItWorking).First();
+            return result;
+        }
+        public void IsWorking(int id)
+        {
+            var pilot = dbContext.RallyPilots.Where(x => x.Id == id).First();
+            pilot.IsItWorking = true;
         }
     }
 }

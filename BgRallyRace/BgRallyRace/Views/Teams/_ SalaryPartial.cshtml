@@ -1,8 +1,8 @@
 ﻿@{ if (ViewData["Title"] == "FirstPilot")
     {
-        <p>
-            <button type="submit" class="btn btn-secondary"> @Html.ActionLink("Увеличи заплата", "IncreaseSalarylPilot", "Teams", new { id = Model.Pilots[0].Id })</button>
-        </p>
+    <p>
+        <button type="submit" class="btn btn-secondary"> @Html.ActionLink("Увеличи заплата", "IncreaseSalarylPilot", "Teams", new { id = Model.Pilots[0].Id })</button>
+    </p>
     }
     else if (ViewData["Title"] == "SecandPilot")
     {
