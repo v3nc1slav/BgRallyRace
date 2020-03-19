@@ -1,14 +1,12 @@
-﻿using BgRallyRace.Data;
-using BgRallyRace.Models;
-using BgRallyRace.Models.PartsCar;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BgRallyRace.Services
+﻿namespace BgRallyRace.Services
 {
+    using BgRallyRace.Data;
+    using BgRallyRace.Models;
+    using BgRallyRace.Models.PartsCar;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class CarServices : ICarServices
     {
         const string name = "ВАЗ 2101";
@@ -40,48 +38,56 @@ namespace BgRallyRace.Services
             var car = dbContext.Cars.Where(x => x.Id == id).FirstOrDefault();
             return car;
         }
+
         public Aerodynamics GetAerodynamics(string user)
         {
             var variable = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars.Aerodynamics).First();
             return variable;
         }
+
         public Brakes GetBrakes(string user)
         {
             var variable = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars.Brakes).First();
             return variable;
         }
+
         public Engines GetEngine(string user)
         {
             var variable = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars.Engine).First();
             return variable;
         }
+
         public Gearboxs GetGearboxs(string user)
         {
             var variable = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars.Gearbox).First();
             return variable;
         }
+
         public ModelsCars GetModelsCars(string user)
         {
             var variable = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars.ModelCar).First();
             return variable;
         }
+
         public Mountings GetMountings(string user)
         {
             var variable = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars.Mounting).First();
             return variable;
         }
+
         public Turbo? GetTurbo(string user)
         {
             var variable = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars.Turbo).First();
             return variable;
         }
-        public decimal GetMaxSpeed(Aerodynamics aer, Brakes br, Engines en, Gearboxs gb,
-            ModelsCars mc, Mountings mou, Turbo? tur)
+
+        public decimal GetMaxSpeed(string user)
         {
-            var speed = aer.Speed + br.Speed+en.Speed+gb.Speed+mc.Speed+mou.Speed;
-            if (!(tur==null))
+            var car = this.GetCar(user);
+            var speed = car.Aerodynamics.Speed + car.Brakes.Speed + car.Engine.Speed + car.Gearbox.Speed + car.ModelCar.Speed + car.Mounting.Speed;
+            if (!(car.Turbo == null))
             {
-                speed += tur.Speed;
+                speed += car.Turbo.Speed;
             }
             return speed;
         }
@@ -98,6 +104,7 @@ namespace BgRallyRace.Services
             var currentSpeed = parts.Strength * parts.Speed / 100;
             return currentSpeed;
         }
+
         public int CreateCarsAsync()
         {
             var aerodynamics =  dbContext.Aerodynamics.Add(new Aerodynamics { Name= name, Price = price, Strength = strength, Speed = 10 });
@@ -120,6 +127,8 @@ namespace BgRallyRace.Services
             var id = car.Entity.Id;
             return id;
         }
-
+        public void Repair(string type, int id) 
+        { 
+        }
     }
 }

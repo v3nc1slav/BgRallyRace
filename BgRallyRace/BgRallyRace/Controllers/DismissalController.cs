@@ -17,23 +17,21 @@
         }
 
         [Authorize]
-        public IActionResult DismissalPilot()
+        public IActionResult DismissalPilot(int id)
         {
-            var pilots = TempData["Pilots"] as int[];
-            dismissal.DismissalPilot(pilots[0]);
+            dismissal.DismissalPilot(id);
             return this.RedirectToAction("Pilot","Teams");
         }
 
         [Authorize]
-        public IActionResult DismissalNavigator()
+        public IActionResult DismissalNavigator(int id)
         {
-            var navigators = TempData["Navigator"] as int[];
-            dismissal.DismissalNavigator(navigators[0]);
+            dismissal.DismissalNavigator(id);
             return this.RedirectToAction("Navigator", "Teams");
         }
 
         [Authorize]
-        public IActionResult DismissalFitter()
+        public IActionResult DismissalFitter(int id)
         {
             return this.RedirectToAction("Index", "Home");
         }

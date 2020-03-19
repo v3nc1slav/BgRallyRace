@@ -8,6 +8,7 @@
         <p><a asp-controller="Teams" asp-action="Pilot">Пилот</a></p>
         <p><a asp-controller="Teams" asp-action="Navigator">Навигатор</a></p>
     </div>
+    <p><a asp-controller="Cars" asp-action="Car">Кола </a></p>
 </div>
 
 <div class="leftBackground">
@@ -18,6 +19,11 @@
 @if (true)
 {
     <div class="leftBackgroundAdmin">
-        <p><a asp-controller="Admin" asp-action="Opinions">Оторизация на мнения (3)</a></p>
+        <p>
+            <a asp-controller="Admin" asp-action="Opinions">
+                Оторизация на мнения
+                (@await Component.InvokeAsync("Opinions"))
+            </a>
+        </p>
     </div>
 }

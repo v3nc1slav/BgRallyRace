@@ -31,8 +31,8 @@
                 <td>@navigator.Salary</td>
                 <td>1000</td>
                 <td>
-                    <a>
-                        @Html.ActionLink("Наеми", "RentalsNavigator", "Market", new { id = @navigator.Id })
+                    <a class="text-dark" asp-controller="Market" asp-action="RentalsNavigator" asp-route-id="@navigator.Id" contextmenu=" ">
+                        Наеми
                     </a>
                 </td>
             </tr>

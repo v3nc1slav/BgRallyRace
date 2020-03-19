@@ -1,33 +1,43 @@
 ﻿@{ if (ViewData["Title"] == "FirstPilot")
     {
-    <p>
-        <button type="submit" class="btn btn-secondary"> @Html.ActionLink("Увеличи заплата", "IncreaseSalarylPilot", "Teams", new { id = Model.Pilots[0].Id })</button>
-    </p>
+        <a class="text-dark" asp-controller="Teams" asp-action="IncreaseSalarylPilot" asp-route-id="@Model.Pilots[0].Id">
+            <button type="submit" class="btn btn-secondary">
+                Увеличи заплата
+            </button>
+        </a>
     }
     else if (ViewData["Title"] == "SecandPilot")
     {
-        <p>
-            <button type="submit" class="btn btn-secondary"> @Html.ActionLink("Увеличи заплата", "IncreaseSalarylPilot", "Teams", new { id = Model.Pilots[1].Id })</button>
-        </p>
+        <a class="text-dark" asp-controller="Teams" asp-action="IncreaseSalarylPilot" asp-route-id="@Model.Pilots[1].Id">
+            <button type="submit" class="btn btn-secondary">
+                Увеличи заплата
+            </button>
+        </a>
     }
     else if (ViewData["Title"] == "FirstNavigator")
     {
-        <p>
-            <button type="submit" class="btn btn-secondary"> @Html.ActionLink("Увеличи заплата", "IncreaseSalaryNavigator", "Teams", new { id = Model.Navigators[0].Id })</button>
-        </p>
+        <a class="text-dark" asp-controller="Teams" asp-action="IncreaseSalarylNavigator" asp-route-id="@Model.Navigators[0].Id">
+            <button type="submit" class="btn btn-secondary">
+                Увеличи заплата
+            </button>
+        </a>
     }
-    else  if (ViewData["Title"] == "SecandNavigator")
+    else if (ViewData["Title"] == "SecandNavigator")
     {
-        <p>
-            <button type="submit" class="btn btn-secondary"> @Html.ActionLink("Увеличи заплата", "IncreaseSalaryNavigator", "Teams", new { id = Model.Navigators[1].Id })</button>
-        </p>
+        <a class="text-dark" asp-controller="Teams" asp-action="IncreaseSalarylNavigator" asp-route-id="@Model.Navigators[1].Id">
+            <button type="submit" class="btn btn-secondary">
+                Увеличи заплата
+            </button>
+        </a>
     }
-
     else if (ViewData["Title"] == "..")//ToDo
     {
-        <p>
-            <button type="submit" class="btn btn-secondary"> @Html.ActionLink("Увеличи заплата", "IncreaseSalarylNavigator", "Teams", new { id = 0})</button>
-        </p>
+
+        <a class="text-dark" asp-controller="Teams" asp-action="..." asp-route-id="0">
+            <button type="submit" class="btn btn-secondary">
+                Увеличи заплата
+            </button>
+        </a>
     }
 }
 

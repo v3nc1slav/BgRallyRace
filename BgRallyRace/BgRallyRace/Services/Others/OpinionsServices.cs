@@ -27,16 +27,16 @@
                 User = user,
                 IsDeleted = false,
                 authorizationOpinions = 0
-            }) ;
-             dbContext.SaveChanges();
+            });
+            dbContext.SaveChanges();
         }
 
         public Opinions[] GetOpinions()
         {
             var result = dbContext.Opinions
                 .OrderByDescending(x => x.DateOfPublication)
-                .Where(x=>x.authorizationOpinions == AuthorizationType.yes && x.IsDeleted==false)
-                .Select(x=> new Opinions { Id=x.Id, Content = x.Content, DateOfPublication = x.DateOfPublication, User =x.User }).ToArray();
+                .Where(x => x.authorizationOpinions == AuthorizationType.yes && x.IsDeleted == false)
+                .Select(x => new Opinions { Id = x.Id, Content = x.Content, DateOfPublication = x.DateOfPublication, User = x.User }).ToArray();
             return result;
         }
 
@@ -53,7 +53,7 @@
         {
             for (int i = 0; i < id.Length; i++)
             {
-               var option = dbContext.Opinions.Where(x => x.Id == id[i]).First();
+                var option = dbContext.Opinions.Where(x => x.Id == id[i]).First();
                 option.authorizationOpinions = AuthorizationType.no;
                 dbContext.SaveChanges();
             }
@@ -78,9 +78,9 @@
 
         public void DeleteOpinion(int id)
         {
-           var opinions= dbContext.Opinions.Where(x => x.Id == id).First();
-           opinions.IsDeleted = true;
-           dbContext.SaveChanges();
+            var opinions = dbContext.Opinions.Where(x => x.Id == id).First();
+            opinions.IsDeleted = true;
+            dbContext.SaveChanges();
         }
     }
 }

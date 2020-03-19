@@ -1,18 +1,16 @@
-﻿using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using BgRallyRace.Models;
-using Microsoft.AspNetCore.Authorization;
-using BgRallyRace.Data;
-using BgRallyRace.Services;
-using Microsoft.AspNetCore.Http;
-using BgRallyRace.ViewModels;
-
-namespace BgRallyRace.Controllers
+﻿namespace BgRallyRace.Controllers
 {
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
+    using BgRallyRace.Models;
+    using Microsoft.AspNetCore.Authorization;
+    using BgRallyRace.Data;
+    using BgRallyRace.Services;
+    using Microsoft.AspNetCore.Http;
+    using BgRallyRace.ViewModels;
     public class TeamsController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -29,6 +27,7 @@ namespace BgRallyRace.Controllers
         }
 
         [Authorize]
+        [HttpGet]
         public IActionResult Pilot()
         {
             var viewModel = new PilotViewModels
@@ -43,6 +42,7 @@ namespace BgRallyRace.Controllers
         }
 
         [Authorize]
+        [HttpGet]
         public IActionResult Navigator()
         {
             var viewModel = new NavigatorViewModels
@@ -66,7 +66,7 @@ namespace BgRallyRace.Controllers
         }
 
         [Authorize]
-        [HttpGet ]
+        [HttpGet]
         public IActionResult IncreaseSalarylPilot(int id)
         {
             pilot.IncreaseSalary(id, 100);
@@ -74,7 +74,7 @@ namespace BgRallyRace.Controllers
         }
 
         [Authorize]
-        [HttpGet ]
+        [HttpGet]
         public IActionResult IncreaseSalaryNavigator(int id)
         {
             navigator.IncreaseSalary(id, 100);

@@ -16,7 +16,9 @@
                     @opinion.DateOfPublication
                     @if (@opinion.User == User.Identity.Name)
                     {
-                        @Html.ActionLink("x", "DeleteOpinion", "Home", new { id = @opinion.Id });;
+                    <a class="text-dark" asp-controller="Home" asp-action="DeleteOpinion" asp-route-id="@opinion.Id" contextmenu=" ">
+                        x
+                    </a>
                     }
                 </small>
             </div>

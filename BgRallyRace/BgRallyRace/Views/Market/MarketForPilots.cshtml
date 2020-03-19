@@ -30,9 +30,11 @@
                     <td>@pilot.Pounds</td>
                     <td>@pilot.Salary</td>
                     <td>1000</td>
-                    <td><a>  
-                        @Html.ActionLink("Наеми", "RentalsPilot", "Market", new { id = @pilot.Id }) 
-                    </a></td>
+                    <td>
+                        <a class="text-dark" asp-controller="Market" asp-action="RentalsPilot" asp-route-id="@pilot.Id" contextmenu=" ">
+                            Наеми
+                        </a>
+                    </td>
                 </tr>
             }
         </tbody>

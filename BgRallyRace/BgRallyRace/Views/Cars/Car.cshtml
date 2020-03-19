@@ -1,13 +1,15 @@
-﻿@{
+﻿@model BgRallyRace.ViewModels.CarViewModels
+@{
     ViewData["Title"] = "Car";
 }
+
 
 <div class="form-group row">
     <div class="col-sm-2">
         <partial name="_LeftBarPartial" />
     </div>
     <div class="col-sm-8">
-       <a class=" background">
+        <a class=" background">
             <table class="table table-hover">
                 <thead>
                     <tr class="table">
@@ -15,6 +17,7 @@
                         <th scope="col">Здравина</th>
                         <th scope="col">Максимална Скорост</th>
                         <th scope="col">Текуща скорост</th>
+                        <th scope="col">Цена ремонт</th>
                         <th scope="col"> </th>
                     </tr>
                 </thead>
@@ -23,43 +26,73 @@
                         <th scope="row">Аеродинамика</th>
                         <td>@Model.Aerodynamics.Strength</td>
                         <td>@Model.Aerodynamics.Speed</td>
-                        <td> </td>
-                        <td> <partial name="_RepairPartial" /></td>
+                        <td id="aerodynamics"> </td>
+                        <td id="priceAero"></td>
+                        <td>
+                            <form asp-controller="Cars" asp-action="Repair" asp-route-id="@Model.Aerodynamics.Id" method="post" class="form-group">
+                                <button type="submit" class="btn btn-primary" name="type" value="Aerodynamics">Ремонтирай</button>
+                            </form>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">Спирачки</th>
                         <td>@Model.Brakes.Strength</td>
                         <td>@Model.Brakes.Speed</td>
-                        <td>Column content</td>
-                        <td> <partial name="_RepairPartial" /></td>
+                        <td id="brakes"></td>
+                        <td id="priceBr"> </td>
+                        <td>
+                            <form asp-controller="Cars" asp-action="Repair" asp-route-id="@Model.Brakes.Id" method="post" class="form-group">
+                                <button type="submit" class="btn btn-primary" name="type" value="Brakes">Ремонтирай</button>
+                            </form>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">Двигател</th>
                         <td>@Model.Engines.Strength</td>
                         <td>@Model.Engines.Speed</td>
-                        <td>Column content</td>
-                        <td> <partial name="_RepairPartial" /></td>
+                        <td id="engines"></td>
+                        <td id="priceEn"></td>
+                        <td>
+                            <form asp-controller="Cars" asp-action="Repair" asp-route-id="@Model.Engines.Id" method="post" class="form-group">
+                                <button type="submit" class="btn btn-primary" name="type" value="Engines">Ремонтирай</button>
+                            </form>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">Скоростна кутия</th>
                         <td>@Model.Gearboxs.Strength</td>
                         <td>@Model.Gearboxs.Speed</td>
-                        <td>Column content</td>
-                        <td> <partial name="_RepairPartial" /></td>
+                        <td id="gearboxs"></td>
+                        <td id="priceGb"></td>
+                        <td>
+                            <form asp-controller="Cars" asp-action="Repair" asp-route-id="@Model.Gearboxs.Id" method="post" class="form-group">
+                                <button type="submit" class="btn btn-primary" name="type" value="Gearboxs">Ремонтирай</button>
+                            </form>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">Купе</th>
                         <td>@Model.ModelsCars.Strength</td>
                         <td>@Model.ModelsCars.Speed</td>
-                        <td>Column content</td>
-                        <td> <partial name="_RepairPartial" /></td>
+                        <td id="modelsCars"></td>
+                        <td id="priceMc"></td>
+                        <td>
+                            <form asp-controller="Cars" asp-action="Repair" asp-route-id="@Model.ModelsCars.Id" method="post" class="form-group">
+                                <button type="submit" class="btn btn-primary" name="type" value="ModelsCars">Ремонтирай</button>
+                            </form>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">Шаси</th>
                         <td>@Model.Mountings.Strength</td>
                         <td>@Model.Mountings.Speed</td>
-                        <td>Column content</td>
-                        <td> <partial name="_RepairPartial" /></td>
+                        <td id="mountings"></td>
+                        <td id="priceMoun"></td>
+                        <td>
+                            <form asp-controller="Cars" asp-action="Repair" asp-route-id="@Model.Mountings.Id" method="post" class="form-group">
+                                <button type="submit" class="btn btn-primary" name="type" value="Mountings">Ремонтирай</button>
+                            </form>
+                        </td>
                     </tr>
                     @if (!(Model.Turbo == null))
                     {
@@ -67,8 +100,12 @@
                             <th scope="row">Тирбо</th>
                             <td>@Model.Turbo.Strength</td>
                             <td>@Model.Turbo.Speed</td>
-                            <td>Column content</td>
-                            <td> <partial name="_RepairPartial" /></td>
+                            <td id="turbo"></td>
+                            <td>
+                                <form asp-controller="Cars" asp-action="Repair" asp-route-id="@Model.Turbo.Id" method="post" class="form-group">
+                                    <button type="submit" class="btn btn-primary" name="type" value="Turbo">Ремонтирай</button>
+                                </form>
+                            </td>
                         </tr>
                     }
                 </tbody>
@@ -77,7 +114,7 @@
                         <th scope="row">Обща скорост</th>
                         <td></td>
                         <td>@Model.MaxSpeed</td>
-                        <td></td>
+                        <td id="maxSpeed"></td>
                         <td></td>
                     </tr>
                 </tfoot>
@@ -88,3 +125,37 @@
         <partial name="_RightBarPartial" />
     </div>
 </div>
+
+
+@section Scripts{
+    <script>
+        var x = setInterval(function () {
+            var aerodynamics = @Model.Aerodynamics.Strength*@Model.Aerodynamics.Speed/100;
+            var priceAero = (100 - @Model.Aerodynamics.Strength)*15;
+            var brakes = @Model.Brakes.Strength*@Model.Brakes.Speed/100;
+            var priceBr = (100 - @Model.Brakes.Strength)*15;
+            var engines = @Model.Engines.Strength*@Model.Engines.Speed/100;
+            var priceEn = (100 - @Model.Engines.Strength)*15;
+            var gearboxs = @Model.Gearboxs.Strength*@Model.Gearboxs.Speed/100;
+            var priceGb = (100 - @Model.Gearboxs.Strength)*15;
+            var modelsCars = @Model.ModelsCars.Strength*@Model.ModelsCars.Speed/100;
+            var priceMc = (100 - @Model.ModelsCars.Strength)*15;
+            var mountings = @Model.Mountings.Strength*@Model.Mountings.Speed/100;
+            var priceMoun = (100 - @Model.Mountings.Strength)*15;
+            var maxSpeed = aerodynamics + brakes + engines + gearboxs + modelsCars+mountings;
+            document.getElementById("aerodynamics").innerHTML = aerodynamics;
+            document.getElementById("priceAero").innerHTML = priceAero;
+            document.getElementById("brakes").innerHTML = brakes;
+            document.getElementById("priceBr").innerHTML = priceBr;
+            document.getElementById("engines").innerHTML = engines;
+            document.getElementById("priceEn").innerHTML = priceEn;
+            document.getElementById("gearboxs").innerHTML = gearboxs;
+            document.getElementById("priceGb").innerHTML = priceGb;
+            document.getElementById("modelsCars").innerHTML = modelsCars;
+            document.getElementById("priceMc").innerHTML = priceMc;
+            document.getElementById("mountings").innerHTML = mountings;
+            document.getElementById("priceMoun").innerHTML = priceMoun;
+            document.getElementById("maxSpeed").innerHTML = maxSpeed;
+        });
+    </script>
+}
