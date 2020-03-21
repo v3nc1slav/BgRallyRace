@@ -1,4 +1,5 @@
-﻿@{
+﻿@model BgRallyRace.ViewModels.MarketViewModels
+@{
     ViewData["Title"] = "MarketForPilots";
 }
 <a class=" background">
@@ -31,7 +32,7 @@
                     <td>@pilot.Salary</td>
                     <td>1000</td>
                     <td>
-                        <a class="text-dark" asp-controller="Market" asp-action="RentalsPilot" asp-route-id="@pilot.Id" contextmenu=" ">
+                        <a class="btn btn-success" asp-controller="Market" asp-action="RentalsPilot" asp-route-id="@pilot.Id" contextmenu=" ">
                             Наеми
                         </a>
                     </td>
@@ -41,6 +42,17 @@
         <tfoot>
 
         </tfoot>
+        <div>
+            @if (!Model.PreviousDisabled)
+            {
+                <a href="/Market/MarketForPilots?page=@Model.PreviousPage" class="float-left btn btn-info">Назад</a>
+            }
+            .... @Model.CurrentPage ....
+            @if (!Model.NextDisabled)
+            {
+                <a href="/Market/MarketForPilots?page=@Model.NextPage" class="float-right btn btn-info">Напред</a>
+            }
+        </div>
     </table>
 </a>
 

@@ -1,13 +1,10 @@
-﻿using BgRallyRace.Data;
-using BgRallyRace.Services;
-using BgRallyRace.ViewModels;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BgRallyRace.ViewComponents
+﻿namespace BgRallyRace.ViewComponents
 {
+    using BgRallyRace.Services;
+    using BgRallyRace.ViewModels;
+    using Microsoft.AspNetCore.Mvc;
+    using System.Threading.Tasks;
+
     [ViewComponent(Name = "Opinions")]
     public class OpinionsViewComponent : ViewComponent
     {

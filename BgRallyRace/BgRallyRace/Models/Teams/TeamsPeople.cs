@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BgRallyRace.Models.Teams
+﻿namespace BgRallyRace.Models.Teams
 {
     public class TeamsPeople
     {

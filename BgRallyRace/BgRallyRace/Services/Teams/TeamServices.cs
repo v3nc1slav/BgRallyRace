@@ -1,31 +1,31 @@
-﻿using BgRallyRace.Data;
-using BgRallyRace.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BgRallyRace.Services
+﻿namespace BgRallyRace.Services
 {
+    using BgRallyRace.Data;
+    using BgRallyRace.Models;
+    using System.Linq;
+    using System.Threading.Tasks;
     public class TeamServices : ITeamServices
     {
         private readonly ApplicationDbContext dbContext;
+        private readonly ICarServices car;
+        private readonly IMoneyAccountServices money;
+        private readonly IRallyPilotsServices pilot;
+        private readonly IRallyNavigatorsServices navigator;
 
-        public TeamServices(ApplicationDbContext dbContext)
+        public TeamServices(ApplicationDbContext dbContext, ICarServices carServices, IMoneyAccountServices moneyAccountServices,
+            IRallyPilotsServices rallyPilots, IRallyNavigatorsServices navigatorsServices)
         {
             this.dbContext = dbContext;
+            this.car = carServices;
+            this.money = moneyAccountServices;
+            this.pilot = rallyPilots;
+            this.navigator = navigatorsServices;
         }
 
         public void CreateTeam(string text, string user)
         {
-            var moneyId = new MoneyAccountServices(dbContext);
-            var pilot = new RallyPilotsServices(dbContext);
-            var navigator = new RallyNavigatorsServices(dbContext);
-            var car = new CarServices(dbContext);
-            var numberMoney =  moneyId.FindIdMoneyAccountAsync(user);
-            var numberPilot =  pilot.CreateRallyPilotsAsync();
+            var numberMoney =  money.FindIdMoneyAccountAsync(user);
+            var numberPilot = pilot.CreateRallyPilotsAsync();
             var numberNavigator =  navigator.CreateRallyNavigatorsAsync();
             var numberCar =  car.CreateCarsAsync();
             var newTeam =  dbContext.Teams.Add(new Team

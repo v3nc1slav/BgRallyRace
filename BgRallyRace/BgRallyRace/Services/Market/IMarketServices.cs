@@ -5,12 +5,16 @@
 
     public interface IMarketServices
     {
-        List<RallyPilots> GetPilotsForMarket();
+        List<RallyPilots> GetPilotsForMarket(int page = 1);
 
-        List<RallyNavigators> GetNavigatorsForMarket();
+        List<RallyNavigators> GetNavigatorsForMarket(int page = 1);
 
         void RentalsPilot(int id, string user, decimal expense);
 
         void RentalsNavigator(int id, string user, decimal expense);
+
+        int TotalPilots();
+
+        int TotalNavigators();
     }
 }

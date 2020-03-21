@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace BgRallyRace.Models
+﻿namespace BgRallyRace.Models
 {
+    using System.Collections.Generic;
+
     public class RallyPilots :People
     {
         public int Reflexes { get; set; }

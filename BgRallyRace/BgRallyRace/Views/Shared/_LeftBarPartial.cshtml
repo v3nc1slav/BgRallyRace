@@ -16,14 +16,14 @@
 </div>
 
 
-@if (true)
-{
-    <div class="leftBackgroundAdmin">
-        <p>
+@{ 
+    if (true)
+    {
+        <div class="leftBackgroundAdmin">
             <a asp-controller="Admin" asp-action="Opinions">
                 Оторизация на мнения
-                (@await Component.InvokeAsync("Opinions"))
+                <b class="text-danger"> (@await Component.InvokeAsync("Opinions"))</b>
             </a>
-        </p>
-    </div>
+        </div>
+    }
 }

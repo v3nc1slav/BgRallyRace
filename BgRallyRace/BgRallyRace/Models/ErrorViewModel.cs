@@ -1,5 +1,3 @@
-using System;
-
 namespace BgRallyRace.Models
 {
     public class ErrorViewModel

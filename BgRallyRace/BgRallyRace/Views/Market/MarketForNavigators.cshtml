@@ -31,7 +31,7 @@
                 <td>@navigator.Salary</td>
                 <td>1000</td>
                 <td>
-                    <a class="text-dark" asp-controller="Market" asp-action="RentalsNavigator" asp-route-id="@navigator.Id" contextmenu=" ">
+                    <a class="btn btn-success" asp-controller="Market" asp-action="RentalsNavigator" asp-route-id="@navigator.Id" contextmenu=" ">
                         Наеми
                     </a>
                 </td>
@@ -39,7 +39,17 @@
             }
         </tbody>
         <tfoot>
-
+            <div>
+                @if (!Model.PreviousDisabled)
+                {
+                    <a href="/Market/MarketForNavigators?page=@Model.PreviousPage" class="float-left btn btn-info">Назад</a>
+                }
+                .... @Model.CurrentPage ....
+                @if (!Model.NextDisabled)
+                {
+                    <a href="/Market/MarketForNavigators?page=@Model.NextPage" class="float-right btn btn-info">Напред</a>
+                }
+            </div>
         </tfoot>
     </table>
 </a>

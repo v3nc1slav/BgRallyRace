@@ -1,13 +1,12 @@
-﻿using BgRallyRace.Data;
-using BgRallyRace.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BgRallyRace.Services
+﻿namespace BgRallyRace.Services
 {
+    using BgRallyRace.Data;
+    using BgRallyRace.Models;
+    using Microsoft.EntityFrameworkCore;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     public class RallyPilotsServices : IRallyPilotsServices
     {
         private readonly ApplicationDbContext dbContext;

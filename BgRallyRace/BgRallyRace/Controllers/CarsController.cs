@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Authorization;
     using BgRallyRace.Services;
     using BgRallyRace.ViewModels;
+    using System.Linq;
 
     public class CarsController : Controller
     {
@@ -36,7 +37,11 @@
         [HttpPost]
         public IActionResult Repair(string type, int id)
         {
-            car.Repair(type, id);
+            var input = type.Split().ToArray();
+            type = input[0];
+            decimal price = decimal.Parse(input[1]);
+            string user = input[2];
+            car.Repair(type, id, price, user );
             return this.Car();
         }
 

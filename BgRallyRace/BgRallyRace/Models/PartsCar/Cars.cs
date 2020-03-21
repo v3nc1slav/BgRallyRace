@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace BgRallyRace.Models
+﻿namespace BgRallyRace.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class Cars
     {
         [Key]

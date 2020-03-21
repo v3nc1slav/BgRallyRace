@@ -3,7 +3,6 @@
     ViewData["Title"] = "Car";
 }
 
-
 <div class="form-group row">
     <div class="col-sm-2">
         <partial name="_LeftBarPartial" />
@@ -30,7 +29,7 @@
                         <td id="priceAero"></td>
                         <td>
                             <form asp-controller="Cars" asp-action="Repair" asp-route-id="@Model.Aerodynamics.Id" method="post" class="form-group">
-                                <button type="submit" class="btn btn-primary" name="type" value="Aerodynamics">Ремонтирай</button>
+                                <button type="submit" class="btn btn-primary" name="type" value="Aerodynamics 500 @User.Identity.Name">Ремонтирай</button>
                             </form>
                         </td>
                     </tr>
@@ -42,7 +41,7 @@
                         <td id="priceBr"> </td>
                         <td>
                             <form asp-controller="Cars" asp-action="Repair" asp-route-id="@Model.Brakes.Id" method="post" class="form-group">
-                                <button type="submit" class="btn btn-primary" name="type" value="Brakes">Ремонтирай</button>
+                                <button type="submit" class="btn btn-primary" name="type" value="Brakes 500 @User.Identity.Name">Ремонтирай</button>
                             </form>
                         </td>
                     </tr>
@@ -54,7 +53,7 @@
                         <td id="priceEn"></td>
                         <td>
                             <form asp-controller="Cars" asp-action="Repair" asp-route-id="@Model.Engines.Id" method="post" class="form-group">
-                                <button type="submit" class="btn btn-primary" name="type" value="Engines">Ремонтирай</button>
+                                <button type="submit" class="btn btn-primary" name="type" value="Engines 500 @User.Identity.Name">Ремонтирай</button>
                             </form>
                         </td>
                     </tr>
@@ -66,7 +65,7 @@
                         <td id="priceGb"></td>
                         <td>
                             <form asp-controller="Cars" asp-action="Repair" asp-route-id="@Model.Gearboxs.Id" method="post" class="form-group">
-                                <button type="submit" class="btn btn-primary" name="type" value="Gearboxs">Ремонтирай</button>
+                                <button type="submit" class="btn btn-primary" name="type" value="Gearboxs 500 @User.Identity.Name">Ремонтирай</button>
                             </form>
                         </td>
                     </tr>
@@ -78,7 +77,7 @@
                         <td id="priceMc"></td>
                         <td>
                             <form asp-controller="Cars" asp-action="Repair" asp-route-id="@Model.ModelsCars.Id" method="post" class="form-group">
-                                <button type="submit" class="btn btn-primary" name="type" value="ModelsCars">Ремонтирай</button>
+                                <button type="submit" class="btn btn-primary" name="type" value="ModelsCars 500 @User.Identity.Name">Ремонтирай</button>
                             </form>
                         </td>
                     </tr>
@@ -90,7 +89,7 @@
                         <td id="priceMoun"></td>
                         <td>
                             <form asp-controller="Cars" asp-action="Repair" asp-route-id="@Model.Mountings.Id" method="post" class="form-group">
-                                <button type="submit" class="btn btn-primary" name="type" value="Mountings">Ремонтирай</button>
+                                <button type="submit" class="btn btn-primary" name="type" value="Mountings 500 @User.Identity.Name">Ремонтирай</button>
                             </form>
                         </td>
                     </tr>
@@ -103,7 +102,7 @@
                             <td id="turbo"></td>
                             <td>
                                 <form asp-controller="Cars" asp-action="Repair" asp-route-id="@Model.Turbo.Id" method="post" class="form-group">
-                                    <button type="submit" class="btn btn-primary" name="type" value="Turbo">Ремонтирай</button>
+                                    <button type="submit" class="btn btn-primary" name="type" value="Turbo 500 @User.Identity.Name">Ремонтирай</button>
                                 </form>
                             </td>
                         </tr>

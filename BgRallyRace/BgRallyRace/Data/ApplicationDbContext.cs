@@ -19,7 +19,7 @@
         }
 
         public DbSet<Opinions> Opinions { get; set; }
-        public DbSet<UserRequest> UserRequests { get; set; }
+        public DbSet<PartsCars> PartsCars { get; set; }
         public DbSet<Competitions> Competitions { get; set; }
         public DbSet<RallyRunway> RallyRunways { get; set; }
         public DbSet<Team> Teams { get; set; }

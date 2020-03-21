@@ -6,9 +6,9 @@
     {
         void AddOpinionAsync(string text, string user);
 
-        Opinions[] GetOpinions();
+        Opinions[] GetOpinions(int page = 1);
 
-        Opinions[] GetOpinionsForAdmin();
+        Opinions[] GetOpinionsForAdmin(int page = 1);
 
         void MadeOpinionsInvisible(int[] id);
 
@@ -17,5 +17,7 @@
         public int GetCountNotAuthorization();
 
         void DeleteOpinion(int id);
+
+        int Total();
     }
 }

@@ -8,6 +8,7 @@
     using BgRallyRace.ViewModels;
     using BgRallyRace.Services.Market;
 
+    [Authorize]
     public class MarketController : Controller
     {
         private readonly IMarketServices market;
@@ -17,41 +18,44 @@
             market = marketServices;
         }
 
-        [Authorize]
-        public IActionResult MarketForPilots()
+        [HttpGet]
+        public IActionResult MarketForPilots(int page =1)
         {
             var viewModel = new MarketViewModels
             {
-                Pilots = market.GetPilotsForMarket()
+                Pilots = market.GetPilotsForMarket(page),
+                CurrentPage = page,
+                Total = market.TotalPilots(),
             };
             return this.View(viewModel);
         }
 
-
-        [Authorize]
-        public IActionResult MarketForNavigators()
+        [HttpGet]
+        public IActionResult MarketForNavigators(int page = 1)
         {
             var viewModel = new MarketViewModels
             {
-                Navigators = market.GetNavigatorsForMarket()
+                Navigators = market.GetNavigatorsForMarket(page),
+                CurrentPage = page,
+                Total = market.TotalNavigators(),
             };
             return this.View(viewModel);
         }
 
-        [Authorize]
+        [HttpGet]
         public IActionResult MarketForParts()
         {
             return this.View();
         }
 
-        [Authorize]
+        [HttpGet]
         public IActionResult RentalsPilot(int id)
         {
             market.RentalsPilot(id, User.Identity.Name, 1000);
             return this.RedirectToAction("Pilot", "Teams");
         }
 
-        [Authorize]
+        [HttpGet]
         public IActionResult RentalsNavigator(int id)
         {
             market.RentalsNavigator(id, User.Identity.Name, 1000);

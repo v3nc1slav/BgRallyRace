@@ -2,13 +2,10 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-@{var db = new ApplicationDbContext();
-    MoneyAccountServices money = new MoneyAccountServices(db);}
-
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a class="nav-link ">@money.GetBalanceAsync(User.Identity.Name) лв.</a>
+        <a class="nav-link ">@await Component.InvokeAsync("Money") лв.</a>
     </li>
     <li class="nav-item">
         <a class="nav-link " asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравей @User.Identity.Name!</a>

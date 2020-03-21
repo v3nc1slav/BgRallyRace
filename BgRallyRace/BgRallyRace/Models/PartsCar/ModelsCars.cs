@@ -1,7 +1,7 @@
-﻿using BgRallyRace.Models.PartsCar;
-
-namespace BgRallyRace.Models
+﻿namespace BgRallyRace.Models
 {
+    using BgRallyRace.Models.PartsCar;
+
     public class ModelsCars : Parts
     {
     }

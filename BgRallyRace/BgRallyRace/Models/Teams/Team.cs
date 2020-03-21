@@ -1,13 +1,7 @@
-﻿using BgRallyRace.Models.Teams;
-using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BgRallyRace.Models
+﻿namespace BgRallyRace.Models
 {
+    using System.Collections.Generic;
+
     public class Team : Teams.Teams
     {
         public int? CompetitionId { get; set; }

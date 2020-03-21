@@ -30,6 +30,7 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
@@ -39,7 +40,8 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Strength")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,2)")
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
@@ -57,6 +59,7 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
@@ -66,7 +69,8 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Strength")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,2)")
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
@@ -201,6 +205,7 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
@@ -210,7 +215,8 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Strength")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,2)")
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
@@ -228,6 +234,7 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
@@ -237,7 +244,8 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Strength")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,2)")
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
@@ -255,6 +263,7 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
@@ -264,7 +273,8 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Strength")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,2)")
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
@@ -335,6 +345,7 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
@@ -344,7 +355,8 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Strength")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,2)")
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
@@ -379,6 +391,43 @@ namespace BgRallyRace.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Opinions");
+                });
+
+            modelBuilder.Entity("BgRallyRace.Models.PartsCars", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CarsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Speed")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Strength")
+                        .HasColumnType("decimal(18,2)")
+                        .HasMaxLength(100);
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarsId");
+
+                    b.ToTable("PartsCars");
                 });
 
             modelBuilder.Entity("BgRallyRace.Models.RallyFitters", b =>
@@ -658,6 +707,7 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
@@ -667,35 +717,12 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Strength")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,2)")
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
                     b.ToTable("Turbos");
-                });
-
-            modelBuilder.Entity("BgRallyRace.Models.UserRequest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("RequestDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Seen")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserRequests");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -976,6 +1003,13 @@ namespace BgRallyRace.Migrations
                     b.HasOne("BgRallyRace.Models.MoneyAccount", null)
                         .WithMany("FinancialStatistics")
                         .HasForeignKey("MoneyAccountId");
+                });
+
+            modelBuilder.Entity("BgRallyRace.Models.PartsCars", b =>
+                {
+                    b.HasOne("BgRallyRace.Models.Cars", "Cars")
+                        .WithMany()
+                        .HasForeignKey("CarsId");
                 });
 
             modelBuilder.Entity("BgRallyRace.Models.Team", b =>

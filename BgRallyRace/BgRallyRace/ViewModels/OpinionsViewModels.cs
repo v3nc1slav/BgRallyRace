@@ -2,7 +2,7 @@
 {
     using BgRallyRace.Models;
 
-    public class OpinionsViewModels
+    public class OpinionsViewModels : PagesViewModels
     {
         public Opinions[] Opinions { get; set; } 
 

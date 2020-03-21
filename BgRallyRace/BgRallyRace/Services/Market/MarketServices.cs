@@ -14,15 +14,23 @@
             money = moneyAccount;
         }
 
-        public List<RallyPilots> GetPilotsForMarket()
+        public List<RallyPilots> GetPilotsForMarket(int page = 1)
         {
-           var pilots = dbContext.RallyPilots.Where(x => x.TeamId == null).ToList();
+            var pilots = dbContext.RallyPilots
+                 .Skip((page - 1) * 10)
+                 .Take(10)
+                 .Where(x => x.TeamId == null)
+                 .ToList();
             return pilots;
         }
 
-        public List<RallyNavigators> GetNavigatorsForMarket()
+        public List<RallyNavigators> GetNavigatorsForMarket(int page = 1)
         {
-            var navigators = dbContext.RallyNavigators.Where(x => x.TeamId == null).ToList();
+            var navigators = dbContext.RallyNavigators
+                .Skip((page - 1) * 10)
+                .Take(10)
+                .Where(x => x.TeamId == null)
+                .ToList();
             return navigators;
         }
 
@@ -42,6 +50,22 @@
             pilot.TeamId = team.Id;
             team.RallyNavigatorId = id;
             money.ExpenseAccountAsync(expense, user);
+        }
+
+        public int TotalPilots()
+        {
+            var result = dbContext.RallyPilots
+              .Where(x => x.TeamId == null)
+              .Count();
+            return result;
+        }
+
+        public int TotalNavigators()
+        {
+            var result = dbContext.RallyNavigators
+              .Where(x => x.TeamId == null)
+              .Count();
+            return result;
         }
     }
 }

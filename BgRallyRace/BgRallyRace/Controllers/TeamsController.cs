@@ -7,26 +7,28 @@
     using Microsoft.Extensions.Logging;
     using BgRallyRace.Models;
     using Microsoft.AspNetCore.Authorization;
-    using BgRallyRace.Data;
     using BgRallyRace.Services;
     using Microsoft.AspNetCore.Http;
     using BgRallyRace.ViewModels;
+
+    [Authorize]
     public class TeamsController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private ApplicationDbContext db { get; set; } = new ApplicationDbContext();
-        private IRallyPilotsServices pilot { get; set; }
-        private IRallyNavigatorsServices navigator { get; set; }
+        private readonly IRallyPilotsServices pilot;
+        private readonly IRallyNavigatorsServices navigator;
+        private readonly ITeamServices team;
+     
 
         public TeamsController(ILogger<HomeController> logger, IRallyPilotsServices dbPilot,
-            IRallyNavigatorsServices dbNavigator)
+            IRallyNavigatorsServices dbNavigator, ITeamServices teamServices)
         {
             _logger = logger;
             pilot = dbPilot;
             navigator = dbNavigator;
+            this.team = teamServices;
         }
 
-        [Authorize]
         [HttpGet]
         public IActionResult Pilot()
         {
@@ -41,7 +43,6 @@
             return this.View(viewModel);
         }
 
-        [Authorize]
         [HttpGet]
         public IActionResult Navigator()
         {
@@ -56,16 +57,13 @@
             return this.View(viewModel);
         }
 
-        [Authorize]
         [HttpPost]
         public IActionResult CreateTeam(string textTeam)
         {
-            var team = new TeamServices(db);
             team.CreateTeam(textTeam, User.Identity.Name);
             return RedirectToAction("Index", "Home");
         }
 
-        [Authorize]
         [HttpGet]
         public IActionResult IncreaseSalarylPilot(int id)
         {
@@ -73,7 +71,6 @@
             return this.RedirectToAction("Pilot", "Teams");
         }
 
-        [Authorize]
         [HttpGet]
         public IActionResult IncreaseSalaryNavigator(int id)
         {
@@ -81,7 +78,7 @@
             return this.RedirectToAction("Navigator", "Teams");
         }
 
-        [Authorize]
+        [HttpGet]
         public IActionResult IncreaseSalaryFitter()
         {
             return this.RedirectToAction("Index", "Home");

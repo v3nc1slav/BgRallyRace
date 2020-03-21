@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace BgRallyRace.Models
+﻿namespace BgRallyRace.Models
 {
+    using System.Collections.Generic;
+
     public class RallyFitters :People
     {
         public int Skills { get; set; }

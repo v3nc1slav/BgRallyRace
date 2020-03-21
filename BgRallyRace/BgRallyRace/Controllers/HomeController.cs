@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using BgRallyRace.Models;
-using Microsoft.AspNetCore.Authorization;
-using BgRallyRace.Services;
-using Microsoft.AspNetCore.Http;
-using BgRallyRace.ViewModels;
-
-namespace BgRallyRace.Controllers
+﻿namespace BgRallyRace.Controllers
 {
+    using System.Diagnostics;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
+    using BgRallyRace.Models;
+    using Microsoft.AspNetCore.Authorization;
+    using BgRallyRace.Services;
+    using Microsoft.AspNetCore.Http;
+    using BgRallyRace.ViewModels;
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -36,11 +33,13 @@ namespace BgRallyRace.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Opinion()
+        public IActionResult Opinion(int page = 1)
         {
             var viewModel = new OpinionsViewModels
             {
-                Opinions = opinions.GetOpinions()
+                Opinions = opinions.GetOpinions(page),
+                CurrentPage = page,
+                Total = opinions.Total(),
             };
             return this.View(viewModel);
         }
@@ -60,7 +59,7 @@ namespace BgRallyRace.Controllers
         public IActionResult Contact(string content)
         {
             opinions.AddOpinionAsync(content, User.Identity.Name);
-            return this.Opinion();
+            return this.RedirectToAction("Opinion", "Home");
         }
 
         [Authorize]
@@ -68,7 +67,7 @@ namespace BgRallyRace.Controllers
         public IActionResult DeleteOpinion(int id)
         {
             opinions.DeleteOpinion(id);
-            return this.Opinion();
+            return this.RedirectToAction("Opinion", "Home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

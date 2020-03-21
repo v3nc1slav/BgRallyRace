@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace BgRallyRace.Models
+﻿namespace BgRallyRace.Models
 {
-    public class RallyNavigators :People
+    using System.Collections.Generic;
+
+    public class RallyNavigators : People
     {
         public int Communication { get; set; }
 

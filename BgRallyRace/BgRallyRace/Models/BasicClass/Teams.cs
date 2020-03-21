@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BgRallyRace.Models.Teams
+﻿namespace BgRallyRace.Models.Teams
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class Teams
     {
         [Key]

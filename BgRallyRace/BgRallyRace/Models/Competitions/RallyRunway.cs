@@ -1,12 +1,10 @@
-﻿using BgRallyRace.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BgRallyRace.Models
+﻿namespace BgRallyRace.Models
 {
+    using BgRallyRace.Models.Enums;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Threading.Tasks;
+
     public class RallyRunway
     {
         [Key]

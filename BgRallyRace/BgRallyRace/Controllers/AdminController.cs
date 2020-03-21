@@ -20,6 +20,7 @@
             this.opinions = opinionsServices;
         }
 
+        [HttpGet]
         public IActionResult Runway()
         {
             return this.View();
@@ -32,6 +33,7 @@
             return RedirectToAction("Runway", "Admin");
         }
 
+        [HttpGet]
         public IActionResult Pilot()
         {
             return this.View();
@@ -45,6 +47,8 @@
                 pounds, salary, reflexes);
             return RedirectToAction("Pilot", "Admin");
         }
+
+        [HttpGet]
 
         public IActionResult Navigator()
         {
@@ -60,6 +64,7 @@
             return RedirectToAction("Navigator", "Admin");
         }
 
+        [HttpGet]
         public IActionResult Opinions()
         {
             var viewModel = new OpinionsViewModels
@@ -71,6 +76,18 @@
             return this.View(viewModel);
         }
 
+        [HttpGet]
+        public IActionResult Parts()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateParts(string name, decimal length, DifficultyType difficulty, string description)
+        {
+            create.CreateRunway(name, length, difficulty, description);
+            return RedirectToAction("Runway", "Admin");
+        }
 
         [HttpPost]
         public IActionResult AuthorizationOpinions(int[] opinionsVisible, int[] opinionsInvisible)

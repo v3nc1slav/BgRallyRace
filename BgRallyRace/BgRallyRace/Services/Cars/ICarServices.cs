@@ -36,6 +36,6 @@
 
         int CreateCarsAsync();
 
-        void Repair(string type, int id);
+        void Repair(string type, int id, decimal price, string user);
     }
 }

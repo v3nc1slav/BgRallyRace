@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Parts";
+}
+
+<div class="form-group row">
+    <div class="col-sm-2">
+        <partial name="_LeftBarPartial" />
+    </div>
+    <div class="col-sm-8">
+        <a class=" background">
+            <p>Създаване на Части за Коли</p>
+            <form asp-controller="Admin" asp-action="CreateParts" method="post" class="form-group">
+                <p> Тип <textarea class="form-check-inline" name="type" cols="50" rows="1" ></textarea></p>
+                <p> Име <textarea class="form-check-inline" name="name" cols="50" rows="1" placeholder="Име"></textarea></p>
+                <p> Цена <textarea class="form-check-inline" name="price" cols="50" rows="1" placeholder="Цена"></textarea></p>
+                <p> Здравина <textarea class="form-check-inline" name="strength" cols="50" rows="1" placeholder="Здравина" ></textarea></p>
+                <p> Скорост <textarea class="form-check-inline" name="speed" cols="50" rows="1" placeholder="Скорост"></textarea></p>
+                <button type="submit" class="btn btn-secondary">Създай</button>
+            </form>
+        </a>
+    </div>
+    <div class="col-sm-2">
+        <partial name="_RightBarPartial" />
+    </div>
+</div>
