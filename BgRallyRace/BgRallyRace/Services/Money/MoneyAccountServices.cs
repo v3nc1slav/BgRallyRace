@@ -10,10 +10,12 @@
     public class MoneyAccountServices : IMoneyAccountServices
     {
         private readonly ApplicationDbContext dbContext;
+
         public MoneyAccountServices(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
+
         public void CreateMoneyAccount(string user)
         {
             if (FindUserAsync(user) == null)
@@ -39,7 +41,7 @@
             dbContext.SaveChanges();
         }
 
-        public  MoneyAccount? FindUserAsync( string user)
+        public  MoneyAccount FindUserAsync( string user)
         {
              var dbUser =  dbContext.MoneyAccount.FirstOrDefault(a => a.User == user);
             return dbUser;

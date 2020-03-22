@@ -1,23 +1,24 @@
-﻿
-<div class="leftBackground">
-    <button class="dropdown-btn">
-        Екип
-        <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-container">
-        <p><a asp-controller="Teams" asp-action="Pilot">Пилот</a></p>
-        <p><a asp-controller="Teams" asp-action="Navigator">Навигатор</a></p>
+﻿@if (!User.IsInRole("Admin"))
+{
+    <div class="leftBackground">
+        <button class="dropdown-btn">
+            Екип
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+            <p><a asp-controller="Teams" asp-action="Pilot">Пилот</a></p>
+            <p><a asp-controller="Teams" asp-action="Navigator">Навигатор</a></p>
+        </div>
+        <p><a asp-controller="Cars" asp-action="Car">Кола </a></p>
     </div>
-    <p><a asp-controller="Cars" asp-action="Car">Кола </a></p>
-</div>
 
-<div class="leftBackground">
-    <p>Състезание</p>
-</div>
+    <div class="leftBackground">
+        <p>Състезание</p>
+    </div>
+}
 
-
-@{ 
-    if (true)
+@{
+    if (User.IsInRole("Admin"))
     {
         <div class="leftBackgroundAdmin">
             <a asp-controller="Admin" asp-action="Opinions">

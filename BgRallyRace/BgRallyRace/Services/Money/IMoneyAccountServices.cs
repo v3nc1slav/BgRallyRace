@@ -1,11 +1,7 @@
-﻿using BgRallyRace.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BgRallyRace.Services
+﻿namespace BgRallyRace.Services
 {
+    using BgRallyRace.Models;
+
     public interface IMoneyAccountServices
     {
         void CreateMoneyAccount(string user);
