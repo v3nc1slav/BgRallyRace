@@ -7,7 +7,7 @@
     using BgRallyRace.Services;
     using BgRallyRace.ViewModels;
 
-    //[Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly ICreateServices create;

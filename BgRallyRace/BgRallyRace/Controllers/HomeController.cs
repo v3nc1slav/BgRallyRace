@@ -9,19 +9,25 @@
     using BgRallyRace.Services;
     using Microsoft.AspNetCore.Http;
     using BgRallyRace.ViewModels;
+    using Microsoft.AspNetCore.Identity;
 
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IOpinionsServices opinions;
         public readonly ITeamServices team;
+        public readonly RoleManager<IdentityRole> roles;
+        private readonly UserManager<IdentityUser> user;
 
         public HomeController(ILogger<HomeController> logger, ITeamServices teamServices,
-            IOpinionsServices opinionsServices)
+            IOpinionsServices opinionsServices, RoleManager<IdentityRole> roleManager,
+            UserManager<IdentityUser> userManager)
         {
             _logger = logger;
             this.team = teamServices;
             this.opinions = opinionsServices;
+            this.roles = roleManager;
+            this.user = userManager;
         }
 
         public IActionResult Index()
@@ -62,6 +68,24 @@
             return this.RedirectToAction("Opinion", "Home");
         }
 
+        [Authorize]
+        public async Task<IActionResult> CreatAdmin()
+        {
+
+            if (User.Identity.Name == "Admin@gmail.com")
+            {
+                await roles.CreateAsync(new IdentityRole
+                {
+                    Name = "Admin",
+                });
+
+                var userID = await user.GetUserAsync(this.User);
+
+                await user.AddToRoleAsync(userID, "Admin");
+                return this.RedirectToAction("Index", "Home");
+            }
+            return this.RedirectToAction("Index", "Home");
+        }
         [Authorize]
         [HttpGet]
         public IActionResult DeleteOpinion(int id)
