@@ -1,5 +1,4 @@
-﻿@model BgRallyRace.ViewComponents.OpinionsViewComponent
-@if (!User.IsInRole("Admin"))
+﻿@if (!User.IsInRole("Admin"))
 {
     <div class="leftBackground">
         <button class="dropdown-btn">
@@ -24,7 +23,6 @@
         <div class="leftBackgroundAdmin">
             <a asp-controller="Admin" asp-action="Opinions">
                 Оторизация на мнения
-                <p>@Model.ModelState.Values</p>
                 <b class="text-danger"> (@await Component.InvokeAsync("Opinions"))</b>
             </a>
         </div>

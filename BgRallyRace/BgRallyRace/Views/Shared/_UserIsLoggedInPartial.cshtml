@@ -4,7 +4,7 @@
 
 
 
-@if (SignInManager.IsSignedIn(User) && (Model.Team == null) && !(User.IsInRole("Admin")))
+@if (SignInManager.IsSignedIn(User) && ((await Component.InvokeAsync("Team") == null) && !(User.IsInRole("Admin"))))
 {
     <div class="background">
         <form asp-controller="Teams" asp-action="CreateTeam" method="post" class="form-group">

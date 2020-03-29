@@ -6,6 +6,7 @@
     using BgRallyRace.Services.Admin;
     using BgRallyRace.Services;
     using BgRallyRace.ViewModels;
+    using BgRallyRace.Models;
 
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
@@ -27,10 +28,14 @@
         }
 
         [HttpPost]
-        public IActionResult CreateRunway(string name, decimal length, DifficultyType difficulty, string description)
+        public IActionResult Runway(RunwayViewModels input)
         {
-            create.CreateRunway(name, length, difficulty, description);
-            return RedirectToAction("Runway", "Admin");
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+            create.CreateRunway(input);
+            return this.View();
         }
 
         [HttpGet]
@@ -40,12 +45,14 @@
         }
 
         [HttpPost]
-        public IActionResult CreatePilot(string? firstName, string? lastName, int age, int concentration, int experience,
-            int energy, int devotion, int physicalTraining, int pounds, int salary, int reflexes)
+        public IActionResult Pilot(PilotViewModels input)
         {
-            create.CreatePilot(firstName, lastName, age, concentration, experience, energy, devotion, physicalTraining,
-                pounds, salary, reflexes);
-            return RedirectToAction("Pilot", "Admin");
+            if (!this.ModelState.IsValid )
+            {
+                return this.View(input);
+            }
+            create.CreatePilot(input);
+            return this.View();
         }
 
         [HttpGet]
@@ -56,12 +63,14 @@
         }
 
         [HttpPost]
-        public IActionResult CreateNavigator(string? firstName, string? lastName, int age, int concentration, int experience,
-            int energy, int devotion, int physicalTraining, int pounds, int salary, int communication)
+        public IActionResult Navigator(NavigatorViewModels input)
         {
-            create.CreateNavigator(firstName, lastName, age, concentration, experience, energy, devotion, physicalTraining,
-                pounds, salary, communication);
-            return RedirectToAction("Navigator", "Admin");
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+            create.CreateNavigator(input);
+            return this.View();
         }
 
         [HttpGet]
@@ -83,10 +92,14 @@
         }
 
         [HttpPost]
-        public IActionResult CreateParts(string name, decimal length, DifficultyType difficulty, string description)
+        public IActionResult Parts(PartsViewModels input)
         {
-            create.CreateRunway(name, length, difficulty, description);
-            return RedirectToAction("Runway", "Admin");
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+            ///create(input);
+            return this.View();
         }
 
         [HttpPost]

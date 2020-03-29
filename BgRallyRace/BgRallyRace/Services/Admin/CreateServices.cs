@@ -2,7 +2,7 @@
 {
     using BgRallyRace.Data;
     using BgRallyRace.Models;
-    using BgRallyRace.Models.Enums;
+    using BgRallyRace.ViewModels;
     using System;
     using System.Linq;
 
@@ -14,28 +14,29 @@
             this.dbContext = dbContext;
         }
 
-        public void CreateRunway(string name, decimal length, DifficultyType difficulty, string description)
+        public void CreateRunway(RunwayViewModels input)
         {
-            dbContext.RallyRunways.Add(new RallyRunway { Name = name, TrackLength = length, Difficulty = difficulty, Description = description });
+            dbContext.RallyRunways.Add(new RallyRunway { Name = input.Name, TrackLength = input.TrackLength,
+                Difficulty = input.Difficulty, Description = input.Description });
             dbContext.SaveChanges();
         }
 
-        public void CreatePilot(string? firstName, string? lastName, int age, int concentration, int experience,
-            int energy, int devotion, int physicalTraining, int pounds, int salary, int reflexes)
+        public void CreatePilot(PilotViewModels input)
         {
             Random rnd = new Random();
-            string? firstN = firstName;
-            string? lastN = lastName;
+            string? firstN = input.FirstName;
+            string? lastN = input.LastName;
+
 
             if (firstN == null)
             {
-                int first = rnd.Next(11, 112);
+                int first = rnd.Next(1, 100);
                 firstN = dbContext.FirstNames.Select(x => new { x.FirstName, x.Id })
                .FirstOrDefault(x => x.Id == first).FirstName;
             }
             if (lastN == null)
             {
-                int last = rnd.Next(11, 112);
+                int last = rnd.Next(1, 100);
                 lastN = dbContext.LastNames.Select(x => new { x.LastName, x.Id })
                 .FirstOrDefault(x => x.Id == last).LastName;
             }
@@ -44,35 +45,34 @@
             {
                 FirstName = firstN,
                 LastName = lastN,
-                Age = age,
-                Salary = salary,
-                Concentration = concentration,
-                Experience = experience,
-                Energy = energy,
-                Devotion = devotion,
-                PhysicalTraining = physicalTraining,
-                Reflexes = reflexes,
-                Pounds = pounds,
+                Age = input.Age,
+                Salary = input.Salary,
+                Concentration = input.Concentration,
+                Experience = input.Experience,
+                Energy = input.Energy,
+                Devotion = input.Devotion,
+                PhysicalTraining = input.PhysicalTraining,
+                Reflexes = input.Reflexes,
+                Pounds = input.Pounds,
             });
             dbContext.SaveChanges();
         }
 
-        public void CreateNavigator(string? firstName, string? lastName, int age, int concentration, int experience,
-            int energy, int devotion, int physicalTraining, int pounds, int salary, int communication)
+        public void CreateNavigator(NavigatorViewModels input)
         {
             Random rnd = new Random();
-            string? firstN = firstName;
-            string? lastN = lastName;
+            string? firstN = input.FirstName;
+            string? lastN = input.LastName;
 
             if (firstN == null)
             {
-                int first = rnd.Next(11, 112);
+                int first = rnd.Next(1, 100);
                 firstN = dbContext.FirstNames.Select(x => new { x.FirstName, x.Id })
                .FirstOrDefault(x => x.Id == first).FirstName;
             }
             if (lastN == null)
             {
-                int last = rnd.Next(11, 112);
+                int last = rnd.Next(10, 100);
                 lastN = dbContext.LastNames.Select(x => new { x.LastName, x.Id })
                 .FirstOrDefault(x => x.Id == last).LastName;
             }
@@ -81,15 +81,15 @@
             {
                 FirstName = firstN,
                 LastName = lastN,
-                Age = age,
-                Salary = salary,
-                Concentration = concentration,
-                Experience = experience,
-                Energy = energy,
-                Devotion = devotion,
-                PhysicalTraining = physicalTraining,
-                Communication = communication,
-                Pounds = pounds,
+                Age = input.Age,
+                Salary = input.Salary,
+                Concentration = input.Concentration,
+                Experience = input.Experience,
+                Energy = input.Energy,
+                Devotion = input.Devotion,
+                PhysicalTraining = input.PhysicalTraining,
+                Communication = input.Communication,
+                Pounds = input.Pounds,
             });
             dbContext.SaveChanges();
         }

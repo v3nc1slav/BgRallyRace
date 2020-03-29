@@ -1,4 +1,5 @@
-﻿@{
+﻿@model BgRallyRace.ViewModels.PartsViewModels
+@{
     ViewData["Title"] = "Parts";
 }
 
@@ -9,12 +10,39 @@
     <div class="col-sm-8">
         <a class=" background">
             <p>Създаване на Части за Коли</p>
-            <form asp-controller="Admin" asp-action="CreateParts" method="post" class="form-group">
-                <p> Тип <textarea class="form-check-inline" name="type" cols="50" rows="1" ></textarea></p>
-                <p> Име <textarea class="form-check-inline" name="name" cols="50" rows="1" placeholder="Име"></textarea></p>
-                <p> Цена <textarea class="form-check-inline" name="price" cols="50" rows="1" placeholder="Цена"></textarea></p>
-                <p> Здравина <textarea class="form-check-inline" name="strength" cols="50" rows="1" placeholder="Здравина" ></textarea></p>
-                <p> Скорост <textarea class="form-check-inline" name="speed" cols="50" rows="1" placeholder="Скорост"></textarea></p>
+            <form asp-controller="Admin" asp-action="Parts" method="post" class="form-group">
+                <div>
+                    <label asp-for="Type">Тип</label>
+                    <select asp-for="Type" class="form-control" />
+                    <option value="Aerodynamics" selected="">Аеродинамика</option>
+                    <option value="Brakes">Спирачки</option>
+                    <option value="Engines">Двигател</option>
+                    <option value="Gearboxs">Скоростна котия</option>
+                    <option value="ModelsCars">Кипе</option>
+                    <option value="Mountings">Шаси</option>
+                    <option value="Turbo">Турбо</option>
+                    </select>
+                </div>
+                <div>
+                    <label asp-for="Name">Име</label>
+                    <input asp-for="Name" class="form-control" placeholder="Име" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div>
+                    <label asp-for="Price">Цена</label>
+                    <input asp-for="Price" class="form-control" placeholder="Цена" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div>
+                    <label asp-for="Strength">Здравина</label>
+                    <input asp-for="Strength" class="form-control" placeholder="Здравина" />
+                    <span asp-validation-for="Strength" class="text-danger"></span>
+                </div>
+                <div>
+                    <label asp-for="Speed">Скорост</label>
+                    <input asp-for="Speed" class="form-control" placeholder="Скорост" />
+                    <span asp-validation-for="Speed" class="text-danger"></span>
+                </div>
                 <button type="submit" class="btn btn-secondary">Създай</button>
             </form>
         </a>

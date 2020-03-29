@@ -1,4 +1,5 @@
-﻿@{
+﻿@model BgRallyRace.ViewModels.NavigatorViewModels
+@{
     ViewData["Title"] = "Navigator";
 }
 
@@ -8,21 +9,16 @@
     </div>
     <div class="col-sm-8">
         <a class=" background">
-                <p>Създаване на Навигатор</p>
-                <form asp-controller="Admin" asp-action="CreateNavigator" method="post" class="form-group">
-                    <p> Първо име <textarea class="form-check-inline" name="firstName" cols="50" rows="1" placeholder="Първо име"></textarea></p>
-                    <p> Фамилия <textarea class="form-check-inline" name="lastName" cols="50" rows="1" placeholder="Фамилия"></textarea></p>
-                    <p> Години <textarea class="form-check-inline" name="age" cols="50" rows="1" placeholder="18-100"></textarea></p>
-                    <p> Концентрация <textarea class="form-check-inline" name="concentration" cols="50" rows="1" placeholder="0-100"></textarea></p>
-                    <p> Опит <textarea class="form-check-inline" name="experience" cols="50" rows="1" placeholder="0-100"></textarea></p>
-                    <p> Енергия <textarea class="form-check-inline" name="energy" cols="50" rows="1" placeholder="0-100"></textarea></p>
-                    <p> Преданост <textarea class="form-check-inline" name="devotion" cols="50" rows="1" placeholder="0-100"></textarea></p>
-                    <p> Физическо състояние <textarea class="form-check-inline" name="physicalTraining" cols="50" rows="1" placeholder="0-100"></textarea></p>
-                    <p> Килограми <textarea class="form-check-inline" name="pounds" cols="50" rows="1" placeholder="60-150"></textarea></p>
-                    <p> Заплата <textarea class="form-check-inline" name="salary" cols="50" rows="1" placeholder="610-..."></textarea></p>
-                    <p> Комуникация <textarea class="form-check-inline" name="communication" cols="50" rows="1" placeholder="0-100"></textarea></p>
-                    <button type="submit" class="btn btn-secondary">Създай</button>
-                </form>
+            <p>Създаване на Навигатор</p>
+            <form asp-controller="Admin" asp-action="Navigator" method="post" class="form-group">
+                <partial name="_PeoplePartial" />
+                <div>
+                    <label asp-for="Communication"> Рефлекс </label>
+                    <input asp-for="Communication" class="form-control" placeholder="0-100" />
+                    <span asp-validation-for="Communication" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-secondary">Създай</button>
+            </form>
         </a>
     </div>
     <div class="col-sm-2">

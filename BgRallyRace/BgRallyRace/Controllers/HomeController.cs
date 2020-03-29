@@ -32,11 +32,7 @@
 
         public IActionResult Index()
         {
-            var viewModel = new TeamViewModels
-            {
-                Team = team.FindUser(User.Identity.Name)
-            };
-            return View(viewModel);
+            return View();
         }
 
         public IActionResult Opinion(int page = 1)

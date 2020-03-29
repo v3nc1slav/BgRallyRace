@@ -1,0 +1,51 @@
+﻿@model BgRallyRace.ViewModels.PeopleViewModel
+<div>
+    <label asp-for="FirstName"> Първо име</label>
+    <input asp-for="FirstName" class="form-control" placeholder="Първо име" />
+    <span asp-validation-for="FirstName" class="text-danger"></span>
+</div>
+<div>
+    <label asp-for="LastName"> Фамилия</label>
+    <input asp-for="LastName" class="form-control" placeholder="Фамилия" />
+    <span asp-validation-for="LastName" class="text-danger"></span>
+</div>
+<div>
+    <label asp-for="Age"> Години</label>
+    <input asp-for="Age" class="form-control" placeholder="18-100" />
+    <span asp-validation-for="Age" class="text-danger"></span>
+</div>
+<div>
+    <label asp-for="Concentration"> Концентрация</label>
+    <input asp-for="Concentration" class="form-control" placeholder="0-100" />
+    <span asp-validation-for="Concentration" class="text-danger"></span>
+</div>
+<div>
+    <label asp-for="Experience"> Опит</label>
+    <input asp-for="Experience" class="form-control" placeholder="0-100" />
+    <span asp-validation-for="Experience" class="text-danger"></span>
+</div>
+<div>
+    <label asp-for="Energy"> Енергия</label>
+    <input asp-for="Energy" class="form-control" placeholder="0-100" />
+    <span asp-validation-for="Energy" class="text-danger"></span>
+</div>
+<div>
+    <label asp-for="Devotion"> Преданост</label>
+    <input asp-for="Devotion" class="form-control" placeholder="0-100" />
+    <span asp-validation-for="Devotion" class="text-danger"></span>
+</div>
+<div>
+    <label asp-for="PhysicalTraining">  Физическо състояние </label>
+    <input asp-for="PhysicalTraining" class="form-control" placeholder="0-100" />
+    <span asp-validation-for="PhysicalTraining" class="text-danger"></span>
+</div>
+<div>
+    <label asp-for="Pounds"> Килограми </label>
+    <input asp-for="Pounds" class="form-control" placeholder="60-150" />
+    <span asp-validation-for="Pounds" class="text-danger"></span>
+</div>
+<div>
+    <label asp-for="Salary"> Заплата </label>
+    <input asp-for="Salary" class="form-control" placeholder="610-.....лв." />
+    <span asp-validation-for="Salary" class="text-danger"></span>
+</div>

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model BgRallyRace.ViewModels.RunwayViewModels
+@{
     ViewData["Title"] = "Runway";
 }
 
@@ -9,11 +10,30 @@
     <div class="col-sm-8">
         <a class=" background">
             <p>Създаване на писта</p>
-            <form asp-controller="Admin" asp-action="CreateRunway" method="post" class="form-group">
-                <p> Име на пистата <textarea class="form-check-inline" name="name" cols="50" rows="1"></textarea></p>
-                <p> Дължина на пистата <textarea class="form-check-inline" name="length" cols="50" rows="1"></textarea></p>
-                <p> Трудност на пистата <textarea class="form-check-inline" name="difficulty" cols="50" rows="1"></textarea></p>
-                <p> Описание <textarea class="form-check-inline" name="description" cols="50" rows="10"></textarea></p>
+            <form asp-controller="Admin" asp-action="Runway" method="post" class="form-group">
+                <div>
+                    <label asp-for="Name">Име на пистата</label>
+                    <input asp-for="Name" class="form-control" placeholder="Име"/>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div>
+                    <label asp-for="TrackLength">Дължина на пистата</label>
+                    <input asp-for="TrackLength" class="form-control" placeholder="100.25км" />
+                    <span asp-validation-for="TrackLength" class="text-danger"></span>
+                </div>
+                <div>
+                    <label asp-for="Difficulty">Трудност на пистата </label>
+                    <select asp-for="Difficulty" class="form-control" />
+                    <option value="easy" selected="">Лесна</option>
+                    <option value="average">Средно</option>
+                    <option value="complicated">Сложно </option>
+                    </select>
+                </div>
+                <div>
+                    <label asp-for="Description">Описание</label>
+                    <input asp-for="Description" class="form-control" placeholder="Описание" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
                 <button type="submit" class="btn btn-secondary">Създай</button>
             </form>
         </a>
