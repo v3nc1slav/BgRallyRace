@@ -9,5 +9,7 @@
         void CreatePilot(PilotViewModels input);
 
         void CreateNavigator(NavigatorViewModels input);
+
+        void CreateParts(PartsViewModels input);
     }
 }

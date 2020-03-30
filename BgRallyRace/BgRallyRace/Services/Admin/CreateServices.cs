@@ -93,5 +93,18 @@
             });
             dbContext.SaveChanges();
         }
+
+        public void CreateParts(PartsViewModels input)
+        {
+            dbContext.Add(new PartsCars
+            {
+                Type = input.Type,
+                Name = input.Name,
+                Price = input.Price,
+                Strength = input.Strength,
+                Speed = input.Speed,
+            });
+            dbContext.SaveChanges();
+        }
     }
 }

@@ -1,0 +1,49 @@
+﻿@model BgRallyRace.ViewModels.MarketViewModels
+@{
+    ViewData["Title"] = "MarketForParts";
+}
+<a class=" background">
+    <table class="table table-hover">
+        <thead>
+            <tr class="table">
+                <th scope="col">Част</th>
+                <th scope="col">Име</th>
+                <th scope="col">Цена</th>
+                <th scope="col">Здравина</th>
+                <th scope="col">Скорост</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var parts in Model.Parts)
+            {
+            <tr>
+                <th scope="row">@parts.Type </th>
+                <td>@parts.Name </td>
+                <td>@parts.Price</td>
+                <td>@parts.Strength</td>
+                <td>@parts.Speed</td>
+                <td>
+                    <a class="btn btn-success" asp-controller="Market" asp-action="RentalsParts" asp-route-id="@parts.Id" >
+                        Закупи
+                    </a>
+                </td>
+            </tr>
+            }
+        </tbody>
+        <tfoot>
+            <div>
+                @if (!Model.PreviousDisabled)
+                {
+                    <a href="/Market/MarketForNavigators?page=@Model.PreviousPage" class="float-left btn btn-info">Назад</a>
+                }
+                .... @Model.CurrentPage ....
+                @if (!Model.NextDisabled)
+                {
+                    <a href="/Market/MarketForNavigators?page=@Model.NextPage" class="float-right btn btn-info">Напред</a>
+                }
+            </div>
+        </tfoot>
+    </table>
+</a>
+

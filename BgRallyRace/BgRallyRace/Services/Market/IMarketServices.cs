@@ -9,6 +9,8 @@
 
         List<RallyNavigators> GetNavigatorsForMarket(int page = 1);
 
+        List<PartsCars> GetPartsForMarket(int page = 1);
+
         void RentalsPilot(int id, string user, decimal expense);
 
         void RentalsNavigator(int id, string user, decimal expense);
@@ -16,5 +18,7 @@
         int TotalPilots();
 
         int TotalNavigators();
+
+        int TotalParts();
     }
 }

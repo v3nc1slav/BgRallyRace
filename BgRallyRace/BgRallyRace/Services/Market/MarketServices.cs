@@ -34,6 +34,15 @@
             return navigators;
         }
 
+        public List<PartsCars> GetPartsForMarket(int page = 1)
+        {
+            var parts = dbContext.PartsCars
+                .Skip((page - 1) * 10)
+                .Take(10)
+                .ToList();
+            return parts;
+        }
+
         public void RentalsPilot(int id, string user, decimal expense)
         {
             var pilot = dbContext.RallyPilots.Where(x => x.Id == id).FirstOrDefault();
@@ -64,6 +73,13 @@
         {
             var result = dbContext.RallyNavigators
               .Where(x => x.TeamId == null)
+              .Count();
+            return result;
+        }
+
+        public int TotalParts()
+        {
+            var result = dbContext.PartsCars
               .Count();
             return result;
         }

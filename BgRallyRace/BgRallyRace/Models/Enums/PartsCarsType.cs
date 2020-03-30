@@ -2,12 +2,12 @@
 {
     public enum PartsCarsType
     {
-        Aerodynamics = 1,
-        Brakes = 2,
-        Engines = 3,
-        Gearboxs = 4,
-        ModelsCars = 5,
-        Mountings = 6,
-        Turbo = 7,
+        Аеродинамика = 1,
+        Спирачки = 2,
+        Двигател = 3,
+        СкоростнаКутия = 4,
+        Купе = 5,
+        Шаси = 6,
+        Турбо = 7,
     }
 }

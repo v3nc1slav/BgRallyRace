@@ -2,11 +2,9 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
-    using BgRallyRace.Models.Enums;
     using BgRallyRace.Services.Admin;
     using BgRallyRace.Services;
     using BgRallyRace.ViewModels;
-    using BgRallyRace.Models;
 
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
@@ -35,7 +33,7 @@
                 return this.View(input);
             }
             create.CreateRunway(input);
-            return this.View();
+            return this.RedirectToAction("Runway", "Admin");
         }
 
         [HttpGet]
@@ -52,7 +50,7 @@
                 return this.View(input);
             }
             create.CreatePilot(input);
-            return this.View();
+            return this.RedirectToAction("Pilot", "Admin");
         }
 
         [HttpGet]
@@ -70,7 +68,7 @@
                 return this.View(input);
             }
             create.CreateNavigator(input);
-            return this.View();
+            return this.RedirectToAction("Navigator", "Admin");
         }
 
         [HttpGet]
@@ -98,8 +96,8 @@
             {
                 return this.View(input);
             }
-            ///create(input);
-            return this.View();
+            create.CreateParts(input);
+            return this.RedirectToAction("Parts", "Admin");
         }
 
         [HttpPost]

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model BgRallyRace.ViewModels.MarketViewModels
+@{
     ViewData["Title"] = "MarketForPilots";
 }
 <a class=" background">
@@ -20,22 +21,22 @@
         <tbody>
             @foreach (var navigator in Model.Navigators)
             {
-            <tr>
-                <th scope="row">@navigator.FirstName</th>
-                <td>@navigator.LastName</td>
-                <td>@navigator.Age</td>
-                <td>@navigator.Concentration</td>
-                <td>@navigator.Experience</td>
-                <td>@navigator.PhysicalTraining</td>
-                <td>@navigator.Pounds</td>
-                <td>@navigator.Salary</td>
-                <td>1000</td>
-                <td>
-                    <a class="btn btn-success" asp-controller="Market" asp-action="RentalsNavigator" asp-route-id="@navigator.Id" contextmenu=" ">
-                        Наеми
-                    </a>
-                </td>
-            </tr>
+                <tr>
+                    <th scope="row">@navigator.FirstName</th>
+                    <td>@navigator.LastName</td>
+                    <td>@navigator.Age</td>
+                    <td>@navigator.Concentration</td>
+                    <td>@navigator.Experience</td>
+                    <td>@navigator.PhysicalTraining</td>
+                    <td>@navigator.Pounds</td>
+                    <td>@navigator.Salary</td>
+                    <td>1000</td>
+                    <td>
+                        <a class="btn btn-success" asp-controller="Market" asp-action="RentalsNavigator" asp-route-id="@navigator.Id" contextmenu=" ">
+                            Наеми
+                        </a>
+                    </td>
+                </tr>
             }
         </tbody>
         <tfoot>

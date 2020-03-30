@@ -43,9 +43,15 @@
         }
 
         [HttpGet]
-        public IActionResult MarketForParts()
+        public IActionResult MarketForParts(int page = 1)
         {
-            return this.View();
+            var viewModel = new MarketViewModels
+            {
+                Parts = market.GetPartsForMarket(page),
+                CurrentPage = page,
+                Total = market.TotalParts(),
+            };
+            return this.View(viewModel);
         }
 
         [HttpGet]

@@ -8,5 +8,6 @@
     {
         [Required]
         public PartsCarsType Type { get; set; }
+
     }
 }
