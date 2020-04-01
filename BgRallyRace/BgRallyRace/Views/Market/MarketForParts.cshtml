@@ -1,4 +1,5 @@
 ﻿@model BgRallyRace.ViewModels.MarketViewModels
+@inject UserManager<IdentityUser> UserManager
 @{
     ViewData["Title"] = "MarketForParts";
 }
@@ -17,18 +18,18 @@
         <tbody>
             @foreach (var parts in Model.Parts)
             {
-            <tr>
-                <th scope="row">@parts.Type </th>
-                <td>@parts.Name </td>
-                <td>@parts.Price</td>
-                <td>@parts.Strength</td>
-                <td>@parts.Speed</td>
-                <td>
-                    <a class="btn btn-success" asp-controller="Market" asp-action="RentalsParts" asp-route-id="@parts.Id" >
-                        Закупи
-                    </a>
-                </td>
-            </tr>
+                <tr>
+                    <th scope="row">@parts.Type </th>
+                    <td>@parts.Name </td>
+                    <td>@parts.Price</td>
+                    <td>@parts.Strength</td>
+                    <td>@parts.Speed</td>
+                    <td>
+                        <a class="btn btn-success" asp-controller="Market" asp-action="RentalsParts" asp-route-id="@parts.Id" >
+                            Закупи
+                        </a>
+                    </td>
+                </tr>
             }
         </tbody>
         <tfoot>

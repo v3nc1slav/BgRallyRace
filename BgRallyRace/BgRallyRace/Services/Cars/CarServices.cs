@@ -31,16 +31,19 @@
             var carId = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars.Id).FirstOrDefault();
             return carId;
         }
+
         public List<Cars> GetCars(string user)
         {
             var cars = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars).ToList();
             return cars;
         }
+
         public Cars GetCar(string user)
         {
             var car = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars).FirstOrDefault();
             return car;
         }
+
         public Cars GetCar(int id)
         {
             var car = dbContext.Cars.Where(x => x.Id == id).FirstOrDefault();
@@ -56,6 +59,12 @@
         public Brakes GetBrakes(string user)
         {
             var variable = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars.Brakes).First();
+            return variable;
+        }
+
+        public Brakes GetBrakes(int id)
+        {
+            var variable = dbContext.Cars.Where(x => x.Id == id).Select(x=>x.Brakes).First();
             return variable;
         }
 
@@ -100,11 +109,62 @@
             return speed;
         }
 
-        public void GetNewEngine(string user)
+        public void GetNewAerodynamics(PartsCars part, Cars car)
         {
-            var engine = dbContext.Cars.FirstOrDefault(x => x.Team.User == user);
-            engine.Engine.Speed = 100;
+            car.Aerodynamics.Name = part.Name;
+            car.Aerodynamics.Price = part.Price;
+            car.Aerodynamics.Strength = part.Strength;
+            car.Aerodynamics.Speed = part.Speed;
+        }
+
+        public void GetNewBrakes(PartsCars part, Cars car)
+        {
+            var brakes = GetBrakes(car.BrakesId);
+            brakes.Name = part.Name;
+            brakes.Price = part.Price;
+            brakes.Strength = part.Strength;
+            brakes.Speed = part.Speed;
             dbContext.SaveChanges();
+        }
+
+        public void GetNewEngine(PartsCars part, Cars car)
+        {
+            car.Engine.Name = part.Name;
+            car.Engine.Price = part.Price;
+            car.Engine.Strength = part.Strength;
+            car.Engine.Speed = part.Speed;
+        }
+
+        public void GetNewGearbox(PartsCars part, Cars car)
+        {
+            car.Gearbox.Name = part.Name;
+            car.Gearbox.Price = part.Price;
+            car.Gearbox.Strength = part.Strength;
+            car.Gearbox.Speed = part.Speed;
+        }
+
+        public void GetNewModelsCar(PartsCars part, Cars car)
+        {
+            car.ModelCar.Name = part.Name;
+            car.ModelCar.Price = part.Price;
+            car.ModelCar.Strength = part.Strength;
+            car.ModelCar.Speed = part.Speed;
+        }
+
+        public void GetNewMountings(PartsCars part, Cars car)
+        {
+            car.Mounting.Name = part.Name;
+            car.Mounting.Price = part.Price;
+            car.Mounting.Strength = part.Strength;
+            car.Mounting.Speed = part.Speed;
+        }
+
+        public void GetNewTurbo(PartsCars part, Cars car)
+        {
+            car.Turbo.Name = part.Name;
+            car.Turbo.Price = part.Price;
+            car.Turbo.Strength = part.Strength;
+            car.Turbo.Speed = part.Speed;
         }
 
         public decimal GetCurrentSpeed(Parts parts)

@@ -15,6 +15,8 @@
 
         void RentalsNavigator(int id, string user, decimal expense);
 
+        void RentalsPartsForCar(int id, string user);
+
         int TotalPilots();
 
         int TotalNavigators();

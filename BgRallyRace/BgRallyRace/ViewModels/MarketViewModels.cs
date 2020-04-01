@@ -1,7 +1,6 @@
 ﻿namespace BgRallyRace.ViewModels
 {
     using BgRallyRace.Models;
-    using BgRallyRace.Models.PartsCar;
     using System.Collections.Generic;
     public class MarketViewModels : PagesViewModels
     {

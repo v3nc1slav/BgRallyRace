@@ -30,7 +30,19 @@
 
         decimal GetMaxSpeed(string user);
 
-        void GetNewEngine(string user);
+        void GetNewAerodynamics(PartsCars part, Cars car);
+
+        void GetNewBrakes(PartsCars part, Cars car);
+
+        void GetNewEngine(PartsCars part, Cars car);
+
+        void GetNewGearbox(PartsCars part, Cars car);
+
+        void GetNewModelsCar(PartsCars part, Cars car);
+
+        void GetNewMountings(PartsCars part, Cars car);
+
+        void GetNewTurbo(PartsCars part, Cars car);
 
         decimal GetCurrentSpeed(Parts parts);
 

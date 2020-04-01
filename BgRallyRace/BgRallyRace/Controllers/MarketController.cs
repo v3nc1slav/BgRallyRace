@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Http;
     using BgRallyRace.ViewModels;
     using BgRallyRace.Services.Market;
+    using System.Collections.Generic;
 
     [Authorize]
     public class MarketController : Controller
@@ -68,6 +69,19 @@
             return this.RedirectToAction("Navigator", "Teams");
         }
 
+        public IActionResult RentalsParts(int id)
+        {
+            market.RentalsPartsForCar(id, User.Identity.Name);
+            return this.RedirectToAction("Car", "Cars");
+        }
+
+        [HttpPost]
+        public IActionResult RentalsParts(int id, PartsCars parts)
+        {
+
+            //...ToDo
+            return this.RedirectToAction("Car", "Cars");
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
