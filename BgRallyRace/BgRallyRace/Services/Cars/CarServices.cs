@@ -3,6 +3,7 @@
     using BgRallyRace.Data;
     using BgRallyRace.Models;
     using BgRallyRace.Models.PartsCar;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -56,6 +57,11 @@
             return variable;
         }
 
+        public Aerodynamics GetAerodynamics(int id)
+        {
+            var variable = dbContext.Cars.Where(x => x.AerodynamicsId== id).Select(x => x.Aerodynamics).First();
+            return variable;
+        }
         public Brakes GetBrakes(string user)
         {
             var variable = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars.Brakes).First();
@@ -64,7 +70,7 @@
 
         public Brakes GetBrakes(int id)
         {
-            var variable = dbContext.Cars.Where(x => x.Id == id).Select(x=>x.Brakes).First();
+            var variable = dbContext.Cars.Where(x => x.BrakesId == id).Select(x=>x.Brakes).First();
             return variable;
         }
 
@@ -74,9 +80,21 @@
             return variable;
         }
 
+        public Engines GetEngine(int id)
+        {
+            var variable = dbContext.Cars.Where(x => x.EngineId == id).Select(x => x.Engine).First();
+            return variable;
+        }
+
         public Gearboxs GetGearboxs(string user)
         {
             var variable = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars.Gearbox).First();
+            return variable;
+        }
+
+        public Gearboxs GetGearboxs(int id)
+        {
+            var variable = dbContext.Cars.Where(x => x.GearboxId == id).Select(x => x.Gearbox).First();
             return variable;
         }
 
@@ -86,15 +104,33 @@
             return variable;
         }
 
+        public ModelsCars GetModelsCars(int id)
+        {
+            var variable = dbContext.Cars.Where(x => x.ModelCarId == id).Select(x => x.ModelCar).First();
+            return variable;
+        }
+
         public Mountings GetMountings(string user)
         {
             var variable = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars.Mounting).First();
             return variable;
         }
 
+        public Mountings GetMountings(int id)
+        {
+            var variable = dbContext.Cars.Where(x => x.MountingId == id).Select(x => x.Mounting).First();
+            return variable;
+        }
+
         public Turbo? GetTurbo(string user)
         {
             var variable = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars.Turbo).First();
+            return variable;
+        }
+
+        public Turbo GetTurboId(int? id)
+        {
+            var variable = dbContext.Cars.Where(x => x.TurboId == id).Select(x => x.Turbo).FirstOrDefault();
             return variable;
         }
 
@@ -111,60 +147,44 @@
 
         public void GetNewAerodynamics(PartsCars part, Cars car)
         {
-            car.Aerodynamics.Name = part.Name;
-            car.Aerodynamics.Price = part.Price;
-            car.Aerodynamics.Strength = part.Strength;
-            car.Aerodynamics.Speed = part.Speed;
+            var oldPart = GetAerodynamics(car.AerodynamicsId);
+            substitution(part, oldPart);
         }
 
         public void GetNewBrakes(PartsCars part, Cars car)
         {
-            var brakes = GetBrakes(car.BrakesId);
-            brakes.Name = part.Name;
-            brakes.Price = part.Price;
-            brakes.Strength = part.Strength;
-            brakes.Speed = part.Speed;
-            dbContext.SaveChanges();
+            var oldPart = GetBrakes(car.BrakesId);
+            substitution(part, oldPart);
         }
 
         public void GetNewEngine(PartsCars part, Cars car)
         {
-            car.Engine.Name = part.Name;
-            car.Engine.Price = part.Price;
-            car.Engine.Strength = part.Strength;
-            car.Engine.Speed = part.Speed;
+            var oldPart = GetEngine(car.EngineId);
+            substitution(part, oldPart);
         }
 
         public void GetNewGearbox(PartsCars part, Cars car)
         {
-            car.Gearbox.Name = part.Name;
-            car.Gearbox.Price = part.Price;
-            car.Gearbox.Strength = part.Strength;
-            car.Gearbox.Speed = part.Speed;
+            var oldPart = GetGearboxs(car.GearboxId);
+            substitution(part, oldPart);
         }
 
         public void GetNewModelsCar(PartsCars part, Cars car)
         {
-            car.ModelCar.Name = part.Name;
-            car.ModelCar.Price = part.Price;
-            car.ModelCar.Strength = part.Strength;
-            car.ModelCar.Speed = part.Speed;
+            var oldPart = GetModelsCars(car.ModelCarId);
+            substitution(part, oldPart);
         }
 
         public void GetNewMountings(PartsCars part, Cars car)
         {
-            car.Mounting.Name = part.Name;
-            car.Mounting.Price = part.Price;
-            car.Mounting.Strength = part.Strength;
-            car.Mounting.Speed = part.Speed;
+            var oldPart = GetMountings(car.MountingId);
+            substitution(part, oldPart);
         }
 
         public void GetNewTurbo(PartsCars part, Cars car)
         {
-            car.Turbo.Name = part.Name;
-            car.Turbo.Price = part.Price;
-            car.Turbo.Strength = part.Strength;
-            car.Turbo.Speed = part.Speed;
+            var oldPart = GetTurboId(car.TurboId);
+            substitution(part, oldPart);
         }
 
         public decimal GetCurrentSpeed(Parts parts)
@@ -265,6 +285,14 @@
             rallyPilots.DecreaseEnergy(idPilot, int.Parse(energy.ToString()));
             rallyNavigators.IsWorking(idNavigator);
             rallyNavigators.DecreaseEnergy(idNavigator, int.Parse(energy.ToString()));
+        }
+
+        private void substitution(PartsCars newPart, Parts oldPart)
+        {
+            oldPart.Name = newPart.Name;
+            oldPart.Price = newPart.Price;
+            oldPart.Strength = newPart.Strength;
+            oldPart.Speed = newPart.Speed;
         }
     }
 }
