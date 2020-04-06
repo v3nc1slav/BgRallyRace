@@ -9,9 +9,30 @@
     public class CreateServices : ICreateServices
     {
         private readonly ApplicationDbContext dbContext;
+
         public CreateServices(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
+        }
+        
+        public void CreateCompetitions(CompetitionsViewModels input)
+        {
+            var id = dbContext.Add(new Competitions
+            {
+                Name = input.Name,
+                StartRaceDate = input.StartRaceDate,
+            });
+            dbContext.SaveChanges();
+
+            for (int i = 0; i < input.CompetitionsRallyRunwayId.Count; i++)
+            {
+                dbContext.CompetitionsRallyRunway.Add(new CompetitionsRallyRunway
+                {
+                    RallyRunwayId = input.CompetitionsRallyRunwayId[i],
+                    CompetitionsId = id.Entity.Id,
+                });
+            }
+            dbContext.SaveChanges();
         }
 
         public void CreateRunway(RunwayViewModels input)

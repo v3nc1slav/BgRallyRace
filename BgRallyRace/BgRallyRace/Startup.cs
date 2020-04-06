@@ -15,6 +15,8 @@ namespace BgRallyRace
     using BgRallyRace.Services.Money;
     using BgRallyRace.Services.Admin;
     using Microsoft.AspNetCore.Mvc;
+    using BgRallyRace.Services.Runways;
+    using BgRallyRace.Services.Competitions;
 
     public class Startup
     {
@@ -63,6 +65,8 @@ namespace BgRallyRace
             services.AddTransient<IDismissalServices, DismissalServices>();
             services.AddTransient<IFinanceServices, FinanceServices>();
             services.AddTransient<ICreateServices, CreateServices>();
+            services.AddTransient<IRunwaysServices, RunwaysServices>();
+            services.AddTransient<ICompetitionsServices, CompetitionsServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -69,19 +69,14 @@
             return this.RedirectToAction("Navigator", "Teams");
         }
 
+        [HttpGet]
         public IActionResult RentalsParts(int id)
         {
             market.RentalsPartsForCar(id, User.Identity.Name);
             return this.RedirectToAction("Car", "Cars");
         }
 
-        [HttpPost]
-        public IActionResult RentalsParts(int id, PartsCars parts)
-        {
-
-            //...ToDo
-            return this.RedirectToAction("Car", "Cars");
-        }
+      
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

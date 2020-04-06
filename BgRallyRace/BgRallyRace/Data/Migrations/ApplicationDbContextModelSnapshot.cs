@@ -146,12 +146,15 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CompetitionsRallyRunwayId")
+                    b.Property<int>("CompetitionsRallyRunwayId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Stages")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartRaceDate")
                         .HasColumnType("datetime2");
@@ -438,34 +441,43 @@ namespace BgRallyRace.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Age")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(100);
 
                     b.Property<int>("Concentration")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(100);
 
                     b.Property<int>("Devotion")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(100);
 
                     b.Property<int>("Energy")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(100);
 
                     b.Property<int>("Experience")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(100);
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsItWorking")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PhysicalTraining")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(100);
 
                     b.Property<int>("Pounds")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(150);
 
                     b.Property<int>("Salary")
                         .HasColumnType("int");
@@ -492,37 +504,46 @@ namespace BgRallyRace.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Age")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(100);
 
                     b.Property<int>("Communication")
                         .HasColumnType("int");
 
                     b.Property<int>("Concentration")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(100);
 
                     b.Property<int>("Devotion")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(100);
 
                     b.Property<int>("Energy")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(100);
 
                     b.Property<int>("Experience")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(100);
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsItWorking")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PhysicalTraining")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(100);
 
                     b.Property<int>("Pounds")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(150);
 
                     b.Property<int>("Salary")
                         .HasColumnType("int");
@@ -543,34 +564,43 @@ namespace BgRallyRace.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Age")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(100);
 
                     b.Property<int>("Concentration")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(100);
 
                     b.Property<int>("Devotion")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(100);
 
                     b.Property<int>("Energy")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(100);
 
                     b.Property<int>("Experience")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(100);
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsItWorking")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PhysicalTraining")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(100);
 
                     b.Property<int>("Pounds")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(150);
 
                     b.Property<int>("Reflexes")
                         .HasColumnType("int");

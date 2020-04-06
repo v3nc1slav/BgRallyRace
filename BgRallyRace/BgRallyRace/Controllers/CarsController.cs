@@ -6,6 +6,7 @@
     using BgRallyRace.ViewModels;
     using System.Linq;
 
+    [Authorize]
     public class CarsController : Controller
     {
         private readonly ICarServices car;
@@ -15,7 +16,7 @@
             this.car = carServices;
         }
 
-        [Authorize]
+      
         public IActionResult Car()
         {
             var viewModel = new CarViewModels
@@ -33,7 +34,6 @@
             return this.View(viewModel);
         }
 
-        [Authorize]
         [HttpPost]
         public IActionResult Repair(string type, int id)
         {
@@ -44,7 +44,5 @@
             car.Repair(type, id, price, user );
             return this.Car();
         }
-
-
     }
 }

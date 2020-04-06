@@ -5,18 +5,20 @@
     using BgRallyRace.Services.Admin;
     using BgRallyRace.Services;
     using BgRallyRace.ViewModels;
+    using BgRallyRace.Services.Runways;
 
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly ICreateServices create;
-
         private readonly IOpinionsServices opinions;
+        private readonly IRunwaysServices runways;
 
-        public AdminController(ICreateServices createServices, IOpinionsServices opinionsServices)
+        public AdminController(ICreateServices createServices, IOpinionsServices opinionsServices, IRunwaysServices runwaysServices)
         {
             this.create = createServices;
             this.opinions = opinionsServices;
+            this.runways = runwaysServices;
         }
 
         [HttpGet]
@@ -83,6 +85,14 @@
             return this.View(viewModel);
         }
 
+        [HttpPost]
+        public IActionResult AuthorizationOpinions(int[] opinionsVisible, int[] opinionsInvisible)
+        {
+            opinions.MadeOpinionsVisible(opinionsVisible);
+            opinions.MadeOpinionsInvisible(opinionsInvisible);
+            return RedirectToAction("Opinions", "Admin");
+        }
+
         [HttpGet]
         public IActionResult Parts()
         {
@@ -100,12 +110,27 @@
             return this.RedirectToAction("Parts", "Admin");
         }
 
-        [HttpPost]
-        public IActionResult AuthorizationOpinions(int[] opinionsVisible, int[] opinionsInvisible)
+
+        [HttpGet]
+        public IActionResult Competitions()
         {
-            opinions.MadeOpinionsVisible(opinionsVisible);
-            opinions.MadeOpinionsInvisible(opinionsInvisible);
-            return RedirectToAction("Opinions", "Admin");
+            var view = new CompetitionsViewModels
+            {
+                Runways = runways.GetALLRunways()
+            };
+            return this.View(view);
         }
+
+        [HttpPost]
+        public IActionResult Competitions(CompetitionsViewModels input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+            create.CreateCompetitions(input);
+            return this.RedirectToAction("Index", "Home");
+        }
+
     }
 }

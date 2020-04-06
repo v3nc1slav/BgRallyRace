@@ -5,8 +5,9 @@
 
 <form asp-controller="Home" asp-action="Contact" method="post" class="form-group">
     <textarea class="form-control" id="exampleTextarea" name="content" cols="50" rows="2" class="flL w200"></textarea>
-    <button type="submit" class="btn btn-secondary">Сподели</button>
+    <button type="submit" onclick="document.getElementById('id01').style.display='block'" class="btn btn-secondary">Сподели</button>
 </form>
+
 @foreach (var opinion in Model.Opinions)
 {
     <p>
@@ -17,9 +18,9 @@
                     @opinion.DateOfPublication
                     @if (@opinion.User == User.Identity.Name)
                     {
-                    <a class="text-dark" asp-controller="Home" asp-action="DeleteOpinion" asp-route-id="@opinion.Id" contextmenu=" ">
-                        x
-                    </a>
+                        <a class="text-dark" asp-controller="Home" asp-action="DeleteOpinion" asp-route-id="@opinion.Id" contextmenu=" ">
+                            &times;
+                        </a>
                     }
                 </small>
             </div>
@@ -48,3 +49,33 @@
     </div>
 </div>
 
+
+<div id="id01" class="w3-modal">
+    <div class="w3-modal-content w3-card-4">
+        <header class="w3-container w3-teal">
+            <span onclick="document.getElementById('id01').style.display='none'"
+                  class="w3-button w3-display-topright">&times;</span>
+            <h2>Благодарим</h2>
+        </header>
+        <div class="w3-container">
+            <p>Вие успешно побликувахте мнение!</p>
+            <p>След проверка от Администратор, ще стане видимо.</p>
+        </div>
+        <footer class="w3-container w3-teal">
+        </footer>
+    </div>
+</div>
+</div>
+
+
+<script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>

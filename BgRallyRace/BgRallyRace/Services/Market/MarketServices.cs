@@ -22,9 +22,9 @@
         public List<RallyPilots> GetPilotsForMarket(int page = 1)
         {
             var pilots = dbContext.RallyPilots
+                 .Where(x => x.TeamId == null)
                  .Skip((page - 1) * pageSize)
                  .Take(10)
-                 .Where(x => x.TeamId == null)
                  .ToList();
             return pilots;
         }
@@ -32,9 +32,9 @@
         public List<RallyNavigators> GetNavigatorsForMarket(int page = 1)
         {
             var navigators = dbContext.RallyNavigators
+                .Where(x => x.TeamId == null)
                 .Skip((page - 1) * pageSize)
                 .Take(10)
-                .Where(x => x.TeamId == null)
                 .ToList();
             return navigators;
         }

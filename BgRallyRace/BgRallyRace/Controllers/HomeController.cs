@@ -10,6 +10,8 @@
     using Microsoft.AspNetCore.Http;
     using BgRallyRace.ViewModels;
     using Microsoft.AspNetCore.Identity;
+    using BgRallyRace.Services.Competitions;
+    using BgRallyRace.Models.Home;
 
     public class HomeController : Controller
     {
@@ -18,21 +20,28 @@
         public readonly ITeamServices team;
         public readonly RoleManager<IdentityRole> roles;
         private readonly UserManager<IdentityUser> user;
+        private readonly ICompetitionsServices competitions;
 
         public HomeController(ILogger<HomeController> logger, ITeamServices teamServices,
             IOpinionsServices opinionsServices, RoleManager<IdentityRole> roleManager,
-            UserManager<IdentityUser> userManager)
+            UserManager<IdentityUser> userManager, ICompetitionsServices competitionsServices)
         {
             _logger = logger;
             this.team = teamServices;
             this.opinions = opinionsServices;
             this.roles = roleManager;
             this.user = userManager;
+            this.competitions = competitionsServices;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var viewModel = new IndexViewModel
+            {
+                CountNotAuthorization = opinions.GetCountNotAuthorization(),
+                StartDate = competitions.GetStartDate(),
+            };
+            return this.View(viewModel);
         }
 
         public IActionResult Opinion(int page = 1)

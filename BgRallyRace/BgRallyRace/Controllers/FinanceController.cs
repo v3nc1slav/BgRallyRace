@@ -5,6 +5,7 @@
     using BgRallyRace.ViewModels;
     using BgRallyRace.Services.Money;
 
+    [Authorize]
     public class FinanceController : Controller
     {
         private readonly IFinanceServices finance;
@@ -14,7 +15,6 @@
             this.finance = financeServices;
         }
 
-        [Authorize]
         public IActionResult FinancialStatistics()
         {
             var viewModel = new FinanceViewModels

@@ -1,4 +1,5 @@
-﻿@inject SignInManager<IdentityUser> SignInManager
+﻿@model BgRallyRace.Models.Home.IndexViewModel
+@inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
 @{
@@ -9,7 +10,7 @@
 
 @section Scripts{
     <script>
-        var date = "April 25, 2020 19:00:00";//Admin
+        var date = "@Model.StartDate";   //"April 25, 2020 19:00:00";//Admin 
         var countDownDate = new Date(date).getTime();
 
         var x = setInterval(function () {

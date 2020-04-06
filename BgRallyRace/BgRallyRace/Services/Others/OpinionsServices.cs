@@ -34,10 +34,10 @@
         public Opinions[] GetOpinions(int page = 1)
         {
             var result = dbContext.Opinions
+                .Where(x => x.authorizationOpinions == AuthorizationType.yes && x.IsDeleted == false)
+                .OrderByDescending(x => x.DateOfPublication)
                 .Skip((page-1)*10)
                 .Take(10)
-                .OrderByDescending(x => x.DateOfPublication)
-                .Where(x => x.authorizationOpinions == AuthorizationType.yes && x.IsDeleted == false)
                 .Select(x => new Opinions 
                 {   Id = x.Id, 
                     Content = x.Content, 
@@ -48,13 +48,13 @@
             return result;
         }
 
-        public Opinions[] GetOpinionsForAdmin(int page =1)
+        public Opinions[] GetOpinionsForAdmin(int page = 1)
         {
             var result = dbContext.Opinions
+                .Where(x => x.authorizationOpinions == indefinitely)
+                .OrderByDescending(x => x.DateOfPublication)
                 .Skip((page - 1) * 10)
                 .Take(10)
-                .OrderByDescending(x => x.DateOfPublication)
-                .Where(x => x.authorizationOpinions == indefinitely)
                 .Select(x => new Opinions { Id = x.Id, Content = x.Content }).ToArray();
             return result;
         }

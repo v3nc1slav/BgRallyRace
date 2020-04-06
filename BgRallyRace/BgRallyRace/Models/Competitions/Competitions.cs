@@ -15,13 +15,16 @@
         [Required]
         public DateTime StartRaceDate { get; set; }
 
-        public int? CompetitionsRallyRunwayId { get; set; }
+        [Required]
+        public int Stages { get; set; } 
 
-        public ICollection<CompetitionsRallyRunway>? CompetitionsRallyRunway { get; set; } = new HashSet<CompetitionsRallyRunway>();
+        public int CompetitionsRallyRunwayId { get; set; }
 
-        public int? TeamId { get; set; }
+        public List<CompetitionsRallyRunway> CompetitionsRallyRunway { get; set; } = new List<CompetitionsRallyRunway>();
 
-        public ICollection<CompetitionsTeams>? CompetitionsTeams { get; set; } = new HashSet<CompetitionsTeams>();
+        public int TeamId { get; set; }
+
+        public List<CompetitionsTeams> CompetitionsTeams { get; set; } = new List<CompetitionsTeams>();
 
     }
 }

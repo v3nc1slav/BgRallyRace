@@ -4,6 +4,8 @@
 
     public interface ICreateServices
     {
+        public void CreateCompetitions(CompetitionsViewModels input);
+
         void CreateRunway(RunwayViewModels input);
 
         void CreatePilot(PilotViewModels input);

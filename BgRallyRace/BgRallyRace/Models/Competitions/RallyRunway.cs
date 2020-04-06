@@ -24,6 +24,6 @@
 
         public int? CompetitionsRallyTracksId { get; set; }
 
-        public ICollection< CompetitionsRallyRunway>? CompetitionsRallyTracks { get; set; }  = new HashSet<CompetitionsRallyRunway>();
+        public List< CompetitionsRallyRunway>? CompetitionsRallyTracks { get; set; }  = new List<CompetitionsRallyRunway>();
     }
 }
