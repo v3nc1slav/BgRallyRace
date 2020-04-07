@@ -1,3 +1,27 @@
+#marchesWidgets .outgoingCampaigns {
+    top: 15px;
+    left: 5px;
+    background-color: rgb(31,104,185);
+}
+
+#marchesWidgets .incomingCampaigns, #marchesWidgets .outgoingCampaigns {
+    position: absolute;
+    z-index: 1;
+    width: 20px;
+    height: 20px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 20px;
+    text-shadow: 0 0 5px #000;
+    color: #fff;
+    background: rgb(204,55,32);
+    border: 1px solid #000;
+    border-radius: 50%;
+}
+
+
 header * {
     text-decoration: none;
     font-size: 20px;
@@ -7,7 +31,6 @@ header * {
 .SearchBar {
     margin-left: 54rem;
 }
-
 
 .collapse navbar-collapse {
     float: right;

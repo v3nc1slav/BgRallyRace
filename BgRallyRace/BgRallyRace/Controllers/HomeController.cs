@@ -12,6 +12,7 @@
     using Microsoft.AspNetCore.Identity;
     using BgRallyRace.Services.Competitions;
     using BgRallyRace.Models.Home;
+    using System.Threading;
 
     public class HomeController : Controller
     {
@@ -69,6 +70,7 @@
         [HttpPost]
         public IActionResult Contact(string content)
         {
+            Thread.Sleep(4000);
             opinions.AddOpinionAsync(content, User.Identity.Name);
             return this.RedirectToAction("Opinion", "Home");
         }

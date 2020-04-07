@@ -10,7 +10,7 @@
 
 @section Scripts{
     <script>
-        var date = "@Model.StartDate";   //"April 25, 2020 19:00:00";//Admin 
+        var date = "@Model.StartDate";   //"April 25, 2020 19:00:00";//Admin
         var countDownDate = new Date(date).getTime();
 
         var x = setInterval(function () {
@@ -28,8 +28,8 @@
 
             if (distance < 0) {
                 clearInterval(x);
-                document.getElementById("demo").innerHTML = "EXPIRED";
+                document.getElementById("demo").innerHTML = "Състезанието започна";
             }
-        }, 1000);
+        });
     </script>
 }

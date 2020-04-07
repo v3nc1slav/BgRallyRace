@@ -7,7 +7,6 @@
     using Microsoft.AspNetCore.Http;
     using BgRallyRace.ViewModels;
     using BgRallyRace.Services.Market;
-    using System.Collections.Generic;
 
     [Authorize]
     public class MarketController : Controller

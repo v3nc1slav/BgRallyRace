@@ -14,6 +14,7 @@
 
     <div class="leftBackground">
         <p>Състезание</p>
+        <p>Писта </p>
     </div>
 }
 
@@ -23,7 +24,17 @@
         <div class="leftBackgroundAdmin">
             <a asp-controller="Admin" asp-action="Opinions">
                 Оторизация на мнения
-                <b class="text-danger"> (@await Component.InvokeAsync("Opinions"))</b>
+                <span>
+                    <marcheswidget>
+                        <div id="marchesWidgets">
+                            <div class="outgoingCampaigns">
+                                <b>
+                                    @await Component.InvokeAsync("Opinions")
+                                </b>
+                            </div>
+                        </div>
+                    </marcheswidget>
+                </span>
             </a>
         </div>
     }

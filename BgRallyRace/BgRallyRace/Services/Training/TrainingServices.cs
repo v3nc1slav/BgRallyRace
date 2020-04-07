@@ -38,9 +38,9 @@
             {
                 this.Squash(id, typePeople);
             }
-            else if (typeTreining == "Interview")
+            else if (typeTreining == "CommunicationTraining")
             {
-                this.Interview(id, typePeople);
+                this.CommunicationTraining(id, typePeople);
             }
         }
 
@@ -121,7 +121,7 @@
             }
         }
         
-        public void Interview(int id, string type)
+        public void CommunicationTraining(int id, string type)
         {
            if (type == "Navigator")
             {

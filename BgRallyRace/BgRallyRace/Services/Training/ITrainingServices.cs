@@ -14,6 +14,6 @@
 
         void Squash(int id, string type);
 
-        void Interview(int id, string type);
+        void CommunicationTraining(int id, string type);
     }
 }
