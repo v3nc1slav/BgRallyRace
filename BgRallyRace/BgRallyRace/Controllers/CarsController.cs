@@ -16,7 +16,7 @@
             this.car = carServices;
         }
 
-      
+        [HttpGet]
         public IActionResult Car()
         {
             var viewModel = new CarViewModels
@@ -41,7 +41,7 @@
             type = input[0];
             decimal price = decimal.Parse(input[1]);
             string user = input[2];
-            car.Repair(type, id, price, user );
+            car.Repair(type, id, price, user);
             return this.Car();
         }
     }

@@ -74,9 +74,10 @@ main {
     border-radius: 10px;
     text-decoration: none;
     width: 150px;
-    height: 200px;
+    height: 250px;
     opacity: 0.95;
     display: block;
+    text-align: left;
 }
 
 .RightBackground {
@@ -86,9 +87,10 @@ main {
     border-radius: 10px;
     text-decoration: none;
     width: 150px;
-    height: 200px;
+    height: 250px;
     opacity: 0.95;
     display: block;
+    text-align: left;
 }
 
 .leftBackgroundAdmin {
@@ -98,9 +100,10 @@ main {
     border-radius: 10px;
     text-decoration: none;
     width: 200px;
-    height: 250px;
+    height: 500px;
     opacity: 0.95;
     display: block;
+    text-align: left;
 }
 
 .RightBackgroundAdmin {
@@ -110,7 +113,7 @@ main {
     border-radius: 10px;
     text-decoration: none;
     width: 200px;
-    height: 250px;
+    height: 500px;
     opacity: 0.95;
     display: block;
     text-align: left;

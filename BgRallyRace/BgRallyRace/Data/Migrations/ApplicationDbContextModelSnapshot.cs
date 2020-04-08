@@ -159,7 +159,7 @@ namespace BgRallyRace.Migrations
                     b.Property<DateTime>("StartRaceDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("TeamId")
+                    b.Property<int>("TeamId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -635,6 +635,9 @@ namespace BgRallyRace.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortDescription")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TrackLength")

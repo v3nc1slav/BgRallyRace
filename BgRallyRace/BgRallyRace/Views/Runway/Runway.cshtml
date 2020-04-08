@@ -1,0 +1,46 @@
+﻿@model BgRallyRace.ViewModels.RunwayViewModels
+@{
+    ViewData["Title"] = "Runway";
+}
+<div class="form-group row">
+    <div class="col-sm-2">
+        <partial name="_LeftBarPartial" />
+    </div>
+    <div class="col-sm-8">
+        <div class="background">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="table">
+                        <th scope="col">Име</th>
+                        <th scope="col">Дължина</th>
+                        <th scope="col">Трудност</th>
+                        <th scope="col">Описание</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var runway in Model.Runways)
+                    {
+                        <tr>
+                            <th scope="row">@runway.Name </th>
+                            <td>@runway.TrackLength Км.</td>
+                            <td>@runway.Difficulty</td>
+                            <td>@runway.ShortDescription</td>
+                            <td>
+                                <a class="btn btn-success" asp-controller="Runway" asp-action="DetailsRunway" asp-route-id="@runway.Id">
+                                    Детайли
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <partial name="_RightBarPartial" />
+    </div>
+</div>
+

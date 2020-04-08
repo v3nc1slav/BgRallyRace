@@ -282,9 +282,9 @@
             var energy = 100 - typeParts.Strength;
             typeParts.Strength = 100;
             rallyPilots.IsWorking(idPilot);
-            rallyPilots.DecreaseEnergy(idPilot, int.Parse(energy.ToString()));
+            rallyPilots.DecreaseEnergy(idPilot, Decimal.ToInt32(energy));
             rallyNavigators.IsWorking(idNavigator);
-            rallyNavigators.DecreaseEnergy(idNavigator, int.Parse(energy.ToString()));
+            rallyNavigators.DecreaseEnergy(idNavigator, Decimal.ToInt32(energy));
         }
 
         private void substitution(PartsCars newPart, Parts oldPart)

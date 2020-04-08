@@ -22,6 +22,17 @@
         [Required]
         public string Description { get; set; }
 
+        public string ShortDescription
+        {
+            get
+            {
+                return this.Description.Length > 50
+                ? this.Description.Substring(0, 50) + "..."
+                : this.Description;
+            }
+            set { }
+        }
+
         public int? CompetitionsRallyTracksId { get; set; }
 
         public List< CompetitionsRallyRunway>? CompetitionsRallyTracks { get; set; }  = new List<CompetitionsRallyRunway>();
