@@ -22,6 +22,8 @@
 
         public string ShortDescription  {get; set;}
 
+        public string ImagName { get; set; }
+
         public List<RallyRunway> Runways { get; set; }
     }
 }

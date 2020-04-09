@@ -33,6 +33,8 @@
             set { }
         }
 
+        public string ImagName { get; set; }
+
         public int? CompetitionsRallyTracksId { get; set; }
 
         public List< CompetitionsRallyRunway>? CompetitionsRallyTracks { get; set; }  = new List<CompetitionsRallyRunway>();

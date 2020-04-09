@@ -13,7 +13,7 @@
             <form asp-controller="Admin" asp-action="Runway" method="post" class="form-group">
                 <div>
                     <label asp-for="Name">Име на пистата</label>
-                    <input asp-for="Name" class="form-control" placeholder="Име"/>
+                    <input asp-for="Name" class="form-control" placeholder="Име" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div>
@@ -33,6 +33,11 @@
                     <label asp-for="Description">Описание</label>
                     <input asp-for="Description" class="form-control" placeholder="Описание" />
                     <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div>
+                    <label asp-for="ImagName">Име на снимката</label>
+                    <input asp-for="ImagName" class="form-control" placeholder="imag.png/jpg" />
+                    <span asp-validation-for="ImagName" class="text-danger"></span>
                 </div>
                 <button type="submit" class="btn btn-secondary">Създай</button>
             </form>

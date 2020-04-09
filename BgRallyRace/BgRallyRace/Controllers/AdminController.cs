@@ -116,7 +116,7 @@
         {
             var view = new CompetitionsViewModels
             {
-                Runways = runways.GetALLRunways()
+                Runways = runways.GetAllRunways()
             };
             return this.View(view);
         }

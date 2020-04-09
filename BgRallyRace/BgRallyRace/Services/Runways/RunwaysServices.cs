@@ -13,10 +13,16 @@
         {
             this.dbContext = dbContext;
         }
-        public List<RallyRunway> GetALLRunways()
+        public List<RallyRunway> GetAllRunways()
         {
             var runways = dbContext.RallyRunways.ToList();
             return runways;
+        }
+
+        public RallyRunway GetRally(int id)
+        {
+            var runway = dbContext.RallyRunways.Where(x => x.Id == id).FirstOrDefault();
+            return runway;          
         }
     }
 }

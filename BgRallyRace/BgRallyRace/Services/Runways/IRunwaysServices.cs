@@ -5,6 +5,8 @@
 
     public interface IRunwaysServices
     {
-        List<RallyRunway> GetALLRunways();
+        List<RallyRunway> GetAllRunways();
+
+        RallyRunway GetRally(int id);
     }
 }

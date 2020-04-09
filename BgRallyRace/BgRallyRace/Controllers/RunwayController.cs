@@ -25,7 +25,7 @@
         {
             var viewModel = new RunwayViewModels
             {
-                Runways = runway.GetALLRunways()
+                Runways = runway.GetAllRunways()
             };
 
             return this.View(viewModel);
@@ -34,9 +34,14 @@
         [HttpGet]
         public IActionResult DetailsRunway(int id )
         {
+            var runwayId = runway.GetRally(id);
             var viewModel = new RunwayViewModels
             {
-
+                 Name = runwayId.Name,
+                 TrackLength = runwayId.TrackLength,
+                 Difficulty = runwayId.Difficulty,
+                 Description = runwayId.Description,
+                 ImagName  = runwayId.ImagName,
             };
 
             return this.View(viewModel);
