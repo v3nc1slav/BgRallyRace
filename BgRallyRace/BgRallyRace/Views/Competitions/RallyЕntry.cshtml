@@ -1,0 +1,100 @@
+﻿@model BgRallyRace.ViewModels.TeamViewModels
+@{
+    ViewData["Title"] = "RallyЕntry";
+}
+<div class="form-group row">
+    <div class="col-sm-2">
+        <partial name="_LeftBarPartial" />
+    </div>
+    <div class="col-sm-8">
+        <div class="background">
+            <h1>Запиши се за състезание</h1>
+            <p class="text-body"> Състезанието започва на @Model.StartRaceDate</p>
+            <hr class="my-4">
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <h4>
+                        Писта на която ще се проведе състезанието
+                        <a asp-controller="Runway" asp-action="DetailsRunway" asp-route-id="@Model.Runway.Id">
+                            @Model.Runway.Name
+                        </a>
+                    </h4>
+                    <hr class="my-4">
+                    <p>Трудност на пистата: @Model.Runway.Difficulty</p>
+                    <p>Дължина @Model.Runway.TrackLength км.</p>
+                    <img src="~/images/@Model.Runway.ImagName" width="298" height="380">
+                </div>
+                <div class="col-sm-8">
+                    <h3>Отбор @Model.Name</h3>
+                    <hr class="my-4">
+                    <form asp-controller="Competitions" asp-action="RallyЕntry" method="post" class="form-group">
+                        <div>
+                            <label asp-for="RallyPilot">Избери Пилот</label>
+                            <select asp-for="RallyPilot" class="form-control" />
+                            <option value="RallyPilots[0]" selected="">@Model.RallyPilots[0].FirstName @Model.RallyPilots[0].LastName</option>
+                            @{if (@Model.RallyPilots.Count > 1)
+                                {
+                                    <option value="RallyPilots[1]">@Model.RallyPilots[1].FirstName @Model.RallyPilots[1].LastName</option>
+                                } }
+                            </select>
+                        </div>
+                        <p></p>
+                        <div>
+                            <label asp-for="RallyNavigator">Избери Навигатор</label>
+                            <select asp-for="RallyNavigator" class="form-control" />
+                            <option value="RallyNavigators[0]" selected="">@Model.RallyNavigators[0].FirstName @Model.RallyNavigators[0].LastName</option>
+                            @{ if (@Model.RallyNavigators.Count > 1)
+                                {
+                                    <option value="RallyNavigators[1]">@Model.RallyNavigators[1].FirstName @Model.RallyNavigators[1].LastName</option>
+                                }}
+                            </select>
+                        </div>
+                        <p></p>
+                        <div>
+                            <label asp-for="Drive">Как да шофират?</label>
+                            <select asp-for="Drive" class="form-control" />
+                            <option value="Агресивно">Агресивно</option>
+                            <option value="Нормално" selected="">Нормално</option>
+                            <option value="Предпазливо">Предпазливо</option>
+                            </select>
+                        </div>
+                        <p></p>
+                        <div>
+                            @if (Model.Cars.TurboId !=null)
+                            {
+                                <label asp-for="UseOfTurbo">Кога да ползват турбото?</label>
+                                <select asp-for="UseOfTurbo" class="form-control" />
+                                <option value="Начало">В началото на състезанието</option>
+                                <option value="Среда" selected="">По средата на състезанието</option>
+                                <option value="Край">В края на състезанието</option>
+                            }
+                            else
+                            {
+                                <p class="text-danger">Колата Ви, всеоще няма Турбо!</p>
+                                <p >Идете на пазара и си курете Турбо, за колата.</p>
+                                <p >Спечелете предимство пред всички останали.</p>
+                            }
+                            </select>
+                        </div>
+
+                        @{if (@Model.RallyNavigators.Count == 0 || @Model.RallyPilots.Count == 0)
+                            {
+                                <p class="text-danger">Вие нямане пилот или навигатор и не може да се запишете за състезянието!</p>
+                                <p> Идете на пазара и си наемете необходимия персонал.</p>
+                            }
+                            else
+                            {
+                                <p></p>
+                                <button type="submit" class="btn btn-secondary">Запиши се</button>
+                            }}
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <partial name="_RightBarPartial" />
+    </div>
+</div>
+

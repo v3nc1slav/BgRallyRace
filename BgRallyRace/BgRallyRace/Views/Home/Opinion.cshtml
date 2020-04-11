@@ -3,10 +3,32 @@
     ViewData["Title"] = "Opinion";
 }
 
-<form asp-controller="Home" asp-action="Contact" method="post" class="form-group">
-    <textarea class="form-control" id="exampleTextarea" name="content" cols="50" rows="2" class="flL w200"></textarea>
-    <button type="submit" onclick="document.getElementById('id01').style.display='block'" class="btn btn-secondary">Сподели</button>
-</form>
+    <form asp-controller="Home" asp-action="Contact" method="post" class="form-group">
+        <textarea class="form-control" id="exampleTextarea" name="content" cols="50" rows="2" class="flL w200"></textarea>
+        <input type="submit"  data-toggle="modal" data-target="#deleteModal" class="btn btn-secondary" value="Сподели" ></input>
+
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Deleting "ново" apiary?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete the following apiary: ново?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a asp-controller="Apiaries" asp-action="Delete" asp-route-id="ново">
+                            <button class="btn btn-danger">Yes</button>
+                        </a>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 
 @foreach (var opinion in Model.Opinions)
 {
@@ -42,6 +64,7 @@
         </div>
     </p>
 }
+
 
 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
     <div class="btn-group mr-2" role="group" aria-label="First group">

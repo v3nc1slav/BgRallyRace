@@ -8,5 +8,7 @@
         List<RallyRunway> GetAllRunways();
 
         RallyRunway GetRally(int id);
+
+        public RallyRunway GetRunwayForCurrentRace();
     }
 }

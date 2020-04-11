@@ -27,7 +27,7 @@
                 </div>
                 <div>
                     <label asp-for="CompetitionsRallyRunwayId">Писти </label>
-                    <select asp-for="CompetitionsRallyRunwayId" class="form-control" />
+                    <select  asp-for="CompetitionsRallyRunwayId" class="form-control" />
                     @{ foreach (var item in Model.Runways)
                         {
                             <option value="@item.Id">@item.Name</option>

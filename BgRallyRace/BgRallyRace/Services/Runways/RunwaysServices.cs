@@ -2,6 +2,7 @@
 {
     using BgRallyRace.Data;
     using BgRallyRace.Models;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -23,6 +24,23 @@
         {
             var runway = dbContext.RallyRunways.Where(x => x.Id == id).FirstOrDefault();
             return runway;          
+        }
+
+        public RallyRunway GetRunwayForCurrentRace()
+        {
+            var runway = dbContext.CompetitionsRallyRunway
+                .Where(x => x.Competition.StartRaceDate > DateTime.Now)
+                .Select(x => new RallyRunway
+                { 
+                    Id  = x.RallyRunway.Id,
+                    Name = x.RallyRunway.Name,
+                    Difficulty = x.RallyRunway.Difficulty,
+                    TrackLength = x.RallyRunway.TrackLength,
+                    ImagName = x.RallyRunway.ImagName,
+                    
+                })
+                .First();
+            return runway;
         }
     }
 }

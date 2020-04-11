@@ -10,7 +10,7 @@
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string NameRunway { get; set; }
 
         [Required]
         [Range(0, 1000)]

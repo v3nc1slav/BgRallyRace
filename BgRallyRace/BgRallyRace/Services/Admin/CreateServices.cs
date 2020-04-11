@@ -37,7 +37,7 @@
 
         public void CreateRunway(RunwayViewModels input)
         {
-            dbContext.RallyRunways.Add(new RallyRunway { Name = input.Name, TrackLength = input.TrackLength,
+            dbContext.RallyRunways.Add(new RallyRunway { Name = input.NameRunway, TrackLength = input.TrackLength,
                 Difficulty = input.Difficulty, Description = input.Description });
             dbContext.SaveChanges();
         }

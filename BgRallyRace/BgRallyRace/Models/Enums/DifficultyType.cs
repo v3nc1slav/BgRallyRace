@@ -2,8 +2,8 @@
 {
     public enum DifficultyType
     {
-        easy = 1,
-        average = 2,
-        complicated = 3,
+        Лесна = 1,
+        Средно = 2,
+        Сложна = 3,
     }
 }

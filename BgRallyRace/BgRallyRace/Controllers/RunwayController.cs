@@ -37,7 +37,7 @@
             var runwayId = runway.GetRally(id);
             var viewModel = new RunwayViewModels
             {
-                 Name = runwayId.Name,
+                 NameRunway = runwayId.Name,
                  TrackLength = runwayId.TrackLength,
                  Difficulty = runwayId.Difficulty,
                  Description = runwayId.Description,

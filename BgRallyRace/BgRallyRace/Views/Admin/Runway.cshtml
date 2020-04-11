@@ -12,9 +12,9 @@
             <p>Създаване на писта</p>
             <form asp-controller="Admin" asp-action="Runway" method="post" class="form-group">
                 <div>
-                    <label asp-for="Name">Име на пистата</label>
-                    <input asp-for="Name" class="form-control" placeholder="Име" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <label asp-for="NameRunway">Име на пистата</label>
+                    <input asp-for="NameRunway" class="form-control" placeholder="Име" />
+                    <span asp-validation-for="NameRunway" class="text-danger"></span>
                 </div>
                 <div>
                     <label asp-for="TrackLength">Дължина на пистата</label>
@@ -24,9 +24,9 @@
                 <div>
                     <label asp-for="Difficulty">Трудност на пистата </label>
                     <select asp-for="Difficulty" class="form-control" />
-                    <option value="easy" selected="">Лесна</option>
-                    <option value="average">Средно</option>
-                    <option value="complicated">Сложно </option>
+                    <option value="Лесна" selected="">Лесна</option>
+                    <option value="Средно">Средно</option>
+                    <option value="Сложна">Сложна </option>
                     </select>
                 </div>
                 <div>
