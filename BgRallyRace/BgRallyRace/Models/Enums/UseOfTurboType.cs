@@ -7,8 +7,9 @@ namespace BgRallyRace.Models.Enums
 {
     public enum UseOfTurboType
     {
-        Начало = 0,
-        Среда =1,
-        Край =2,
+        NoTurbo = 0,
+        Start = 1,
+        Medium = 2,
+        Edge = 3,
     }
 }

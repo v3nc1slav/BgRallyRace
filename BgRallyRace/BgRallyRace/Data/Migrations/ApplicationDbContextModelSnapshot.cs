@@ -190,6 +190,21 @@ namespace BgRallyRace.Migrations
                     b.Property<int>("TeamId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Drive")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NavigatorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PilotId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UseOfTurboType")
+                        .HasColumnType("int");
+
                     b.HasKey("CompetitionId", "TeamId");
 
                     b.HasIndex("TeamId");

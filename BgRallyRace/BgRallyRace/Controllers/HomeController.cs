@@ -40,7 +40,7 @@
             var viewModel = new IndexViewModel
             {
                 CountNotAuthorization = opinions.GetCountNotAuthorization(),
-                StartDate = competitions.GetStartDate(),
+                StartDate = competitions.GetStartDate().Result,
             };
             return this.View(viewModel);
         }

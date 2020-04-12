@@ -100,34 +100,35 @@
 
         private void ReplacedOldPartWhithNew(PartsCars part, Cars car)
         {
-            if (part.Type.ToString() == "Аеродинамика")
+            if (part.Type.ToString() == "Aerodynamics")
             {
                 cars.GetNewAerodynamics(part, car);
             }
-            else if (part.Type.ToString() == "Спирачки")
+            else if (part.Type.ToString() == "Brakes")
             {
                 cars.GetNewBrakes(part, car);
             }
-            else if (part.Type.ToString() == "Двигател")
+            else if (part.Type.ToString() == "Engines")
             {
                 cars.GetNewEngine(part, car);
             }
-            else if(part.Type.ToString() == "СкоростнаКутия")
+            else if(part.Type.ToString() == "GearBoxs")
             {
                 cars.GetNewGearbox(part, car);
             }
-            else if (part.Type.ToString() == "Купе")
+            else if (part.Type.ToString() == "ModelsCars")
             {
                 cars.GetNewModelsCar(part, car);
             }
-            else if (part.Type.ToString() == "Шаси")
+            else if (part.Type.ToString() == "Mountings")
             {
                 cars.GetNewMountings(part, car);
             }
-            else if (part.Type.ToString() == "Турбо")
+            else if (part.Type.ToString() == "Turbo")
             {
                 cars.GetNewTurbo(part, car);
             }
+         
         }
     }
 }

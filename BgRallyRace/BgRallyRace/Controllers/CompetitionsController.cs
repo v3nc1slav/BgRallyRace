@@ -39,10 +39,13 @@
                 Id = team.Id,
                 Name = team.Name,
                 Cars = cars.GetCar(user),
-                StartRaceDate = competitions.GetStartDate().ToString("D"),
+                StartRaceDate = competitions.GetStartDate().Result.ToString("D"),
                 RallyPilots = pilots.GetPilots(user),
                 RallyNavigators = navigators.GetNavigators(user),
                 Runway = runways.GetRunwayForCurrentRace(),
+                TeamId = teams.GetTeamId(user),
+                CompetitionId = competitions.GetCompetitionId().Result,
+                CompetitionName = competitions.GetCompetitionName().Result,
             };
 
             return this.View(viewModel);
@@ -51,9 +54,24 @@
         [HttpPost]
         public IActionResult RallyЕntry(TeamViewModels input)
         {
-           
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+            competitions.RallyЕntry(input);
+            return this.RallyЕntry();
+        }
 
-            return this.View();
+        [HttpGet]
+        public IActionResult StartRalli()
+        {
+            competitions.StartRalli();
+
+            var viewModel = new StartRalliViewModels
+            {
+
+            };
+            return this.View(viewModel);
         }
     }
 }

@@ -8,7 +8,7 @@
     </div>
     <div class="col-sm-8">
         <div class="background">
-            <h1>Запиши се за състезание</h1>
+            <h1>Запиши се за състезание: @Model.CompetitionName</h1>
             <p class="text-body"> Състезанието започва на @Model.StartRaceDate</p>
             <hr class="my-4">
             <div class="form-group row">
@@ -20,7 +20,7 @@
                         </a>
                     </h4>
                     <hr class="my-4">
-                    <p>Трудност на пистата: @Model.Runway.Difficulty</p>
+                    <p>Трудност на пистата: @Model.Runway.BGDifficulty</p>
                     <p>Дължина @Model.Runway.TrackLength км.</p>
                     <img src="~/images/@Model.Runway.ImagName" width="298" height="380">
                 </div>
@@ -29,23 +29,23 @@
                     <hr class="my-4">
                     <form asp-controller="Competitions" asp-action="RallyЕntry" method="post" class="form-group">
                         <div>
-                            <label asp-for="RallyPilot">Избери Пилот</label>
-                            <select asp-for="RallyPilot" class="form-control" />
-                            <option value="RallyPilots[0]" selected="">@Model.RallyPilots[0].FirstName @Model.RallyPilots[0].LastName</option>
+                            <label asp-for="RallyPilotId">Избери Пилот</label>
+                            <select asp-for="RallyPilotId" class="form-control" />
+                            <option value="@Model.RallyPilots[0].Id" selected="">@Model.RallyPilots[0].FirstName @Model.RallyPilots[0].LastName</option>
                             @{if (@Model.RallyPilots.Count > 1)
                                 {
-                                    <option value="RallyPilots[1]">@Model.RallyPilots[1].FirstName @Model.RallyPilots[1].LastName</option>
+                                    <option value="@Model.RallyPilots[1].Id">@Model.RallyPilots[1].FirstName @Model.RallyPilots[1].LastName</option>
                                 } }
                             </select>
                         </div>
                         <p></p>
                         <div>
-                            <label asp-for="RallyNavigator">Избери Навигатор</label>
-                            <select asp-for="RallyNavigator" class="form-control" />
-                            <option value="RallyNavigators[0]" selected="">@Model.RallyNavigators[0].FirstName @Model.RallyNavigators[0].LastName</option>
+                            <label asp-for="RallyNavigatorId">Избери Навигатор</label>
+                            <select asp-for="RallyNavigatorId" class="form-control" />
+                            <option value="@Model.RallyNavigators[0].Id" selected="">@Model.RallyNavigators[0].FirstName @Model.RallyNavigators[0].LastName</option>
                             @{ if (@Model.RallyNavigators.Count > 1)
                                 {
-                                    <option value="RallyNavigators[1]">@Model.RallyNavigators[1].FirstName @Model.RallyNavigators[1].LastName</option>
+                                    <option value="@Model.RallyNavigators[1].Id">@Model.RallyNavigators[1].FirstName @Model.RallyNavigators[1].LastName</option>
                                 }}
                             </select>
                         </div>
@@ -53,26 +53,27 @@
                         <div>
                             <label asp-for="Drive">Как да шофират?</label>
                             <select asp-for="Drive" class="form-control" />
-                            <option value="Агресивно">Агресивно</option>
-                            <option value="Нормално" selected="">Нормално</option>
-                            <option value="Предпазливо">Предпазливо</option>
+                            <option value="Aggressive">Агресивно</option>
+                            <option value="Normal" selected="">Нормално</option>
+                            <option value="Caution">Предпазливо</option>
                             </select>
                         </div>
                         <p></p>
                         <div>
-                            @if (Model.Cars.TurboId !=null)
+                            @if (Model.Cars.TurboId != null)
                             {
                                 <label asp-for="UseOfTurbo">Кога да ползват турбото?</label>
                                 <select asp-for="UseOfTurbo" class="form-control" />
-                                <option value="Начало">В началото на състезанието</option>
-                                <option value="Среда" selected="">По средата на състезанието</option>
-                                <option value="Край">В края на състезанието</option>
+                                <option value="Start">В началото на състезанието</option>
+                                <option value="NoTurbo" selected="">Не ползвай</option>
+                                <option value="Medium">По средата на състезанието</option>
+                                <option value="Edge">В края на състезанието</option>
                             }
                             else
                             {
                                 <p class="text-danger">Колата Ви, всеоще няма Турбо!</p>
-                                <p >Идете на пазара и си курете Турбо, за колата.</p>
-                                <p >Спечелете предимство пред всички останали.</p>
+                                <p>Идете на пазара и си курете Турбо, за колата.</p>
+                                <p>Спечелете предимство пред всички останали.</p>
                             }
                             </select>
                         </div>
@@ -88,6 +89,18 @@
                                 <button type="submit" class="btn btn-secondary">Запиши се</button>
                             }}
 
+                        <div class="form-control invisible">
+                            <label asp-for="TeamId"></label>
+                            <input asp-for="TeamId" value="@Model.TeamId" />
+                        </div>
+                        <div class="form-control invisible">
+                            <label asp-for="CarId"></label>
+                            <input asp-for="CarId" value="@Model.Cars.Id" />
+                        </div>
+                        <div class="form-control invisible">
+                            <label asp-for="CompetitionId"></label>
+                            <input asp-for="CompetitionId" value="@Model.CompetitionId" />
+                        </div>
                     </form>
                 </div>
             </div>

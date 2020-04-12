@@ -29,7 +29,7 @@
         {
             var dbUser = FindUserAsync(user);
             dbUser.Balance = (dbUser.Balance-expense);
-            dbUser.FinancialStatistics.Add(new FinancialStatistics {Funds = FundsType.разход, MoneExpense = expense, Date = DateTime.UtcNow });
+            dbUser.FinancialStatistics.Add(new FinancialStatistics {Funds = FundsType.consumption, MoneExpense = expense, Date = DateTime.UtcNow });
             dbContext.SaveChanges();
         }
 
@@ -37,7 +37,7 @@
         {
             var dbUser =  FindUserAsync(user);
             dbUser.Balance = (dbUser.Balance + revenue);
-            dbUser.FinancialStatistics.Add(new FinancialStatistics{Funds=FundsType.приход, MoneRevenue = revenue, Date = DateTime.UtcNow });
+            dbUser.FinancialStatistics.Add(new FinancialStatistics{Funds=FundsType.revenue, MoneRevenue = revenue, Date = DateTime.UtcNow });
             dbContext.SaveChanges();
         }
 

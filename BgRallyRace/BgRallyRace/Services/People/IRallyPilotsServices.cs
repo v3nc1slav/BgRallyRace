@@ -17,5 +17,8 @@
         Task<RallyPilots> GetPilot(int id);
 
         int CreateRallyPilotsAsync();
+
+       Task AllPilotsNoWorking();
+     
     }
 }

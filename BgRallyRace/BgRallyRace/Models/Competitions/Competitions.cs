@@ -16,7 +16,10 @@
         public DateTime StartRaceDate { get; set; }
 
         [Required]
-        public int Stages { get; set; } 
+        public int Stages { get; set; }
+
+        [Required]
+        public decimal PrizeFund { get; set; }
 
         public int CompetitionsRallyRunwayId { get; set; }
 

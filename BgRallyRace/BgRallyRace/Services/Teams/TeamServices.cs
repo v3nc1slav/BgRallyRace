@@ -52,5 +52,17 @@
             var findUser =  dbContext.Teams.FirstOrDefault(a => a.User == user);
             return findUser;
         }
+
+        public Team FindUser(int id)
+        {
+            var findUser = dbContext.Teams.FirstOrDefault(a => a.Id == id);
+            return findUser;
+        }
+
+        public int GetTeamId(string user)
+        {
+            var findUser = dbContext.Teams.FirstOrDefault(a => a.User == user).Id;
+            return findUser;
+        }
     }
 }

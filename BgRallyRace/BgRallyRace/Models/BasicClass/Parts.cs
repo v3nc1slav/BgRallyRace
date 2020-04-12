@@ -14,7 +14,7 @@
         public decimal Price { get; set; }
 
         [Required]
-        [MaxLength (100)]
+        [MaxLength(100)]
         public decimal Strength { get; set; }
 
         [Required]
@@ -23,5 +23,6 @@
         public int CarId { get; set; }
 
         public Cars Cars { get; set; }
+
     }
 }

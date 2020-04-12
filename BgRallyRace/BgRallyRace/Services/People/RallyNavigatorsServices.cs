@@ -2,6 +2,7 @@
 {
     using BgRallyRace.Data;
     using BgRallyRace.Models;
+    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -178,6 +179,16 @@
         {
             var pilot = dbContext.RallyPilots.Where(x => x.Id == id).First();
             pilot.IsItWorking = true;
+        }
+
+        public async Task AllNavigatorNoWorking()
+        {
+            var navigator = await dbContext.RallyNavigators.Where(x => x.IsItWorking == true).Select(x=>x.IsItWorking).ToArrayAsync();
+            for (int i = 0; i < navigator.Length; i++)
+            {
+                navigator[i] = false;
+            }
+            await dbContext.SaveChangesAsync();
         }
     }
 }

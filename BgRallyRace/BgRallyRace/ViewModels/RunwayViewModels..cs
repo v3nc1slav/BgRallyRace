@@ -18,6 +18,23 @@
 
         public DifficultyType Difficulty { get; set; }
 
+        public string BGDifficulty {
+            get {
+                if (Difficulty == DifficultyType.Easy)
+                {
+                    return "Лесна";
+                }
+                else if (Difficulty == DifficultyType.Average)
+                {
+                    return "Средна";
+                }
+                else
+                {
+                    return "Сложна";
+                }
+            } 
+        }
+
         public string Description { get; set; }
 
         public string ShortDescription  {get; set;}

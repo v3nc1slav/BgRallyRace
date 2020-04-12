@@ -2,6 +2,7 @@
 {
     using BgRallyRace.Models;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public interface IRallyNavigatorsServices : IPeople
     {
@@ -12,6 +13,9 @@
        void DecreaseCommunication(int id, int variable);
 
         List<RallyNavigators> GetNavigators(string user);
+
         int CreateRallyNavigatorsAsync();
+
+        Task AllNavigatorNoWorking();
     }
 }

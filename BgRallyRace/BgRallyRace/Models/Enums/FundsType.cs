@@ -2,7 +2,7 @@
 {
     public enum FundsType
     {
-        приход = 1,
-        разход = 2,
+        revenue = 0,
+        consumption = 1,
     }
 }

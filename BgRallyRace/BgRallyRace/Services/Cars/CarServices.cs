@@ -184,7 +184,7 @@
         public void GetNewTurbo(PartsCars part, Cars car)
         {
             var oldPart = GetTurboId(car.TurboId);
-            substitution(part, oldPart);
+            substitutionTurvo(part, oldPart, car.Id);
         }
 
         public decimal GetCurrentSpeed(Parts parts)
@@ -289,10 +289,36 @@
 
         private void substitution(PartsCars newPart, Parts oldPart)
         {
-            oldPart.Name = newPart.Name;
-            oldPart.Price = newPart.Price;
-            oldPart.Strength = newPart.Strength;
-            oldPart.Speed = newPart.Speed;
+                oldPart.Name = newPart.Name;
+                oldPart.Price = newPart.Price;
+                oldPart.Strength = newPart.Strength;
+                oldPart.Speed = newPart.Speed;
+        }
+
+        private void substitutionTurvo(PartsCars newPart, Parts oldPart, int id)
+        {
+            if (oldPart == null)
+            {
+                var newTurbo = dbContext.Turbos.Add(new Turbo
+                {
+                    CarId = id,
+                    Name = newPart.Name,
+                    Price = newPart.Price,
+                    Strength = newPart.Strength,
+                    Speed = newPart.Speed,
+                });
+                dbContext.SaveChanges();
+                var car = GetCar(id);
+                car.TurboId = newTurbo.Entity.Id;
+                dbContext.SaveChanges();
+            }
+            else
+            {
+                oldPart.Name = newPart.Name;
+                oldPart.Price = newPart.Price;
+                oldPart.Strength = newPart.Strength;
+                oldPart.Speed = newPart.Speed;
+            }
         }
     }
 }

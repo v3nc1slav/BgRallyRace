@@ -1,9 +1,11 @@
-﻿namespace BgRallyRace.Models.Enums
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BgRallyRace.Models.Enums
 {
     public enum DifficultyType
     {
-        Лесна = 1,
-        Средно = 2,
-        Сложна = 3,
+        Easy = 0,
+        Average = 1,
+        Difficult = 2,
     }
 }
