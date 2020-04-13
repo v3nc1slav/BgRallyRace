@@ -59,16 +59,22 @@
             return date;
         }
 
-        public async Task HasIsStartedAsync()
+        public void HasIsStartedAsync()
         {
-            var date = await this.GetStartDate();
-            var nowDate = DateTime.Now;
-            if (date == nowDate)
+            var date =  GetStartDate().Result;
+
+            var t = Task.Run(() =>
             {
-                var car = dbContext.Competitions.First();
-                car.CompetitionsRallyRunwayId = 1;
-                await dbContext.SaveChangesAsync();
-            }
+                while (true)
+                {
+                    var nowDate = DateTime.Now;
+                    if (date < nowDate)
+                    {
+                        this.StartRalli();
+                    }
+                }
+            });
+
         }
 
         public async Task RallyЕntry(TeamViewModels input)
@@ -102,7 +108,7 @@
         {
             var teams = await dbContext
                 .CompetitionsTeam
-                .Where(x=>x.Competition.StartRaceDate == DateTime.Now.Date)
+                .Where(x => x.Competition.StartRaceDate == DateTime.Now.Date)
                 .ToArrayAsync();
             return teams;
         }

@@ -11,7 +11,7 @@
 
         public Task<int> GetCompetitionId();
 
-        public Task HasIsStartedAsync();
+        public void HasIsStartedAsync();
 
         public Task RallyЕntry(TeamViewModels input);
 

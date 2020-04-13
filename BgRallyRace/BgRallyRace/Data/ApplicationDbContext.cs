@@ -60,8 +60,6 @@
 
            builder.Entity<CompetitionsRallyRunway>().HasKey(sc => new { sc.CompetitionsId, sc.RallyRunwayId });
 
-
-
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
