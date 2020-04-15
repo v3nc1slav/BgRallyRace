@@ -42,7 +42,7 @@
             var addPilotId = pilot.GetPilot(numberPilot);
             var addNavigatorId = navigator.GetNavigator(numberPilot);
             addCarId.TeamId = newTeam.Entity.Id;
-            addPilotId.Result.TeamId = newTeam.Entity.Id;
+            addPilotId.TeamId = newTeam.Entity.Id;
             addNavigatorId.TeamId = newTeam.Entity.Id;
             dbContext.SaveChanges();
         }

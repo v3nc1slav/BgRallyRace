@@ -1,8 +1,10 @@
-﻿namespace BgRallyRace.Models
+﻿namespace BgRallyRace.Models.Competitions
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     public class Competitions
     {
@@ -29,5 +31,6 @@
 
         public List<CompetitionsTeams> CompetitionsTeams { get; set; } = new List<CompetitionsTeams>();
 
+        public bool RallyPoints { get; set; } = false;
     }
 }

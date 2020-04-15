@@ -1,12 +1,12 @@
-﻿using BgRallyRace.Models.Enums;
-
-namespace BgRallyRace.Models
+﻿namespace BgRallyRace.Models
 {
+    using BgRallyRace.Models.Enums;
+
     public class CompetitionsTeams
     {
         public int CompetitionId { get; set; }
 
-        public Competitions Competition { get; set; }
+        public Competitions.Competitions Competition { get; set; }
 
         public int TeamId { get; set; }
 
@@ -21,6 +21,8 @@ namespace BgRallyRace.Models
         public int NavigatorId { get; set; }
 
         public int CarId { get; set; }
+
+        public int Points { get; set; }
 
     }
 }

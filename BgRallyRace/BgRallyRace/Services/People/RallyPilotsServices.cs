@@ -28,8 +28,8 @@
         public int CreateRallyPilotsAsync()
         {
             Random rnd = new Random();
-            int first = rnd.Next(11, 112);
-            int last = rnd.Next(11, 112);
+            int first = rnd.Next(10, 100);
+            int last = rnd.Next(10, 100);
             var firstName = dbContext.FirstNames.Select(x => new { x.FirstName, x.Id })
                .FirstOrDefault(x => x.Id == first);
             var lastName = dbContext.LastNames.Select(x => new { x.LastName, x.Id })
@@ -56,105 +56,105 @@
         public void Fired(int id)
         {
             var person = this.GetPilot(id);
-            person.Result.TeamId = null;
+            person.TeamId = null;
             dbContext.SaveChanges();
         }
 
         public void IncreaseAge(int id)
         {
             var person = this.GetPilot(id);
-            person.Result.Age = person.Result.Age + 1;
+            person.Age = person.Age + 1;
             dbContext.SaveChanges();
         }
 
         public void IncreaseConcentration(int id, int variable)
         {
             var person = this.GetPilot(id);
-            person.Result.Concentration = person.Result.Concentration + variable;
+            person.Concentration = person.Concentration + variable;
             dbContext.SaveChanges();
         }
 
         public void DecreaseConcentration(int id, int variable)
         {
             var person = this.GetPilot(id);
-            person.Result.Concentration = person.Result.Concentration - variable;
+            person.Concentration = person.Concentration - variable;
             dbContext.SaveChanges();
         }
 
         public void IncreaseDevotion(int id, int variable)
         {
             var person = this.GetPilot(id);
-            person.Result.Devotion = person.Result.Devotion + variable;
+            person.Devotion = person.Devotion + variable;
             dbContext.SaveChanges();
         }
 
         public void DecreaseDevotion(int id, int variable)
         {
             var person = this.GetPilot(id);
-            person.Result.Devotion = person.Result.Devotion - variable;
+            person.Devotion = person.Devotion - variable;
             dbContext.SaveChanges();
         }
 
         public void IncreaseEnergy(int id)
         {
             var person = this.GetPilot(id);
-            person.Result.Energy = 100;
+            person.Energy = 100;
             dbContext.SaveChanges();
         }
 
         public void DecreaseEnergy(int id, int variable)
         {
             var person = this.GetPilot(id);
-            person.Result.Energy = person.Result.Energy - variable;
+            person.Energy = person.Energy - variable;
             dbContext.SaveChanges();
         }
 
         public void IncreaseExperience(int id, int variable)
         {
             var person = this.GetPilot(id);
-            person.Result.Experience = person.Result.Experience + variable;
+            person.Experience = person.Experience + variable;
             dbContext.SaveChanges();
         }
 
         public void DecreaseExperience(int id, int variable)
         {
             var person = this.GetPilot(id);
-            person.Result.Experience = person.Result.Experience - variable;
+            person.Experience = person.Experience - variable;
             dbContext.SaveChanges();
         }
 
         public void IncreasePhysicalTraining(int id, int variable)
         {
             var person = this.GetPilot(id);
-            person.Result.PhysicalTraining = person.Result.PhysicalTraining + variable;
+            person.PhysicalTraining = person.PhysicalTraining + variable;
             dbContext.SaveChanges();
         }
 
         public void DecreasePhysicalTraining(int id, int variable)
         {
             var person = this.GetPilot(id);
-            person.Result.PhysicalTraining = person.Result.PhysicalTraining - variable;
+            person.PhysicalTraining = person.PhysicalTraining - variable;
             dbContext.SaveChanges();
         }
 
         public void IncreasePounds(int id, int variable)
         {
             var person = this.GetPilot(id);
-            person.Result.Pounds = person.Result.Pounds + variable;
+            person.Pounds = person.Pounds + variable;
             dbContext.SaveChanges();
         }
 
         public void DecreasePounds(int id, int variable)
         {
             var person = this.GetPilot(id);
-            person.Result.Pounds = person.Result.Pounds - variable;
+            person.Pounds = person.Pounds - variable;
             dbContext.SaveChanges();
         }
 
         public void IncreaseSalary(int id, int variable)
         {
             var person = this.GetPilot(id);
-            person.Result.Salary = person.Result.Salary + variable;
+            person.Salary = person.Salary + variable;
             dbContext.SaveChanges();
             this.IncreaseDevotion(id, 2);
         }
@@ -162,7 +162,7 @@
         public void DecreaseSalary(int id, int variable)
         {
             var person = this.GetPilot(id);
-            person.Result.Salary = person.Result.Salary - variable;
+            person.Salary = person.Salary - variable;
             dbContext.SaveChanges();
             this.DecreaseDevotion(id, 2);
         }
@@ -170,20 +170,20 @@
         public void IncreaseReflexes(int id, int variable)
         {
             var person = this.GetPilot(id);
-            person.Result.Reflexes = person.Result.Reflexes + variable;
+            person.Reflexes = person.Reflexes + variable;
             dbContext.SaveChanges();
         }
 
         public void DecreaseReflexes(int id, int variable)
         {
             var person = this.GetPilot(id);
-            person.Result.Reflexes = person.Result.Reflexes - variable;
+            person.Reflexes = person.Reflexes - variable;
             dbContext.SaveChanges();
         }
 
-        public async Task<RallyPilots> GetPilot(int id)
+        public RallyPilots GetPilot(int id)
         {
-            var pilot = await dbContext.RallyPilots.Where(x => x.Id == id).FirstOrDefaultAsync();
+            var pilot =  dbContext.RallyPilots.Where(x => x.Id == id).FirstOrDefault();
             return pilot;
         }
 

@@ -1,6 +1,7 @@
 ﻿namespace BgRallyRace.ViewModels
 {
     using BgRallyRace.Models;
+    using BgRallyRace.Models.Competitions;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;

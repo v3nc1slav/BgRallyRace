@@ -37,10 +37,11 @@
 
         public IActionResult Index()
         {
+            competitions.StartRalli();
             var viewModel = new IndexViewModel
             {
                 CountNotAuthorization = opinions.GetCountNotAuthorization(),
-                StartDate = competitions.GetStartDate().Result,
+                StartDate = competitions.GetStartDate(),
             };
             return this.View(viewModel);
         }

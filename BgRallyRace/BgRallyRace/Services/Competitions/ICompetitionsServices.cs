@@ -7,15 +7,15 @@
 
     public interface ICompetitionsServices
     {
-        public  Task<DateTime> GetStartDate();
+        public  DateTime GetStartDate();
 
-        public Task<int> GetCompetitionId();
+        public int GetCompetitionId();
 
         public void HasIsStartedAsync();
 
         public Task RallyЕntry(TeamViewModels input);
 
-        Task<string> GetCompetitionName();
+       public string GetCompetitionName();
 
         void StartRalli();
     }

@@ -1,4 +1,4 @@
-﻿namespace BgRallyRace.Models
+﻿namespace BgRallyRace.Models.Competitions
 {
     public class CompetitionsRallyRunway
     {

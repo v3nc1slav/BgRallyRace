@@ -1,6 +1,7 @@
 ﻿namespace BgRallyRace.Services.Runways
 {
     using BgRallyRace.Models;
+    using BgRallyRace.Models.Competitions;
     using System.Collections.Generic;
 
     public interface IRunwaysServices

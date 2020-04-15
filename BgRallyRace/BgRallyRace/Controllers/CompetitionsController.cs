@@ -39,13 +39,13 @@
                 Id = team.Id,
                 Name = team.Name,
                 Cars = cars.GetCar(user),
-                StartRaceDate = competitions.GetStartDate().Result.ToString("D"),
+                StartRaceDate = competitions.GetStartDate().ToString("D"),
                 RallyPilots = pilots.GetPilots(user),
                 RallyNavigators = navigators.GetNavigators(user),
                 Runway = runways.GetRunwayForCurrentRace(),
                 TeamId = teams.GetTeamId(user),
-                CompetitionId = competitions.GetCompetitionId().Result,
-                CompetitionName = competitions.GetCompetitionName().Result,
+                CompetitionId = competitions.GetCompetitionId(),
+                CompetitionName = competitions.GetCompetitionName(),
             };
 
             return this.View(viewModel);

@@ -2,6 +2,7 @@
 {
     using BgRallyRace.Data;
     using BgRallyRace.Models;
+    using BgRallyRace.Models.Competitions;
     using System;
     using System.Collections.Generic;
     using System.Linq;

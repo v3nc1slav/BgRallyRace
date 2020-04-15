@@ -7,9 +7,8 @@ namespace BgRallyRace.Models.Enums
 {
     public enum DriveType
     {
-        NoTurbo = 0,
-        Normal = 1,
-        Caution = 2,
-        Aggressive = 3,
+        Normal = 0,
+        Caution = 1,
+        Aggressive = 2,
     }
 }

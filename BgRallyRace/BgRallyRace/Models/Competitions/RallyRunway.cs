@@ -1,4 +1,4 @@
-﻿namespace BgRallyRace.Models
+﻿namespace BgRallyRace.Models.Competitions
 {
     using BgRallyRace.Models.Enums;
     using System.Collections.Generic;

@@ -1,6 +1,7 @@
 ﻿namespace BgRallyRace.Data
 {
     using BgRallyRace.Models;
+    using BgRallyRace.Models.Competitions;
     using BgRallyRace.Models.Money;
     using BgRallyRace.Models.RandomName;
     using BgRallyRace.Models.Teams;
@@ -40,6 +41,8 @@
         public DbSet<FirstNames> FirstNames { get; set; }
         public DbSet<LastNames> LastNames { get; set; }
         public DbSet<FinancialStatistics> FinancialStatistics { get; set; }
+        public DbSet<RaceHistory> RaceHistories { get; set; }
+        public DbSet<RatingList> RatingLists { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

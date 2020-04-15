@@ -14,7 +14,7 @@
         List<RallyPilots> GetPilots(string user);
 
 #pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
-        Task<RallyPilots> GetPilot(int id);
+        RallyPilots GetPilot(int id);
 
         int CreateRallyPilotsAsync();
 
