@@ -146,7 +146,13 @@ namespace BgRallyRace.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("Applicable")
+                        .HasColumnType("bit");
+
                     b.Property<int>("CompetitionsRallyRunwayId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompetitionsTeamsId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -156,17 +162,11 @@ namespace BgRallyRace.Migrations
                     b.Property<decimal>("PrizeFund")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<bool>("RallyPoints")
-                        .HasColumnType("bit");
-
                     b.Property<int>("Stages")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartRaceDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("TeamId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

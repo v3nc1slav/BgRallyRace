@@ -21,11 +21,12 @@
         private readonly IRallyNavigatorsServices navigators;
         private readonly IRunwaysServices runways;
         private readonly IRaceHistoryServices raceHistory;
+        private readonly IPeople people;
         private readonly ICompetitionsServices competitions;
 
         public CompetitionsServices(ApplicationDbContext dbContext, ICarServices carServices, ITeamServices teamServices,
             IRallyPilotsServices pilotsServices, IRallyNavigatorsServices navigatorsServices, IRunwaysServices runwaysServices,
-            IRaceHistoryServices raceHistoryServices)
+            IRaceHistoryServices raceHistoryServices, IPeople people)
         {
             this.dbContext = dbContext;
             this.cars = carServices;
@@ -34,13 +35,14 @@
             this.navigators = navigatorsServices;
             this.runways = runwaysServices;
             this.raceHistory = raceHistoryServices;
+            this.people = people;
         }
 
         public DateTime GetStartDate()
         {
             var date = dbContext
                 .Competitions
-                .Where(x => x.StartRaceDate > DateTime.Now)
+                .Where(x => x.Applicable == true)
                 .Select(x => x.StartRaceDate)
                 .FirstOrDefault();
             return date;
@@ -50,7 +52,7 @@
         {
             var date = dbContext
                 .Competitions
-                .Where(x => x.StartRaceDate > DateTime.Now)
+                .Where(x => x.Applicable == true)
                 .Select(x => x.Id)
                 .FirstOrDefault();
             return date;
@@ -60,7 +62,7 @@
         {
             var date = dbContext
                 .Competitions
-                .Where(x => x.StartRaceDate > DateTime.Now)
+                .Where(x => x.Applicable == true)
                 .Select(x => x.Name)
                 .FirstOrDefault();
             return date;
@@ -68,12 +70,11 @@
 
         public void HasIsStartedAsync()
         {
-            var date = GetStartDate();
-
             var t = Task.Run(() =>
             {
                 while (true)
                 {
+                    var date = GetStartDate();
                     var nowDate = DateTime.Now;
                     if (date < nowDate)
                     {
@@ -104,7 +105,6 @@
         public void StartRalli()
         {
             var raceName = GetCompetitionName();
-            var data = GetStartDate();
             var teams = GetAllTeamsAsync();
             pilots.AllPilotsNoWorking();
             navigators.AllNavigatorNoWorking();
@@ -112,6 +112,7 @@
             var stageOne = runway.TrackLength / 3;
             var stageTwo = runway.TrackLength / 3;
             var stageThree = runway.TrackLength / 3;
+            var data = GetStartDate();
             string input = $"Бе дадено началото на състезанието {raceName}, провежащо се на дата: {data} " +
                 $"на писта {runway.Name}.";//ToDo
             raceHistory.AddHistory(input);
@@ -120,8 +121,12 @@
             var count = teams.Length;
             for (int i = 0; i < count; i++)
             {
-                var pilot = pilots.GetPilot(teams[i].PilotId);
+                var pilot = pilots.GetPilotNoTracking(teams[i].PilotId);
+                var energyPilot = pilots.EnergyPilot(teams[i].PilotId) - stageOne*(decimal)0.5;//constant
+                people.ReduceEnergy(pilot, energyPilot);
                 var navigator = navigators.GetNavigator(teams[i].NavigatorId);
+                var energyNavigator = navigators.EnergyNavigator(teams[i].NavigatorId) - stageOne * (decimal)0.5;//constant
+                people.ReduceEnergy(navigator, energyNavigator);
                 var teamRace = team.FindUser(teams[i].TeamId);
                 int drive = 0;
                 if (i == 0)
@@ -168,7 +173,7 @@
                     }
                 }
 
-              raceHistory.AddHistory(input);
+                raceHistory.AddHistory(input);
 
                 var random = RandomEvents(pilot, navigator, runway.Difficulty, drive);
 
@@ -179,7 +184,7 @@
         {
             var teams = dbContext
                 .CompetitionsTeam
-                .Where(x => x.Competition.StartRaceDate > DateTime.Now.Date)
+                .Where(x => x.Competition.Applicable == true)
                 .ToArray();
             return teams;
         }

@@ -19,6 +19,9 @@
         int CreateRallyPilotsAsync();
 
        Task AllPilotsNoWorking();
-     
+
+        int EnergyPilot(int id);
+
+        RallyPilots GetPilotNoTracking(int id)
     }
 }

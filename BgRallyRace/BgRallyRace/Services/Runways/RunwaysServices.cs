@@ -30,7 +30,7 @@
         public RallyRunway GetRunwayForCurrentRace()
         {
             var runway = dbContext.CompetitionsRallyRunway
-                .Where(x => x.Competition.StartRaceDate > DateTime.Now)
+                .Where(x => x.Competition.Applicable == true)
                 .Select(x => new RallyRunway
                 { 
                     Id  = x.RallyRunway.Id,

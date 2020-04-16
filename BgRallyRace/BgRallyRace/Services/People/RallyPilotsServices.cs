@@ -187,6 +187,12 @@
             return pilot;
         }
 
+        public RallyPilots GetPilotNoTracking(int id)
+        {
+            var pilot = dbContext.RallyPilots.Where(x => x.Id == id).AsNoTracking().First();
+            return pilot;
+        }
+
         public bool IsItBusy(int id)
         {
             var result = dbContext.RallyPilots.Where(x => x.Id == id).Select(x => x.IsItWorking).First();
@@ -207,6 +213,60 @@
                 pilots[i] = false;
             }
             await dbContext.SaveChangesAsync();
+        }
+
+        public int EnergyPilot(int id)
+        {
+           var pilot =  dbContext.RallyPilots.Where(x => x.Id == id).Select(x=>x.Energy).FirstOrDefault();
+            return pilot;
+        }
+
+        public void ReduceEnergy(People people, decimal variable)
+        {
+            if (variable < 35)
+            {
+                people.Concentration = people.Concentration - 35;
+            }
+            else if (variable < 40)
+            {
+                people.Concentration = people.Concentration - 26;
+            }
+            else if (variable < 45)
+            {
+                people.Concentration = people.Concentration - 20;
+            }
+            else if (variable < 50)
+            {
+                people.Concentration = people.Concentration - 16;
+            }
+            else if (variable < 55)
+            {
+                people.Concentration = people.Concentration - 12;
+            }
+            else if (variable < 60)
+            {
+                people.Concentration = people.Concentration - 10;
+            }
+            else if (variable < 65)
+            {
+                people.Concentration = people.Concentration - 8;
+            }
+            else if (variable < 70)
+            {
+                people.Concentration = people.Concentration - 6;
+            }
+            else if (variable < 75)
+            {
+                people.Concentration = people.Concentration - 4;
+            }
+            else if (variable < 80)
+            {
+                people.Concentration = people.Concentration - 2;
+            }
+            else if (variable < 85)
+            {
+                people.Concentration = people.Concentration - 1;
+            }
         }
     }
 }

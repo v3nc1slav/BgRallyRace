@@ -27,10 +27,11 @@
 
         public List<CompetitionsRallyRunway> CompetitionsRallyRunway { get; set; } = new List<CompetitionsRallyRunway>();
 
-        public int TeamId { get; set; }
+        public int CompetitionsTeamsId { get; set; }
 
         public List<CompetitionsTeams> CompetitionsTeams { get; set; } = new List<CompetitionsTeams>();
 
-        public bool RallyPoints { get; set; } = false;
+        public bool Applicable { get; set; } = false; //ToDo Renember
+
     }
 }

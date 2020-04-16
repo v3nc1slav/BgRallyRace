@@ -17,5 +17,9 @@
         int CreateRallyNavigatorsAsync();
 
         Task AllNavigatorNoWorking();
+
+        int EnergyNavigator(int id);
+
+        RallyNavigators GetNavigatorNoTracking(int id);
     }
 }

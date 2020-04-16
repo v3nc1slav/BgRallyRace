@@ -28,5 +28,6 @@ namespace BgRallyRace.Services
         void DecreaseSalary(int id, int variable);
         bool IsItBusy(int id);
         void IsWorking(int id);
+        void ReduceEnergy(People people, decimal variable);
     }
 }
