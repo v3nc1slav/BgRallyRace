@@ -22,6 +22,6 @@
 
         int EnergyPilot(int id);
 
-        RallyPilots GetPilotNoTracking(int id)
+        RallyPilots GetPilotNoTracking(int id);
     }
 }

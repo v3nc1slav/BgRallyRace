@@ -12,6 +12,6 @@
 
         public DateTime StartDate { get; set; }
 
-        public string StartDateNow { get { return  this.StartDate .ToString("MMMM dd, yyyy hh:mm:ss.F", CultureInfo.CreateSpecificCulture("en-US")); } }
+        public string StartDateNow { get { return  this.StartDate.AddHours(12).ToString("MMMM dd, yyyy hh:mm:ss.F", CultureInfo.CreateSpecificCulture("en-US")); } }
     }
 }

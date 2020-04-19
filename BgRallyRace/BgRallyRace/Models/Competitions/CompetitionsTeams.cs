@@ -1,6 +1,7 @@
 ﻿namespace BgRallyRace.Models
 {
     using BgRallyRace.Models.Enums;
+    using System;
 
     public class CompetitionsTeams
     {
@@ -23,6 +24,8 @@
         public int CarId { get; set; }
 
         public int Points { get; set; }
+
+        public DateTime Time { get; set; }
 
     }
 }

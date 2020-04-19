@@ -37,7 +37,6 @@
 
         public IActionResult Index()
         {
-            competitions.StartRalli();
             var viewModel = new IndexViewModel
             {
                 CountNotAuthorization = opinions.GetCountNotAuthorization(),
@@ -48,6 +47,7 @@
 
         public IActionResult Opinion(int page = 1)
         {
+            competitions.StartRalli();
             var viewModel = new OpinionsViewModels
             {
                 Opinions = opinions.GetOpinions(page),

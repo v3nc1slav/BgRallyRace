@@ -22,11 +22,13 @@
         private readonly IRunwaysServices runways;
         private readonly IRaceHistoryServices raceHistory;
         private readonly IPeople people;
-        private readonly ICompetitionsServices competitions;
+        private readonly IRatingListServices ratingList;
+
+        const int damageConstant = (int)0.5;
 
         public CompetitionsServices(ApplicationDbContext dbContext, ICarServices carServices, ITeamServices teamServices,
             IRallyPilotsServices pilotsServices, IRallyNavigatorsServices navigatorsServices, IRunwaysServices runwaysServices,
-            IRaceHistoryServices raceHistoryServices, IPeople people)
+            IRaceHistoryServices raceHistoryServices, IPeople people, IRatingListServices ratingList)
         {
             this.dbContext = dbContext;
             this.cars = carServices;
@@ -36,6 +38,13 @@
             this.runways = runwaysServices;
             this.raceHistory = raceHistoryServices;
             this.people = people;
+            this.ratingList = ratingList;
+        }
+
+        public void AddTime(string team, DateTime time)
+        {
+           var times = dbContext.CompetitionsTeam.Where(x => x.Team.Name == team).Select(x => x.Time).FirstOrDefault();
+           times = time;
         }
 
         public DateTime GetStartDate()
@@ -80,7 +89,7 @@
                     {
                         this.StartRalli();
                     }
-                    Thread.Sleep(1000 * 60);
+                    Thread.Sleep(1000 * 60 * 5);
                 }
             });
 
@@ -105,27 +114,29 @@
         public void StartRalli()
         {
             var raceName = GetCompetitionName();
-            var teams = GetAllTeamsAsync();
+            var teams = GetAllTeamsAsync().ToList();
             pilots.AllPilotsNoWorking();
             navigators.AllNavigatorNoWorking();
             var runway = runways.GetRunwayForCurrentRace();
-            var stageOne = runway.TrackLength / 3;
-            var stageTwo = runway.TrackLength / 3;
-            var stageThree = runway.TrackLength / 3;
+            var stageOne = runway.TrackLength / 4;
+            var stageTwo = runway.TrackLength / 2;
+            var stageThree = runway.TrackLength / 4;
             var data = GetStartDate();
+
             string input = $"Бе дадено началото на състезанието {raceName}, провежащо се на дата: {data} " +
                 $"на писта {runway.Name}.";//ToDo
             raceHistory.AddHistory(input);
+
             input = "Очакваме всеки момент да потегли първият автомобил.";
             raceHistory.AddHistory(input);
-            var count = teams.Length;
-            for (int i = 0; i < count; i++)
+
+            for (int i = 0; i < teams.Count; i++)
             {
                 var pilot = pilots.GetPilotNoTracking(teams[i].PilotId);
-                var energyPilot = pilots.EnergyPilot(teams[i].PilotId) - stageOne*(decimal)0.5;//constant
+                var energyPilot = pilots.EnergyPilot(teams[i].PilotId) - stageOne * damageConstant;
                 people.ReduceEnergy(pilot, energyPilot);
                 var navigator = navigators.GetNavigator(teams[i].NavigatorId);
-                var energyNavigator = navigators.EnergyNavigator(teams[i].NavigatorId) - stageOne * (decimal)0.5;//constant
+                var energyNavigator = navigators.EnergyNavigator(teams[i].NavigatorId) - stageOne * damageConstant;
                 people.ReduceEnergy(navigator, energyNavigator);
                 var teamRace = team.FindUser(teams[i].TeamId);
                 int drive = 0;
@@ -133,20 +144,20 @@
                 {
                     if (teams[i].Drive == DriveType.Aggressive)
                     {
-                        input = $"Първи стартира отборът на {teamRace.Name}, с пилот{pilot}, който тръгва с мръсна газ. Наблюдаваме доста агресивно" +
-           $" каране дано, навигатор до него {navigator} му влее малко разум.";
+                        input = $"{i} Първи стартира отборът на {teamRace.Name}, с пилот{pilot.FirstName}, който тръгва с мръсна газ. Наблюдаваме доста агресивно" +
+           $" каране дано, навигатор до него {navigator.FirstName} му влее малко разум.";
                         drive = 3;
                     }
                     else if (teams[i].Drive == DriveType.Normal)
                     {
-                        input = $"Първи стартира отборът на {teamRace.Name}, с пилот{pilot}" +
-          $" и навигатор до него {navigator} ";
+                        input = $"{i} Първи стартира отборът на {teamRace.Name}, с пилот{pilot.FirstName}" +
+          $" и навигатор до него {navigator.FirstName} ";
                         drive = 2;
                     }
                     else
                     {
-                        input = $"Първи стартира отборът на {teamRace.Name}, с пилот{pilot}, който потегля доста плахо. С това предпазливо каране, ще " +
-         $"изостане доста в класацията, дано навигатор до него {navigator} му повлияе полужително.";
+                        input = $"{i} Първи стартира отборът на {teamRace.Name}, с пилот{pilot.FirstName}, който потегля доста плахо. С това предпазливо каране, ще " +
+         $"изостане доста в класацията, дано навигатор до него {navigator.FirstName} му повлияе полужително.";
                         drive = 1;
                     }
 
@@ -155,19 +166,19 @@
                 {
                     if (teams[i].Drive == DriveType.Aggressive)
                     {
-                        input = $"Следващ е отборът на {teamRace.Name}, с пилот{pilot}, който тръгва с мръсна газ. Наблюдаваме доста агресивно" +
+                        input = $"{i} Следващ е отборът на {teamRace.Name}, с пилот{pilot}, който тръгва с мръсна газ. Наблюдаваме доста агресивно" +
            $" каране дано, навигатор до него {navigator} му влее малко разум.";
                         drive = 3;
                     }
                     else if (teams[i].Drive == DriveType.Normal)
                     {
-                        input = $"Следващия отборът на старта е {teamRace.Name}, с пилот{pilot}" +
+                        input = $"{i} Следващия отборът на старта е {teamRace.Name}, с пилот{pilot}" +
           $" и навигатор до него {navigator} ";
                         drive = 2;
                     }
                     else
                     {
-                        input = $"Към старт линията се приближава отборът на {teamRace.Name}, с пилот{pilot}, който потегля доста плахо. С това предпазливо каране, ще " +
+                        input = $"{i} Към старт линията се приближава отборът на {teamRace.Name}, с пилот{pilot}, който потегля доста плахо. С това предпазливо каране, ще " +
          $"изостане доста в класацията, дано навигатор до него {navigator} му повлияе полужително.";
                         drive = 1;
                     }
@@ -176,8 +187,270 @@
                 raceHistory.AddHistory(input);
 
                 var random = RandomEvents(pilot, navigator, runway.Difficulty, drive);
+                if (random == "the end")
+                {
+                    input = $"{i} Мик невнимание и пилота {pilot.FirstName} изпусна завоя, колата се преобърна в канавката. Дано всички са наред. " +
+                        $"Това беше края на състезанието за отбор: {teamRace.Name}";
+                    var date = new DateTime();
+                    ratingList.AddInRatingList(teamRace, date);
+                    teams.RemoveAt(i);
+                }
+                else if (random == "Ok")
+                {
+                    input = $"{i} Без проблеми отборрът на {teamRace.Name} с {pilot.FirstName} зад волана и навигатор до него {navigator.FirstName}" +
+                        $"преминаха през първата контрола";
+                    if (teamRace.Cars.TurboId == null)
+                    {
+                        var speed = cars.GetMaxSpeed(teamRace.User) / 60; //to convene in km / h
+                        double time = (double)stageOne / (double)speed;
+                        var date = new DateTime();
+                        var realTime = date.AddMinutes(time);
+                        ratingList.AddInRatingList(teamRace, realTime);
+                    }
+                    else if (teams[i].UseOfTurboType == UseOfTurboType.Start)
+                    {
+                        var speed = (cars.GetMaxSpeed(teamRace.User) + cars.GetTurbo(teamRace.User).Speed) / 60; //to convene in km / h
+                        double time = (double)stageOne / (double)speed;
+                        var date = new DateTime();
+                        var realTime = date.AddMinutes(time);
+                        ratingList.AddInRatingList(teamRace, realTime);
+                    }
+                }
+                else
+                {
+                    input = $"{i} Пилота {pilot.FirstName} от отбора на {teamRace.Name}, се разсея за момент и излезе от идеалната линия. Това му костваше цени секунди";
+                    if (teamRace.Cars.TurboId == null)
+                    {
+                        var speed = cars.GetMaxSpeed(teamRace.User) / 60; //to convene in km / h
+                        double time = (double)stageOne / (double)speed;
+                        var date = new DateTime();
+                        var realTime = date.AddMinutes(time).AddSeconds(double.Parse(random));
+                        ratingList.AddInRatingList(teamRace, realTime);
+                    }
+                    else if (teams[i].UseOfTurboType == UseOfTurboType.Start)
+                    {
+                        var speed = (cars.GetMaxSpeed(teamRace.User) + cars.GetTurbo(teamRace.User).Speed) / 60; //to convene in km / h
+                        double time = (double)stageOne / (double)speed;
+                        var date = new DateTime();
+                        var realTime = date.AddMinutes(time).AddSeconds(double.Parse(random));
+                        ratingList.AddInRatingList(teamRace, realTime);
+                    }
+                }
 
+                raceHistory.AddHistory(input);
+
+                pilots.DecreaseEnergy(pilot.Id, (int)energyPilot);
+                pilots.IncreaseExperience(pilot.Id, 1);//1 comes from the number of Stage - StageOne
+                navigators.DecreaseEnergy(navigator.Id, (int)energyNavigator);
+                navigators.IncreaseExperience(navigator.Id, 1);//1 comes from the number of Stage - StageOne
+                cars.Damage(teamRace.CarId, 1, runway.Difficulty);//1 comes from the number of Stage - StageOne
             }
+
+            input = $"В надпреварата продължават {teams.Count} автомобила. Нека видим как ще се развие състезанието.";
+            raceHistory.AddHistory(input);
+
+            for (int i = 0; i < teams.Count; i++)
+            {
+                var pilot = pilots.GetPilotNoTracking(teams[i].PilotId);
+                var energyPilot = pilots.EnergyPilot(teams[i].PilotId) - stageTwo * damageConstant;
+                people.ReduceEnergy(pilot, energyPilot);
+                var navigator = navigators.GetNavigator(teams[i].NavigatorId);
+                var energyNavigator = navigators.EnergyNavigator(teams[i].NavigatorId) - stageTwo * damageConstant;
+                people.ReduceEnergy(navigator, energyNavigator);
+                var teamRace = team.FindUser(teams[i].TeamId);
+                int drive = 0;
+                if (teams[i].Drive == DriveType.Aggressive)
+                {
+                    input = $"{i} Пилот {pilot.FirstName} от отборът на {teamRace.Name}, продължава с агресивното шофиране. Не съм обеден че това ще му донесе привилегии " +
+       $" за напред. Дано, навигатор до него {navigator.FirstName} го успокой за да не станем свидетели на катастрофа.";
+                    drive = 3;
+                }
+                else if (teams[i].Drive == DriveType.Normal)
+                {
+                    input = $"{i} Пилот {pilot.FirstName} от отборът на {teamRace.Name}, продължава с едно чудестно представяне.";
+                    drive = 2;
+                }
+                else
+                {
+                    input = $"{i} Пилот {pilot.FirstName} от отборът на {teamRace.Name}, продължава с плахото шофиране. Очаквах повече от този пилот " +
+     $"Дано навигатор до него {navigator.FirstName} даде малко смелост да натисне педала.";
+                    drive = 1;
+                }
+
+                raceHistory.AddHistory(input);
+
+                var random = RandomEvents(pilot, navigator, runway.Difficulty, drive);
+                if (random == "the end")
+                {
+                    input = $"{i} Мик невнимание и пилота {pilot.FirstName} изпусна завоя, колата се преобърна в канавката. Дано всички са наред. " +
+                        $"Това беше края на състезанието за отбор: {teamRace.Name}";
+                    var date = new DateTime();
+                    ratingList.AddInRatingList(teamRace, date);
+                    teams.RemoveAt(i);
+                }
+                else if (random == "Ok")
+                {
+                    input = $"{i} Без проблеми отборрът на {teamRace.Name} с {pilot.FirstName} зад волана и навигатор до него {navigator.FirstName}" +
+                        $"преминаха през втората контрола";
+                    if (teamRace.Cars.TurboId == null)
+                    {
+                        var speed = cars.GetMaxSpeed(teamRace.User) / 60; //to convene in km / h
+                        double time = (double)stageTwo / (double)speed;
+                        var date = new DateTime();
+                        var realTime = date.AddMinutes(time);
+                        ratingList.AddInRatingList(teamRace, realTime);
+                    }
+                    else if (teams[i].UseOfTurboType == UseOfTurboType.Medium)
+                    {
+                        var speed = (cars.GetMaxSpeed(teamRace.User) + cars.GetTurbo(teamRace.User).Speed) / 60; //to convene in km / h
+                        double time = (double)stageTwo / (double)speed;
+                        var date = new DateTime();
+                        var realTime = date.AddMinutes(time);
+                        ratingList.AddInRatingList(teamRace, realTime);
+                    }
+                }
+                else
+                {
+                    input = $"{i} Пилота {pilot.FirstName} от отбора на {teamRace.Name}, се разсея за момент и излезе от идеалната линия. Това му костваше цени секунди";
+                    if (teamRace.Cars.TurboId == null)
+                    {
+                        var speed = cars.GetMaxSpeed(teamRace.User) / 60; //to convene in km / h
+                        double time = (double)stageTwo / (double)speed;
+                        var date = new DateTime();
+                        var realTime = date.AddMinutes(time).AddSeconds(double.Parse(random));
+                        ratingList.AddInRatingList(teamRace, realTime);
+                    }
+                    else if (teams[i].UseOfTurboType == UseOfTurboType.Start)
+                    {
+                        var speed = (cars.GetMaxSpeed(teamRace.User) + cars.GetTurbo(teamRace.User).Speed) / 60; //to convene in km / h
+                        double time = (double)stageTwo / (double)speed;
+                        var date = new DateTime();
+                        var realTime = date.AddMinutes(time).AddSeconds(double.Parse(random));
+                        ratingList.AddInRatingList(teamRace, realTime);
+                    }
+                }
+
+                raceHistory.AddHistory(input);
+
+                pilots.DecreaseEnergy(pilot.Id, (int)energyPilot);
+                pilots.IncreaseExperience(pilot.Id, 2);//2 comes from the number of Stage - stageTwo
+                navigators.DecreaseEnergy(navigator.Id, (int)energyNavigator);
+                navigators.IncreaseExperience(navigator.Id, 2);//2 comes from the number of Stage - stageTwo
+                cars.Damage(teamRace.CarId, 2, runway.Difficulty);//2 comes from the number of Stage - stageTwo
+            }
+
+            input = $"В последния етап на надпреварата продължават {teams.Count} автомобила. Нека видим как ще се завърши състезанието.";
+            raceHistory.AddHistory(input);
+
+            ratingList.AddPontsSE();
+
+            for (int i = 0; i < teams.Count; i++)
+            {
+                var pilot = pilots.GetPilotNoTracking(teams[i].PilotId);
+                var energyPilot = pilots.EnergyPilot(teams[i].PilotId) - stageTwo * damageConstant;
+                people.ReduceEnergy(pilot, energyPilot);
+                var navigator = navigators.GetNavigator(teams[i].NavigatorId);
+                var energyNavigator = navigators.EnergyNavigator(teams[i].NavigatorId) - stageTwo * damageConstant;
+                people.ReduceEnergy(navigator, energyNavigator);
+                var teamRace = team.FindUser(teams[i].TeamId);
+                int drive = 0;
+                if (teams[i].Drive == DriveType.Aggressive)
+                {
+                    input = $"{i} Пилот {pilot.FirstName} от отборът на {teamRace.Name}, продължава с агресивното шофиране. Не съм обеден че това ще му донесе привилегии " +
+       $" за напред. Дано, навигатор до него {navigator.FirstName} го успокой за да не станем свидетели на катастрофа.";
+                    drive = 3;
+                }
+                else if (teams[i].Drive == DriveType.Normal)
+                {
+                    input = $"{i} Пилот {pilot.FirstName} от отборът на {teamRace.Name}, продължава с едно чудестно представяне.";
+                    drive = 2;
+                }
+                else
+                {
+                    input = $"{i} Пилот {pilot.FirstName} от отборът на {teamRace.Name}, продължава с плахото шофиране. Очаквах повече от този пилот " +
+     $"Дано навигатор до него {navigator.FirstName} даде малко смелост да натисне педала.";
+                    drive = 1;
+                }
+
+                raceHistory.AddHistory(input);
+
+                var random = RandomEvents(pilot, navigator, runway.Difficulty, drive);
+                if (random == "the end")
+                {
+                    input = $"{i} Мик невнимание и пилота {pilot.FirstName} изпусна завоя, колата се преобърна в канавката. Дано всички са наред. " +
+                        $"Това беше края на състезанието за отбор: {teamRace.Name}";
+                    var date = new DateTime();
+                    ratingList.AddInRatingList(teamRace, date);
+                }
+                else if (random == "Ok")
+                {
+                    input = $"{i} Без проблеми отборрът на {teamRace.Name} с {pilot.FirstName} зад волана и навигатор до него {navigator.FirstName}" +
+                        $"преминаха през третия етап";
+                    if (teamRace.Cars.TurboId == null)
+                    {
+                        var speed = cars.GetMaxSpeed(teamRace.User) / 60; //to convene in km / h
+                        double time = (double)stageThree / (double)speed;
+                        var date = new DateTime();
+                        var realTime = date.AddMinutes(time);
+                        ratingList.AddInRatingList(teamRace, realTime);
+                    }
+                    else if (teams[i].UseOfTurboType == UseOfTurboType.Edge)
+                    {
+                        var speed = (cars.GetMaxSpeed(teamRace.User) + cars.GetTurbo(teamRace.User).Speed) / 60; //to convene in km / h
+                        double time = (double)stageThree / (double)speed;
+                        var date = new DateTime();
+                        var realTime = date.AddMinutes(time);
+                        ratingList.AddInRatingList(teamRace, realTime);
+                    }
+                }
+                else
+                {
+                    input = $"{i} Пилота {pilot.FirstName} от отбора на {teamRace.Name}, се разсея за момент и излезе от идеалната линия. Това му костваше цени секунди";
+                    if (teamRace.Cars.TurboId == null)
+                    {
+                        var speed = cars.GetMaxSpeed(teamRace.User) / 60; //to convene in km / h
+                        double time = (double)stageThree / (double)speed;
+                        var date = new DateTime();
+                        var realTime = date.AddMinutes(time).AddSeconds(double.Parse(random));
+                        ratingList.AddInRatingList(teamRace, realTime);
+                    }
+                    else if (teams[i].UseOfTurboType == UseOfTurboType.Start)
+                    {
+                        var speed = (cars.GetMaxSpeed(teamRace.User) + cars.GetTurbo(teamRace.User).Speed) / 60; //to convene in km / h
+                        double time = (double)stageThree / (double)speed;
+                        var date = new DateTime();
+                        var realTime = date.AddMinutes(time).AddSeconds(double.Parse(random));
+                        ratingList.AddInRatingList(teamRace, realTime);
+                    }
+                }
+
+                raceHistory.AddHistory(input);
+
+                pilots.DecreaseEnergy(pilot.Id, (int)energyPilot);
+                pilots.IncreaseExperience(pilot.Id, 3);//2 comes from the number of Stage - stageThree
+                navigators.DecreaseEnergy(navigator.Id, (int)energyNavigator);
+                navigators.IncreaseExperience(navigator.Id, 3);//2 comes from the number of Stage - stageThree
+                cars.Damage(teamRace.CarId, 3, runway.Difficulty);//2 comes from the number of Stage - stageThree
+            }
+
+            ratingList.AddPonts();
+
+            input = $"Състезанието {raceName} завърши. Нека погледнем крайните времена.";
+            raceHistory.AddHistory(input);
+
+            var dictionary = ratingList.GetRatingList();
+
+            foreach (var item in dictionary)
+            {
+                input = $"Отбор {item.Key.Name} завършва с време {item.Value.Minute}";
+                raceHistory.AddHistory(input);
+                AddTime(item.Key.Name, item.Value);
+            }
+
+            input = $"До нови срещи приятели! Очаквам ви отново на следващото състезание.";
+            raceHistory.AddHistory(input);
+            
+            //ToDO
         }
 
         public CompetitionsTeams[] GetAllTeamsAsync()
@@ -195,7 +468,7 @@
             var constantAverage = 4;
             var constantEasy = 2;
             Random rnd = new Random();
-            var chanceOfAnEvent = ((100 - pilot.Concentration)+ (100 - navigator.Concentration) )/ 4;
+            var chanceOfAnEvent = ((100 - pilot.Concentration) + (100 - navigator.Concentration)) / 4;
             var randomNumberForIncident = 0;
             var randomNumberForSalvation = 0;
             if (type == DifficultyType.Difficult)
@@ -210,14 +483,14 @@
                 }
                 else if (drive == 1)
                 {
-                    randomNumberForIncident = constantDifficul  + constantDifficul * chanceOfAnEvent / 100 - 2;
+                    randomNumberForIncident = constantDifficul + constantDifficul * chanceOfAnEvent / 100 - 2;
                 }
                 var chanceForIncident = rnd.Next(1, randomNumberForIncident);
                 if (!(chanceForIncident == 1 || chanceForIncident == 2 || chanceForIncident == 3))
                 {
-                    randomNumberForSalvation = (100 - pilot.Reflexes + 100-navigator.Communication)/20;
+                    randomNumberForSalvation = (100 - pilot.Reflexes + 100 - navigator.Communication) / 20;
                     var chanceForSalvation = rnd.Next(1, randomNumberForSalvation);
-                    if (chanceForSalvation==1 || chanceForSalvation == 2 || chanceForSalvation == 3)
+                    if (chanceForSalvation == 1 || chanceForSalvation == 2 || chanceForSalvation == 3)
                     {
                         return "4";
                     }

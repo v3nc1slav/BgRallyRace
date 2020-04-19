@@ -68,6 +68,7 @@ namespace BgRallyRace
             services.AddTransient<IRunwaysServices, RunwaysServices>();
             services.AddTransient<ICompetitionsServices, CompetitionsServices>();
             services.AddTransient<IRaceHistoryServices, RaceHistoryServices>();
+            services.AddTransient<IRatingListServices, RatingListServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -91,9 +92,7 @@ namespace BgRallyRace
 
             app.UseAuthentication();
             app.UseAuthorization();
-
-
-
+                       
             competitions.HasIsStartedAsync();
 
             app.UseEndpoints(endpoints =>

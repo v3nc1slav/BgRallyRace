@@ -1,6 +1,7 @@
 ﻿namespace BgRallyRace.Services
 {
     using BgRallyRace.Models;
+    using BgRallyRace.Models.Enums;
     using BgRallyRace.Models.PartsCar;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -49,5 +50,7 @@
         int CreateCarsAsync();
 
         void Repair(string type, int id, decimal price, string user);
+
+        void Damage(int carId, int typeDamage, DifficultyType difficulty);
     }
 }

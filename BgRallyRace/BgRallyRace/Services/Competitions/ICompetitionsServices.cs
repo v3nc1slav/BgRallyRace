@@ -9,6 +9,8 @@
     {
         public  DateTime GetStartDate();
 
+        void AddTime(string team, DateTime time);
+
         public int GetCompetitionId();
 
         public void HasIsStartedAsync();
