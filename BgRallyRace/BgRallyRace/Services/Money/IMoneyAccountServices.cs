@@ -1,6 +1,7 @@
 ﻿namespace BgRallyRace.Services
 {
     using BgRallyRace.Models;
+    using System.Collections.Generic;
 
     public interface IMoneyAccountServices
     {
@@ -16,5 +17,6 @@
 
         decimal GetBalanceAsync(string user);
 
+        void DistributionOfPrizeMoney(decimal money, List<CompetitionsTeams> teams);
     }
 }

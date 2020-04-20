@@ -27,13 +27,18 @@
                 </div>
                 <div>
                     <label asp-for="CompetitionsRallyRunwayId">Писти </label>
-                    <select  asp-for="CompetitionsRallyRunwayId" class="form-control" />
+                    <select asp-for="CompetitionsRallyRunwayId" class="form-control" />
                     @{ foreach (var item in Model.Runways)
                         {
                             <option value="@item.Id">@item.Name</option>
                         }
                     }
                     </select>
+                </div>
+                <div>
+                    <label asp-for="PrizeFund"> Награден фонд</label>
+                    <input asp-for="PrizeFund" class="form-control" placeholder="110000-10000000" />
+                    <span asp-validation-for="PrizeFund" class="text-danger"></span>
                 </div>
                 <button type="submit" class="btn btn-secondary">Създай</button>
             </form>

@@ -57,14 +57,14 @@
         [HttpGet]
         public IActionResult RentalsPilot(int id)
         {
-            market.RentalsPilot(id, User.Identity.Name, 1000);
+            market.RentalsPilot(id, User.Identity.Name, 1000);//fixed
             return this.RedirectToAction("Pilot", "Teams");
         }
 
         [HttpGet]
         public IActionResult RentalsNavigator(int id)
         {
-            market.RentalsNavigator(id, User.Identity.Name, 1000);
+            market.RentalsNavigator(id, User.Identity.Name, 1000);//fixed
             return this.RedirectToAction("Navigator", "Teams");
         }
 

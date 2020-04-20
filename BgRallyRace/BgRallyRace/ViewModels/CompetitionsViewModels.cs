@@ -19,7 +19,7 @@
         public int Stages { get; set; } = 1;
 
         [Required]
-        [Range(0, 100000000)]
+        [Range(110000, 100000000)]
         public decimal PrizeFund { get; set; }
 
         public List<int> CompetitionsRallyRunwayId { get; set; }

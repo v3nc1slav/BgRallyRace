@@ -285,6 +285,9 @@ namespace BgRallyRace.Migrations
                     b.Property<int>("Points")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("UseOfTurboType")
                         .HasColumnType("int");
 

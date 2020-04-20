@@ -1,6 +1,5 @@
 ﻿namespace BgRallyRace.Controllers
 {
-    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using BgRallyRace.Data;
@@ -9,10 +8,11 @@
     using BgRallyRace.Services.Training;
     using System.Linq;
 
+
+    [Authorize]
     public class TrainingController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationDbContext db = new ApplicationDbContext();
         private readonly ITrainingServices training;
         private readonly IMoneyAccountServices money;
         private readonly IRallyPilotsServices pilot;
@@ -29,10 +29,10 @@
         }
 
 
-        [Authorize]
         [HttpPost]
         public IActionResult Training(string sessionType, string type)
         {
+            _logger.LogInformation("Training");
             var inputSessionType = sessionType.Split().ToArray();
             var typeTreining = inputSessionType[0];
             int money = int.Parse(inputSessionType[1]);

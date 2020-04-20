@@ -24,55 +24,42 @@
             {
                 DictionaryTeams[team].AddMinutes(time.Minute);
             }
+            else
+            {
+                DictionaryTeams.Add(team, time);
+            }
             if (time.Minute == 0)
             {
                 DictionaryTeams[team] = new DateTime();
             }
-            DictionaryTeams.Add(team, time);
+         
         }
 
         public void AddPonts()
         {
             var teams = DistributionPoint();
-            for (int i = 0; i < 10; i++)
+            var count = teams.Count ;
+            if (teams.Count  > 10)
             {
-                var points = dbContext.CompetitionsTeam.Where(x => x.TeamId == teams[i].Id).Select(x => x.Points).FirstOrDefault();
-                switch (i + 1)
+                count = 10;
+            }
+            for (int i = 0; i < count; i++)
+            {
+                var points = dbContext.CompetitionsTeam.Where(x => x.TeamId == teams[i].Id).FirstOrDefault();
+                points.Points = (i + 1) switch
                 {
-                    case 1:
-                        points += 25;
-                        break;
-                    case 2:
-                        points += 18;
-                        break;
-                    case 3:
-                        points += 15;
-                        break;
-                    case 4:
-                        points += 12;
-                        break;
-                    case 5:
-                        points += 10;
-                        break;
-                    case 6:
-                        points += 8;
-                        break;
-                    case 7:
-                        points += 6;
-                        break;
-                    case 8:
-                        points += 4;
-                        break;
-                    case 9:
-                        points += 2;
-                        break;
-                    case 10:
-                        points += 1;
-                        break;
-                    default:
-                        points += 0;
-                        break;
-                }
+                    1 => points.Points + 25,
+                    2 => points.Points + 18,
+                    3 => points.Points + 15,
+                    4 => points.Points + 12,
+                    5 => points.Points + 10,
+                    6 => points.Points + 8,
+                    7 => points.Points + 6,
+                    8 => points.Points + 4,
+                    9 => points.Points + 2,
+                    10 => points.Points + 1,
+                    _ => points.Points + 0,
+                };
                 dbContext.SaveChanges();
             }
         }
@@ -82,7 +69,7 @@
             return DictionaryTeams;
         }
 
-        private List<Team> DistributionPoint()
+        public List<Team> DistributionPoint()
         {
             var teams = new List<Team>();
             var dictionary = GetRatingList();
@@ -108,36 +95,25 @@
         public void AddPontsSE()
         {
             var teams = DistributionPoint();
-            for (int i = 0; i < 7; i++)
+            var count = teams.Count;
+            if (teams.Count >6)
             {
-                var points = dbContext.CompetitionsTeam.Where(x => x.TeamId == teams[i].Id).Select(x => x.Points).FirstOrDefault();
-                switch (i + 1)
+                count = 6;
+            }
+            for (int i = 0; i < count; i++)
+            {
+                var points = dbContext.CompetitionsTeam.Where(x => x.TeamId == teams[i].Id).FirstOrDefault();
+                points.Points = (i + 1) switch
                 {
-                    case 1:
-                        points += 7;
-                        break;
-                    case 2:
-                        points += 6;
-                        break;
-                    case 3:
-                        points += 5;
-                        break;
-                    case 4:
-                        points += 4;
-                        break;
-                    case 5:
-                        points += 3;
-                        break;
-                    case 6:
-                        points += 2;
-                        break;
-                    case 7:
-                        points += 1;
-                        break;
-                    default:
-                        points += 0;
-                        break;
-                }
+                    1 => points.Points + 7,
+                    2 => points.Points + 6,
+                    3 => points.Points + 5,
+                    4 => points.Points + 4,
+                    5 => points.Points + 3,
+                    6 => points.Points + 2,
+                    7 => points.Points + 1,
+                    _ => points.Points + 0,
+                };
                 dbContext.SaveChanges();
             }
         }

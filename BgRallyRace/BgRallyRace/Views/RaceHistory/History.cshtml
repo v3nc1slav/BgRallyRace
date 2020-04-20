@@ -1,0 +1,11 @@
+﻿@model BgRallyRace.ViewModels.HistoryViewModels
+@{
+    ViewData["Title"] = "History";
+}
+<div class=" background">
+
+@foreach (var item in Model.History)
+{
+    <p>@item</p>
+}
+</div>

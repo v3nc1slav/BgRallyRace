@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BgRallyRace.Services.Competitions
+﻿namespace BgRallyRace.Services.Competitions
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
     public interface IRaceHistoryServices
     {
-        Task CreateHistory(int id, string name, string history);
+        void CreateHistory(int id, string name);
 
         void AddHistory(string input);
+
+        List<string> GetHistory();
     }
 }

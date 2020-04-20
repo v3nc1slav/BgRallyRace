@@ -13,5 +13,8 @@
         void AddPontsSE();
 
         Dictionary<Team, DateTime> GetRatingList();
+
+        List<Team> DistributionPoint();
+
     }
 }

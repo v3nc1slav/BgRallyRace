@@ -41,6 +41,7 @@
             {
                 CountNotAuthorization = opinions.GetCountNotAuthorization(),
                 StartDate = competitions.GetStartDate(),
+                Team = team.FindUser(User.Identity.Name)
             };
             return this.View(viewModel);
         }

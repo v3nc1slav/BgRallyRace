@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace BgRallyRace.Models.Enums
+﻿namespace BgRallyRace.Models.Enums
 {
     public enum DifficultyType
     {

@@ -22,6 +22,8 @@
             {
                 Name = input.Name,
                 StartRaceDate = input.StartRaceDate,
+                Stages = input.Stages,
+                PrizeFund = input.PrizeFund,
             });
             dbContext.SaveChanges();
 

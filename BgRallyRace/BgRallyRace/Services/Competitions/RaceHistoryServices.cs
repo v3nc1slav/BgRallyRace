@@ -1,23 +1,22 @@
-﻿using BgRallyRace.Data;
-using BgRallyRace.Models.Competitions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BgRallyRace.Services.Competitions
+﻿namespace BgRallyRace.Services.Competitions
 {
+    using BgRallyRace.Data;
+    using BgRallyRace.Models.Competitions;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class RaceHistoryServices : IRaceHistoryServices
     {
         private readonly ApplicationDbContext dbContext;
-        string histrory;
+        private string history;
 
         public RaceHistoryServices(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        public async Task CreateHistory(int id, string name, string history)
+        public void CreateHistory(int id, string name)
         {
             dbContext.RaceHistories.Add(new RaceHistory
             {
@@ -25,13 +24,19 @@ namespace BgRallyRace.Services.Competitions
                 CompetitionsName = name,
                 History = history,
             });
-            await dbContext.SaveChangesAsync();
+             dbContext.SaveChanges();
         }
 
         public void AddHistory(string input)
         {
-            histrory = histrory + input + "§";
+            history = history + input + "§";
         }
 
+        public List<string> GetHistory()
+        {
+            var history =  dbContext.RaceHistories.OrderByDescending(x=>x.Id).Select(x => x.History).FirstOrDefault();
+            var list  =  history.Split('§').ToList();
+            return list;
+        }
     }
 }
