@@ -4,7 +4,7 @@
 
     public interface IOpinionsServices
     {
-        void AddOpinionAsync(string text, string user);
+        string AddOpinion(string text, string user);
 
         Opinions[] GetOpinions(int page = 1);
 

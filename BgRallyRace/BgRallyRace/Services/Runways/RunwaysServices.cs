@@ -3,9 +3,11 @@
     using BgRallyRace.Data;
     using BgRallyRace.Models;
     using BgRallyRace.Models.Competitions;
+    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     public class RunwaysServices : IRunwaysServices
     {
@@ -41,6 +43,21 @@
                     
                 })
                 .First();
+            return runway;
+        }
+
+        public async Task< RallyRunway> GetRunway()
+        {
+            var runway = await dbContext.CompetitionsRallyRunway
+                .Where(x => x.Competition.Applicable == true)
+                .Select(x => new RallyRunway
+                {
+                    Id = x.RallyRunway.Id,
+                    Name = x.RallyRunway.Name,
+                    Difficulty = x.RallyRunway.Difficulty,
+                    TrackLength = x.RallyRunway.TrackLength,
+                })
+                .FirstAsync();
             return runway;
         }
     }

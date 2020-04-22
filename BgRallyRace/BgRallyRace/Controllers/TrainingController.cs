@@ -2,12 +2,13 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
-    using BgRallyRace.Data;
     using BgRallyRace.Services;
     using Microsoft.AspNetCore.Authorization;
     using BgRallyRace.Services.Training;
     using System.Linq;
-
+    using System.Threading.Tasks;
+    using BgRallyRace.Models;
+    using System.Diagnostics;
 
     [Authorize]
     public class TrainingController : Controller
@@ -30,7 +31,7 @@
 
 
         [HttpPost]
-        public IActionResult Training(string sessionType, string type)
+        public async Task<IActionResult> Training(string sessionType, string type)
         {
             _logger.LogInformation("Training");
             var inputSessionType = sessionType.Split().ToArray();
@@ -54,6 +55,12 @@
             this.money.ExpenseAccountAsync(money, User.Identity.Name);
 
             return this.RedirectToAction($"{type}","Teams");
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<IActionResult> Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
     }

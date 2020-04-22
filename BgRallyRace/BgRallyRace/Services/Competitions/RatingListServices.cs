@@ -86,8 +86,11 @@
                         team = item.Key;
                     }
                 }
-                teams.Add(team);
-                dictionary.Remove(team);
+                if (team!=null)
+                {
+                    teams.Add(team);
+                    dictionary.Remove(team);
+                }
             }
             return teams;
         }

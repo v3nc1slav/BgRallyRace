@@ -3,32 +3,58 @@
     ViewData["Title"] = "Opinion";
 }
 
-    <form asp-controller="Home" asp-action="Contact" method="post" class="form-group">
-        <textarea class="form-control" id="exampleTextarea" name="content" cols="50" rows="2" class="flL w200"></textarea>
-        <input type="submit"  data-toggle="modal" data-target="#deleteModal" class="btn btn-secondary" value="Сподели" ></input>
+@if (Model.Text != null)
+{
+    if (@Model.Text.Contains("Успешно"))
+    {
+        <div class="alert alert-success" role="alert">
+            <strong>Чудесно!</strong> @Model.Text
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-primary" role="alert">
+            <strong>Не възможно действие!</strong> @Model.Text
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+}
 
-        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModalLabel">Deleting "ново" apiary?</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure you want to delete the following apiary: ново?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <a asp-controller="Apiaries" asp-action="Delete" asp-route-id="ново">
-                            <button class="btn btn-danger">Yes</button>
-                        </a>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-                    </div>
+<form asp-controller="Home" asp-action="Opinion" method="post" class="form-group">
+    <div class="background">
+        <label asp-for="Opinion"> Мнение </label>
+        <input asp-for="Opinion" class="form-control" placeholder=Мнение />
+        <span asp-validation-for="Opinion" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-secondary">Сподели</button>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Deleting "ново" apiary?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete the following apiary: ново?</p>
+                </div>
+                <div class="modal-footer">
+                    <a asp-controller="Apiaries" asp-action="Delete" asp-route-id="ново">
+                        <button class="btn btn-danger">Yes</button>
+                    </a>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
+</form>
 
 @foreach (var opinion in Model.Opinions)
 {
@@ -65,40 +91,7 @@
     </p>
 }
 
-
-<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-    <div class="btn-group mr-2" role="group" aria-label="First group">
-        <button type="button" class="btn btn-secondary">1</button>
-    </div>
-</div>
+<h4>*Всички Мнения, минават през оторизация от администратор, преди да се побликуват!</h4>
 
 
-<div id="id01" class="w3-modal">
-    <div class="w3-modal-content w3-card-4">
-        <header class="w3-container w3-teal">
-            <span onclick="document.getElementById('id01').style.display='none'"
-                  class="w3-button w3-display-topright">&times;</span>
-            <h2>Благодарим</h2>
-        </header>
-        <div class="w3-container">
-            <p>Вие успешно побликувахте мнение!</p>
-            <p>След проверка от Администратор, ще стане видимо.</p>
-        </div>
-        <footer class="w3-container w3-teal">
-        </footer>
-    </div>
-</div>
-</div>
 
-
-<script>
-    // Get the modal
-    var modal = document.getElementById('id01');
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-</script>

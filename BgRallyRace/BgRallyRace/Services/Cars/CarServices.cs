@@ -16,10 +16,10 @@
         const decimal strength = 100;
         const int stageOne = 15;
         const int stageTwo = 22;
-        const int stageThree = 30;
-        const Double difficultyTypeEasy = 1.1;
-        const Double difficultyTypeAverage = 1.3;
-        const Double difficultyTypeDifficult = 1.5;
+        const int stageThree = 15;
+        const double difficultyTypeEasy = 1.0;
+        const double difficultyTypeAverage = 1.2;
+        const double difficultyTypeDifficult = 1.4;
 
         private readonly ApplicationDbContext dbContext;
         private readonly IRallyPilotsServices rallyPilots;
@@ -202,6 +202,20 @@
             return currentSpeed;
         }
 
+        public decimal GetMaxCurrentSpeed(string user)
+        {
+            var Aerodynamics = GetAerodynamics(user);
+            var Brakes = GetBrakes(user);
+            var Engines = GetEngine(user);
+            var Gearboxs = GetGearboxs(user);
+            var ModelsCars = GetModelsCars(user);
+            var Mountings = GetMountings(user);
+            var speed = Aerodynamics.Speed*Aerodynamics.Strength/100 + Brakes.Speed*Brakes.Strength/100
+                + Engines.Speed*Engines.Strength/100 + Gearboxs.Speed*Gearboxs.Strength/100
+                + ModelsCars.Speed*ModelsCars.Strength/100+ Mountings.Speed*Mountings.Strength/100;
+            return speed;
+        }
+
         public int CreateCarsAsync()
         {
             var aerodynamics = dbContext.Aerodynamics.Add(new Aerodynamics { Name = name, Price = price, Strength = strength, Speed = 10 });
@@ -225,7 +239,7 @@
             return id;
         }
 
-        public void Repair(string type, int id, decimal price, string user)
+        public string Repair(string type, int id, decimal price, string user)
         {
 
             var team = dbContext.Teams.Where(x => x.User == user).FirstOrDefault();
@@ -239,50 +253,78 @@
             var pilot = rallyPilots.IsItBusy(idPilot);
             var navigator = rallyNavigators.IsItBusy(idNavigator);
 
-            if (!(pilot && navigator))
+            if ((pilot || navigator))
             {
-                //ToDo
-                return;
+                return "Пилота и навигатора извършват друга работа.";
             }
 
             if (type == "Aerodynamics")
             {
                 var typeParts = dbContext.Aerodynamics.Where(x => x.Id == id).FirstOrDefault();
+                if (typeParts.Strength == 100)
+                {
+                    return "Часта е напълно здрава.";
+                }
                 RepairParts(typeParts, rallyPilots, idPilot, rallyNavigators, idNavigator);
             }
             else if (type == "Brakes")
             {
                 var typeParts = dbContext.Brakes.Where(x => x.Id == id).FirstOrDefault();
+                if (typeParts.Strength == 100)
+                {
+                    return "Часта е напълно здрава.";
+                }
                 RepairParts(typeParts, rallyPilots, idPilot, rallyNavigators, idNavigator);
             }
             else if (type == "Engines")
             {
                 var typeParts = dbContext.Engines.Where(x => x.Id == id).FirstOrDefault();
+                if (typeParts.Strength == 100)
+                {
+                    return "Часта е напълно здрава.";
+                }
                 RepairParts(typeParts, rallyPilots, idPilot, rallyNavigators, idNavigator);
             }
             else if (type == "Gearboxs")
             {
                 var typeParts = dbContext.Gearboxs.Where(x => x.Id == id).FirstOrDefault();
+                if (typeParts.Strength == 100)
+                {
+                    return "Часта е напълно здрава.";
+                }
                 RepairParts(typeParts, rallyPilots, idPilot, rallyNavigators, idNavigator);
             }
             else if (type == "ModelsCars")
             {
                 var typeParts = dbContext.ModelsCars.Where(x => x.Id == id).FirstOrDefault();
+                if (typeParts.Strength == 100)
+                {
+                    return "Часта е напълно здрава.";
+                }
                 RepairParts(typeParts, rallyPilots, idPilot, rallyNavigators, idNavigator);
             }
             else if (type == "Mountings")
             {
                 var typeParts = dbContext.Mountings.Where(x => x.Id == id).FirstOrDefault();
+                if (typeParts.Strength == 100)
+                {
+                    return "Часта е напълно здрава.";
+                }
                 RepairParts(typeParts, rallyPilots, idPilot, rallyNavigators, idNavigator);
             }
             else if (type == "Turbo")
             {
                 var typeParts = dbContext.Turbos.Where(x => x.Id == id).FirstOrDefault();
+                if (typeParts.Strength == 100)
+                {
+                    return "Часта е напълно здрава.";
+                }
                 RepairParts(typeParts, rallyPilots, idPilot, rallyNavigators, idNavigator);
             }
 
             money.ExpenseAccountAsync(price, user);
             dbContext.SaveChanges();
+            return "Ремонта, бе извършен успешно";
         }
 
         public void Damage(int carId, int typeDamage, DifficultyType difficulty)

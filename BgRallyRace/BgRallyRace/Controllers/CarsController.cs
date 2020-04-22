@@ -5,20 +5,27 @@
     using BgRallyRace.Services;
     using BgRallyRace.ViewModels;
     using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.Extensions.Logging;
+    using BgRallyRace.Models;
+    using System.Diagnostics;
 
     [Authorize]
     public class CarsController : Controller
     {
+        private readonly ILogger<CarsController> _logger;
         private readonly ICarServices car;
 
-        public CarsController(ICarServices carServices)
+        public CarsController(ILogger<CarsController> logger, ICarServices carServices)
         {
+            this._logger = logger;
             this.car = carServices;
         }
 
         [HttpGet]
-        public IActionResult Car()
+        public async Task<IActionResult> Car(string input=null)
         {
+            _logger.LogInformation("view car");
             var viewModel = new CarViewModels
             {
                 CarId = car.GetCarId(User.Identity.Name),
@@ -30,19 +37,28 @@
                 Mountings = car.GetMountings(User.Identity.Name),
                 Turbo = car.GetTurbo(User.Identity.Name),
                 MaxSpeed = car.GetMaxSpeed(User.Identity.Name),
+                Text = input,
             };
             return this.View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult Repair(string type, int id)
+        public async Task<IActionResult> Repair(string type, int id)
         {
+            _logger.LogInformation("repair car");
             var input = type.Split().ToArray();
             type = input[0];
             decimal price = decimal.Parse(input[1]);
             string user = input[2];
-            car.Repair(type, id, price, user);
-            return this.Car();
+            var text = car.Repair(type, id, price, user);
+            return this.RedirectToAction("Car", "Cars", new {input = text });
         }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<IActionResult> Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
     }
 }

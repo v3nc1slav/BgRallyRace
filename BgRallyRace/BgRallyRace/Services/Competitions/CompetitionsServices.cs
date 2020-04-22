@@ -5,10 +5,13 @@
     using BgRallyRace.Models.Enums;
     using BgRallyRace.Services.Runways;
     using BgRallyRace.ViewModels;
+    using Microsoft.EntityFrameworkCore;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Timers;
 
     public class CompetitionsServices : ICompetitionsServices
     {
@@ -27,7 +30,7 @@
 
         public CompetitionsServices(ApplicationDbContext dbContext, ICarServices carServices, ITeamServices teamServices,
             IRallyPilotsServices pilotsServices, IRallyNavigatorsServices navigatorsServices, IRunwaysServices runwaysServices,
-            IRaceHistoryServices raceHistoryServices, IPeople people, IRatingListServices ratingListServices, 
+            IRaceHistoryServices raceHistoryServices, IPeople people, IRatingListServices ratingListServices,
             IMoneyAccountServices moneyAccountServices)
         {
             this.dbContext = dbContext;
@@ -44,18 +47,18 @@
 
         public void AddTime(string team, DateTime time)
         {
-           var times = dbContext.CompetitionsTeam.Where(x => x.Team.Name == team).Select(x => x.Time).FirstOrDefault();
-           times = time;
+            var times = dbContext.CompetitionsTeam.Where(x => x.Team.Name == team && x.Competition.Applicable == true).Select(x => x.Time).FirstOrDefault();
+            times = time;
             dbContext.SaveChanges();
         }
 
-        public DateTime GetStartDate()
+        public async Task<DateTime> GetStartDate()
         {
-            var date = dbContext
+            var date = await dbContext
                 .Competitions
                 .Where(x => x.Applicable == true)
                 .Select(x => x.StartRaceDate)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
             return date;
         }
 
@@ -69,13 +72,13 @@
             return date;
         }
 
-        public string GetCompetitionName()
+        public async Task<string> GetCompetitionName()
         {
-            var date = dbContext
+            var date = await dbContext
                 .Competitions
                 .Where(x => x.Applicable == true)
                 .Select(x => x.Name)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
             return date;
         }
 
@@ -91,35 +94,79 @@
 
         public void ActivateNextRace()
         {
+            var old = dbContext
+                .Competitions
+                 .Where(x => x.Applicable == true)
+                .FirstOrDefault();
+            old.Applicable = false;
             var date = dbContext
                 .Competitions
                 .Where(x => x.StartRaceDate > DateTime.Now)
-                .Select(x => x.Applicable)
                 .FirstOrDefault();
-            date = true;
+            date.Applicable = true;
             dbContext.SaveChanges();
         }
 
+
         public void HasIsStartedAsync()
         {
+
+           // System.Timers.Timer aTimer = new System.Timers.Timer();
+           // aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+           // aTimer.Interval = 1000*60;
+           // aTimer.Enabled = true;
+
+            var date = GetStartDate();
+            
             var t = Task.Run(() =>
             {
                 while (true)
                 {
-                    var date = GetStartDate();
                     var nowDate = DateTime.Now;
-                    if (date < nowDate)
+                    if (date.Result.Date == nowDate.Date)
                     {
-                        this.StartRalli();
+                        while (true)
+                        {
+                            nowDate = DateTime.Now;
+                            if (date.Result.Hour == nowDate.Hour)
+                            {
+                                while (true)
+                                {
+                                    nowDate = DateTime.Now;
+                                    if (date.Result.Minute == nowDate.Minute)
+                                    {
+                                        this.StartRally();
+                                    }
+                                    Thread.Sleep(1000 * 60);//1 minute
+                                }
+                            }
+                            Thread.Sleep(1000 * 60 * 60);//1 hour
+                        }
                     }
-                    Thread.Sleep(1000 * 60 * 5);
+                    Thread.Sleep(1000 * 60 * 60 * 24);//1 day
                 }
             });
 
         }
 
-        public async Task RallyЕntry(TeamViewModels input)
+      // private void OnTimedEvent(object source, ElapsedEventArgs e)
+      // {
+      //     var date = GetStartDate().Result;
+      //     var nowDate = DateTime.Now;
+      //     if (date.Date == nowDate.Date)
+      //     {
+      //
+      //     }
+      // }
+
+        public string RallyЕntry(TeamViewModels input)
         {
+            var team = dbContext.CompetitionsTeam.Where(x => x.TeamId == input.TeamId && x.Competition.Applicable == true).FirstOrDefault();
+            if (team != null)
+            {
+                return $"Вие вече сте записан за стезанието.";
+            }
+
             dbContext.CompetitionsTeam.Add(new CompetitionsTeams
             {
                 Team = input.Team,
@@ -131,20 +178,21 @@
                 NavigatorId = input.RallyNavigatorId,
                 CarId = input.CarId,
             });
-            await dbContext.SaveChangesAsync();
+            dbContext.SaveChanges();
+            return $"Успешно се записахте за състезанието {input.Name}.";
         }
 
-        public void StartRalli()
+        public void StartRally()
         {
-            var raceName = GetCompetitionName();
-            var teams = GetAllTeamsAsync().ToList();
+            var raceName = GetCompetitionName().Result;
+            var teams = GetAllTeamsAsync();
             pilots.AllPilotsNoWorking();
             navigators.AllNavigatorNoWorking();
-            var runway = runways.GetRunwayForCurrentRace();
+            var runway = runways.GetRunway().Result;
             var stageOne = runway.TrackLength / 4;
             var stageTwo = runway.TrackLength / 2;
             var stageThree = runway.TrackLength / 4;
-            var data = GetStartDate();
+            var data = GetStartDate().GetAwaiter().GetResult();
 
             string input = $"Бе дадено началото на състезанието {raceName}, провежащо се на дата: {data} " +
                 $"на писта {runway.Name}.";//ToDo
@@ -163,7 +211,7 @@
                 var energyNavigator = navigators.EnergyNavigator(teams[i].NavigatorId) - stageOne * damageConstant;
                 people.ReduceEnergy(navigator, energyNavigator);
                 var teamRace = team.FindUser(teams[i].TeamId);
-                int drive = 0;
+                int drive;
                 if (i == 0)
                 {
                     if (teams[i].Drive == DriveType.Aggressive)
@@ -224,50 +272,52 @@
                     input = $"Без проблеми отборрът на {teamRace.Name} с {pilot.FirstName} зад волана и навигатор до него {navigator.FirstName}" +
                         $"преминаха през първата контрола";
                     var turbo = cars.GetTurbo(teamRace.User);
-                    if (turbo == null)
+                    if (teams[i].UseOfTurboType == UseOfTurboType.Start)
                     {
-                        var speed = cars.GetMaxSpeed(teamRace.User) / 60; //to convene in km / h
+                        var speed = (cars.GetMaxCurrentSpeed(teamRace.User) + turbo.Speed) / 60; //to convene in km / h
                         double time = (double)stageOne / (double)speed;
                         var date = new DateTime();
                         var realTime = date.AddMinutes(time);
                         ratingList.AddInRatingList(teamRace, realTime);
                     }
-                    else if (teams[i].UseOfTurboType == UseOfTurboType.Start)
+                    else
                     {
-                        var speed = (cars.GetMaxSpeed(teamRace.User) + cars.GetTurbo(teamRace.User).Speed) / 60; //to convene in km / h
+                        var speed = cars.GetMaxCurrentSpeed(teamRace.User) / 60; //to convene in km / h
                         double time = (double)stageOne / (double)speed;
                         var date = new DateTime();
                         var realTime = date.AddMinutes(time);
                         ratingList.AddInRatingList(teamRace, realTime);
                     }
+
                 }
                 else
                 {
                     input = $"Пилота {pilot.FirstName} от отбора на {teamRace.Name}, се разсея за момент и излезе от идеалната линия. Това му костваше цени секунди";
                     var turbo = cars.GetTurbo(teamRace.User);
-                    if (turbo == null)
+                    if (teams[i].UseOfTurboType == UseOfTurboType.Start)
                     {
-                        var speed = cars.GetMaxSpeed(teamRace.User) / 60; //to convene in km / h
+                        var speed = (cars.GetMaxCurrentSpeed(teamRace.User) + turbo.Speed) / 60; //to convene in km / h
                         double time = (double)stageOne / (double)speed;
                         var date = new DateTime();
                         var realTime = date.AddMinutes(time).AddSeconds(double.Parse(random));
                         ratingList.AddInRatingList(teamRace, realTime);
                     }
-                    else if (teams[i].UseOfTurboType == UseOfTurboType.Start)
+                    else
                     {
-                        var speed = (cars.GetMaxSpeed(teamRace.User) + cars.GetTurbo(teamRace.User).Speed) / 60; //to convene in km / h
+                        var speed = cars.GetMaxCurrentSpeed(teamRace.User) / 60; //to convene in km / h
                         double time = (double)stageOne / (double)speed;
                         var date = new DateTime();
                         var realTime = date.AddMinutes(time).AddSeconds(double.Parse(random));
                         ratingList.AddInRatingList(teamRace, realTime);
                     }
+
                 }
 
                 raceHistory.AddHistory(input);
 
-                pilots.DecreaseEnergy(pilot.Id,100- (int)energyPilot);
+                pilots.DecreaseEnergy(pilot.Id, 100 - (int)energyPilot);
                 pilots.IncreaseExperience(pilot.Id, 1);//1 comes from the number of Stage - StageOne
-                navigators.DecreaseEnergy(navigator.Id,100- (int)energyNavigator);
+                navigators.DecreaseEnergy(navigator.Id, 100 - (int)energyNavigator);
                 navigators.IncreaseExperience(navigator.Id, 1);//1 comes from the number of Stage - StageOne
                 cars.Damage(teamRace.CarId, 1, runway.Difficulty);//1 comes from the number of Stage - StageOne
             }
@@ -285,7 +335,7 @@
                 var energyNavigator = navigators.EnergyNavigator(teams[i].NavigatorId) - stageTwo * damageConstant;
                 people.ReduceEnergy(navigator, energyNavigator);
                 var teamRace = team.FindUser(teams[i].TeamId);
-                int drive = 0;
+                int drive ;
                 if (teams[i].Drive == DriveType.Aggressive)
                 {
                     input = $"Пилот {pilot.FirstName} от отборът на {teamRace.Name}, продължава с агресивното шофиране. Не съм обеден че това ще му донесе привилегии " +
@@ -320,38 +370,39 @@
                     input = $"Без проблеми отборрът на {teamRace.Name} с {pilot.FirstName} зад волана и навигатор до него {navigator.FirstName}" +
                         $"преминаха през втората контрола";
                     var turbo = cars.GetTurbo(teamRace.User);
-                    if (turbo == null)
+                    if (turbo != null && teams[i].UseOfTurboType == UseOfTurboType.Medium)
                     {
-                        var speed = cars.GetMaxSpeed(teamRace.User) / 60; //to convene in km / h
+                        var speed = (cars.GetMaxCurrentSpeed(teamRace.User) + cars.GetTurbo(teamRace.User).Speed) / 60; //to convene in km / h
                         double time = (double)stageTwo / (double)speed;
                         var date = new DateTime();
                         var realTime = date.AddMinutes(time);
                         ratingList.AddInRatingList(teamRace, realTime);
                     }
-                    else if (teams[i].UseOfTurboType == UseOfTurboType.Medium)
+                    else
                     {
-                        var speed = (cars.GetMaxSpeed(teamRace.User) + cars.GetTurbo(teamRace.User).Speed) / 60; //to convene in km / h
+                        var speed = cars.GetMaxCurrentSpeed(teamRace.User) / 60; //to convene in km / h
                         double time = (double)stageTwo / (double)speed;
                         var date = new DateTime();
                         var realTime = date.AddMinutes(time);
                         ratingList.AddInRatingList(teamRace, realTime);
                     }
+
                 }
                 else
                 {
                     input = $"Пилота {pilot.FirstName} от отбора на {teamRace.Name}, се разсея за момент и излезе от идеалната линия. Това му костваше цени секунди";
                     var turbo = cars.GetTurbo(teamRace.User);
-                    if (turbo == null)
+                    if (turbo != null && teams[i].UseOfTurboType == UseOfTurboType.Medium)
                     {
-                        var speed = cars.GetMaxSpeed(teamRace.User) / 60; //to convene in km / h
+                        var speed = (cars.GetMaxSpeed(teamRace.User) + cars.GetTurbo(teamRace.User).Speed) / 60; //to convene in km / h
                         double time = (double)stageTwo / (double)speed;
                         var date = new DateTime();
                         var realTime = date.AddMinutes(time).AddSeconds(double.Parse(random));
                         ratingList.AddInRatingList(teamRace, realTime);
                     }
-                    else if (teams[i].UseOfTurboType == UseOfTurboType.Start)
+                    else
                     {
-                        var speed = (cars.GetMaxSpeed(teamRace.User) + cars.GetTurbo(teamRace.User).Speed) / 60; //to convene in km / h
+                        var speed = cars.GetMaxSpeed(teamRace.User) / 60; //to convene in km / h
                         double time = (double)stageTwo / (double)speed;
                         var date = new DateTime();
                         var realTime = date.AddMinutes(time).AddSeconds(double.Parse(random));
@@ -361,9 +412,9 @@
 
                 raceHistory.AddHistory(input);
 
-                pilots.DecreaseEnergy(pilot.Id,100- (int)energyPilot);
+                pilots.DecreaseEnergy(pilot.Id, 100 - (int)energyPilot);
                 pilots.IncreaseExperience(pilot.Id, 2);//2 comes from the number of Stage - stageTwo
-                navigators.DecreaseEnergy(navigator.Id,100- (int)energyNavigator);
+                navigators.DecreaseEnergy(navigator.Id, 100 - (int)energyNavigator);
                 navigators.IncreaseExperience(navigator.Id, 2);//2 comes from the number of Stage - stageTwo
                 cars.Damage(teamRace.CarId, 2, runway.Difficulty);//2 comes from the number of Stage - stageTwo
             }
@@ -383,7 +434,7 @@
                 var energyNavigator = navigators.EnergyNavigator(teams[i].NavigatorId) - stageTwo * damageConstant;
                 people.ReduceEnergy(navigator, energyNavigator);
                 var teamRace = team.FindUser(teams[i].TeamId);
-                int drive = 0;
+                int drive;
                 if (teams[i].Drive == DriveType.Aggressive)
                 {
                     input = $"Пилот {pilot.FirstName} от отборът на {teamRace.Name}, продължава с агресивното шофиране. Не съм обеден че това ще му донесе привилегии " +
@@ -417,17 +468,17 @@
                     input = $"Без проблеми отборрът на {teamRace.Name} с {pilot.FirstName} зад волана и навигатор до него {navigator.FirstName}" +
                         $"преминаха през третия етап";
                     var turbo = cars.GetTurbo(teamRace.User);
-                    if (turbo == null)
+                    if (turbo != null && teams[i].UseOfTurboType == UseOfTurboType.Edge)
                     {
-                        var speed = cars.GetMaxSpeed(teamRace.User) / 60; //to convene in km / h
+                        var speed = (cars.GetMaxSpeed(teamRace.User) + cars.GetTurbo(teamRace.User).Speed) / 60; //to convene in km / h
                         double time = (double)stageThree / (double)speed;
                         var date = new DateTime();
                         var realTime = date.AddMinutes(time);
                         ratingList.AddInRatingList(teamRace, realTime);
                     }
-                    else if (teams[i].UseOfTurboType == UseOfTurboType.Edge)
+                    else
                     {
-                        var speed = (cars.GetMaxSpeed(teamRace.User) + cars.GetTurbo(teamRace.User).Speed) / 60; //to convene in km / h
+                        var speed = cars.GetMaxSpeed(teamRace.User) / 60; //to convene in km / h
                         double time = (double)stageThree / (double)speed;
                         var date = new DateTime();
                         var realTime = date.AddMinutes(time);
@@ -438,17 +489,17 @@
                 {
                     input = $"Пилота {pilot.FirstName} от отбора на {teamRace.Name}, се разсея за момент и излезе от идеалната линия. Това му костваше цени секунди";
                     var turbo = cars.GetTurbo(teamRace.User);
-                    if (turbo == null)
+                    if (turbo != null && teams[i].UseOfTurboType == UseOfTurboType.Start)
                     {
-                        var speed = cars.GetMaxSpeed(teamRace.User) / 60; //to convene in km / h
+                        var speed = (cars.GetMaxSpeed(teamRace.User) + cars.GetTurbo(teamRace.User).Speed) / 60; //to convene in km / h
                         double time = (double)stageThree / (double)speed;
                         var date = new DateTime();
                         var realTime = date.AddMinutes(time).AddSeconds(double.Parse(random));
                         ratingList.AddInRatingList(teamRace, realTime);
                     }
-                    else if (teams[i].UseOfTurboType == UseOfTurboType.Start)
+                    else
                     {
-                        var speed = (cars.GetMaxSpeed(teamRace.User) + cars.GetTurbo(teamRace.User).Speed) / 60; //to convene in km / h
+                        var speed = cars.GetMaxSpeed(teamRace.User) / 60; //to convene in km / h
                         double time = (double)stageThree / (double)speed;
                         var date = new DateTime();
                         var realTime = date.AddMinutes(time).AddSeconds(double.Parse(random));
@@ -458,11 +509,11 @@
 
                 raceHistory.AddHistory(input);
 
-                pilots.DecreaseEnergy(pilot.Id,100- (int)energyPilot);
-                pilots.IncreaseExperience(pilot.Id, 3);//2 comes from the number of Stage - stageThree
-                navigators.DecreaseEnergy(navigator.Id,100- (int)energyNavigator);
-                navigators.IncreaseExperience(navigator.Id, 3);//2 comes from the number of Stage - stageThree
-                cars.Damage(teamRace.CarId, 3, runway.Difficulty);//2 comes from the number of Stage - stageThree
+                pilots.DecreaseEnergy(pilot.Id, 100 - (int)energyPilot);
+                pilots.IncreaseExperience(pilot.Id, 3);//3 comes from the number of Stage - stageThree
+                navigators.DecreaseEnergy(navigator.Id, 100 - (int)energyNavigator);
+                navigators.IncreaseExperience(navigator.Id, 3);//3 comes from the number of Stage - stageThree
+                cars.Damage(teamRace.CarId, 3, runway.Difficulty);//3 comes from the number of Stage - stageThree
             }
 
             ratingList.AddPonts();
@@ -483,19 +534,20 @@
             raceHistory.AddHistory(input);
 
             var prizeFund = GetCompetitionPrizeFund();
-            money.DistributionOfPrizeMoney(prizeFund, teams);
+            var winners = ratingList.DistributionPoint();
+            money.DistributionOfPrizeMoney(prizeFund, teams, winners);
 
             raceHistory.CreateHistory(teams[0].CompetitionId, raceName);
 
             ActivateNextRace();
         }
 
-        public CompetitionsTeams[] GetAllTeamsAsync()
+        private List<CompetitionsTeams> GetAllTeamsAsync()
         {
-            var teams = dbContext
+            var teams =  dbContext
                 .CompetitionsTeam
                 .Where(x => x.Competition.Applicable == true)
-                .ToArray();
+                .ToList();
             return teams;
         }
 
@@ -506,8 +558,8 @@
             var constantEasy = 2;
             Random rnd = new Random();
             var chanceOfAnEvent = ((100 - pilot.Concentration) + (100 - navigator.Concentration)) / 4;
-            var randomNumberForIncident = 0;
-            var randomNumberForSalvation = 0;
+            int randomNumberForIncident = 0;
+            int randomNumberForSalvation;
             if (type == DifficultyType.Difficult)
             {
                 if (drive == 3)

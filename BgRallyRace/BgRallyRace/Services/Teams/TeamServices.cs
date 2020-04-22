@@ -40,7 +40,7 @@
             dbContext.SaveChanges();
             var addCarId = car.GetCar(numberCar);
             var addPilotId = pilot.GetPilot(numberPilot);
-            var addNavigatorId = navigator.GetNavigator(numberPilot);
+            var addNavigatorId = navigator.GetNavigator(numberNavigator);
             addCarId.TeamId = newTeam.Entity.Id;
             addPilotId.TeamId = newTeam.Entity.Id;
             addNavigatorId.TeamId = newTeam.Entity.Id;

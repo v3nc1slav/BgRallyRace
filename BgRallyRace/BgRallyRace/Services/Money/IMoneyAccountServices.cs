@@ -17,6 +17,6 @@
 
         decimal GetBalanceAsync(string user);
 
-        void DistributionOfPrizeMoney(decimal money, List<CompetitionsTeams> teams);
+        void DistributionOfPrizeMoney(decimal money, List<CompetitionsTeams> all, List<Team> wenners);
     }
 }

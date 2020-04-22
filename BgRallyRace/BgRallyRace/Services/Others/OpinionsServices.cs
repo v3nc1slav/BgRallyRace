@@ -18,7 +18,7 @@
             this.dbContext = dbContext;
         }
 
-        public void AddOpinionAsync(string text, string user)
+        public string AddOpinion(string text, string user)
         {
             dbContext.Opinions.Add(new Opinions
             {
@@ -29,6 +29,7 @@
                 authorizationOpinions = 0
             });
             dbContext.SaveChanges();
+            return "Успешно, публикувахте мнение.";
         }
 
         public Opinions[] GetOpinions(int page = 1)

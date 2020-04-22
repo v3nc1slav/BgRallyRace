@@ -14,13 +14,13 @@
     [Authorize]
     public class TeamsController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<TeamsController> _logger;
         private readonly IRallyPilotsServices pilot;
         private readonly IRallyNavigatorsServices navigator;
         private readonly ITeamServices team;
      
 
-        public TeamsController(ILogger<HomeController> logger, IRallyPilotsServices dbPilot,
+        public TeamsController(ILogger<TeamsController> logger, IRallyPilotsServices dbPilot,
             IRallyNavigatorsServices dbNavigator, ITeamServices teamServices)
         {
             _logger = logger;
@@ -30,8 +30,9 @@
         }
 
         [HttpGet]
-        public IActionResult Pilot()
+        public async Task<IActionResult> Pilot()
         {
+            _logger.LogInformation("veiw pilot");
             var viewModel = new PilotViewModels
             {
                 Pilots = pilot.GetPilots(User.Identity.Name)
@@ -44,8 +45,9 @@
         }
 
         [HttpGet]
-        public IActionResult Navigator()
+        public async Task<IActionResult> Navigator()
         {
+            _logger.LogInformation("veiw navigator");
             var viewModel = new NavigatorViewModels
             {
                 Navigators = navigator.GetNavigators(User.Identity.Name)
@@ -58,34 +60,38 @@
         }
 
         [HttpPost]
-        public IActionResult CreateTeam(string textTeam)
+        public async Task<IActionResult> CreateTeam(string textTeam)
         {
+            _logger.LogInformation("create team");
             team.CreateTeam(textTeam, User.Identity.Name);
             return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
-        public IActionResult IncreaseSalarylPilot(int id)
+        public async Task<IActionResult> IncreaseSalarylPilot(int id)
         {
+            _logger.LogInformation("increase salary pilot");
             pilot.IncreaseSalary(id, 100);
             return this.RedirectToAction("Pilot", "Teams");
         }
 
         [HttpGet]
-        public IActionResult IncreaseSalaryNavigator(int id)
+        public async Task<IActionResult> IncreaseSalaryNavigator(int id)
         {
+            _logger.LogInformation("increase salary pilot");
             navigator.IncreaseSalary(id, 100);
             return this.RedirectToAction("Navigator", "Teams");
         }
 
         [HttpGet]
-        public IActionResult IncreaseSalaryFitter()
+        public async Task<IActionResult> IncreaseSalaryFitter()
         {
+            _logger.LogInformation("increase salary fitter");
             return this.RedirectToAction("Index", "Home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public async Task<IActionResult> Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }

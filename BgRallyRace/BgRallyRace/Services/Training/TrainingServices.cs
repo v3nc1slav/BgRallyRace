@@ -34,7 +34,7 @@
             {
                 this.Spa(id, typePeople);
             }
-            else if (typeTreining == "Sqash")
+            else if (typeTreining == "Squash")
             {
                 this.Squash(id, typePeople);
             }

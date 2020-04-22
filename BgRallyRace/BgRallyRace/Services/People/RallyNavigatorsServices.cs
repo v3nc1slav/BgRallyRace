@@ -167,7 +167,7 @@
         public void DecreaseConcentration(int id, int variable)
         {
             var person = this.GetNavigator(id);
-            person.Concentration = person.Concentration - variable;
+            person.Concentration -= variable;
             dbContext.SaveChanges();
         }
         public bool IsItBusy(int id)
@@ -179,14 +179,15 @@
         {
             var pilot = dbContext.RallyPilots.Where(x => x.Id == id).First();
             pilot.IsItWorking = true;
+            dbContext.SaveChanges();
         }
 
         public async Task AllNavigatorNoWorking()
         {
-            var navigator = await dbContext.RallyNavigators.Where(x => x.IsItWorking == true).Select(x=>x.IsItWorking).ToArrayAsync();
+            var navigator = await dbContext.RallyNavigators.Where(x => x.IsItWorking == true).ToArrayAsync();
             for (int i = 0; i < navigator.Length; i++)
             {
-                navigator[i] = false;
+                navigator[i].IsItWorking = false;
             }
             await dbContext.SaveChangesAsync();
         }
@@ -205,49 +206,49 @@
 
         public void ReduceEnergy(People people, decimal variable)
         {
-            if (variable < 85)
+            if (variable < 35)
             {
-                people.Concentration = people.Concentration - 1;
-            }
-            else if (variable < 80)
-            {
-                people.Concentration = people.Concentration - 2;
-            }
-            else if (variable < 75)
-            {
-                people.Concentration = people.Concentration - 4;
-            }
-            else if (variable < 70)
-            {
-                people.Concentration = people.Concentration - 6;
-            }
-            else if (variable < 65)
-            {
-                people.Concentration = people.Concentration - 8;
-            }
-            else if (variable < 60)
-            {
-                people.Concentration = people.Concentration - 10;
-            }
-            else if (variable < 55)
-            {
-                people.Concentration = people.Concentration - 12;
-            }
-            else if (variable < 50)
-            {
-                people.Concentration = people.Concentration - 16;
-            }
-            else if (variable < 45)
-            {
-                people.Concentration = people.Concentration - 20;
+                people.Concentration -= 35;
             }
             else if (variable < 40)
             {
-                people.Concentration = people.Concentration - 26;
+                people.Concentration -= 26;
             }
-            else if (variable < 35)
+            else if (variable < 45)
             {
-                people.Concentration = people.Concentration - 35;
+                people.Concentration -= 20;
+            }
+            else if (variable < 50)
+            {
+                people.Concentration -= 16;
+            }
+            else if (variable < 55)
+            {
+                people.Concentration -= 12;
+            }
+            else if (variable < 60)
+            {
+                people.Concentration -= 10;
+            }
+            else if (variable < 65)
+            {
+                people.Concentration -= 8;
+            }
+            else if (variable < 70)
+            {
+                people.Concentration -= 6;
+            }
+            else if (variable < 75)
+            {
+                people.Concentration -= 4;
+            }
+            else if (variable < 80)
+            {
+                people.Concentration -= 2;
+            }
+            else if (variable < 85)
+            {
+                people.Concentration -= 1;
             }
         }
     }

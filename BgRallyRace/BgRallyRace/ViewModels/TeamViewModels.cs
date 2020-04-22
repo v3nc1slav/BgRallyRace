@@ -61,5 +61,7 @@
         public int CompetitionId { get; set; }
 
         public string CompetitionName { get; set; }
+
+        public string Text { get; set; }
     }
 }

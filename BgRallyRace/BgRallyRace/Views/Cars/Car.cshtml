@@ -2,6 +2,36 @@
 @{
     ViewData["Title"] = "Car";
 }
+@if (Model.Text != null)
+{
+    if (@Model.Text.Contains("успешно"))
+    {
+        <div class="alert alert-success" role="alert">
+            <strong>Чудесно!</strong> @Model.Text
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    else if(@Model.Text.Contains("Часта"))
+    {
+        <div class="alert alert-primary" role="alert">
+            <strong>Не възможно действие!</strong> @Model.Text
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            <strong>Не възможно действие!</strong> @Model.Text
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+}
 
 <div class="form-group row">
     <div class="col-sm-2">
@@ -95,18 +125,18 @@
                     </tr>
                     @if (!(Model.Turbo == null))
                     {
-                <tr>
-                    <th scope="row">Тирбо</th>
-                    <td>@Model.Turbo.Strength</td>
-                    <td>@Model.Turbo.Speed</td>
-                    <td>@Model.CurrentSpeedTurbo</td>
-                    <td>@Model.RepairPriceTurbo</td>
-                    <td>
-                        <form asp-controller="Cars" asp-action="Repair" asp-route-id="@Model.Turbo.Id" method="post" class="form-group">
-                            <button type="submit" class="btn btn-primary" name="type" value="Turbo @Model.RepairPriceTurbo @User.Identity.Name">Ремонтирай</button>
-                        </form>
-                    </td>
-                </tr>
+                        <tr>
+                            <th scope="row">Тирбо</th>
+                            <td>@Model.Turbo.Strength</td>
+                            <td>@Model.Turbo.Speed</td>
+                            <td>@Model.CurrentSpeedTurbo</td>
+                            <td>@Model.RepairPriceTurbo</td>
+                            <td>
+                                <form asp-controller="Cars" asp-action="Repair" asp-route-id="@Model.Turbo.Id" method="post" class="form-group">
+                                    <button type="submit" class="btn btn-primary" name="type" value="Turbo @Model.RepairPriceTurbo @User.Identity.Name">Ремонтирай</button>
+                                </form>
+                            </td>
+                        </tr>
                     }
                 </tbody>
                 <tfoot>

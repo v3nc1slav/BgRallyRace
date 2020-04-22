@@ -68,11 +68,16 @@
             return db.Balance;
         }
 
-        public void DistributionOfPrizeMoney(decimal money, List<CompetitionsTeams> teams)
+        public void DistributionOfPrizeMoney(decimal money, List<CompetitionsTeams> all, List<Team> wenners)
         {
-            var teamsWinners = ratingList.DistributionPoint();
-            var teamsAll = teams;
-            for (int i = 0; i < teamsWinners.Count; i++)
+            var teamsWinners = wenners;
+            var teamsAll = all;
+            var count = teamsWinners.Count;
+            if (count>10)
+            {
+                count = 10;
+            }
+            for (int i = 0; i < count; i++)
             {
                 decimal fond = 0;
                 switch (i + 1)

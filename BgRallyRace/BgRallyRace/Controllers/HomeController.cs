@@ -12,7 +12,6 @@
     using Microsoft.AspNetCore.Identity;
     using BgRallyRace.Services.Competitions;
     using BgRallyRace.Models.Home;
-    using System.Threading;
 
     public class HomeController : Controller
     {
@@ -35,52 +34,64 @@
             this.competitions = competitionsServices;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var viewModel = new IndexViewModel
             {
                 CountNotAuthorization = opinions.GetCountNotAuthorization(),
-                StartDate = competitions.GetStartDate(),
+                StartDate = competitions.GetStartDate().Result,
                 Team = team.FindUser(User.Identity.Name)
             };
             return this.View(viewModel);
         }
 
-        public IActionResult Opinion(int page = 1)
+        public async Task<IActionResult> Opinion(int page = 1, string input = null)
         {
-            competitions.StartRalli();
+            _logger.LogInformation("view opinion");
+            competitions.StartRally();
             var viewModel = new OpinionsViewModels
             {
                 Opinions = opinions.GetOpinions(page),
                 CurrentPage = page,
                 Total = opinions.Total(),
+                Text = input,
             };
             return this.View(viewModel);
         }
 
-        public IActionResult FAQ()
+        public async Task<IActionResult> FAQ()
         {
+            _logger.LogInformation("view FAQ");
             return View();
         }
 
-        public IActionResult Gallery()
+        public async Task<IActionResult> Gallery()
         {
+            _logger.LogInformation("view gallery");
             return View();
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult Contact(string content)
+        public async Task<IActionResult> Opinion(OpinionsViewModels input)
         {
-            Thread.Sleep(4000);
-            opinions.AddOpinionAsync(content, User.Identity.Name);
-            return this.RedirectToAction("Opinion", "Home");
+            _logger.LogInformation("add opinion");
+            var text = string.Empty;
+            if (!this.ModelState.IsValid)
+            {
+                text = "Неможе да побликувате празно мниние.";
+            }
+            else
+            {
+                text = opinions.AddOpinion(input.Opinion, User.Identity.Name);
+            }
+            return this.RedirectToAction("Opinion", "Home", new {input = text });
         }
 
         [Authorize]
         public async Task<IActionResult> CreatAdmin()
         {
-
+            _logger.LogInformation("Creat Admin");
             if (User.Identity.Name == "Admin@gmail.com")
             {
                 await roles.CreateAsync(new IdentityRole
@@ -95,16 +106,18 @@
             }
             return this.RedirectToAction("Index", "Home");
         }
+
         [Authorize]
         [HttpGet]
-        public IActionResult DeleteOpinion(int id)
+        public async Task<IActionResult> DeleteOpinion(int id)
         {
+            _logger.LogInformation("view opinion");
             opinions.DeleteOpinion(id);
             return this.RedirectToAction("Opinion", "Home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public async Task<IActionResult> Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }

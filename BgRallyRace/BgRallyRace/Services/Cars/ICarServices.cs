@@ -49,8 +49,10 @@
 
         int CreateCarsAsync();
 
-        void Repair(string type, int id, decimal price, string user);
+        string Repair(string type, int id, decimal price, string user);
 
         void Damage(int carId, int typeDamage, DifficultyType difficulty);
+
+        decimal GetMaxCurrentSpeed(string user);
     }
 }
