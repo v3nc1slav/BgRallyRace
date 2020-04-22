@@ -19,15 +19,20 @@
         private readonly IOpinionsServices opinions;
         private readonly IRunwaysServices runways;
         private readonly IRallyPilotsServices pilots;
+        private readonly IEditServices edit;
+        private readonly IDeleteServices delete;
 
         public AdminController(ILogger<AdminController> logger, ICreateServices createServices,
-            IOpinionsServices opinionsServices, IRunwaysServices runwaysServices, IRallyPilotsServices pilotsServices)
+            IOpinionsServices opinionsServices, IRunwaysServices runwaysServices, IRallyPilotsServices pilotsServices, IEditServices editServices,
+            IDeleteServices deleteServices)
         {
             this._logger = logger;
             this.create = createServices;
             this.opinions = opinionsServices;
             this.runways = runwaysServices;
             this.pilots = pilotsServices;
+            this.edit = editServices;
+            this.delete = deleteServices;
         }
 
 
@@ -75,7 +80,7 @@
             {
                 return this.View(input);
             }
-            var text = await runways.EditRunways(input);
+            var text = await edit.EditRunways(input);
             return this.RedirectToAction("DetailsRunway", "Runway", new { input = text, id = input.Id });
         }
 
@@ -83,23 +88,23 @@
         public async Task<IActionResult> DeleteRunway(int id)
         {
             _logger.LogInformation("admin delete runway");
-            var text = await runways.DeleteRunways(id);
+            var text = await delete.DeleteRunways(id);
             return this.RedirectToAction("Runway", "Runway", new { input = text});
         }
 
         [HttpGet]
-        public async Task<IActionResult> Pilots(int page = 1)
+        public async Task<IActionResult> Pilots(int page = 1, string input = null)
         {
             _logger.LogInformation("admin view pilot");
             var viewModel = new PilotViewModels
             {
-                Pilots = pilots.GetPeople(),
+                Pilots = pilots.GetPeople(page),
                 CurrentPage = page,
                 Total = pilots.TotalPilots(),
+                Text = input,
             };
             return this.View(viewModel);
         }
-
 
         [HttpGet]
         public async Task<IActionResult> CreatePilot()
@@ -128,6 +133,7 @@
             var pilot =  pilots.GetPilot(id);
             var viewModel = new PilotViewModels
             {
+                Id = pilot.Id,
                 FirstName = pilot.FirstName,
                 LastName = pilot.LastName,
                 Age = pilot.Age,
@@ -142,6 +148,26 @@
             };
 
             return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditPilot(PilotViewModels input)
+        {
+            _logger.LogInformation("admin edit pilot");
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+            var text = await edit.EditPilot(input);
+            return this.RedirectToAction("Pilots", "Admin", new {input = text });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeletePilot(int id)
+        {
+            _logger.LogInformation("admin delete pilot");
+            var text = await delete.Deletepilots(id);
+            return this.RedirectToAction("Pilots", "Admin", new { input = text });
         }
 
         [HttpGet]

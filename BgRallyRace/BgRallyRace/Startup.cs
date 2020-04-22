@@ -64,6 +64,8 @@ namespace BgRallyRace
             services.AddTransient<IDismissalServices, DismissalServices>();
             services.AddTransient<IFinanceServices, FinanceServices>();
             services.AddTransient<ICreateServices, CreateServices>();
+            services.AddTransient<IEditServices, EditServices>();
+            services.AddTransient<IDeleteServices, DeleteServices>();
             services.AddTransient<IRunwaysServices, RunwaysServices>();
             services.AddTransient<ICompetitionsServices, CompetitionsServices>();
             services.AddTransient<IRaceHistoryServices, RaceHistoryServices>();

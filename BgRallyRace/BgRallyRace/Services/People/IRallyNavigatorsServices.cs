@@ -22,6 +22,6 @@
 
         RallyNavigators GetNavigatorNoTracking(int id);
 
-        List<RallyNavigators> GetPeople();
+        List<RallyNavigators> GetPeople(int page = 1);
     }
 }

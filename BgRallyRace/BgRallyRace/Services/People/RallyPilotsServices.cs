@@ -10,6 +10,7 @@
     public class RallyPilotsServices : IRallyPilotsServices
     {
         private readonly ApplicationDbContext dbContext;
+        const int pageSize = 10;
 
         public RallyPilotsServices(ApplicationDbContext dbContext)
         {
@@ -270,9 +271,11 @@
             }
         }
 
-        public List<RallyPilots> GetPeople()
+        public List<RallyPilots> GetPeople(int page = 1)
         {
-            var people = dbContext.RallyPilots.ToList();
+            var people = dbContext.RallyPilots
+                .Skip((page - 1) * pageSize)
+                .Take(10).ToList();
             return people;
         }
 
@@ -282,5 +285,6 @@
               .Count();
             return result;
         }
+
     }
 }

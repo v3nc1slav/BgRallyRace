@@ -24,7 +24,7 @@
 
         RallyPilots GetPilotNoTracking(int id);
 
-        List<RallyPilots> GetPeople();
+        List<RallyPilots> GetPeople(int page = 1);
 
         int TotalPilots();
     }

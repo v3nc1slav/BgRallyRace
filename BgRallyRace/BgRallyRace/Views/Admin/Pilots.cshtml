@@ -3,8 +3,18 @@
     ViewData["Title"] = "Pilots";
 }
 
+@if (Model.Text != null)
+{
+    <div class="alert alert-success" role="alert">
+        <strong>Чудесно!</strong> @Model.Text
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
 <a class=" background">
-    <table class="table table-hover">
+    <table class="table table-striped">
         <thead>
             <tr class="table">
                 <th scope="col">Име</th>
@@ -14,7 +24,6 @@
                 <th scope="col">Опит</th>
                 <th scope="col">Физическо състояние</th>
                 <th scope="col">Килограми</th>
-                <th scope="col">Месечна Заплата</th>
                 <th scope="col">Отбор</th>
                 <th scope="col"></th>
             </tr>
@@ -22,22 +31,33 @@
         <tbody>
             @foreach (var pilot in Model.Pilots)
             {
-            <tr>
-                <th scope="row">@pilot.FirstName</th>
-                <td>@pilot.LastName</td>
-                <td>@pilot.Age</td>
-                <td>@pilot.Concentration</td>
-                <td>@pilot.Experience</td>
-                <td>@pilot.PhysicalTraining</td>
-                <td>@pilot.Pounds</td>
-                <td>@pilot.Salary</td>
-                <td>@pilot.TeamId</td>
-                <td>
-                    <a class="btn btn-default btn-sm" asp-controller="Admin" asp-action="EditPilot" asp-route-id="@pilot.Id">
-                        <i class="fa fa-pencil">Редактирай</i>
-                    </a>
-                </td>
-            </tr>
+                <tr>
+                    <th scope="row">@pilot.FirstName</th>
+                    <td>@pilot.LastName</td>
+                    <td>@pilot.Age</td>
+                    <td>@pilot.Concentration</td>
+                    <td>@pilot.Experience</td>
+                    <td>@pilot.PhysicalTraining</td>
+                    <td>@pilot.Pounds</td>
+                    <td>@pilot.TeamId</td>
+                    <td>
+                        @if (@pilot.TeamId == null)
+                        {
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <a class="btn btn-default btn-sm" asp-controller="Admin" asp-action="EditPilot" asp-route-id="@pilot.Id">
+                                        <i class="fa fa-pencil">Редактирай</i>
+                                    </a>
+                                </div>
+                                <div class="col-sm-6">
+                                    <a class="btn" asp-controller="Admin" asp-action="DeletePilot" asp-route-id="@pilot.Id">
+                                        <i class="fa fa-trash">Изтрии</i>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    </td>
+                </tr>
             }
         </tbody>
         <tfoot>
@@ -46,12 +66,12 @@
         <div>
             @if (!Model.PreviousDisabled)
             {
-            <a href="/Market/MarketForPilots?page=@Model.PreviousPage" class="float-left btn btn-info">Назад</a>
+                <a href="/Admin/Pilots?page=@Model.PreviousPage" class="float-left btn btn-info">Назад</a>
             }
             .... @Model.CurrentPage ....
             @if (!Model.NextDisabled)
             {
-            <a href="/Market/MarketForPilots?page=@Model.NextPage" class="float-right btn btn-info">Напред</a>
+                <a href="/Admin/Pilots?page=@Model.NextPage" class="float-right btn btn-info">Напред</a>
             }
         </div>
     </table>

@@ -10,6 +10,8 @@
     public class RallyNavigatorsServices : IRallyNavigatorsServices
     {
         private readonly ApplicationDbContext dbContext;
+        const int pageSize = 10;
+
         public RallyNavigatorsServices(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
@@ -252,9 +254,11 @@
             }
         }
 
-        public List<RallyNavigators> GetPeople()
+        public List<RallyNavigators> GetPeople(int page = 1)
         {
-           var people =  dbContext.RallyNavigators.ToList();
+           var people =  dbContext.RallyNavigators
+                .Skip((page - 1) * pageSize)
+                .Take(10).ToList();
             return people;
         }
     }

@@ -36,12 +36,12 @@
             <div>
                 @if (!Model.PreviousDisabled)
                 {
-                    <a href="/Market/MarketForNavigators?page=@Model.PreviousPage" class="float-left btn btn-info">Назад</a>
+                    <a href="/Market/MarketForParts?page=@Model.PreviousPage" class="float-left btn btn-info">Назад</a>
                 }
                 .... @Model.CurrentPage ....
                 @if (!Model.NextDisabled)
                 {
-                    <a href="/Market/MarketForNavigators?page=@Model.NextPage" class="float-right btn btn-info">Напред</a>
+                    <a href="/Market/MarketForParts?page=@Model.NextPage" class="float-right btn btn-info">Напред</a>
                 }
             </div>
         </tfoot>

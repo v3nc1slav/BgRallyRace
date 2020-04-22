@@ -15,8 +15,5 @@
 
         Task<RallyRunway> GetRunway(int id);
 
-        Task<string> EditRunways(RunwayViewModels newRunway);
-
-        Task<string> DeleteRunways(int id);
     }
 }
