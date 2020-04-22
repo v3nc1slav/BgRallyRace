@@ -12,6 +12,7 @@
     using Microsoft.AspNetCore.Identity;
     using BgRallyRace.Services.Competitions;
     using BgRallyRace.Models.Home;
+    using BgRallyRace.Services.Others;
 
     public class HomeController : Controller
     {
@@ -21,10 +22,11 @@
         public readonly RoleManager<IdentityRole> roles;
         private readonly UserManager<IdentityUser> user;
         private readonly ICompetitionsServices competitions;
+        private readonly IFAQSarvices fAQServices;
 
         public HomeController(ILogger<HomeController> logger, ITeamServices teamServices,
             IOpinionsServices opinionsServices, RoleManager<IdentityRole> roleManager,
-            UserManager<IdentityUser> userManager, ICompetitionsServices competitionsServices)
+            UserManager<IdentityUser> userManager, ICompetitionsServices competitionsServices, IFAQSarvices FAQServices)
         {
             _logger = logger;
             this.team = teamServices;
@@ -32,10 +34,13 @@
             this.roles = roleManager;
             this.user = userManager;
             this.competitions = competitionsServices;
+            fAQServices = FAQServices;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
+            _logger.LogInformation("view index");
             var viewModel = new IndexViewModel
             {
                 CountNotAuthorization = opinions.GetCountNotAuthorization(),
@@ -45,10 +50,11 @@
             return this.View(viewModel);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Opinion(int page = 1, string input = null)
         {
             _logger.LogInformation("view opinion");
-            competitions.StartRally();
+            //competitions.StartRally();
             var viewModel = new OpinionsViewModels
             {
                 Opinions = opinions.GetOpinions(page),
@@ -59,10 +65,15 @@
             return this.View(viewModel);
         }
 
+        [HttpGet]
         public async Task<IActionResult> FAQ()
         {
             _logger.LogInformation("view FAQ");
-            return View();
+            var viewModel = new FAQViewModels
+            {
+                FAQs = fAQServices.GetFAQ(),
+            };
+            return this.View(viewModel);
         }
 
         public async Task<IActionResult> Gallery()

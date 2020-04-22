@@ -251,6 +251,12 @@
                 people.Concentration -= 1;
             }
         }
+
+        public List<RallyNavigators> GetPeople()
+        {
+           var people =  dbContext.RallyNavigators.ToList();
+            return people;
+        }
     }
 }
 

@@ -1,18 +1,22 @@
 ﻿namespace BgRallyRace.Services.Runways
 {
-    using BgRallyRace.Models;
     using BgRallyRace.Models.Competitions;
+    using BgRallyRace.ViewModels;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public interface IRunwaysServices
     {
-        Task<RallyRunway> GetRunway();
+        Task<RallyRunway> GetRunwayForRace();
 
         List<RallyRunway> GetAllRunways();
 
-        RallyRunway GetRally(int id);
-
         public RallyRunway GetRunwayForCurrentRace();
+
+        Task<RallyRunway> GetRunway(int id);
+
+        Task<string> EditRunways(RunwayViewModels newRunway);
+
+        Task<string> DeleteRunways(int id);
     }
 }

@@ -22,5 +22,7 @@
         public int CarId { get; set; }
 
         public Cars Cars { get; set; }
+
+        public bool IsDeleted { get; set; } = false;
     }
 }

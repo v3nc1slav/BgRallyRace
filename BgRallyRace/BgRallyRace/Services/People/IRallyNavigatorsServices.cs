@@ -21,5 +21,7 @@
         int EnergyNavigator(int id);
 
         RallyNavigators GetNavigatorNoTracking(int id);
+
+        List<RallyNavigators> GetPeople();
     }
 }

@@ -23,5 +23,9 @@
         int EnergyPilot(int id);
 
         RallyPilots GetPilotNoTracking(int id);
+
+        List<RallyPilots> GetPeople();
+
+        int TotalPilots();
     }
 }

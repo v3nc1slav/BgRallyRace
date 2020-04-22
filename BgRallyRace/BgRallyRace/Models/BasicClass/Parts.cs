@@ -24,5 +24,7 @@
 
         public Cars Cars { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
+
     }
 }

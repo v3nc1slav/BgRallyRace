@@ -1,6 +1,5 @@
 ﻿namespace BgRallyRace.ViewModels
 {
-    using BgRallyRace.Models;
     using BgRallyRace.Models.Competitions;
     using BgRallyRace.Models.Enums;
     using System.Collections.Generic;
@@ -43,5 +42,7 @@
         public string ImagName { get; set; }
 
         public List<RallyRunway> Runways { get; set; }
+
+        public string Text { get; set; }
     }
 }

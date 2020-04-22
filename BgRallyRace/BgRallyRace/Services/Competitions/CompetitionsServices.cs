@@ -188,7 +188,7 @@
             var teams = GetAllTeamsAsync();
             pilots.AllPilotsNoWorking();
             navigators.AllNavigatorNoWorking();
-            var runway = runways.GetRunway().Result;
+            var runway = runways.GetRunwayForRace().Result;
             var stageOne = runway.TrackLength / 4;
             var stageTwo = runway.TrackLength / 2;
             var stageThree = runway.TrackLength / 4;

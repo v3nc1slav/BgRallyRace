@@ -31,7 +31,9 @@
 
         public List<CompetitionsTeams> CompetitionsTeams { get; set; } = new List<CompetitionsTeams>();
 
-        public bool Applicable { get; set; } = false; //ToDo Renember
+        public bool Applicable { get; set; } = false; 
+
+        public bool IsDeleted { get; set; } = false;
 
     }
 }

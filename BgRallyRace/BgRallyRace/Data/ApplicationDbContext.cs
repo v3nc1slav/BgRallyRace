@@ -2,6 +2,7 @@
 {
     using BgRallyRace.Models;
     using BgRallyRace.Models.Competitions;
+    using BgRallyRace.Models.Home;
     using BgRallyRace.Models.Money;
     using BgRallyRace.Models.RandomName;
     using BgRallyRace.Models.Teams;
@@ -45,6 +46,7 @@
         public DbSet<FinancialStatistics> FinancialStatistics { get; set; }
         public DbSet<RaceHistory> RaceHistories { get; set; }
         public DbSet<RatingList> RatingLists { get; set; }
+        public DbSet<FAQ> FAQs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

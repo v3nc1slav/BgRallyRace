@@ -41,20 +41,24 @@
             var input = type.Split().ToArray();
             type = input[0];
             int id = int.Parse(input[1]);
+            var text = string.Empty;
 
             if (type == "Pilot" && (pilot.IsItBusy(id)==true) )
             {
-                return this.RedirectToAction($"{type}", "Teams");
+                text = "Пилота, вече е тренирал или е зает с друга дейност.";
+                return this.RedirectToAction($"{type}", "Teams", new {input = text });
             }
             else if (type == "Navigator" && (navigator.IsItBusy(id) == true))
             {
-                return this.RedirectToAction($"{type}", "Teams");
+                text = "Навигатора, вече е тренирал или е зает с друга дейност.";
+                return this.RedirectToAction($"{type}", "Teams", new { input = text });
             }
            
             training.Training(id, typeTreining, type);
             this.money.ExpenseAccountAsync(money, User.Identity.Name);
 
-            return this.RedirectToAction($"{type}","Teams");
+            text = "Тренировката бе извършена успешно.";
+            return this.RedirectToAction($"{type}","Teams", new { input = text });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

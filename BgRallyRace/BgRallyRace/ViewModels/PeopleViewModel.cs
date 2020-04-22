@@ -2,7 +2,7 @@
 
 namespace BgRallyRace.ViewModels
 {
-    public class PeopleViewModel
+    public class PeopleViewModel : PagesViewModels
     {
         public string FirstName { get; set; }
 
@@ -39,5 +39,7 @@ namespace BgRallyRace.ViewModels
         [Required]
         [Range(60, 150)]
         public int Pounds { get; set; }
+
+        public string Text { get; set; }
     }
 }

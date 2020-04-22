@@ -1,6 +1,6 @@
 ﻿@model BgRallyRace.ViewModels.RunwayViewModels
 @{
-    ViewData["Title"] = "Runway";
+    ViewData["Title"] = "CreateRunway";
 }
 
 <div class="form-group row">
@@ -10,7 +10,7 @@
     <div class="col-sm-8">
         <a class=" background">
             <p>Създаване на писта</p>
-            <form asp-controller="Admin" asp-action="Runway" method="post" class="form-group">
+            <form asp-controller="Admin" asp-action="CreateRunway" method="post" class="form-group">
                 <div>
                     <label asp-for="NameRunway">Име на пистата</label>
                     <input asp-for="NameRunway" class="form-control" placeholder="Име" />

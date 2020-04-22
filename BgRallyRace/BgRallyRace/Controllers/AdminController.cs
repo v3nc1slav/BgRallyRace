@@ -18,25 +18,28 @@
         private readonly ICreateServices create;
         private readonly IOpinionsServices opinions;
         private readonly IRunwaysServices runways;
+        private readonly IRallyPilotsServices pilots;
 
         public AdminController(ILogger<AdminController> logger, ICreateServices createServices,
-            IOpinionsServices opinionsServices, IRunwaysServices runwaysServices)
+            IOpinionsServices opinionsServices, IRunwaysServices runwaysServices, IRallyPilotsServices pilotsServices)
         {
             this._logger = logger;
             this.create = createServices;
             this.opinions = opinionsServices;
             this.runways = runwaysServices;
+            this.pilots = pilotsServices;
         }
 
+
         [HttpGet]
-        public async Task<IActionResult> Runway()
+        public async Task<IActionResult> CreateRunway()
         {
-            _logger.LogInformation("admin view runway");
+            _logger.LogInformation("admin view create runway");
             return this.View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Runway(RunwayViewModels input)
+        public async Task<IActionResult> CreateRunway(RunwayViewModels input)
         {
             _logger.LogInformation("admin create runway");
             if (!this.ModelState.IsValid)
@@ -44,26 +47,101 @@
                 return this.View(input);
             }
             create.CreateRunway(input);
-            return this.RedirectToAction("Runway", "Admin");
+            return this.RedirectToAction("CreateRunway", "Admin");
         }
 
         [HttpGet]
-        public async Task<IActionResult> Pilot()
+        public async Task<IActionResult> EditRunway(int id)
+        {
+            _logger.LogInformation("admin view edit runway");
+            var runway = await runways.GetRunway(id);
+            var viewModel = new RunwayViewModels
+            {
+                NameRunway = runway.Name,
+                Difficulty = runway.Difficulty,
+                Description = runway.Description,
+                TrackLength = runway.TrackLength,
+                ImagName = runway.ImagName,
+            };
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditRunway(RunwayViewModels input)
+        {
+            _logger.LogInformation("admin edit runway");
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+            var text = await runways.EditRunways(input);
+            return this.RedirectToAction("DetailsRunway", "Runway", new { input = text, id = input.Id });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteRunway(int id)
+        {
+            _logger.LogInformation("admin delete runway");
+            var text = await runways.DeleteRunways(id);
+            return this.RedirectToAction("Runway", "Runway", new { input = text});
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Pilots(int page = 1)
         {
             _logger.LogInformation("admin view pilot");
+            var viewModel = new PilotViewModels
+            {
+                Pilots = pilots.GetPeople(),
+                CurrentPage = page,
+                Total = pilots.TotalPilots(),
+            };
+            return this.View(viewModel);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> CreatePilot()
+        {
+            _logger.LogInformation("admin view create pilot");
             return this.View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Pilot(PilotViewModels input)
+        public async Task<IActionResult> CreatePilot(PilotViewModels input)
         {
-            _logger.LogInformation("admin creat pilot");
-            if (!this.ModelState.IsValid )
+            _logger.LogInformation("admin create pilot");
+            if (!this.ModelState.IsValid)
             {
                 return this.View(input);
             }
             create.CreatePilot(input);
-            return this.RedirectToAction("Pilot", "Admin");
+            return this.RedirectToAction("CreatePilot", "Admin");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> EditPilot(int id)
+        {
+            _logger.LogInformation("admin view edit pilot");
+            var pilot =  pilots.GetPilot(id);
+            var viewModel = new PilotViewModels
+            {
+                FirstName = pilot.FirstName,
+                LastName = pilot.LastName,
+                Age = pilot.Age,
+                Salary = pilot.Salary,
+                Concentration = pilot.Concentration,
+                Devotion = pilot.Devotion,
+                Reflexes = pilot.Reflexes,
+                Energy = pilot.Energy,
+                Experience = pilot.Experience,
+                PhysicalTraining = pilot.PhysicalTraining,
+                Pounds = pilot.Pounds,
+            };
+
+            return this.View(viewModel);
         }
 
         [HttpGet]

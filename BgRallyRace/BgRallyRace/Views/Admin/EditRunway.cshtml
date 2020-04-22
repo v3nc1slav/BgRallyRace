@@ -1,0 +1,49 @@
+﻿@model BgRallyRace.ViewModels.RunwayViewModels
+@{
+    ViewData["Title"] = "EditRunway";
+}
+
+<div class="form-group row">
+    <div class="col-sm-2">
+        <partial name="_LeftBarPartial" />
+    </div>
+    <div class="col-sm-8">
+        <a class=" background">
+            <p>Създаване на писта</p>
+            <form asp-controller="Admin" asp-action="EditRunway" method="post" class="form-group">
+                <div>
+                    <label asp-for="NameRunway">Име на пистата</label>
+                    <input asp-for="NameRunway" class="form-control" placeholder="Име" />
+                    <span asp-validation-for="NameRunway" class="text-danger"></span>
+                </div>
+                <div>
+                    <label asp-for="TrackLength">Дължина на пистата</label>
+                    <input asp-for="TrackLength" class="form-control" placeholder="100.25км" />
+                    <span asp-validation-for="TrackLength" class="text-danger"></span>
+                </div>
+                <div>
+                    <label asp-for="Difficulty">Трудност на пистата </label>
+                    <select asp-for="Difficulty" class="form-control" />
+                    <option value="Easy">Лесна</option>
+                    <option value="Average">Средно</option>
+                    <option value="Difficult">Сложна </option>
+                    </select>
+                </div>
+                <div>
+                    <label asp-for="Description">Описание</label>
+                    <input asp-for="Description" class="form-control" placeholder="Описание" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div>
+                    <label asp-for="ImagName">Име на снимката</label>
+                    <input asp-for="ImagName" class="form-control" placeholder="imag.png/jpg" />
+                    <span asp-validation-for="ImagName" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-secondary">Редактирай</button>
+            </form>
+        </a>
+    </div>
+    <div class="col-sm-2">
+        <partial name="_RightBarPartial" />
+    </div>
+</div>

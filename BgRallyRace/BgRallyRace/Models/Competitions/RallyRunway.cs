@@ -57,5 +57,7 @@
         public int? CompetitionsRallyTracksId { get; set; }
 
         public List< CompetitionsRallyRunway>? CompetitionsRallyTracks { get; set; }  = new List<CompetitionsRallyRunway>();
+
+        public bool IsDeleted { get; set; } = false;
     }
 }

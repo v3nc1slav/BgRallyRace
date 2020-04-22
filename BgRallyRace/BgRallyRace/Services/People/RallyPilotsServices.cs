@@ -269,5 +269,18 @@
                 people.Concentration -= 1;
             }
         }
+
+        public List<RallyPilots> GetPeople()
+        {
+            var people = dbContext.RallyPilots.ToList();
+            return people;
+        }
+
+        public int TotalPilots()
+        {
+            var result = dbContext.RallyPilots
+              .Count();
+            return result;
+        }
     }
 }

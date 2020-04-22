@@ -1,6 +1,17 @@
 ﻿@model BgRallyRace.ViewModels.RunwayViewModels
 @{
-    ViewData["Title"] = "Runway";
+    ViewData["Title"] = "DetailsRunway";
+}
+
+@if (Model.Text != null)
+{
+
+    <div class="alert alert-success" role="alert">
+        <strong>Чудесно!</strong> @Model.Text
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 }
 <div class="form-group row">
     <div class="col-sm-2">
@@ -11,7 +22,22 @@
             <div class="form-group row">
                 <div class="col-sm-4">
                     <p></p>
-                        КАРТА <img src="~/images/@Model.ImagName" width="298" height="380">
+                    КАРТА <img src="~/images/@Model.ImagName" width="298" height="380">
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <a class="btn btn-default btn-sm" asp-controller="Admin" asp-action="EditRunway" asp-route-id="@Model.Id">
+                                    <i class="fa fa-pencil">Редактирай</i>
+                                </a>
+                            </div>
+                            <div class="col-sm-6">
+                                <a class="btn" asp-controller="Admin" asp-action="DeleteRunway" asp-route-id="@Model.Id">
+                                    <i class="fa fa-trash">Изтрии</i>
+                                </a>
+                            </div>
+                        </div>
+                    }
                 </div>
                 <div class="col-sm-8">
                     <h2>@Model.NameRunway</h2>
@@ -22,9 +48,11 @@
                 </div>
             </div>
         </div>
-        </div>
+    </div>
     <div class="col-sm-2">
         <partial name="_RightBarPartial" />
     </div>
+
 </div>
+
 

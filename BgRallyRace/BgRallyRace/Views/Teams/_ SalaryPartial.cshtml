@@ -1,4 +1,4 @@
-﻿@{ if (ViewData["Title"] == "FirstPilot")
+﻿@{ if (ViewData["Title"].ToString() == "FirstPilot")
     {
         <a class="text-dark" asp-controller="Teams" asp-action="IncreaseSalarylPilot" asp-route-id="@Model.Pilots[0].Id">
             <button type="submit" class="btn btn-secondary">
@@ -6,7 +6,7 @@
             </button>
         </a>
     }
-    else if (ViewData["Title"] == "SecandPilot")
+    else if (ViewData["Title"].ToString() == "SecandPilot")
     {
         <a class="text-dark" asp-controller="Teams" asp-action="IncreaseSalarylPilot" asp-route-id="@Model.Pilots[1].Id">
             <button type="submit" class="btn btn-secondary">
@@ -14,7 +14,7 @@
             </button>
         </a>
     }
-    else if (ViewData["Title"] == "FirstNavigator")
+    else if (ViewData["Title"].ToString() == "FirstNavigator")
     {
         <a class="text-dark" asp-controller="Teams" asp-action="IncreaseSalarylNavigator" asp-route-id="@Model.Navigators[0].Id">
             <button type="submit" class="btn btn-secondary">
@@ -22,7 +22,7 @@
             </button>
         </a>
     }
-    else if (ViewData["Title"] == "SecandNavigator")
+    else if (ViewData["Title"].ToString() == "SecandNavigator")
     {
         <a class="text-dark" asp-controller="Teams" asp-action="IncreaseSalarylNavigator" asp-route-id="@Model.Navigators[1].Id">
             <button type="submit" class="btn btn-secondary">
@@ -30,7 +30,7 @@
             </button>
         </a>
     }
-    else if (ViewData["Title"] == "..")//ToDo
+    else if (ViewData["Title"].ToString() == "..")//ToDo
     {
 
         <a class="text-dark" asp-controller="Teams" asp-action="..." asp-route-id="0">

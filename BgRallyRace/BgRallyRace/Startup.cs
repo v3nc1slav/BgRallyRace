@@ -17,13 +17,12 @@ namespace BgRallyRace
     using Microsoft.AspNetCore.Mvc;
     using BgRallyRace.Services.Runways;
     using BgRallyRace.Services.Competitions;
+    using BgRallyRace.Services.Others;
 
     public class Startup
     {
         public Startup(IConfiguration configuration)
         {
-            // new ApplicationDbContext().Database.EnsureDeleted();
-            // new ApplicationDbContext().Database.EnsureCreated();
             new ApplicationDbContext().Database.Migrate();
             Configuration = configuration;
         }
@@ -69,6 +68,7 @@ namespace BgRallyRace
             services.AddTransient<ICompetitionsServices, CompetitionsServices>();
             services.AddTransient<IRaceHistoryServices, RaceHistoryServices>();
             services.AddTransient<IRatingListServices, RatingListServices>();
+            services.AddTransient<IFAQSarvices, FAQSarvices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,7 +93,7 @@ namespace BgRallyRace
             app.UseAuthentication();
             app.UseAuthorization();
                        
-            competitions.HasIsStartedAsync();
+            //competitions.HasIsStartedAsync();
 
             app.UseEndpoints(endpoints =>
             {

@@ -46,5 +46,7 @@ namespace BgRallyRace.Models
         public int Pounds { get; set; }
 
         public bool IsItWorking { get; set; }
+
+        public bool IsDeleted { get; set; } = false;
     }
 }

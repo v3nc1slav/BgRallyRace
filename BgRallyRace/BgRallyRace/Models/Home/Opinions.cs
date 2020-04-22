@@ -19,6 +19,5 @@
 
         public AuthorizationType authorizationOpinions { get; set; }
 
-        //public ICollection<string> FullData { get; set; } = new HashSet<string>(); ??
     }
 }

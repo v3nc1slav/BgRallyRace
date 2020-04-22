@@ -6,7 +6,7 @@
             <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-container">
-            <p><a class="nav-link " asp-controller="Teams" asp-action="Pilot">Пилот</a></p>
+            <p><a class="nav-link " asp-controller="Teams" asp-action="CreatePilot">Пилот</a></p>
             <p><a class="nav-link " asp-controller="Teams" asp-action="Navigator">Навигатор</a></p>
         </div>
         <p><a class="nav-link " asp-controller="Cars" asp-action="Car">Кола </a></p>
@@ -21,21 +21,27 @@
 @{
     if (User.IsInRole("Admin"))
     {
-        <div class="leftBackgroundAdmin">
-            <a asp-controller="Admin" asp-action="Opinions">
-                Оторизация на мнения
-                <span>
-                    <marcheswidget>
-                        <div id="marchesWidgets">
-                            <div class="outgoingCampaigns">
-                                <b>
-                                    @await Component.InvokeAsync("Opinions")
-                                </b>
-                            </div>
+    <div class="leftBackgroundAdmin">
+        <a class="nav-link " asp-controller="Admin" asp-action="Opinions">
+            Оторизация на мнения
+            <span>
+                <marcheswidget>
+                    <div id="marchesWidgets">
+                        <div class="outgoingCampaigns">
+                            <b>
+                                @await Component.InvokeAsync("Opinions")
+                            </b>
                         </div>
-                    </marcheswidget>
-                </span>
-            </a>
-        </div>
+                    </div>
+                </marcheswidget>
+            </span>
+        </a>
+        <a class="nav-link " asp-controller="Runway" asp-action="Runway">
+            Писти
+        </a>
+        <a class="nav-link " asp-controller="Admin" asp-action="Pilots">
+            Пилоти
+        </a>
+    </div>
     }
 }

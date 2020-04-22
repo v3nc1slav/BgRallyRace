@@ -15,5 +15,6 @@
 
         public DateTime DateCompetitions { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
     }
 }

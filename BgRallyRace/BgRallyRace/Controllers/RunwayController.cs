@@ -23,29 +23,31 @@
 
 
         [HttpGet]
-        public async Task<IActionResult> Runway()
+        public async Task<IActionResult> Runway(string input=null)
         {
             _logger.LogInformation("view runways");
             var viewModel = new RunwayViewModels
             {
-                Runways = runway.GetAllRunways()
+                Runways = runway.GetAllRunways(),
+                Text = input,
             };
-
             return this.View(viewModel);
         }
 
         [HttpGet]
-        public async Task<IActionResult> DetailsRunway(int id )
+        public async Task<IActionResult> DetailsRunway(int id, string input = null )
         {
             _logger.LogInformation("view details runway");
-            var runwayId = runway.GetRally(id);
+            var runwayId = await runway.GetRunway(id);
             var viewModel = new RunwayViewModels
             {
+                 Id = runwayId.Id,
                  NameRunway = runwayId.Name,
                  TrackLength = runwayId.TrackLength,
                  Difficulty = runwayId.Difficulty,
                  Description = runwayId.Description,
                  ImagName  = runwayId.ImagName,
+                 Text = input,
             };
 
             return this.View(viewModel);

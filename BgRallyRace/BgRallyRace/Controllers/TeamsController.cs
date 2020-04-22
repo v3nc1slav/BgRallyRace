@@ -18,7 +18,7 @@
         private readonly IRallyPilotsServices pilot;
         private readonly IRallyNavigatorsServices navigator;
         private readonly ITeamServices team;
-     
+
 
         public TeamsController(ILogger<TeamsController> logger, IRallyPilotsServices dbPilot,
             IRallyNavigatorsServices dbNavigator, ITeamServices teamServices)
@@ -30,12 +30,13 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Pilot()
+        public async Task<IActionResult> Pilot(string input = null)
         {
             _logger.LogInformation("veiw pilot");
             var viewModel = new PilotViewModels
             {
-                Pilots = pilot.GetPilots(User.Identity.Name)
+                Pilots = pilot.GetPilots(User.Identity.Name),
+                Text = input
             };
             if (!(viewModel.Pilots[0] == null))
             {
@@ -45,12 +46,13 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Navigator()
+        public async Task<IActionResult> Navigator(string input = null)
         {
             _logger.LogInformation("veiw navigator");
             var viewModel = new NavigatorViewModels
             {
-                Navigators = navigator.GetNavigators(User.Identity.Name)
+                Navigators = navigator.GetNavigators(User.Identity.Name),
+                Text = input
             };
             if (!(viewModel.Navigators[0] == null))
             {
@@ -95,6 +97,6 @@
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-      
+
     }
 }
