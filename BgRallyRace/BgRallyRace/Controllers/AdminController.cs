@@ -10,6 +10,7 @@
     using BgRallyRace.ViewModels;
     using BgRallyRace.Services.Runways;
     using BgRallyRace.Models;
+    using BgRallyRace.Services.Competitions;
 
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
@@ -21,10 +22,11 @@
         private readonly IRallyPilotsServices pilots;
         private readonly IEditServices edit;
         private readonly IDeleteServices delete;
+        private readonly ICompetitionsServices competitions;
 
         public AdminController(ILogger<AdminController> logger, ICreateServices createServices,
             IOpinionsServices opinionsServices, IRunwaysServices runwaysServices, IRallyPilotsServices pilotsServices, IEditServices editServices,
-            IDeleteServices deleteServices)
+            IDeleteServices deleteServices, ICompetitionsServices competitionsServices)
         {
             this._logger = logger;
             this.create = createServices;
@@ -33,14 +35,19 @@
             this.pilots = pilotsServices;
             this.edit = editServices;
             this.delete = deleteServices;
+            this.competitions = competitionsServices;
         }
 
 
         [HttpGet]
-        public async Task<IActionResult> CreateRunway()
+        public async Task<IActionResult> CreateRunway(string input = null)
         {
             _logger.LogInformation("admin view create runway");
-            return this.View();
+            var viewModel = new RunwayViewModels
+            {
+                Text = input,
+            };
+            return this.View(viewModel);
         }
 
         [HttpPost]
@@ -51,8 +58,8 @@
             {
                 return this.View(input);
             }
-            create.CreateRunway(input);
-            return this.RedirectToAction("CreateRunway", "Admin");
+            var text = create.CreateRunway(input);
+            return this.RedirectToAction("CreateRunway", "Admin", new { input = text});
         }
 
         [HttpGet]
@@ -107,10 +114,14 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> CreatePilot()
+        public async Task<IActionResult> CreatePilot(string input = null)
         {
             _logger.LogInformation("admin view create pilot");
-            return this.View();
+            var viewModel = new PilotViewModels
+            {
+                Text=input
+            };
+            return this.View(viewModel);
         }
 
         [HttpPost]
@@ -121,10 +132,9 @@
             {
                 return this.View(input);
             }
-            create.CreatePilot(input);
-            return this.RedirectToAction("CreatePilot", "Admin");
+            var text = create.CreatePilot(input);
+            return this.RedirectToAction("CreatePilot", "Admin", new { input = text});
         }
-
 
         [HttpGet]
         public async Task<IActionResult> EditPilot(int id)
@@ -171,23 +181,39 @@
         }
 
         [HttpGet]
-
-        public async Task<IActionResult> Navigator()
+        public async Task<IActionResult> Navigator(string input = null)
         {
             _logger.LogInformation("admin view navigator");
-            return this.View();
+            var viewModel = new NavigatorViewModels
+            {
+                Text = input,
+            };
+
+            return this.View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateNavigator(string input = null)
+        {
+            _logger.LogInformation("admin view navigator");
+            var viewModel = new NavigatorViewModels
+            {
+                Text = input,
+            };
+
+            return this.View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Navigator(NavigatorViewModels input)
+        public async Task<IActionResult> CreateNavigator(NavigatorViewModels input)
         {
             _logger.LogInformation("admin create navigator");
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
             }
-            create.CreateNavigator(input);
-            return this.RedirectToAction("Navigator", "Admin");
+            var text = create.CreateNavigator(input);
+            return this.RedirectToAction("CreateNavigator", "Admin", new { input = text });
         }
 
         [HttpGet]
@@ -213,38 +239,67 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Parts()
+        public async Task<IActionResult> Parts(string input = null)
         {
-            _logger.LogInformation("admin view parts");
-            return this.View();
+            _logger.LogInformation("admin view create parts");
+            var viewModel = new PartsViewModels
+            {
+                Text = input,
+            };
+            return this.View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateParts(string input = null)
+        {
+            _logger.LogInformation("admin view create parts");
+            var viewModel = new PartsViewModels
+            {
+                Text = input,
+            };
+            return this.View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Parts(PartsViewModels input)
+        public async Task<IActionResult> CreateParts(PartsViewModels input)
         {
             _logger.LogInformation("admin creat opinions");
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
             }
-            create.CreateParts(input);
-            return this.RedirectToAction("Parts", "Admin");
+            var text = create.CreateParts(input);
+            return this.RedirectToAction("CreateParts", "Admin", new {input = text });
         }
 
-
         [HttpGet]
-        public async Task<IActionResult> Competitions()
+        public async Task<IActionResult> Competitions(string input = null, int page = 1)
         {
             _logger.LogInformation("admin view competitions");
             var view = new CompetitionsViewModels
             {
-                Runways = runways.GetAllRunways()
+                Competitions = await competitions.GetAllCompetitions(page),
+                Text = input,
+                CurrentPage = page,
+                Total = competitions.TotalPage(),
+            };
+            return this.View(view);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateCompetitions(string input = null)
+        {
+            _logger.LogInformation("admin view creat competitions");
+            var view = new CompetitionsViewModels
+            {
+                Runways = runways.GetAllRunways(),
+                Text = input,
             };
             return this.View(view);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Competitions(CompetitionsViewModels input)
+        public async Task<IActionResult> CreateCompetitions(CompetitionsViewModels input)
         {
             _logger.LogInformation("admin create opinions");
             if (!this.ModelState.IsValid)
@@ -253,6 +308,36 @@
             }
             create.CreateCompetitions(input);
             return this.RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditCompetitions(int id)
+        {
+            _logger.LogInformation("admin view edit competitions");
+            var competition = await competitions.GetCompetition(id);
+            var viewModel = new CompetitionsViewModels
+            {
+                Id = competition.Id,
+                Name = competition.Name,
+                PrizeFund = competition.PrizeFund,
+                Stages = competition.Stages,
+                Runways = runways.GetAllRunways(),
+                StartRaceDate = competition.StartRaceDate,
+            };
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditCompetitions(CompetitionsViewModels input)
+        {
+            _logger.LogInformation("admin edit competitions");
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+            var text = await edit.EditCompetitions(input);
+            return this.RedirectToAction("Competitions", "Admin", new { input = text });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -2,7 +2,7 @@
 
 namespace BgRallyRace.ViewModels
 {
-    public class PeopleViewModel : PagesViewModels
+    public class PeopleViewModel : PagesViewModels 
     {
         public int Id { get; set; }
 

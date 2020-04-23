@@ -12,6 +12,10 @@
         private readonly IRallyPilotsServices pilot;
         private readonly IRallyNavigatorsServices navigator;
 
+        public TeamServices(ApplicationDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
         public TeamServices(ApplicationDbContext dbContext, ICarServices carServices, IMoneyAccountServices moneyAccountServices,
             IRallyPilotsServices rallyPilots, IRallyNavigatorsServices navigatorsServices)
         {

@@ -2,46 +2,70 @@
 @{
     ViewData["Title"] = "Competitions";
 }
+
+@if (Model.Text != null)
+{
+    <div class="alert alert-success" role="alert">
+        <strong>Чудесно!</strong> @Model.Text
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
 <div class="form-group row">
     <div class="col-sm-2">
         <partial name="_LeftBarPartial" />
     </div>
     <div class="col-sm-8">
         <a class=" background">
-            <p>Създаване на Състезание</p>
-            <form asp-controller="Admin" asp-action="Competitions" method="post" class="form-group">
-                <div>
-                    <label asp-for="Name"> Име </label>
-                    <input asp-for="Name" class="form-control" placeholder="Име" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-                <div>
-                    <label asp-for="StartRaceDate"> Дата на старниране </label>
-                    <input asp-for="StartRaceDate" class="form-control" placeholder="April 01, 2020 17:00:00" />
-                    <span asp-validation-for="StartRaceDate" class="text-danger"></span>
-                </div>
-                <div>
-                    <label asp-for="Stages"> Стартови етапи</label>
-                    <input asp-for="Stages" class="form-control" placeholder="0-10" />
-                    <span asp-validation-for="Stages" class="text-danger"></span>
-                </div>
-                <div>
-                    <label asp-for="CompetitionsRallyRunwayId">Писти </label>
-                    <select asp-for="CompetitionsRallyRunwayId" class="form-control" />
-                    @{ foreach (var item in Model.Runways)
-                        {
-                            <option value="@item.Id">@item.Name</option>
-                        }
+            <table class="table table-hover">
+                <thead>
+                    <tr class="table">
+                        <th scope="col">Име</th>
+                        <th scope="col">Дата</th>
+                        <th scope="col">Награден фонд</th>
+                        <th scope="col">Изминала</th>
+                        <th scope="col">Активено</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var competitions in Model.Competitions)
+                    {
+                        <tr>
+                            <th scope="row">@competitions.Name</th>
+                            <td>@competitions.StartRaceDate.ToString("D")</td>
+                            <td>@competitions.PrizeFund</td>
+                            <td>@competitions.IsDeleted</td>
+                            <td>@competitions.Applicable</td>
+                            <td>
+                                <a class="btn btn-default btn-sm" asp-controller="Admin" asp-action="EditCompetitions" asp-route-id="@competitions.Id">
+                                    <i class="fa fa-pencil">Редактирай</i>
+                                </a>
+                                <a class="btn" asp-controller="Admin" asp-action="DeleteCompetitions" asp-route-id="@competitions.Id">
+                                    <i class="fa fa-trash">Изтрии</i>
+                                </a>
+                            </td>
+                        </tr>
                     }
-                    </select>
-                </div>
+                </tbody>
+                <tfoot>
+
+                </tfoot>
                 <div>
-                    <label asp-for="PrizeFund"> Награден фонд</label>
-                    <input asp-for="PrizeFund" class="form-control" placeholder="110000-10000000" />
-                    <span asp-validation-for="PrizeFund" class="text-danger"></span>
+                    @if (!Model.PreviousDisabled)
+                    {
+                        <a href="/Admin/Competitions?page=@Model.PreviousPage" class="float-left btn btn-info">Назад</a>
+                    }
+                    .... @Model.CurrentPage ....
+                    @if (!Model.NextDisabled)
+                    {
+                        <a href="/Admin/Competitions?page=@Model.NextPage" class="float-right btn btn-info">Напред</a>
+                    }
                 </div>
-                <button type="submit" class="btn btn-secondary">Създай</button>
-            </form>
+            </table>
+
         </a>
     </div>
     <div class="col-sm-2">

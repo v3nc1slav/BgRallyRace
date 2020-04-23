@@ -11,5 +11,7 @@
         Task<string> EditRunways(RunwayViewModels newRunway);
 
         Task<string> EditPilot(PilotViewModels newPilot);
+
+        Task<string> EditCompetitions(CompetitionsViewModels newCompetitions);
     }
 }

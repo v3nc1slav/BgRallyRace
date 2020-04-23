@@ -16,7 +16,7 @@
             this.dbContext = dbContext;
         }
         
-        public void CreateCompetitions(CompetitionsViewModels input)
+        public string CreateCompetitions(CompetitionsViewModels input)
         {
             var id = dbContext.Add(new Competitions
             {
@@ -36,33 +36,32 @@
                 });
             }
             dbContext.SaveChanges();
+            return "Състезянието е успешно създадено.";
         }
 
-        public void CreateRunway(RunwayViewModels input)
+        public string CreateRunway(RunwayViewModels input)
         {
             dbContext.RallyRunways.Add(new RallyRunway { Name = input.NameRunway, TrackLength = input.TrackLength,
                 Difficulty = input.Difficulty, Description = input.Description });
             dbContext.SaveChanges();
+            return "Пистата е успешно създадено.";
+
         }
 
-        public void CreatePilot(PilotViewModels input)
+        public string CreatePilot(PilotViewModels input)
         {
-            Random rnd = new Random();
             string? firstN = input.FirstName;
             string? lastN = input.LastName;
 
 
             if (firstN == null)
             {
-                int first = rnd.Next(1, 100);
-                firstN = dbContext.FirstNames.Select(x => new { x.FirstName, x.Id })
-               .FirstOrDefault(x => x.Id == first).FirstName;
+                firstN = GeneratingFirstName();
+              
             }
             if (lastN == null)
             {
-                int last = rnd.Next(1, 100);
-                lastN = dbContext.LastNames.Select(x => new { x.LastName, x.Id })
-                .FirstOrDefault(x => x.Id == last).LastName;
+                lastN = GeneratingLastName();
             }
 
             var rallyPilot = dbContext.RallyPilots.Add(new RallyPilots
@@ -80,25 +79,23 @@
                 Pounds = input.Pounds,
             });
             dbContext.SaveChanges();
+            return "Пилота е успешно създадено.";
+
         }
 
-        public void CreateNavigator(NavigatorViewModels input)
+        public string CreateNavigator(NavigatorViewModels input)
         {
-            Random rnd = new Random();
+        
             string? firstN = input.FirstName;
             string? lastN = input.LastName;
 
             if (firstN == null)
             {
-                int first = rnd.Next(1, 100);
-                firstN = dbContext.FirstNames.Select(x => new { x.FirstName, x.Id })
-               .FirstOrDefault(x => x.Id == first).FirstName;
+                firstN = GeneratingFirstName();
             }
             if (lastN == null)
             {
-                int last = rnd.Next(10, 100);
-                lastN = dbContext.LastNames.Select(x => new { x.LastName, x.Id })
-                .FirstOrDefault(x => x.Id == last).LastName;
+                lastN = GeneratingLastName();
             }
 
             var rallyPilot = dbContext.RallyNavigators.Add(new RallyNavigators
@@ -116,9 +113,11 @@
                 Pounds = input.Pounds,
             });
             dbContext.SaveChanges();
+            return "Навигатора е успешно създадено.";
+
         }
 
-        public void CreateParts(PartsViewModels input)
+        public string CreateParts(PartsViewModels input)
         {
             dbContext.Add(new PartsCars
             {
@@ -129,6 +128,26 @@
                 Speed = input.Speed,
             });
             dbContext.SaveChanges();
+            return "Часта е успешно създадено.";
+
+        }
+
+        private string GeneratingFirstName()
+        {
+            Random rnd = new Random();
+            int first = rnd.Next(1, 100);
+            var name = dbContext.FirstNames.Select(x => new { x.FirstName, x.Id })
+           .FirstOrDefault(x => x.Id == first).FirstName;
+            return name;
+        }
+
+        private string GeneratingLastName()
+        {
+            Random rnd = new Random();
+            int last = rnd.Next(1, 100);
+            var name = dbContext.LastNames.Select(x => new { x.LastName, x.Id })
+            .FirstOrDefault(x => x.Id == last).LastName;
+            return name;
         }
     }
 }

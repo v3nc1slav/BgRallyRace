@@ -9,42 +9,7 @@
     </div>
     <div class="col-sm-8">
         <a class=" background">
-            <p>Създаване на Части за Коли</p>
-            <form asp-controller="Admin" asp-action="Parts" method="post" class="form-group">
-                <div>
-                    <label asp-for="Type">Тип</label>
-                    <select asp-for="Type" class="form-control" />
-                    <option value="Aerodynamics" selected="">Аеродинамика</option>
-                    <option value="Brakes">Спирачки</option>
-                    <option value="Engines">Двигател</option>
-                    <option value="GearBoxs">Скоростна Кутия</option>
-                    <option value="ModelsCars">Купе</option>
-                    <option value="Mountings">Шаси</option>
-                    <option value="Turbo">Турбо</option>
-                    </select>
-                </div>
-                <div>
-                    <label asp-for="Name">Име</label>
-                    <input asp-for="Name" class="form-control" placeholder="Име" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-                <div>
-                    <label asp-for="Price">Цена</label>
-                    <input asp-for="Price" class="form-control" placeholder="Цена" />
-                    <span asp-validation-for="Price" class="text-danger"></span>
-                </div>
-                <div>
-                    <label asp-for="Strength">Здравина</label>
-                    <input asp-for="Strength" class="form-control" placeholder="Здравина" />
-                    <span asp-validation-for="Strength" class="text-danger"></span>
-                </div>
-                <div>
-                    <label asp-for="Speed">Скорост</label>
-                    <input asp-for="Speed" class="form-control" placeholder="Скорост" />
-                    <span asp-validation-for="Speed" class="text-danger"></span>
-                </div>
-                <button type="submit" class="btn btn-secondary">Създай</button>
-            </form>
+            
         </a>
     </div>
     <div class="col-sm-2">

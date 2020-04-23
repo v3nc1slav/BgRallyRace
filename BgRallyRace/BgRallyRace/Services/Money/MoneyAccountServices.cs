@@ -9,20 +9,14 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     public class MoneyAccountServices : IMoneyAccountServices
     {
         private readonly ApplicationDbContext dbContext;
-        private readonly IRatingListServices ratingList;
 
         public MoneyAccountServices(ApplicationDbContext dbContext)
         {
-           
-        }
-
-        public MoneyAccountServices(ApplicationDbContext dbContext, IRatingListServices ratingListServices)
-        {
             this.dbContext = dbContext;
-            this.ratingList = ratingListServices;
         }
 
         public void CreateMoneyAccount(string user)
@@ -52,7 +46,7 @@
 
         public  MoneyAccount FindUserAsync( string user)
         {
-             var dbUser =  dbContext.MoneyAccount.FirstOrDefault(a => a.User == user);
+             var dbUser =  dbContext.MoneyAccount.Where(a => a.User == user).FirstOrDefault();
             return dbUser;
         }
 

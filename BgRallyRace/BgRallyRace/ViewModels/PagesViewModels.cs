@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class PagesViewModels
+    public class PagesViewModels 
     {
         public int CurrentPage { get; set; }
 

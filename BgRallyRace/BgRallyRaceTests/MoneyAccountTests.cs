@@ -77,9 +77,11 @@ namespace BgRallyRaceTests
 
             var resultBalance = service.GetBalanceAsync("Pesho");
             var resultUserName = service.FindUserAsync("Pesho").User;
+            var resultId = service.FindIdMoneyAccountAsync("Pesho");
 
             Assert.Equal(10000, resultBalance);
             Assert.Equal("Pesho", resultUserName);
+            Assert.Equal(1, resultId);
         }
 
         [Fact]

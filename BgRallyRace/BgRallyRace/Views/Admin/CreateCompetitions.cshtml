@@ -1,0 +1,61 @@
+﻿@model BgRallyRace.ViewModels.CompetitionsViewModels
+@{
+    ViewData["Title"] = "CreateCompetitions";
+}
+
+@if (Model.Text != null)
+{
+    <div class="alert alert-success" role="alert">
+        <strong>Чудесно!</strong> @Model.Text
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<div class="form-group row">
+    <div class="col-sm-2">
+        <partial name="_LeftBarPartial" />
+    </div>
+    <div class="col-sm-8">
+        <a class=" background">
+            <p>Създаване на Състезание</p>
+            <form asp-controller="Admin" asp-action="CreateCompetitions" method="post" class="form-group">
+                <div>
+                    <label asp-for="Name"> Име </label>
+                    <input asp-for="Name" class="form-control" placeholder="Име" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div>
+                    <label asp-for="StartRaceDate"> Дата на старниране </label>
+                    <input asp-for="StartRaceDate" class="form-control" placeholder="April 01, 2020 17:00:00" />
+                    <span asp-validation-for="StartRaceDate" class="text-danger"></span>
+                </div>
+                <div>
+                    <label asp-for="Stages"> Стартови етапи</label>
+                    <input asp-for="Stages" class="form-control" placeholder="0-10" />
+                    <span asp-validation-for="Stages" class="text-danger"></span>
+                </div>
+                <div>
+                    <label asp-for="CompetitionsRallyRunwayId">Писти </label>
+                    <select asp-for="CompetitionsRallyRunwayId" class="form-control" />
+                    @{ foreach (var item in Model.Runways)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    }
+                    </select>
+                </div>
+                <div>
+                    <label asp-for="PrizeFund"> Награден фонд</label>
+                    <input asp-for="PrizeFund" class="form-control" placeholder="110000-10000000" />
+                    <span asp-validation-for="PrizeFund" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-secondary">Създай</button>
+            </form>
+        </a>
+    </div>
+    <div class="col-sm-2">
+        <partial name="_RightBarPartial" />
+    </div>
+</div>

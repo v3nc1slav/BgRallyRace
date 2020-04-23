@@ -13,7 +13,7 @@
         public string NameRunway { get; set; }
 
         [Required]
-        [Range(0, 1000)]
+        [Range(1, 1000)]
         public decimal TrackLength { get; set; }
 
         public DifficultyType Difficulty { get; set; }

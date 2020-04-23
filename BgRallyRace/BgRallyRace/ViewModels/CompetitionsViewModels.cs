@@ -6,8 +6,10 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class CompetitionsViewModels
+    public class CompetitionsViewModels : PagesViewModels
     {
+        public int Id { get; set; }
+
         [Required]
         public string Name { get; set; }
 
@@ -22,15 +24,21 @@
         [Range(110000, 100000000)]
         public decimal PrizeFund { get; set; }
 
+        [Required]
         public List<int> CompetitionsRallyRunwayId { get; set; }
 
         public List<CompetitionsRallyRunway> CompetitionsRallyRunway { get; set; } 
 
         public int? TeamId { get; set; }
 
-        public List<CompetitionsTeams>? CompetitionsTeams { get; set; } 
+        public List<CompetitionsTeams>? CompetitionsTeams { get; set; }
 
         public List<RallyRunway> Runways { get; set; }
 
+        public RallyRunway Runway { get; set; }
+
+        public List<Competitions> Competitions { get; set; }
+
+        public string Text { get; set; }
     }
 }

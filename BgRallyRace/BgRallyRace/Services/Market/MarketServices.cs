@@ -12,6 +12,11 @@
         private readonly IMoneyAccountServices money;
         private readonly ICarServices cars;
 
+        public MarketServices(ApplicationDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
         public MarketServices(ApplicationDbContext dbContext, IMoneyAccountServices moneyAccount, ICarServices car)
         {
             this.dbContext = dbContext;

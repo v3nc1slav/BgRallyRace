@@ -11,16 +11,18 @@
         public string Name { get; set; }
 
         [Required]
-        [Range(0, 10000)]
+        [Range(1, 10000)]
         public decimal Price { get; set; }
 
         [Required]
-        [Range(0, 100)]
+        [Range(1, 100)]
         public decimal Strength { get; set; }
 
         [Required]
-        [Range(0, 10000)]
+        [Range(1, 10000)]
         public decimal Speed { get; set; }
+
+        public string Text { get; set; }
 
     }
 }

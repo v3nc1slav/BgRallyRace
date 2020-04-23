@@ -26,6 +26,12 @@
         private readonly IRallyNavigatorsServices rallyNavigators;
         private readonly IMoneyAccountServices money;
 
+
+        public CarServices(ApplicationDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
         public CarServices(ApplicationDbContext dbContext, IRallyPilotsServices rallyPilots,
             IRallyNavigatorsServices rallyNavigators, IMoneyAccountServices accountServices)
         {
@@ -34,6 +40,7 @@
             this.rallyNavigators = rallyNavigators;
             this.money = accountServices;
         }
+
         public int GetCarId(string user)
         {
             var carId = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars.Id).FirstOrDefault();
@@ -51,13 +58,13 @@
             var car = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars).FirstOrDefault();
             return car;
         }
-
+        
         public Cars GetCar(int id)
         {
             var car = dbContext.Cars.Where(x => x.Id == id).FirstOrDefault();
             return car;
         }
-
+        
         public Aerodynamics GetAerodynamics(string user)
         {
             var variable = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars.Aerodynamics).First();

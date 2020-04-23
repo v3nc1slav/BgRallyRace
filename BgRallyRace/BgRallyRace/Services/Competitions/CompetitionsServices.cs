@@ -11,10 +11,12 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using BgRallyRace.Models.Competitions;
     using System.Timers;
 
     public class CompetitionsServices : ICompetitionsServices
     {
+        const int pageSize = 5;
         private readonly ApplicationDbContext dbContext;
         private readonly ICarServices cars;
         private readonly ITeamServices team;
@@ -72,6 +74,43 @@
             return date;
         }
 
+        public async Task<Competitions> GetCompetition(int id)
+        {
+            var date = await dbContext
+                .Competitions
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
+            return date;
+        }
+
+        public async Task<CompetitionsRallyRunway> GetCompetitionRunway(int id)
+        {
+            var date = await dbContext
+                .CompetitionsRallyRunway
+                .Where(x => x.CompetitionsId == id)
+                .FirstOrDefaultAsync();
+            return date;
+        }
+
+        public async Task <List<Competitions>> GetAllCompetitions(int page)
+        {
+            var date = await dbContext
+                .Competitions
+                .Where(x => x.Applicable == true)
+                 .Skip((page - 1) * pageSize)
+                .Take(5)
+                .ToListAsync();
+            return date;
+        }
+
+        public int TotalPage()
+        {
+            var result = dbContext.Competitions
+               .Where(x => x.Applicable == true)
+              .Count();
+            return result;
+        }
+
         public async Task<string> GetCompetitionName()
         {
             var date = await dbContext
@@ -106,7 +145,6 @@
             date.Applicable = true;
             dbContext.SaveChanges();
         }
-
 
         public void HasIsStartedAsync()
         {

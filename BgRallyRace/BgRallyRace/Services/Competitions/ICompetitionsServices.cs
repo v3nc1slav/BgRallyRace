@@ -2,7 +2,9 @@
 {
     using BgRallyRace.ViewModels;
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
+    using BgRallyRace.Models.Competitions;
 
 
     public interface ICompetitionsServices
@@ -20,5 +22,13 @@
        public  Task <string> GetCompetitionName();
 
         void StartRally();
+
+        Task<CompetitionsRallyRunway> GetCompetitionRunway(int id);
+
+        Task<Competitions> GetCompetition(int id);
+
+        Task<List<Competitions>> GetAllCompetitions(int page);
+
+        int TotalPage();
     }
 }

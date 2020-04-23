@@ -4,14 +4,14 @@
 
     public interface ICreateServices
     {
-        public void CreateCompetitions(CompetitionsViewModels input);
+        string CreateCompetitions(CompetitionsViewModels input);
 
-        void CreateRunway(RunwayViewModels input);
+        string CreateRunway(RunwayViewModels input);
 
-        void CreatePilot(PilotViewModels input);
+        string CreatePilot(PilotViewModels input);
 
-        void CreateNavigator(NavigatorViewModels input);
+        string CreateNavigator(NavigatorViewModels input);
 
-        void CreateParts(PartsViewModels input);
+        string CreateParts(PartsViewModels input);
     }
 }
