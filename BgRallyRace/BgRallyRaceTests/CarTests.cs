@@ -3,12 +3,10 @@
     using BgRallyRace.Data;
     using BgRallyRace.Models;
     using BgRallyRace.Services;
-    using BgRallyRace.Services.Market;
     using Microsoft.EntityFrameworkCore;
     using Moq;
     using System;
     using System.Collections.Generic;
-    using System.Text;
     using Xunit;
 
     public class CarTests

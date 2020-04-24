@@ -69,7 +69,9 @@
 
         public Dictionary<Team, DateTime> GetRatingList()
         {
-            return DictionaryTeams;
+            Dictionary<Team, DateTime> newDictionaryTeams = new Dictionary<Team, DateTime>();
+            newDictionaryTeams = DictionaryTeams;
+            return newDictionaryTeams;
         }
 
         public List<Team> DistributionPoint()

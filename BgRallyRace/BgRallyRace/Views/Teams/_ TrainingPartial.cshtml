@@ -58,7 +58,7 @@
                     {
                         <option value="Squash 800">Скуош</option>
                     }
-                    else if (ViewData["Title"].ToString() == "SecandNavigator" || ViewData["Title"].ToString() == "SecandNavigator" )
+                    else if (ViewData["Title"].ToString() == "FirstNavigator" || ViewData["Title"].ToString() == "SecandNavigator" )
                     {
             <option value="CommunicationTraining 800">Комуникациона тренировка</option>
                     }
@@ -68,9 +68,7 @@
     </table>
     @{ if (ViewData["Title"].ToString() == "FirstPilot")
         {
-        <button type="submit" class="btn btn-secondary" name="type" value="Pilot @Model.Pilots[0].Id" }>
-            Тренировка
-        </button>
+        <button type="submit" class="btn btn-secondary" name="type" value="Pilot @Model.Pilots[0].Id"> Тренировка </button>
         }
         else if (ViewData["Title"].ToString() == "SecandPilot")
         {

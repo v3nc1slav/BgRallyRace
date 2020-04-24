@@ -64,7 +64,7 @@
         public void IncreaseAge(int id)
         {
             var person = this.GetPilot(id);
-            person.Age = person.Age + 1;
+            person.Age += 1;
             dbContext.SaveChanges();
         }
 

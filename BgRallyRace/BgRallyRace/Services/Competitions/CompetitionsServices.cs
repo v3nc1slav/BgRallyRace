@@ -30,6 +30,11 @@
 
         const decimal damageConstant = (decimal)0.5;
 
+        public CompetitionsServices(ApplicationDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
         public CompetitionsServices(ApplicationDbContext dbContext, ICarServices carServices, ITeamServices teamServices,
             IRallyPilotsServices pilotsServices, IRallyNavigatorsServices navigatorsServices, IRunwaysServices runwaysServices,
             IRaceHistoryServices raceHistoryServices, IPeople people, IRatingListServices ratingListServices,
@@ -156,48 +161,48 @@
            // aTimer.Interval = 1000*60;
            // aTimer.Enabled = true;
 
-            var date = GetStartDate();
-            
-            var t = Task.Run(() =>
-            {
-                while (true)
-                {
-                    var nowDate = DateTime.Now;
-                    if (date.Result.Date == nowDate.Date)
-                    {
-                        while (true)
-                        {
-                            nowDate = DateTime.Now;
-                            if (date.Result.Hour == nowDate.Hour)
-                            {
-                                while (true)
-                                {
-                                    nowDate = DateTime.Now;
-                                    if (date.Result.Minute == nowDate.Minute)
-                                    {
-                                        this.StartRally();
-                                    }
-                                    Thread.Sleep(1000 * 60);//1 minute
-                                }
-                            }
-                            Thread.Sleep(1000 * 60 * 60);//1 hour
-                        }
-                    }
-                    Thread.Sleep(1000 * 60 * 60 * 24);//1 day
-                }
-            });
+           var date = GetStartDate();
+           
+           var t = Task.Run(() =>
+           {
+               while (true)
+               {
+                   var nowDate = DateTime.Now;
+                   if (date.Result.Date == nowDate.Date)
+                   {
+                       while (true)
+                       {
+                           nowDate = DateTime.Now;
+                           if (date.Result.Hour == nowDate.Hour)
+                           {
+                               while (true)
+                               {
+                                   nowDate = DateTime.Now;
+                                   if (date.Result.Minute == nowDate.Minute)
+                                   {
+                                       this.StartRally();
+                                   }
+                                   Thread.Sleep(1000 * 60);//1 minute
+                               }
+                           }
+                           Thread.Sleep(1000 * 60 * 60);//1 hour
+                       }
+                   }
+                   Thread.Sleep(1000 * 60 * 60 * 24);//1 day
+               }
+           });
 
         }
 
-      // private void OnTimedEvent(object source, ElapsedEventArgs e)
-      // {
-      //     var date = GetStartDate().Result;
-      //     var nowDate = DateTime.Now;
-      //     if (date.Date == nowDate.Date)
-      //     {
-      //
-      //     }
-      // }
+     // private void OnTimedEvent(object source, ElapsedEventArgs e)
+     // {
+     //     var date = GetStartDate().GetAwaiter().GetResult();
+     //     var nowDate = DateTime.Now;
+     //     if (date.Date.Minute == nowDate.Date.Minute)
+     //     {
+     //          this.StartRally();
+     //      }
+     // }
 
         public string RallyЕntry(TeamViewModels input)
         {
@@ -224,7 +229,7 @@
 
         public void StartRally()
         {
-            var raceName = GetCompetitionName().Result;
+            var raceName = GetCompetitionName().GetAwaiter().GetResult();
             var teams = GetAllTeamsAsync();
             var startTeams = teams;
             pilots.AllPilotsNoWorking();
@@ -236,7 +241,7 @@
             var data = GetStartDate().GetAwaiter().GetResult();
             List<CompetitionsTeams> crashed = new List<CompetitionsTeams>();
 
-            string input = $"Бе дадено началото на състезанието {raceName}, провежащо се на дата: {data} " +
+            string input = $"Бе дадено началото на състезанието {raceName}, провежащо се на дата: {data.ToString("D")} " +
                 $"на писта {runway.Name}.";//ToDo
             raceHistory.AddHistory(input);
 
@@ -598,9 +603,9 @@
             ActivateNextRace();
         }
 
-        private List<CompetitionsTeams> GetAllTeamsAsync()
+        private  List<CompetitionsTeams> GetAllTeamsAsync()
         {
-            var teams =  dbContext
+            var teams = dbContext
                 .CompetitionsTeam
                 .Where(x => x.Competition.Applicable == true)
                 .ToList();

@@ -20,12 +20,14 @@
             team.RallyPilotId = null;
             dbContext.SaveChanges();
         }
+
         public void DismissalNavigator(int id)
         {
             var navigator = dbContext.RallyNavigators.Where(x => x.Id == id).FirstOrDefault();
             navigator.TeamId = null;
             dbContext.SaveChanges();
         }
+
         public void DismissalFitter(int id)
         {
             var fitter = dbContext.RallyFitters.Where(x => x.Id == id).FirstOrDefault();

@@ -22,8 +22,8 @@
         private readonly IRallyNavigatorsServices navigators;
         private readonly IRunwaysServices runways;
 
-        public CompetitionsController(ILogger<CompetitionsController> logger,ICarServices carServices, ICompetitionsServices competitionsServices, ITeamServices teamServices,
-           IRallyPilotsServices rallyPilots, IRallyNavigatorsServices rallyNavigators, IRunwaysServices runwaysServices)
+        public CompetitionsController(ILogger<CompetitionsController> logger,ICarServices carServices, ICompetitionsServices competitionsServices, 
+            ITeamServices teamServices, IRallyPilotsServices rallyPilots, IRallyNavigatorsServices rallyNavigators, IRunwaysServices runwaysServices)
         {
             this._logger = logger;
             this.cars = carServices;

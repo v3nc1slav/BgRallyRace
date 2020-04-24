@@ -14,9 +14,6 @@
         const string name = "ВАЗ 2101";
         const decimal price = 100;
         const decimal strength = 100;
-        const int stageOne = 15;
-        const int stageTwo = 22;
-        const int stageThree = 15;
         const double difficultyTypeEasy = 1.0;
         const double difficultyTypeAverage = 1.2;
         const double difficultyTypeDifficult = 1.4;
@@ -338,217 +335,121 @@
         {
             if (typeDamage == 1)
             {
-                DamageStageOne(carId, difficulty);
+                DamageStage(carId, difficulty, 1);
             }
             else if (typeDamage == 2)
             {
-                DamageStageTwo(carId, difficulty);
+                DamageStage(carId, difficulty, 2);
             }
             else if (typeDamage == 3)
             {
-                DamageStageThree(carId, difficulty);
+                DamageStage(carId, difficulty, 3);
             }
         }
 
-        private void DamageStageOne(int carId, DifficultyType difficulty)
+        private void DamageStage(int carId, DifficultyType difficulty, int stages)
         {
+            int stage = 0;
+            stage = (stages) switch
+            {
+                1 => 15,
+                2 => 22,
+                3 => 15,
+                _ => 0,
+            };
             if (difficulty == DifficultyType.Easy)
             {
                 var aerodynamics = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Aerodynamics).FirstOrDefault();
-                aerodynamics.Strength -= (int)(stageOne * difficultyTypeEasy);
-                var brakes = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Brakes).FirstOrDefault();
-                brakes.Strength -= (int)(stageOne * difficultyTypeEasy);
+                aerodynamics.Strength -= (int)(stage * difficultyTypeEasy);
+                aerodynamics.Strength = ItIsNegative(aerodynamics);
+               var brakes = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Brakes).FirstOrDefault();
+                brakes.Strength -= (int)(stage * difficultyTypeEasy);
+                brakes.Strength = ItIsNegative(brakes);
                 var engine = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Engine).FirstOrDefault();
-                engine.Strength -= (int)(stageOne * difficultyTypeEasy);
+                engine.Strength -= (int)(stage * difficultyTypeEasy);
+                engine.Strength = ItIsNegative(engine);
                 var gearbox = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Gearbox).FirstOrDefault();
-                gearbox.Strength -= stageOne;
+                gearbox.Strength -= stage;
+                gearbox.Strength = ItIsNegative(gearbox);
                 var modelCar = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.ModelCar).FirstOrDefault();
-                modelCar.Strength -= stageOne;
+                modelCar.Strength -= stage;
+                modelCar.Strength = ItIsNegative(modelCar);
                 var mounting = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Mounting).FirstOrDefault();
-                mounting.Strength -= stageOne;
+                mounting.Strength -= stage;
+                mounting.Strength = ItIsNegative(mounting);
                 var turbo = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Turbo).FirstOrDefault();
                 if (turbo != null)
                 {
-                    mounting.Strength -= stageOne;
-                }
-                dbContext.SaveChanges();
-            }//ToDo IF Strang = 0
-            else if (difficulty == DifficultyType.Average)
-            {
-                var aerodynamics = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Aerodynamics).FirstOrDefault();
-                aerodynamics.Strength -= (int)(stageOne * difficultyTypeAverage);
-                var brakes = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Brakes).FirstOrDefault();
-                brakes.Strength -= (int)(stageOne * difficultyTypeAverage);
-                var engine = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Engine).FirstOrDefault();
-                engine.Strength -= (int)(stageOne * difficultyTypeAverage);
-                var gearbox = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Gearbox).FirstOrDefault();
-                gearbox.Strength -= (int)(stageOne * difficultyTypeAverage);
-                var modelCar = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.ModelCar).FirstOrDefault();
-                modelCar.Strength -= stageOne;
-                var mounting = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Mounting).FirstOrDefault();
-                mounting.Strength -= stageOne;
-                var turbo = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Turbo).FirstOrDefault();
-                if (turbo != null)
-                {
-                    turbo.Strength -= stageOne;
-                }
-                dbContext.SaveChanges();
-            }
-            else if (difficulty == DifficultyType.Difficult)
-            {
-                var aerodynamics = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Aerodynamics).FirstOrDefault();
-                aerodynamics.Strength -=  (int)(stageOne * difficultyTypeDifficult);
-                var brakes = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Brakes).FirstOrDefault();
-                brakes.Strength -=  (int)(stageOne * difficultyTypeDifficult);
-                var engine = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Engine).FirstOrDefault();
-                engine.Strength -=   (int)(stageOne * difficultyTypeDifficult);
-                var gearbox = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Gearbox).FirstOrDefault();
-                gearbox.Strength -= (int)(stageOne * difficultyTypeDifficult);
-                var modelCar = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.ModelCar).FirstOrDefault();
-                modelCar.Strength -= stageOne;
-                var mounting = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Mounting).FirstOrDefault();
-                mounting.Strength -= (int)(stageOne * difficultyTypeDifficult);
-                var turbo = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Turbo).FirstOrDefault();
-                if (turbo != null)
-                {
-                    turbo.Strength -= stageOne;
-                }
-                dbContext.SaveChanges();
-            }
-        }
-
-        private void DamageStageTwo(int carId, DifficultyType difficulty)
-        {
-            if (difficulty == DifficultyType.Easy)
-            {
-                var aerodynamics = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Aerodynamics).FirstOrDefault();
-                aerodynamics.Strength -= (int)(stageTwo * difficultyTypeEasy);
-                var brakes = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Brakes).FirstOrDefault();
-                brakes.Strength -= (int)(stageTwo * difficultyTypeEasy);
-                var engine = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Engine).FirstOrDefault();
-                engine.Strength -= (int)(stageTwo * difficultyTypeEasy);
-                var gearbox = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Gearbox).FirstOrDefault();
-                gearbox.Strength -= stageTwo;
-                var modelCar = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.ModelCar).FirstOrDefault();
-                modelCar.Strength -= stageTwo;
-                var mounting = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Mounting).FirstOrDefault();
-                mounting.Strength -= stageTwo;
-                var turbo = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Turbo).FirstOrDefault();
-                if (turbo != null)
-                {
-                    mounting.Strength -= stageTwo;
+                    turbo.Strength -= stage;
+                    turbo.Strength = ItIsNegative(turbo);
                 }
                 dbContext.SaveChanges();
             }
             else if (difficulty == DifficultyType.Average)
             {
                 var aerodynamics = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Aerodynamics).FirstOrDefault();
-                aerodynamics.Strength -= (int)(stageTwo * difficultyTypeAverage);
+                aerodynamics.Strength -= (int)(stage * difficultyTypeAverage);
+                aerodynamics.Strength = ItIsNegative(aerodynamics);
                 var brakes = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Brakes).FirstOrDefault();
-                brakes.Strength -= (int)(stageTwo * difficultyTypeAverage);
+                brakes.Strength -= (int)(stage * difficultyTypeAverage);
+                brakes.Strength = ItIsNegative(brakes);
                 var engine = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Engine).FirstOrDefault();
-                engine.Strength -= (int)(stageTwo * difficultyTypeAverage);
+                engine.Strength -= (int)(stage * difficultyTypeAverage);
+                engine.Strength = ItIsNegative(engine);
                 var gearbox = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Gearbox).FirstOrDefault();
-                gearbox.Strength -= (int)(stageTwo * difficultyTypeAverage);
+                gearbox.Strength -= (int)(stage * difficultyTypeAverage);
+                gearbox.Strength = ItIsNegative(gearbox);
                 var modelCar = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.ModelCar).FirstOrDefault();
-                modelCar.Strength -= stageTwo;
+                modelCar.Strength -= stage;
+                modelCar.Strength = ItIsNegative(modelCar);
                 var mounting = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Mounting).FirstOrDefault();
-                mounting.Strength -= stageTwo;
+                mounting.Strength -= stage;
+                mounting.Strength = ItIsNegative(mounting);
                 var turbo = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Turbo).FirstOrDefault();
                 if (turbo != null)
                 {
-                    turbo.Strength -= stageTwo;
+                    turbo.Strength -= stage;
+                    turbo.Strength = ItIsNegative(turbo);
                 }
                 dbContext.SaveChanges();
             }
             else if (difficulty == DifficultyType.Difficult)
             {
                 var aerodynamics = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Aerodynamics).FirstOrDefault();
-                aerodynamics.Strength -= (int)(stageTwo * difficultyTypeDifficult);
+                aerodynamics.Strength -=  (int)(stage * difficultyTypeDifficult);
+                aerodynamics.Strength = ItIsNegative(aerodynamics);
                 var brakes = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Brakes).FirstOrDefault();
-                brakes.Strength -= (int)(stageTwo * difficultyTypeDifficult);
+                brakes.Strength -=  (int)(stage * difficultyTypeDifficult);
+                brakes.Strength = ItIsNegative(brakes);
                 var engine = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Engine).FirstOrDefault();
-                engine.Strength -= (int)(stageTwo * difficultyTypeDifficult);
+                engine.Strength -=   (int)(stage * difficultyTypeDifficult);
+                engine.Strength = ItIsNegative(engine);
                 var gearbox = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Gearbox).FirstOrDefault();
-                gearbox.Strength -= (int)(stageTwo * difficultyTypeDifficult);
+                gearbox.Strength -= (int)(stage * difficultyTypeDifficult);
+                gearbox.Strength = ItIsNegative(gearbox);
                 var modelCar = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.ModelCar).FirstOrDefault();
-                modelCar.Strength -= stageTwo;
+                modelCar.Strength -= stage;
+                modelCar.Strength = ItIsNegative(modelCar);
                 var mounting = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Mounting).FirstOrDefault();
-                mounting.Strength -= (int)(stageTwo * difficultyTypeDifficult);
+                mounting.Strength -= (int)(stage * difficultyTypeDifficult);
+                mounting.Strength = ItIsNegative(mounting);
                 var turbo = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Turbo).FirstOrDefault();
                 if (turbo != null)
                 {
-                    turbo.Strength -= stageTwo;
+                    turbo.Strength -= stage;
+                    turbo.Strength = ItIsNegative(turbo);
                 }
                 dbContext.SaveChanges();
             }
         }
 
-        private void DamageStageThree(int carId, DifficultyType difficulty)
+        private decimal ItIsNegative(Parts parts)
         {
-            if (difficulty == DifficultyType.Easy)
+            if (parts.Strength<0)
             {
-                var aerodynamics = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Aerodynamics).FirstOrDefault();
-                aerodynamics.Strength -= (int)(stageThree * difficultyTypeEasy);
-                var brakes = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Brakes).FirstOrDefault();
-                brakes.Strength -= (int)(stageThree * difficultyTypeEasy);
-                var engine = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Engine).FirstOrDefault();
-                engine.Strength -= (int)(stageThree * difficultyTypeEasy);
-                var gearbox = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Gearbox).FirstOrDefault();
-                gearbox.Strength -= stageThree;
-                var modelCar = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.ModelCar).FirstOrDefault();
-                modelCar.Strength -= stageThree;
-                var mounting = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Mounting).FirstOrDefault();
-                mounting.Strength -= stageThree;
-                var turbo = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Turbo).FirstOrDefault();
-                if (turbo != null)
-                {
-                    mounting.Strength -= stageThree;
-                }
-                dbContext.SaveChanges();
+                return 0;
             }
-            else if (difficulty == DifficultyType.Average)
-            {
-                var aerodynamics = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Aerodynamics).FirstOrDefault();
-                aerodynamics.Strength -= (int)(stageThree * difficultyTypeAverage);
-                var brakes = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Brakes).FirstOrDefault();
-                brakes.Strength -= (int)(stageThree * difficultyTypeAverage);
-                var engine = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Engine).FirstOrDefault();
-                engine.Strength -= (int)(stageThree * difficultyTypeAverage);
-                var gearbox = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Gearbox).FirstOrDefault();
-                gearbox.Strength -= (int)(stageThree * difficultyTypeAverage);
-                var modelCar = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.ModelCar).FirstOrDefault();
-                modelCar.Strength -= stageThree;
-                var mounting = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Mounting).FirstOrDefault();
-                mounting.Strength -= stageThree;
-                var turbo = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Turbo).FirstOrDefault();
-                if (turbo != null)
-                {
-                    turbo.Strength -= stageThree;
-                }
-                dbContext.SaveChanges();
-            }
-            else if (difficulty == DifficultyType.Difficult)
-            {
-                var aerodynamics = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Aerodynamics).FirstOrDefault();
-                aerodynamics.Strength -= (int)(stageThree * difficultyTypeDifficult);
-                var brakes = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Brakes).FirstOrDefault();
-                brakes.Strength -= (int)(stageThree * difficultyTypeDifficult);
-                var engine = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Engine).FirstOrDefault();
-                engine.Strength -= (int)(stageThree * difficultyTypeDifficult);
-                var gearbox = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Gearbox).FirstOrDefault();
-                gearbox.Strength -= (int)(stageThree * difficultyTypeDifficult);
-                var modelCar = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.ModelCar).FirstOrDefault();
-                modelCar.Strength -= stageThree;
-                var mounting = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Mounting).FirstOrDefault();
-                mounting.Strength -= (int)(stageThree * difficultyTypeDifficult);
-                var turbo = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Turbo).FirstOrDefault();
-                if (turbo != null)
-                {
-                    turbo.Strength -= stageThree;
-                }
-                dbContext.SaveChanges();
-            }
+            return parts.Strength;
         }
 
         private void RepairParts(Parts typeParts, IRallyPilotsServices rallyPilots, int idPilot,

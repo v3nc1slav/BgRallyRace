@@ -26,7 +26,7 @@
             return "Пистата, е изтрита успешно.";
         }
 
-        public async Task<string> Deletepilots(int id)
+        public async Task<string> DeletePilots(int id)
         {
             var runway = pilots.GetPilot(id);
             runway.IsDeleted = true;

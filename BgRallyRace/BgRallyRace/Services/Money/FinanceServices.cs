@@ -9,6 +9,7 @@
     public class FinanceServices : IFinanceServices
     {
         private readonly ApplicationDbContext dbContext;
+
         public FinanceServices(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;

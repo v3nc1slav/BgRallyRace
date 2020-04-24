@@ -1,11 +1,8 @@
 ﻿namespace BgRallyRace.Services.Runways
 {
     using BgRallyRace.Data;
-    using BgRallyRace.Models;
     using BgRallyRace.Models.Competitions;
-    using BgRallyRace.ViewModels;
     using Microsoft.EntityFrameworkCore;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -66,3 +63,5 @@
 
     }
 }
+
+

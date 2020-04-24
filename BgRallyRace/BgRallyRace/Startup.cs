@@ -95,7 +95,7 @@ namespace BgRallyRace
             app.UseAuthentication();
             app.UseAuthorization();
                        
-            //competitions.HasIsStartedAsync();
+            competitions.HasIsStartedAsync();
 
             app.UseEndpoints(endpoints =>
             {

@@ -176,7 +176,7 @@
         public async Task<IActionResult> DeletePilot(int id)
         {
             _logger.LogInformation("admin delete pilot");
-            var text = await delete.Deletepilots(id);
+            var text = await delete.DeletePilots(id);
             return this.RedirectToAction("Pilots", "Admin", new { input = text });
         }
 
