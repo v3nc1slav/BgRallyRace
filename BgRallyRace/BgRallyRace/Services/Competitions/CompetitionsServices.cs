@@ -49,8 +49,10 @@
 
         public void AddTime(string team, DateTime time)
         {
-            var times = dbContext.CompetitionsTeam.Where(x => x.Team.Name == team && x.Competition.Applicable == true).Select(x => x.Time).FirstOrDefault();
-            times = time;
+            var times = dbContext.CompetitionsTeam
+                .Where(x => x.Team.Name == team && x.Competition.Applicable == true)
+                .FirstOrDefault();
+            times.Time = time;
             dbContext.SaveChanges();
         }
 
@@ -224,6 +226,7 @@
         {
             var raceName = GetCompetitionName().Result;
             var teams = GetAllTeamsAsync();
+            var startTeams = teams;
             pilots.AllPilotsNoWorking();
             navigators.AllNavigatorNoWorking();
             var runway = runways.GetRunwayForRace().Result;
@@ -231,6 +234,7 @@
             var stageTwo = runway.TrackLength / 2;
             var stageThree = runway.TrackLength / 4;
             var data = GetStartDate().GetAwaiter().GetResult();
+            List<CompetitionsTeams> crashed = new List<CompetitionsTeams>();
 
             string input = $"Бе дадено началото на състезанието {raceName}, провежащо се на дата: {data} " +
                 $"на писта {runway.Name}.";//ToDo
@@ -303,7 +307,7 @@
                         $"Това беше края на състезанието за отбор: {teamRace.Name}";
                     var date = new DateTime();
                     ratingList.AddInRatingList(teamRace, date);
-                    teams.RemoveAt(i);
+                    crashed.Add(teams[i]);
                 }
                 else if (random == "Ok")
                 {
@@ -360,6 +364,13 @@
                 cars.Damage(teamRace.CarId, 1, runway.Difficulty);//1 comes from the number of Stage - StageOne
             }
 
+            for (int j = 0; j < crashed.Count; j++)
+            {
+                teams.Remove(crashed[j]);
+            }
+
+            crashed = new List<CompetitionsTeams>();
+
             input = $"В надпреварата продължават {teams.Count} автомобила. Нека видим как ще се развие състезанието.";
             raceHistory.AddHistory(input);
 
@@ -401,7 +412,7 @@
                         $"Това беше края на състезанието за отбор: {teamRace.Name}";
                     var date = new DateTime();
                     ratingList.AddInRatingList(teamRace, date);
-                    teams.RemoveAt(i);
+                    crashed.Add(teams[i]);
                 }
                 else if (random == "Ok")
                 {
@@ -456,6 +467,13 @@
                 navigators.IncreaseExperience(navigator.Id, 2);//2 comes from the number of Stage - stageTwo
                 cars.Damage(teamRace.CarId, 2, runway.Difficulty);//2 comes from the number of Stage - stageTwo
             }
+
+            for (int j = 0; j < crashed.Count; j++)
+            {
+                teams.Remove(crashed[j]);
+            }
+
+            crashed = new List<CompetitionsTeams>();
 
             input = $"В последния етап на надпреварата продължават {teams.Count} автомобила. Нека видим как ще се завърши състезанието.";
             raceHistory.AddHistory(input);
@@ -573,7 +591,7 @@
 
             var prizeFund = GetCompetitionPrizeFund();
             var winners = ratingList.DistributionPoint();
-            money.DistributionOfPrizeMoney(prizeFund, teams, winners);
+            money.DistributionOfPrizeMoney(prizeFund, startTeams, winners);
 
             raceHistory.CreateHistory(teams[0].CompetitionId, raceName);
 

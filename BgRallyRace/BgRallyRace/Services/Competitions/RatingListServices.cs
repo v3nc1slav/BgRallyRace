@@ -22,7 +22,7 @@
         {
             if (DictionaryTeams.ContainsKey(team))
             {
-                DictionaryTeams[team].AddMinutes(time.Minute);
+                DictionaryTeams[team] = DictionaryTeams[team].AddMinutes(time.Minute);
             }
             else
             {
@@ -32,20 +32,23 @@
             {
                 DictionaryTeams[team] = new DateTime();
             }
-         
+
         }
 
         public void AddPonts()
         {
             var teams = DistributionPoint();
-            var count = teams.Count ;
-            if (teams.Count  > 10)
+            var count = teams.Count;
+            if (teams.Count > 10)
             {
                 count = 10;
             }
             for (int i = 0; i < count; i++)
             {
-                var points = dbContext.CompetitionsTeam.Where(x => x.TeamId == teams[i].Id).FirstOrDefault();
+                var points = dbContext.CompetitionsTeam
+                    .Where(x => x.TeamId == teams[i].Id &&
+                    x.Competition.Applicable == true)
+                    .FirstOrDefault();
                 points.Points = (i + 1) switch
                 {
                     1 => points.Points + 25,
@@ -72,7 +75,8 @@
         public List<Team> DistributionPoint()
         {
             var teams = new List<Team>();
-            var dictionary = GetRatingList();
+            var dictionarys = GetRatingList();
+            var dictionary = dictionarys;
             var count = dictionary.Count;
             for (int i = 0; i < count; i++)
             {
@@ -86,7 +90,7 @@
                         team = item.Key;
                     }
                 }
-                if (team!=null)
+                if (team.User != null)
                 {
                     teams.Add(team);
                     dictionary.Remove(team);
@@ -99,13 +103,15 @@
         {
             var teams = DistributionPoint();
             var count = teams.Count;
-            if (teams.Count >6)
+            if (teams.Count > 7)
             {
-                count = 6;
+                count = 7;
             }
             for (int i = 0; i < count; i++)
             {
-                var points = dbContext.CompetitionsTeam.Where(x => x.TeamId == teams[i].Id).FirstOrDefault();
+                var points = dbContext.CompetitionsTeam
+                    .Where(x => x.TeamId == teams[i].Id && x.Competition.Applicable == true)
+                    .FirstOrDefault();
                 points.Points = (i + 1) switch
                 {
                     1 => points.Points + 7,
