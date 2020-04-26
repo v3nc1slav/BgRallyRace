@@ -15,15 +15,15 @@
         {
             this.dbContext = dbContext;
         }
-        public List<RallyRunway> GetAllRunways()
+        public async Task< List<RallyRunway>> GetAllRunwaysAsync()
         {
-            var runways = dbContext.RallyRunways.Where(x => x.IsDeleted == false).ToList();
-            return runways;
+            var runways = dbContext.RallyRunways.Where(x => x.IsDeleted == false).ToListAsync();
+            return runways.Result;
         }
 
-        public RallyRunway GetRunwayForCurrentRace()
+        public async Task<RallyRunway> GetRunwayForCurrentRaceAsync()
         {
-            var runway = dbContext.CompetitionsRallyRunway
+            var runway = await dbContext.CompetitionsRallyRunway
                 .Where(x => x.Competition.Applicable == true)
                 .Select(x => new RallyRunway
                 {
@@ -34,11 +34,11 @@
                     ImagName = x.RallyRunway.ImagName,
 
                 })
-                .First();
+                .FirstAsync();
             return runway;
         }
 
-        public async Task<RallyRunway> GetRunwayForRace()
+        public async Task<RallyRunway> GetRunwayForRaceAsync()
         {
             var runway = await dbContext.CompetitionsRallyRunway
                 .Where(x => x.Competition.Applicable == true && x.Competition.IsDeleted == false)
@@ -53,7 +53,7 @@
             return runway;
         }
 
-        public async Task<RallyRunway> GetRunway(int id)
+        public async Task<RallyRunway> GetRunwayAsync(int id)
         {
             var runway = await dbContext.RallyRunways
                 .Where(x => x.Id == id && x.IsDeleted == false)

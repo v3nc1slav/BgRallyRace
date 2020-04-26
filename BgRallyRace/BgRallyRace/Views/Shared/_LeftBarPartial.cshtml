@@ -24,17 +24,20 @@
     <div class="leftBackgroundAdmin">
         <a class="nav-link " asp-controller="Admin" asp-action="Opinions">
             Оторизация на мнения
-            <span>
-                <marcheswidget>
-                    <div id="marchesWidgets">
-                        <div class="outgoingCampaigns">
-                            <b>
-                                @await Component.InvokeAsync("Opinions")
-                            </b>
+            @if (Model.CountNotAuthorization > 0)
+            {
+                <span>
+                    <marcheswidget>
+                        <div id="marchesWidgets">
+                            <div class="outgoingCampaigns">
+                                <b>
+                                    @await Component.InvokeAsync("Opinions")
+                                </b>
+                            </div>
                         </div>
-                    </div>
-                </marcheswidget>
-            </span>
+                    </marcheswidget>
+                </span>
+            }
         </a>
         <a class="nav-link " asp-controller="Runway" asp-action="Runway">Писти </a>
         <a class="nav-link " asp-controller="Admin" asp-action="Pilots">Пилоти </a>

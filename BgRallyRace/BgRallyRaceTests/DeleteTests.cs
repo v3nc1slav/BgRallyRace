@@ -34,7 +34,7 @@
                 ImagName = "test",
             };
 
-            creat.CreateRunway(input);
+            creat.CreateRunwayAsync(input);
             var result = service.DeleteRunways(1).Result;
 
             Assert.Equal("Пистата, е изтрита успешно.", result);
@@ -61,7 +61,7 @@
                 Age = 30,
             };
 
-            creat.CreatePilot(input);
+            creat.CreatePilotAsync(input);
             var result = service.DeletePilots(1).Result;
             var resultPiot = pilot.GetPilot(1);
 

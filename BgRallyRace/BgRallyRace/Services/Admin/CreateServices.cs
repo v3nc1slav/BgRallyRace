@@ -4,8 +4,10 @@
     using BgRallyRace.Models;
     using BgRallyRace.Models.Competitions;
     using BgRallyRace.ViewModels;
+    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Linq;
+    using System.Threading.Tasks;
 
     public class CreateServices : ICreateServices
     {
@@ -16,16 +18,16 @@
             this.dbContext = dbContext;
         }
         
-        public string CreateCompetitions(CompetitionsViewModels input)
+        public async Task<string> CreateCompetitionsAsync(CompetitionsViewModels input)
         {
-            var id = dbContext.Add(new Competitions
+            var id =  dbContext.Add(new Competitions
             {
                 Name = input.Name,
                 StartRaceDate = input.StartRaceDate,
                 Stages = input.Stages,
                 PrizeFund = input.PrizeFund,
             });
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
 
             for (int i = 0; i < input.CompetitionsRallyRunwayId.Count; i++)
             {
@@ -35,20 +37,20 @@
                     CompetitionsId = id.Entity.Id,
                 });
             }
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return "Състезянието е успешно създадено.";
         }
 
-        public string CreateRunway(RunwayViewModels input)
+        public async Task<string> CreateRunwayAsync(RunwayViewModels input)
         {
             dbContext.RallyRunways.Add(new RallyRunway { Name = input.NameRunway, TrackLength = input.TrackLength,
                 Difficulty = input.Difficulty, Description = input.Description });
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return "Пистата е успешно създадено.";
 
         }
 
-        public string CreatePilot(PilotViewModels input)
+        public async Task<string> CreatePilotAsync(PilotViewModels input)
         {
             string? firstN = input.FirstName;
             string? lastN = input.LastName;
@@ -56,12 +58,12 @@
 
             if (firstN == null)
             {
-                firstN = GeneratingFirstName();
+                firstN = await GeneratingFirstName();
               
             }
             if (lastN == null)
             {
-                lastN = GeneratingLastName();
+                lastN = await GeneratingLastName();
             }
 
             var rallyPilot = dbContext.RallyPilots.Add(new RallyPilots
@@ -78,12 +80,12 @@
                 Reflexes = input.Reflexes,
                 Pounds = input.Pounds,
             });
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return "Пилота е успешно създадено.";
 
         }
 
-        public string CreateNavigator(NavigatorViewModels input)
+        public async Task<string> CreateNavigatorAsync(NavigatorViewModels input)
         {
         
             string? firstN = input.FirstName;
@@ -91,11 +93,11 @@
 
             if (firstN == null)
             {
-                firstN = GeneratingFirstName();
+                firstN = await GeneratingFirstName();
             }
             if (lastN == null)
             {
-                lastN = GeneratingLastName();
+                lastN = await GeneratingLastName();
             }
 
             var rallyPilot = dbContext.RallyNavigators.Add(new RallyNavigators
@@ -112,12 +114,12 @@
                 Communication = input.Communication,
                 Pounds = input.Pounds,
             });
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return "Навигатора е успешно създадено.";
 
         }
 
-        public string CreateParts(PartsViewModels input)
+        public async Task<string> CreateParts(PartsViewModels input)
         {
             dbContext.Add(new PartsCars
             {
@@ -127,27 +129,27 @@
                 Strength = input.Strength,
                 Speed = input.Speed,
             });
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return "Часта е успешно създадено.";
 
         }
 
-        private string GeneratingFirstName()
+        private async Task<string> GeneratingFirstName()
         {
             Random rnd = new Random();
             int first = rnd.Next(1, 100);
             var name = dbContext.FirstNames.Select(x => new { x.FirstName, x.Id })
-           .FirstOrDefault(x => x.Id == first).FirstName;
-            return name;
+           .FirstOrDefaultAsync(x => x.Id == first);
+            return name.Result.FirstName;
         }
 
-        private string GeneratingLastName()
+        private async Task<string> GeneratingLastName()
         {
             Random rnd = new Random();
             int last = rnd.Next(1, 100);
             var name = dbContext.LastNames.Select(x => new { x.LastName, x.Id })
-            .FirstOrDefault(x => x.Id == last).LastName;
-            return name;
+            .FirstOrDefaultAsync(x => x.Id == last);
+            return name.Result.LastName;
         }
     }
 }

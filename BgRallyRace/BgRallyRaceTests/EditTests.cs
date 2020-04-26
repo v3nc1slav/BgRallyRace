@@ -45,9 +45,9 @@
                 ImagName = "test",
             };
 
-            creat.CreateRunway(input);
+            creat.CreateRunwayAsync(input);
             var result = service.EditRunways(input1).Result;
-            var resultRunway = runways.GetRunway(1).Result;
+            var resultRunway = runways.GetRunwayAsync(1).Result;
 
             var resultId = resultRunway.Id;
             var resultImagName = resultRunway.ImagName;
@@ -91,7 +91,7 @@
                 Age = 30,
             };
 
-            creat.CreatePilot(input);
+            creat.CreatePilotAsync(input);
             var result = service.EditPilot(input1).Result;
             var resultPiot = pilot.GetPilot(1);
 

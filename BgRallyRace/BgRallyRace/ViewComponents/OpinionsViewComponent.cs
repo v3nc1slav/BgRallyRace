@@ -17,8 +17,10 @@
 
         public async Task< IViewComponentResult> InvokeAsync()
         {
-            var viewModel = new OpinionsViewModels();
-            viewModel.CountNotAuthorization = opinionsServices.GetCountNotAuthorization();
+            var viewModel = new OpinionsViewModels
+            {
+                CountNotAuthorization = opinionsServices.GetCountNotAuthorization()
+            };
             return View(viewModel);
         }
     }

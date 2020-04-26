@@ -28,7 +28,7 @@
             _logger.LogInformation("view runways");
             var viewModel = new RunwayViewModels
             {
-                Runways = runway.GetAllRunways(),
+                Runways = await runway.GetAllRunwaysAsync(),
                 Text = input,
             };
             return this.View(viewModel);
@@ -38,7 +38,7 @@
         public async Task<IActionResult> DetailsRunway(int id, string input = null )
         {
             _logger.LogInformation("view details runway");
-            var runwayId = await runway.GetRunway(id);
+            var runwayId = await runway.GetRunwayAsync(id);
             var viewModel = new RunwayViewModels
             {
                  Id = runwayId.Id,

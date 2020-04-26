@@ -31,7 +31,7 @@
                 StartRaceDate = date,
             };
 
-            var result = service.CreateCompetitions(input);
+            var result = service.CreateCompetitionsAsync(input);
 
             var resultName = competition.GetCompetitionName().Result;
             var resultId = competition.GetCompetitionId();
@@ -66,8 +66,8 @@
                 ImagName = "test",
             };
 
-            var result = service.CreateRunway(input);
-            var resultRunway = runway.GetRunway(1).Result;
+            var result = service.CreateRunwayAsync(input);
+            var resultRunway = runway.GetRunwayAsync(1).Result;
 
             var resultId = resultRunway.Id;
             var resultImagName = resultRunway.ImagName;
@@ -99,7 +99,7 @@
                 Age = 30,
             };
 
-            var result = service.CreatePilot(input);
+            var result = service.CreatePilotAsync(input);
             var resultPiot = pilot.GetPilot(1);
 
             var resultId = resultPiot.Id;
@@ -132,7 +132,7 @@
                 Energy = 100,
             };
 
-            var result = service.CreateNavigator(input);
+            var result = service.CreateNavigatorAsync(input);
             var resultPiot = pilot.GetNavigator(1);
 
             var resultId = resultPiot.Id;

@@ -24,7 +24,7 @@
 
         public async Task<string> EditRunways(RunwayViewModels newRunway)
         {
-            var oldRunway = runways.GetRunway(newRunway.Id).GetAwaiter().GetResult();
+            var oldRunway = runways.GetRunwayAsync(newRunway.Id).GetAwaiter().GetResult();
             oldRunway.Name = newRunway.NameRunway;
             oldRunway.Description = newRunway.Description;
             oldRunway.Difficulty = newRunway.Difficulty;

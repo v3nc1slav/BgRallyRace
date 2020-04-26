@@ -1,17 +1,18 @@
 ﻿namespace BgRallyRace.Services.Admin
 {
     using BgRallyRace.ViewModels;
+    using System.Threading.Tasks;
 
     public interface ICreateServices
     {
-        string CreateCompetitions(CompetitionsViewModels input);
+        Task<string> CreateCompetitionsAsync(CompetitionsViewModels input);
 
-        string CreateRunway(RunwayViewModels input);
+        Task<string> CreateRunwayAsync(RunwayViewModels input);
 
-        string CreatePilot(PilotViewModels input);
+        Task<string> CreatePilotAsync(PilotViewModels input);
 
-        string CreateNavigator(NavigatorViewModels input);
+        Task<string> CreateNavigatorAsync(NavigatorViewModels input);
 
-        string CreateParts(PartsViewModels input);
+        Task<string> CreateParts(PartsViewModels input);
     }
 }

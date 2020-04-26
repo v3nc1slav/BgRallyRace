@@ -179,7 +179,7 @@
         }
         public void IsWorking(int id)
         {
-            var pilot = dbContext.RallyPilots.Where(x => x.Id == id).First();
+            var pilot = dbContext.RallyNavigators.Where(x => x.Id == id).First();
             pilot.IsItWorking = true;
             dbContext.SaveChanges();
         }

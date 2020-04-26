@@ -1,19 +1,18 @@
 ﻿namespace BgRallyRace.Services.Runways
 {
     using BgRallyRace.Models.Competitions;
-    using BgRallyRace.ViewModels;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public interface IRunwaysServices
     {
-        Task<RallyRunway> GetRunwayForRace();
+        Task<RallyRunway> GetRunwayForRaceAsync();
 
-        List<RallyRunway> GetAllRunways();
+        Task<List<RallyRunway>> GetAllRunwaysAsync();
 
-        public RallyRunway GetRunwayForCurrentRace();
+        Task<RallyRunway> GetRunwayForCurrentRaceAsync();
 
-        Task<RallyRunway> GetRunway(int id);
+        Task<RallyRunway> GetRunwayAsync(int id);
 
     }
 }

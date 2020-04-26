@@ -234,7 +234,7 @@
             var startTeams = teams;
             pilots.AllPilotsNoWorking();
             navigators.AllNavigatorNoWorking();
-            var runway = runways.GetRunwayForRace().Result;
+            var runway = runways.GetRunwayForRaceAsync().Result;
             var stageOne = runway.TrackLength / 4;
             var stageTwo = runway.TrackLength / 2;
             var stageThree = runway.TrackLength / 4;
@@ -257,7 +257,7 @@
                 var navigator = navigators.GetNavigator(teams[i].NavigatorId);
                 var energyNavigator = navigators.EnergyNavigator(teams[i].NavigatorId) - stageOne * damageConstant;
                 people.ReduceEnergy(navigator, energyNavigator);
-                var teamRace = team.FindUser(teams[i].TeamId);
+                var teamRace = team.FindUserAsync(teams[i].TeamId).GetAwaiter().GetResult();
                 int drive;
                 if (i == 0)
                 {
@@ -388,7 +388,7 @@
                 var navigator = navigators.GetNavigator(teams[i].NavigatorId);
                 var energyNavigator = navigators.EnergyNavigator(teams[i].NavigatorId) - stageTwo * damageConstant;
                 people.ReduceEnergy(navigator, energyNavigator);
-                var teamRace = team.FindUser(teams[i].TeamId);
+                var teamRace = team.FindUserAsync(teams[i].TeamId).GetAwaiter().GetResult();
                 int drive ;
                 if (teams[i].Drive == DriveType.Aggressive)
                 {
@@ -494,7 +494,7 @@
                 var navigator = navigators.GetNavigator(teams[i].NavigatorId);
                 var energyNavigator = navigators.EnergyNavigator(teams[i].NavigatorId) - stageTwo * damageConstant;
                 people.ReduceEnergy(navigator, energyNavigator);
-                var teamRace = team.FindUser(teams[i].TeamId);
+                var teamRace = team.FindUserAsync(teams[i].TeamId).GetAwaiter().GetResult();
                 int drive;
                 if (teams[i].Drive == DriveType.Aggressive)
                 {

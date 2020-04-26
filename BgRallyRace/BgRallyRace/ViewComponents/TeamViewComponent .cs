@@ -19,8 +19,10 @@
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var viewModel = new TeamViewModels();
-            viewModel.Team = team.FindUser(User.Identity.Name);
+            var viewModel = new TeamViewModels
+            {
+                Team = await team.FindUserAsync(User.Identity.Name)
+            };
             return View(viewModel);
         }
     }

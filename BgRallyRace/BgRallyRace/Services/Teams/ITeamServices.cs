@@ -5,12 +5,12 @@
 
     public interface ITeamServices
     {
-        void CreateTeam(string text, string user);
+        Task CreateTeamAsync(string text, string user);
 
-        Team FindUser(string user);
+        Task<Team> FindUserAsync(string user);
 
-        Team FindUser(int id);
+        Task<Team> FindUserAsync(int id);
 
-        int GetTeamId(string user);
+        Task<int> GetTeamIdAsync(string user);
     }
 }

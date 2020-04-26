@@ -5,20 +5,29 @@
     using System;
     using System.Linq;
     using BgRallyRace.Models.Enums;
+    using System.Threading.Tasks;
+    using Microsoft.EntityFrameworkCore;
 
     public class OpinionsServices : IOpinionsServices
     {
         private readonly ApplicationDbContext dbContext;
-        private AuthorizationType indefinitely;
-        private AuthorizationType yes;
-        private AuthorizationType no;
+        private readonly AuthorizationType indefinitely;
+        private readonly AuthorizationType yes;
+        private readonly AuthorizationType no;
 
         public OpinionsServices(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        public string AddOpinion(string text, string user)
+        public OpinionsServices(AuthorizationType yes, AuthorizationType no, AuthorizationType indefinitely)
+        {
+            this.yes = yes;
+            this.no = no;
+            this.indefinitely = indefinitely;
+        }
+
+        public async Task<string> AddOpinionAsync(string text, string user)
         {
             dbContext.Opinions.Add(new Opinions
             {
@@ -28,76 +37,80 @@
                 IsDeleted = false,
                 authorizationOpinions = 0
             });
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return "Успешно, публикувахте мнение.";
         }
 
-        public Opinions[] GetOpinions(int page = 1)
+        public async Task<Opinions[]> GetOpinionsAsync(int page = 1)
         {
-            var result = dbContext.Opinions
+            var result = await dbContext.Opinions
                 .Where(x => x.authorizationOpinions == AuthorizationType.yes && x.IsDeleted == false)
                 .OrderByDescending(x => x.DateOfPublication)
                 .Skip((page-1)*10)
-                .Take(10)
+                .Take(10) 
                 .Select(x => new Opinions 
                 {   Id = x.Id, 
                     Content = x.Content, 
                     DateOfPublication = x.DateOfPublication, 
                     User = x.User 
                 })
-                .ToArray();
+                .ToArrayAsync();
             return result;
         }
 
-        public Opinions[] GetOpinionsForAdmin(int page = 1)
+        public async Task<Opinions[]> GetOpinionsForAdminAsync(int page = 1)
         {
-            var result = dbContext.Opinions
+            var result = await dbContext.Opinions
                 .Where(x => x.authorizationOpinions == indefinitely)
                 .OrderByDescending(x => x.DateOfPublication)
                 .Skip((page - 1) * 10)
                 .Take(10)
-                .Select(x => new Opinions { Id = x.Id, Content = x.Content }).ToArray();
+                .Select(x => new Opinions { Id = x.Id, Content = x.Content })
+                .ToArrayAsync();
             return result;
         }
 
-        public void MadeOpinionsInvisible(int[] id)
+        public async Task MadeOpinionsInvisibleAsync(int[] id)
         {
             for (int i = 0; i < id.Length; i++)
             {
-                var option = dbContext.Opinions.Where(x => x.Id == id[i]).First();
-                option.authorizationOpinions = AuthorizationType.no;
-                dbContext.SaveChanges();
+                var option = await dbContext.Opinions.Where(x => x.Id == id[i]).FirstAsync();
+                option.authorizationOpinions = no;
+                await dbContext.SaveChangesAsync();
             }
         }
 
-        public void MadeOpinionsVisible(int[] id)
+        public async Task MadeOpinionsVisibleAsync(int[] id)
         {
             for (int i = 0; i < id.Length; i++)
             {
-                var option = dbContext.Opinions.Where(x => x.Id == id[i]).First();
-                option.authorizationOpinions = AuthorizationType.yes;
-                dbContext.SaveChanges();
+                var option = await dbContext.Opinions.Where(x => x.Id == id[i]).FirstAsync();
+                option.authorizationOpinions = yes;
+                await dbContext.SaveChangesAsync();
             }
         }
 
         public int GetCountNotAuthorization()
         {
-            var opinions = this.GetOpinionsForAdmin();
+            var opinions =  this.GetOpinionsForAdminAsync().Result;
             var result = opinions.Length;
             return result;
         }
 
-        public void DeleteOpinion(int id)
+        public async Task DeleteOpinionAsync(int id)
         {
-            var opinions = dbContext.Opinions.Where(x => x.Id == id).First();
+            var opinions = await dbContext.Opinions
+                .Where(x => x.Id == id).FirstAsync();
             opinions.IsDeleted = true;
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
         }
 
         public int Total()
         {
            var result = dbContext.Opinions
-                .Where(x => x.authorizationOpinions == AuthorizationType.yes && x.IsDeleted == false)
+                .Where(x =>
+                x.authorizationOpinions == yes 
+                && x.IsDeleted == false)
                 .Count();
             return result;
         }

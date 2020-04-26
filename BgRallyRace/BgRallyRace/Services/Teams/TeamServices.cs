@@ -2,6 +2,7 @@
 {
     using BgRallyRace.Data;
     using BgRallyRace.Models;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using System.Threading.Tasks;
     public class TeamServices : ITeamServices
@@ -26,7 +27,7 @@
             this.navigator = navigatorsServices;
         }
 
-        public void CreateTeam(string text, string user)
+        public async Task CreateTeamAsync(string text, string user)
         {
             var numberMoney =  money.FindIdMoneyAccountAsync(user);
             var numberPilot = pilot.CreateRallyPilotsAsync();
@@ -48,24 +49,24 @@
             addCarId.TeamId = newTeam.Entity.Id;
             addPilotId.TeamId = newTeam.Entity.Id;
             addNavigatorId.TeamId = newTeam.Entity.Id;
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
         }
 
-        public Team FindUser(string user)
+        public async Task<Team> FindUserAsync(string user)
         {
-            var findUser =  dbContext.Teams.FirstOrDefault(a => a.User == user);
+            var findUser = await dbContext.Teams.FirstOrDefaultAsync(a => a.User == user);
             return findUser;
         }
 
-        public Team FindUser(int id)
+        public async Task<Team> FindUserAsync(int id)
         {
-            var findUser = dbContext.Teams.FirstOrDefault(a => a.Id == id);
+            var findUser = await dbContext.Teams.FirstOrDefaultAsync(a => a.Id == id);
             return findUser;
         }
 
-        public int GetTeamId(string user)
+        public async Task<int> GetTeamIdAsync(string user)
         {
-            var findUser = dbContext.Teams.FirstOrDefault(a => a.User == user).Id;
+            var findUser =  dbContext.Teams.FirstOrDefaultAsync(a => a.User == user).Id;
             return findUser;
         }
     }

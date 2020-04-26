@@ -3,7 +3,7 @@
     using BgRallyRace.Data;
     using BgRallyRace.Models.Enums;
     using BgRallyRace.Models.Home;
-    using System;
+    using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -17,11 +17,12 @@
             this.dbContext = dbContext;
         }
 
-        public List<FAQ> GetFAQ()
+        public async Task<List<FAQ>> GetFAQAsync()
         {
-            var FAQs =  dbContext.FAQs
-                .Where(x=>x.IsDeleted==false && x.authorizationOpinions == AuthorizationType.yes)
-                .ToList();
+            var FAQs = await dbContext.FAQs
+                .Where(x=>x.IsDeleted==false 
+                && x.authorizationOpinions == AuthorizationType.yes)
+                .ToListAsync();
             return FAQs;
         }
 

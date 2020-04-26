@@ -143,10 +143,10 @@
             var team = new TeamServices(repository, car, money, pilot, navigator);
 
             money.CreateMoneyAccount("Pesho");
-            team.CreateTeam("Vidin", "Pesho");
+            team.CreateTeamAsync("Vidin", "Pesho");
             marcet.RentalsPilot(3,"Pesho",100m);
 
-            var resultPilotId = team.FindUser(1).RallyPilotId;
+            var resultPilotId = team.FindUserAsync(1).RallyPilotId;
 
             Assert.Equal(3, resultPilotId);
         }

@@ -65,7 +65,7 @@
         public async Task<IActionResult> CreateTeam(string textTeam)
         {
             _logger.LogInformation("create team");
-            team.CreateTeam(textTeam, User.Identity.Name);
+            await team.CreateTeamAsync(textTeam, User.Identity.Name);
             return RedirectToAction("Index", "Home");
         }
 

@@ -40,7 +40,7 @@
         {
             _logger.LogInformation("Vieew Rally Еntry");
             var user = User.Identity.Name;
-            var team = teams.FindUser(user);
+            var team = await teams.FindUserAsync(user);
             var viewModel = new TeamViewModels
             {
                 Id = team.Id,
@@ -49,8 +49,8 @@
                 StartRaceDate = competitions.GetStartDate().Result.ToString("D"),
                 RallyPilots = pilots.GetPilots(user),
                 RallyNavigators = navigators.GetNavigators(user),
-                Runway = runways.GetRunwayForCurrentRace(),
-                TeamId = teams.GetTeamId(user),
+                Runway = await runways.GetRunwayForCurrentRaceAsync(),
+                TeamId = await teams.GetTeamIdAsync(user),
                 CompetitionId = competitions.GetCompetitionId(),
                 CompetitionName = competitions.GetCompetitionName().Result,
                 Text = input,

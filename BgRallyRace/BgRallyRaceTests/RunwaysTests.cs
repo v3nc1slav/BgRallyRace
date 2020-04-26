@@ -44,9 +44,9 @@
                 ImagName = "test",
             };
 
-            creat.CreateRunway(input);
-            creat.CreateRunway(input1);
-            var resultRunway = service.GetAllRunways();
+            creat.CreateRunwayAsync(input);
+            creat.CreateRunwayAsync(input1);
+            var resultRunway = service.GetAllRunwaysAsync();
 
             var resultId = resultRunway[0].Id;
             var resultImagName = resultRunway[0].ImagName;

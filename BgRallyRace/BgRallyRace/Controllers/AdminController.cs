@@ -40,7 +40,7 @@
 
 
         [HttpGet]
-        public async Task<IActionResult> CreateRunway(string input = null)
+        public async Task<IActionResult> CreateRunway(string? input)
         {
             _logger.LogInformation("admin view create runway");
             var viewModel = new RunwayViewModels
@@ -58,7 +58,7 @@
             {
                 return this.View(input);
             }
-            var text = create.CreateRunway(input);
+            var text = await create.CreateRunwayAsync(input);
             return this.RedirectToAction("CreateRunway", "Admin", new { input = text});
         }
 
@@ -66,7 +66,7 @@
         public async Task<IActionResult> EditRunway(int id)
         {
             _logger.LogInformation("admin view edit runway");
-            var runway = await runways.GetRunway(id);
+            var runway = await runways.GetRunwayAsync(id);
             var viewModel = new RunwayViewModels
             {
                 NameRunway = runway.Name,
@@ -132,7 +132,7 @@
             {
                 return this.View(input);
             }
-            var text = create.CreatePilot(input);
+            var text = await create.CreatePilotAsync(input);
             return this.RedirectToAction("CreatePilot", "Admin", new { input = text});
         }
 
@@ -212,7 +212,7 @@
             {
                 return this.View(input);
             }
-            var text = create.CreateNavigator(input);
+            var text = await create.CreateNavigatorAsync(input);
             return this.RedirectToAction("CreateNavigator", "Admin", new { input = text });
         }
 
@@ -222,7 +222,7 @@
             _logger.LogInformation("admin view opinions");
             var viewModel = new OpinionsViewModels
             {
-                OpinionsForAdmin = opinions.GetOpinionsForAdmin(),
+                OpinionsForAdmin = await opinions.GetOpinionsForAdminAsync(),
                 CountNotAuthorization = opinions.GetCountNotAuthorization(),
             };
 
@@ -233,8 +233,8 @@
         public async Task<IActionResult> AuthorizationOpinions(int[] opinionsVisible, int[] opinionsInvisible)
         {
             _logger.LogInformation("admin authorization opinions");
-            opinions.MadeOpinionsVisible(opinionsVisible);
-            opinions.MadeOpinionsInvisible(opinionsInvisible);
+           await opinions.MadeOpinionsVisibleAsync(opinionsVisible);
+           await opinions.MadeOpinionsInvisibleAsync(opinionsInvisible);
             return RedirectToAction("Opinions", "Admin");
         }
 
@@ -292,7 +292,7 @@
             _logger.LogInformation("admin view creat competitions");
             var view = new CompetitionsViewModels
             {
-                Runways = runways.GetAllRunways(),
+                Runways = await runways.GetAllRunwaysAsync(),
                 Text = input,
             };
             return this.View(view);
@@ -306,7 +306,7 @@
             {
                 return this.View(input);
             }
-            create.CreateCompetitions(input);
+            await create.CreateCompetitionsAsync(input);
             return this.RedirectToAction("Index", "Home");
         }
 
@@ -321,7 +321,7 @@
                 Name = competition.Name,
                 PrizeFund = competition.PrizeFund,
                 Stages = competition.Stages,
-                Runways = runways.GetAllRunways(),
+                Runways = await runways.GetAllRunwaysAsync(),
                 StartRaceDate = competition.StartRaceDate,
             };
 

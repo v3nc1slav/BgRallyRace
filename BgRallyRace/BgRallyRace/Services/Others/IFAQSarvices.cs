@@ -8,6 +8,6 @@
 
     public interface IFAQSarvices
     {
-       public List<FAQ> GetFAQ();
+       Task<List<FAQ>> GetFAQAsync();
     }
 }

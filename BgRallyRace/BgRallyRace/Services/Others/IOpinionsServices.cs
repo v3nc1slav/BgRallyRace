@@ -1,22 +1,23 @@
 ﻿namespace BgRallyRace.Services
 {
     using BgRallyRace.Models;
+    using System.Threading.Tasks;
 
     public interface IOpinionsServices
     {
-        string AddOpinion(string text, string user);
+        Task<string> AddOpinionAsync(string text, string user);
 
-        Opinions[] GetOpinions(int page = 1);
+        Task<Opinions[]> GetOpinionsAsync(int page = 1);
 
-        Opinions[] GetOpinionsForAdmin(int page = 1);
+        Task<Opinions[]> GetOpinionsForAdminAsync(int page = 1);
 
-        void MadeOpinionsInvisible(int[] id);
+        Task MadeOpinionsInvisibleAsync(int[] id);
 
-        void MadeOpinionsVisible(int[] id);
+        Task MadeOpinionsVisibleAsync(int[] id);
 
         public int GetCountNotAuthorization();
 
-        void DeleteOpinion(int id);
+       Task DeleteOpinionAsync(int id);
 
         int Total();
     }

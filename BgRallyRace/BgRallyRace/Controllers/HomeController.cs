@@ -45,7 +45,7 @@
             {
                 CountNotAuthorization = opinions.GetCountNotAuthorization(),
                 StartDate = competitions.GetStartDate().Result,
-                Team = team.FindUser(User.Identity.Name)
+                Team =await team.FindUserAsync(User.Identity.Name)
             };
             return this.View(viewModel);
         }
@@ -57,7 +57,7 @@
             //competitions.StartRally();
             var viewModel = new OpinionsViewModels
             {
-                Opinions = opinions.GetOpinions(page),
+                Opinions = await opinions.GetOpinionsAsync(page),
                 CurrentPage = page,
                 Total = opinions.Total(),
                 Text = input,
@@ -71,7 +71,7 @@
             _logger.LogInformation("view FAQ");
             var viewModel = new FAQViewModels
             {
-                FAQs = fAQServices.GetFAQ(),
+                FAQs = await fAQServices.GetFAQAsync(),
             };
             return this.View(viewModel);
         }
@@ -87,14 +87,14 @@
         public async Task<IActionResult> Opinion(OpinionsViewModels input)
         {
             _logger.LogInformation("add opinion");
-            var text = string.Empty;
+            string text;
             if (!this.ModelState.IsValid)
             {
                 text = "Неможе да побликувате празно мниние.";
             }
             else
             {
-                text = opinions.AddOpinion(input.Opinion, User.Identity.Name);
+                text = await opinions.AddOpinionAsync(input.Opinion, User.Identity.Name);
             }
             return this.RedirectToAction("Opinion", "Home", new {input = text });
         }
@@ -123,7 +123,7 @@
         public async Task<IActionResult> DeleteOpinion(int id)
         {
             _logger.LogInformation("view opinion");
-            opinions.DeleteOpinion(id);
+            await opinions.DeleteOpinionAsync(id);
             return this.RedirectToAction("Opinion", "Home");
         }
 

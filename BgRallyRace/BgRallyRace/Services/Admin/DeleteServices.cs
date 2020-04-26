@@ -11,7 +11,8 @@
         private readonly IRunwaysServices runways;
         private readonly IRallyPilotsServices pilots;
 
-        public DeleteServices(ApplicationDbContext dbContext, IRunwaysServices runwaysServices, IRallyPilotsServices pilotsServices)
+        public DeleteServices(ApplicationDbContext dbContext, IRunwaysServices runwaysServices,
+            IRallyPilotsServices pilotsServices)
         {
             this.dbContext = dbContext;
             this.runways = runwaysServices;
@@ -20,7 +21,7 @@
 
         public async Task<string> DeleteRunways(int id)
         {
-            var runway = runways.GetRunway(id).GetAwaiter().GetResult();
+            var runway = runways.GetRunwayAsync(id).GetAwaiter().GetResult();
             runway.IsDeleted = true;
             await dbContext.SaveChangesAsync();
             return "Пистата, е изтрита успешно.";
