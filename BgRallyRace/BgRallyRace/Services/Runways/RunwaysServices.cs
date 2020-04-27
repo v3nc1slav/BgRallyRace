@@ -57,7 +57,7 @@
         {
             var runway = await dbContext.RallyRunways
                 .Where(x => x.Id == id && x.IsDeleted == false)
-                .FirstAsync();
+                .FirstOrDefaultAsync();
             return runway;
         }
 

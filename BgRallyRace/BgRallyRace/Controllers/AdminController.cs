@@ -11,6 +11,7 @@
     using BgRallyRace.Services.Runways;
     using BgRallyRace.Models;
     using BgRallyRace.Services.Competitions;
+    using System.Net;
 
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
@@ -67,6 +68,11 @@
         {
             _logger.LogInformation("admin view edit runway");
             var runway = await runways.GetRunwayAsync(id);
+            if (runway == null)
+            {
+               // Response.StatusCode = (int)HttpStatusCode.NotFound;
+                return this.RedirectToAction("NotFound", "Error");
+            }
             var viewModel = new RunwayViewModels
             {
                 NameRunway = runway.Name,

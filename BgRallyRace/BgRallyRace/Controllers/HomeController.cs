@@ -43,7 +43,6 @@
             _logger.LogInformation("view index");
             var viewModel = new IndexViewModel
             {
-                CountNotAuthorization = opinions.GetCountNotAuthorization(),
                 StartDate = competitions.GetStartDate().Result,
                 Team =await team.FindUserAsync(User.Identity.Name)
             };

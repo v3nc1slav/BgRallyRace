@@ -24,8 +24,6 @@
     <div class="leftBackgroundAdmin">
         <a class="nav-link " asp-controller="Admin" asp-action="Opinions">
             Оторизация на мнения
-            @if (Model.CountNotAuthorization > 0)
-            {
                 <span>
                     <marcheswidget>
                         <div id="marchesWidgets">
@@ -37,7 +35,6 @@
                         </div>
                     </marcheswidget>
                 </span>
-            }
         </a>
         <a class="nav-link " asp-controller="Runway" asp-action="Runway">Писти </a>
         <a class="nav-link " asp-controller="Admin" asp-action="Pilots">Пилоти </a>

@@ -23,9 +23,9 @@
             var team = new TeamServices(repository, car, money, pilot, navigator);
 
             money.CreateMoneyAccount("Pesho");
-            team.CreateTeamAsync("Vidin", "Pesho");
+            team.CreateTeamAsync("Vidin", "Pesho").GetAwaiter().GetResult();
 
-            var t = team.FindUserAsync("Pesho");
+            var t = team.FindUserAsync("Pesho").Result;
             var id = t.RallyPilotId;
 
         }
