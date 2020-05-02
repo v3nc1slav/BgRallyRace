@@ -13,17 +13,20 @@
             <form asp-controller="Admin" asp-action="EditRunway" method="post" class="form-group">
                 <div>
                     <label asp-for="NameRunway">Име на пистата</label>
-                    <input asp-for="NameRunway" class="form-control" placeholder="Име" />
+                    <input asp-for="NameRunway" class="form-control" placeholder="Име"
+                           data-placement="top" title="Редактирай името на пистата" />
                     <span asp-validation-for="NameRunway" class="text-danger"></span>
                 </div>
                 <div>
                     <label asp-for="TrackLength">Дължина на пистата</label>
-                    <input asp-for="TrackLength" class="form-control" placeholder="100.25км" />
+                    <input asp-for="TrackLength" class="form-control" placeholder="100.25км"
+                           data-placement="top" title="Редактирай дължината на пистата" />
                     <span asp-validation-for="TrackLength" class="text-danger"></span>
                 </div>
                 <div>
                     <label asp-for="Difficulty">Трудност на пистата </label>
-                    <select asp-for="Difficulty" class="form-control" />
+                    <select asp-for="Difficulty" class="form-control"
+                            data-placement="top" title="Редактирай трудноста на пистата" />
                     <option value="Easy">Лесна</option>
                     <option value="Average">Средно</option>
                     <option value="Difficult">Сложна </option>
@@ -31,15 +34,18 @@
                 </div>
                 <div>
                     <label asp-for="Description">Описание</label>
-                    <input asp-for="Description" class="form-control" placeholder="Описание" />
+                    <input asp-for="Description" class="form-control" placeholder="Описание" 
+                           data-placement="top" title="Редактирай описание за пистата"/>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div>
                     <label asp-for="ImagName">Име на снимката</label>
-                    <input asp-for="ImagName" class="form-control" placeholder="imag.png/jpg" />
+                    <input asp-for="ImagName" class="form-control" placeholder="imag.png/jpg"
+                           data-placement="top" title="Редактирай снимката за пистата" />
                     <span asp-validation-for="ImagName" class="text-danger"></span>
                 </div>
-                <button type="submit" class="btn btn-secondary">Редактирай</button>
+                <button type="submit" class="btn btn-secondary" data-toggle="tooltip" 
+                        data-placement="top" title="Редактирай пистата">Редактирай</button>
             </form>
         </a>
     </div>

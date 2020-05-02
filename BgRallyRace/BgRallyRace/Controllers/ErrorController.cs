@@ -7,6 +7,8 @@
     {
         public IActionResult NotFound()
         {
+            Response.StatusCode = 404;
+
             return View();
         }
     }

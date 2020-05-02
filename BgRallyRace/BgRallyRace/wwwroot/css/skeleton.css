@@ -67,6 +67,19 @@ main {
     display: block;
 }
 
+.Error {
+    background-image: url(/images/error.jpg);
+    border-color: #d6d8db;
+    background-clip: border-box;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    background-attachment: fixed;
+    width: 1024px;
+    height: 512px;
+    display: block;
+}
+
 .leftBackground {
     background: #839496 linear-gradient(180deg, #96a4a6, #839496) repeat-x;
     border-color: #d6d8db;

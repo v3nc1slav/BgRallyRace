@@ -76,6 +76,7 @@ namespace BgRallyRace
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ICompetitionsServices competitions)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -95,7 +96,7 @@ namespace BgRallyRace
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseStatusCodePages();
+            //app.UseStatusCodePages();
 
             competitions.HasIsStartedAsync();
 

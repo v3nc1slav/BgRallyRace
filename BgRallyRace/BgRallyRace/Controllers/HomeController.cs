@@ -13,6 +13,7 @@
     using BgRallyRace.Services.Competitions;
     using BgRallyRace.Models.Home;
     using BgRallyRace.Services.Others;
+    using System.Net;
 
     public class HomeController : Controller
     {
@@ -52,8 +53,8 @@
         [HttpGet]
         public async Task<IActionResult> Opinion(int page = 1, string input = null)
         {
+
             _logger.LogInformation("view opinion");
-            //competitions.StartRally();
             var viewModel = new OpinionsViewModels
             {
                 Opinions = await opinions.GetOpinionsAsync(page),
@@ -129,6 +130,8 @@
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> Error()
         {
+            Response.StatusCode = (int)HttpStatusCode.NotFound;
+            return this.RedirectToAction("NotFound", "Error");
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }

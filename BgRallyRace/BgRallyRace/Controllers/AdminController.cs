@@ -70,7 +70,7 @@
             var runway = await runways.GetRunwayAsync(id);
             if (runway == null)
             {
-               // Response.StatusCode = (int)HttpStatusCode.NotFound;
+                Response.StatusCode = (int)HttpStatusCode.NotFound;
                 return this.RedirectToAction("NotFound", "Error");
             }
             var viewModel = new RunwayViewModels
@@ -102,6 +102,11 @@
         {
             _logger.LogInformation("admin delete runway");
             var text = await delete.DeleteRunways(id);
+            if (text == null)
+            {
+                Response.StatusCode = (int)HttpStatusCode.NotFound;
+                return this.RedirectToAction("NotFound", "Error");
+            }
             return this.RedirectToAction("Runway", "Runway", new { input = text});
         }
 

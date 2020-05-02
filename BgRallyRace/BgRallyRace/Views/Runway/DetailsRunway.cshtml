@@ -3,6 +3,7 @@
     ViewData["Title"] = "DetailsRunway";
 }
 
+
 @if (Model.Text != null)
 {
 
@@ -28,12 +29,12 @@
                         <div class="form-group row">
                             <div class="col-sm-6">
                                 <a class="btn btn-default btn-sm" asp-controller="Admin" asp-action="EditRunway" asp-route-id="@Model.Id">
-                                    <i class="fa fa-pencil">Редактирай</i>
+                                    <i class="fa fa-pencil" data-placement="top" title="Редактиране на пистата">Редактирай</i>
                                 </a>
                             </div>
                             <div class="col-sm-6">
                                 <a class="btn" asp-controller="Admin" asp-action="DeleteRunway" asp-route-id="@Model.Id">
-                                    <i class="fa fa-trash">Изтрии</i>
+                                    <i class="fa fa-trash" data-placement="top" title="Изтриване на пистата">Изтрии</i>
                                 </a>
                             </div>
                         </div>

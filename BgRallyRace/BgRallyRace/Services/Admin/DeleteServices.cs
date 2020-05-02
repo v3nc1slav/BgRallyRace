@@ -22,6 +22,10 @@
         public async Task<string> DeleteRunways(int id)
         {
             var runway = runways.GetRunwayAsync(id).GetAwaiter().GetResult();
+            if (runway == null)
+            {
+                return null;
+            }
             runway.IsDeleted = true;
             await dbContext.SaveChangesAsync();
             return "Пистата, е изтрита успешно.";
