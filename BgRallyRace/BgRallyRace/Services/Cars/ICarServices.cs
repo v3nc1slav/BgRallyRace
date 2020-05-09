@@ -7,13 +7,13 @@
     using System.Threading.Tasks;
     public interface ICarServices
     {
-        int GetCarId(string user);
+        Task<int> GetCarId(string user);
 
-        List<Cars> GetCars(string user);
+        Task<List<Cars>> GetCars(string user);
 
-        Cars GetCar(int id);
+        Task<Cars> GetCar(string user);
 
-        Cars GetCar(string user);
+        Task<Cars> GetCar(int id);
 
         Aerodynamics GetAerodynamics(string user);
 
@@ -45,11 +45,13 @@
 
         void GetNewTurbo(PartsCars part, Cars car);
 
+        Task<Turbo> GetTurboId(int? id);
+
         decimal GetCurrentSpeed(Parts parts);
 
-        int CreateCarsAsync();
+        Task<int> CreateCarsAsync();
 
-        string Repair(string type, int id, decimal price, string user);
+        Task<string> Repair(string type, int id, decimal price, string user);
 
         void Damage(int carId, int typeDamage, DifficultyType difficulty);
 

@@ -32,7 +32,7 @@
             var numberMoney =  money.FindIdMoneyAccountAsync(user);
             var numberPilot = pilot.CreateRallyPilotsAsync();
             var numberNavigator =  navigator.CreateRallyNavigatorsAsync();
-            var numberCar =  car.CreateCarsAsync();
+            var numberCar =  car.CreateCarsAsync().Result;
             var newTeam =  dbContext.Teams.Add(new Team
             {
                 Name = text,
@@ -43,7 +43,7 @@
                 CarId = numberCar,
             }) ;
             dbContext.SaveChanges();
-            var addCarId = car.GetCar(numberCar);
+            var addCarId = car.GetCar(numberCar).Result;
             var addPilotId = pilot.GetPilot(numberPilot);
             var addNavigatorId = navigator.GetNavigator(numberNavigator);
             addCarId.TeamId = newTeam.Entity.Id;

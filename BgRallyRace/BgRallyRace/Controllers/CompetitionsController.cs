@@ -45,7 +45,7 @@
             {
                 Id = team.Id,
                 Name = team.Name,
-                Cars = cars.GetCar(user),
+                Cars = cars.GetCar(user).Result,
                 StartRaceDate = competitions.GetStartDate().Result.ToString("D"),
                 RallyPilots = pilots.GetPilots(user),
                 RallyNavigators = navigators.GetNavigators(user),

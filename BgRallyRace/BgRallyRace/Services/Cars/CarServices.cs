@@ -4,6 +4,7 @@
     using BgRallyRace.Models;
     using BgRallyRace.Models.Enums;
     using BgRallyRace.Models.PartsCar;
+    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -38,27 +39,27 @@
             this.money = accountServices;
         }
 
-        public int GetCarId(string user)
+        public async Task<int> GetCarId(string user)
         {
-            var carId = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars.Id).FirstOrDefault();
+            var carId = await dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars.Id).FirstOrDefaultAsync();
             return carId;
         }
 
-        public List<Cars> GetCars(string user)
+        public async Task<List<Cars>> GetCars(string user)
         {
-            var cars = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars).ToList();
+            var cars = await dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars).ToListAsync();
             return cars;
         }
 
-        public Cars GetCar(string user)
+        public async Task<Cars> GetCar(string user)
         {
-            var car = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars).FirstOrDefault();
+            var car = await dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars).FirstOrDefaultAsync();
             return car;
         }
-        
-        public Cars GetCar(int id)
+
+        public async Task<Cars> GetCar(int id)
         {
-            var car = dbContext.Cars.Where(x => x.Id == id).FirstOrDefault();
+            var car = await dbContext.Cars.Where(x => x.Id == id).FirstOrDefaultAsync();
             return car;
         }
         
@@ -140,9 +141,9 @@
             return variable;
         }
 
-        public Turbo GetTurboId(int? id)
+        public async Task<Turbo> GetTurboId(int? id)
         {
-            var variable = dbContext.Cars.Where(x => x.TurboId == id).Select(x => x.Turbo).FirstOrDefault();
+            var variable = await dbContext.Cars.Where(x => x.TurboId == id).Select(x => x.Turbo).FirstOrDefaultAsync();
             return variable;
         }
 
@@ -161,43 +162,43 @@
         public void GetNewAerodynamics(PartsCars part, Cars car)
         {
             var oldPart = GetAerodynamics(car.AerodynamicsId);
-            Substitution(part, oldPart);
+            Substitution(part, oldPart).GetAwaiter();
         }
 
         public void GetNewBrakes(PartsCars part, Cars car)
         {
             var oldPart = GetBrakes(car.BrakesId);
-            Substitution(part, oldPart);
+            Substitution(part, oldPart).GetAwaiter();
         }
 
         public void GetNewEngine(PartsCars part, Cars car)
         {
             var oldPart = GetEngine(car.EngineId);
-            Substitution(part, oldPart);
+            Substitution(part, oldPart).GetAwaiter();
         }
 
         public void GetNewGearbox(PartsCars part, Cars car)
         {
             var oldPart = GetGearboxs(car.GearboxId);
-            Substitution(part, oldPart);
+            Substitution(part, oldPart).GetAwaiter();
         }
 
         public void GetNewModelsCar(PartsCars part, Cars car)
         {
             var oldPart = GetModelsCars(car.ModelCarId);
-            Substitution(part, oldPart);
+            Substitution(part, oldPart).GetAwaiter();
         }
 
         public void GetNewMountings(PartsCars part, Cars car)
         {
             var oldPart = GetMountings(car.MountingId);
-            Substitution(part, oldPart);
+            Substitution(part, oldPart).GetAwaiter();
         }
 
         public void GetNewTurbo(PartsCars part, Cars car)
         {
-            var oldPart = GetTurboId(car.TurboId);
-            SubstitutionTurvo(part, oldPart, car.Id);
+            var oldPart = GetTurboId(car.TurboId).Result;
+            SubstitutionTurvo(part, oldPart, car.Id).GetAwaiter();
         }
 
         public decimal GetCurrentSpeed(Parts parts)
@@ -220,33 +221,33 @@
             return speed;
         }
 
-        public int CreateCarsAsync()
+        public async Task<int> CreateCarsAsync()
         {
-            var aerodynamics = dbContext.Aerodynamics.Add(new Aerodynamics { Name = name, Price = price, Strength = strength, Speed = 10 });
-            var brakes = dbContext.Brakes.Add(new Brakes { Name = name, Price = price, Strength = strength, Speed = 17 });
-            var engines = dbContext.Engines.Add(new Engines { Name = name, Price = price, Strength = strength, Speed = 45 });
-            var gearboxs = dbContext.Gearboxs.Add(new Gearboxs { Name = name, Price = price, Strength = strength, Speed = 30 });
-            var model = dbContext.ModelsCars.Add(new ModelsCars { Name = name, Price = price, Strength = strength, Speed = 15 });
-            var mountings = dbContext.Mountings.Add(new Mountings { Name = name, Price = price, Strength = strength, Speed = 25 });
-            dbContext.SaveChanges();
-            var car = dbContext.Cars.Add(new Cars
+            var aerodynamics = dbContext.Aerodynamics.AddAsync(new Aerodynamics { Name = name, Price = price, Strength = strength, Speed = 10 });
+            var brakes = dbContext.Brakes.AddAsync(new Brakes { Name = name, Price = price, Strength = strength, Speed = 17 });
+            var engines = dbContext.Engines.AddAsync(new Engines { Name = name, Price = price, Strength = strength, Speed = 45 });
+            var gearboxs = dbContext.Gearboxs.AddAsync(new Gearboxs { Name = name, Price = price, Strength = strength, Speed = 30 });
+            var model = dbContext.ModelsCars.AddAsync(new ModelsCars { Name = name, Price = price, Strength = strength, Speed = 15 });
+            var mountings = dbContext.Mountings.AddAsync(new Mountings { Name = name, Price = price, Strength = strength, Speed = 25 });
+            await dbContext.SaveChangesAsync();
+            var car = dbContext.Cars.AddAsync(new Cars
             {
-                Aerodynamics = aerodynamics.Entity,
-                Brakes = brakes.Entity,
-                Engine = engines.Entity,
-                Gearbox = gearboxs.Entity,
-                ModelCar = model.Entity,
-                Mounting = mountings.Entity,
+                Aerodynamics = aerodynamics.GetAwaiter().GetResult().Entity,
+                Brakes = brakes.GetAwaiter().GetResult().Entity,
+                Engine = engines.GetAwaiter().GetResult().Entity,
+                Gearbox = gearboxs.GetAwaiter().GetResult().Entity,
+                ModelCar = model.GetAwaiter().GetResult().Entity,
+                Mounting = mountings.GetAwaiter().GetResult().Entity,
             });
-            dbContext.SaveChanges();
-            var id = car.Entity.Id;
+            await dbContext.SaveChangesAsync();
+            var id = car.GetAwaiter().GetResult().Entity.Id;
             return id;
         }
 
-        public string Repair(string type, int id, decimal price, string user)
+        public async Task<string> Repair(string type, int id, decimal price, string user)
         {
 
-            var team = dbContext.Teams.Where(x => x.User == user).FirstOrDefault();
+            var team = await dbContext.Teams.Where(x => x.User == user).FirstOrDefaultAsync();
 
             if ((team.RallyPilotId ?? 0) == 0) ;
             if ((team.RallyNavigatorId ?? 0) == 0) ;
@@ -264,70 +265,70 @@
 
             if (type == "Aerodynamics")
             {
-                var typeParts = dbContext.Aerodynamics.Where(x => x.Id == id).FirstOrDefault();
+                var typeParts = await dbContext.Aerodynamics.Where(x => x.Id == id).FirstOrDefaultAsync();
                 if (typeParts.Strength == 100)
                 {
                     return "Часта е напълно здрава.";
                 }
-                RepairParts(typeParts, rallyPilots, idPilot, rallyNavigators, idNavigator);
+                RepairParts(typeParts, rallyPilots, idPilot, rallyNavigators, idNavigator).GetAwaiter(); ;
             }
             else if (type == "Brakes")
             {
-                var typeParts = dbContext.Brakes.Where(x => x.Id == id).FirstOrDefault();
+                var typeParts = await dbContext.Brakes.Where(x => x.Id == id).FirstOrDefaultAsync();
                 if (typeParts.Strength == 100)
                 {
                     return "Часта е напълно здрава.";
                 }
-                RepairParts(typeParts, rallyPilots, idPilot, rallyNavigators, idNavigator);
+                RepairParts(typeParts, rallyPilots, idPilot, rallyNavigators, idNavigator).GetAwaiter(); ;
             }
             else if (type == "Engines")
             {
-                var typeParts = dbContext.Engines.Where(x => x.Id == id).FirstOrDefault();
+                var typeParts = await dbContext.Engines.Where(x => x.Id == id).FirstOrDefaultAsync();
                 if (typeParts.Strength == 100)
                 {
                     return "Часта е напълно здрава.";
                 }
-                RepairParts(typeParts, rallyPilots, idPilot, rallyNavigators, idNavigator);
+                RepairParts(typeParts, rallyPilots, idPilot, rallyNavigators, idNavigator).GetAwaiter(); ;
             }
             else if (type == "Gearboxs")
             {
-                var typeParts = dbContext.Gearboxs.Where(x => x.Id == id).FirstOrDefault();
+                var typeParts = await dbContext.Gearboxs.Where(x => x.Id == id).FirstOrDefaultAsync();
                 if (typeParts.Strength == 100)
                 {
                     return "Часта е напълно здрава.";
                 }
-                RepairParts(typeParts, rallyPilots, idPilot, rallyNavigators, idNavigator);
+                RepairParts(typeParts, rallyPilots, idPilot, rallyNavigators, idNavigator).GetAwaiter(); ;
             }
             else if (type == "ModelsCars")
             {
-                var typeParts = dbContext.ModelsCars.Where(x => x.Id == id).FirstOrDefault();
+                var typeParts = await dbContext.ModelsCars.Where(x => x.Id == id).FirstOrDefaultAsync();
                 if (typeParts.Strength == 100)
                 {
                     return "Часта е напълно здрава.";
                 }
-                RepairParts(typeParts, rallyPilots, idPilot, rallyNavigators, idNavigator);
+                RepairParts(typeParts, rallyPilots, idPilot, rallyNavigators, idNavigator).GetAwaiter(); ;
             }
             else if (type == "Mountings")
             {
-                var typeParts = dbContext.Mountings.Where(x => x.Id == id).FirstOrDefault();
+                var typeParts = await dbContext.Mountings.Where(x => x.Id == id).FirstOrDefaultAsync();
                 if (typeParts.Strength == 100)
                 {
                     return "Часта е напълно здрава.";
                 }
-                RepairParts(typeParts, rallyPilots, idPilot, rallyNavigators, idNavigator);
+                RepairParts(typeParts, rallyPilots, idPilot, rallyNavigators, idNavigator).GetAwaiter(); ;
             }
             else if (type == "Turbo")
             {
-                var typeParts = dbContext.Turbos.Where(x => x.Id == id).FirstOrDefault();
+                var typeParts = await dbContext.Turbos.Where(x => x.Id == id).FirstOrDefaultAsync();
                 if (typeParts.Strength == 100)
                 {
                     return "Часта е напълно здрава.";
                 }
-                RepairParts(typeParts, rallyPilots, idPilot, rallyNavigators, idNavigator);
+                RepairParts(typeParts, rallyPilots, idPilot, rallyNavigators, idNavigator).GetAwaiter(); ;
             }
 
             money.ExpenseAccountAsync(price, user);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return "Ремонта, бе извършен успешно";
         }
 
@@ -335,19 +336,19 @@
         {
             if (typeDamage == 1)
             {
-                DamageStage(carId, difficulty, 1);
+                DamageStage(carId, difficulty, 1).GetAwaiter();
             }
             else if (typeDamage == 2)
             {
-                DamageStage(carId, difficulty, 2);
+                DamageStage(carId, difficulty, 2).GetAwaiter();
             }
             else if (typeDamage == 3)
             {
-                DamageStage(carId, difficulty, 3);
+                DamageStage(carId, difficulty, 3).GetAwaiter();
             }
         }
 
-        private void DamageStage(int carId, DifficultyType difficulty, int stages)
+        private async Task DamageStage(int carId, DifficultyType difficulty, int stages)
         {
             int stage = 0;
             stage = (stages) switch
@@ -359,87 +360,87 @@
             };
             if (difficulty == DifficultyType.Easy)
             {
-                var aerodynamics = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Aerodynamics).FirstOrDefault();
+                var aerodynamics = await dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Aerodynamics).FirstOrDefaultAsync();
                 aerodynamics.Strength -= (int)(stage * difficultyTypeEasy);
                 aerodynamics.Strength = ItIsNegative(aerodynamics);
-               var brakes = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Brakes).FirstOrDefault();
+               var brakes = await dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Brakes).FirstOrDefaultAsync();
                 brakes.Strength -= (int)(stage * difficultyTypeEasy);
                 brakes.Strength = ItIsNegative(brakes);
-                var engine = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Engine).FirstOrDefault();
+                var engine = await dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Engine).FirstOrDefaultAsync();
                 engine.Strength -= (int)(stage * difficultyTypeEasy);
                 engine.Strength = ItIsNegative(engine);
-                var gearbox = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Gearbox).FirstOrDefault();
+                var gearbox = await dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Gearbox).FirstOrDefaultAsync();
                 gearbox.Strength -= stage;
                 gearbox.Strength = ItIsNegative(gearbox);
-                var modelCar = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.ModelCar).FirstOrDefault();
+                var modelCar = await dbContext.Cars.Where(x => x.Id == carId).Select(x => x.ModelCar).FirstOrDefaultAsync();
                 modelCar.Strength -= stage;
                 modelCar.Strength = ItIsNegative(modelCar);
-                var mounting = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Mounting).FirstOrDefault();
+                var mounting = await dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Mounting).FirstOrDefaultAsync();
                 mounting.Strength -= stage;
                 mounting.Strength = ItIsNegative(mounting);
-                var turbo = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Turbo).FirstOrDefault();
+                var turbo = await dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Turbo).FirstOrDefaultAsync();
                 if (turbo != null)
                 {
                     turbo.Strength -= stage;
                     turbo.Strength = ItIsNegative(turbo);
                 }
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync();
             }
             else if (difficulty == DifficultyType.Average)
             {
-                var aerodynamics = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Aerodynamics).FirstOrDefault();
+                var aerodynamics = await dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Aerodynamics).FirstOrDefaultAsync();
                 aerodynamics.Strength -= (int)(stage * difficultyTypeAverage);
                 aerodynamics.Strength = ItIsNegative(aerodynamics);
-                var brakes = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Brakes).FirstOrDefault();
+                var brakes = await dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Brakes).FirstOrDefaultAsync();
                 brakes.Strength -= (int)(stage * difficultyTypeAverage);
                 brakes.Strength = ItIsNegative(brakes);
-                var engine = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Engine).FirstOrDefault();
+                var engine = await dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Engine).FirstOrDefaultAsync();
                 engine.Strength -= (int)(stage * difficultyTypeAverage);
                 engine.Strength = ItIsNegative(engine);
-                var gearbox = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Gearbox).FirstOrDefault();
+                var gearbox = await dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Gearbox).FirstOrDefaultAsync();
                 gearbox.Strength -= (int)(stage * difficultyTypeAverage);
                 gearbox.Strength = ItIsNegative(gearbox);
-                var modelCar = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.ModelCar).FirstOrDefault();
+                var modelCar = await dbContext.Cars.Where(x => x.Id == carId).Select(x => x.ModelCar).FirstOrDefaultAsync();
                 modelCar.Strength -= stage;
                 modelCar.Strength = ItIsNegative(modelCar);
-                var mounting = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Mounting).FirstOrDefault();
+                var mounting = await dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Mounting).FirstOrDefaultAsync();
                 mounting.Strength -= stage;
                 mounting.Strength = ItIsNegative(mounting);
-                var turbo = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Turbo).FirstOrDefault();
+                var turbo = await dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Turbo).FirstOrDefaultAsync();
                 if (turbo != null)
                 {
                     turbo.Strength -= stage;
                     turbo.Strength = ItIsNegative(turbo);
                 }
-                dbContext.SaveChanges();
+                 await dbContext.SaveChangesAsync();
             }
             else if (difficulty == DifficultyType.Difficult)
             {
-                var aerodynamics = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Aerodynamics).FirstOrDefault();
+                var aerodynamics = await dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Aerodynamics).FirstOrDefaultAsync();
                 aerodynamics.Strength -=  (int)(stage * difficultyTypeDifficult);
                 aerodynamics.Strength = ItIsNegative(aerodynamics);
-                var brakes = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Brakes).FirstOrDefault();
+                var brakes = await dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Brakes).FirstOrDefaultAsync();
                 brakes.Strength -=  (int)(stage * difficultyTypeDifficult);
                 brakes.Strength = ItIsNegative(brakes);
-                var engine = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Engine).FirstOrDefault();
+                var engine = await dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Engine).FirstOrDefaultAsync();
                 engine.Strength -=   (int)(stage * difficultyTypeDifficult);
                 engine.Strength = ItIsNegative(engine);
-                var gearbox = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Gearbox).FirstOrDefault();
+                var gearbox = await dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Gearbox).FirstOrDefaultAsync();
                 gearbox.Strength -= (int)(stage * difficultyTypeDifficult);
                 gearbox.Strength = ItIsNegative(gearbox);
-                var modelCar = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.ModelCar).FirstOrDefault();
+                var modelCar = await dbContext.Cars.Where(x => x.Id == carId).Select(x => x.ModelCar).FirstOrDefaultAsync();
                 modelCar.Strength -= stage;
                 modelCar.Strength = ItIsNegative(modelCar);
-                var mounting = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Mounting).FirstOrDefault();
+                var mounting = await dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Mounting).FirstOrDefaultAsync();
                 mounting.Strength -= (int)(stage * difficultyTypeDifficult);
                 mounting.Strength = ItIsNegative(mounting);
-                var turbo = dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Turbo).FirstOrDefault();
+                var turbo = await dbContext.Cars.Where(x => x.Id == carId).Select(x => x.Turbo).FirstOrDefaultAsync();
                 if (turbo != null)
                 {
                     turbo.Strength -= stage;
                     turbo.Strength = ItIsNegative(turbo);
                 }
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync();
             }
         }
 
@@ -452,7 +453,7 @@
             return parts.Strength;
         }
 
-        private void RepairParts(Parts typeParts, IRallyPilotsServices rallyPilots, int idPilot,
+        private async Task RepairParts(Parts typeParts, IRallyPilotsServices rallyPilots, int idPilot,
             IRallyNavigatorsServices rallyNavigators, int idNavigator)
         {
             var energy = 100 - typeParts.Strength;
@@ -461,17 +462,19 @@
             rallyPilots.DecreaseEnergy(idPilot, Decimal.ToInt32(energy));
             rallyNavigators.IsWorking(idNavigator);
             rallyNavigators.DecreaseEnergy(idNavigator, Decimal.ToInt32(energy));
+            await dbContext.SaveChangesAsync();
         }
 
-        private void Substitution(PartsCars newPart, Parts oldPart)
+        private async Task Substitution(PartsCars newPart, Parts oldPart)
         {
             oldPart.Name = newPart.Name;
             oldPart.Price = newPart.Price;
             oldPart.Strength = newPart.Strength;
             oldPart.Speed = newPart.Speed;
+            await dbContext.SaveChangesAsync();
         }
 
-        private void SubstitutionTurvo(PartsCars newPart, Parts oldPart, int id)
+        private async Task SubstitutionTurvo(PartsCars newPart, Parts oldPart, int id)
         {
             if (oldPart == null)
             {
@@ -483,10 +486,9 @@
                     Strength = newPart.Strength,
                     Speed = newPart.Speed,
                 });
-                dbContext.SaveChanges();
-                var car = GetCar(id);
+                await dbContext.SaveChangesAsync();
+                var car = GetCar(id).Result;
                 car.TurboId = newTurbo.Entity.Id;
-                dbContext.SaveChanges();
             }
             else
             {
@@ -495,6 +497,7 @@
                 oldPart.Strength = newPart.Strength;
                 oldPart.Speed = newPart.Speed;
             }
+           await dbContext.SaveChangesAsync();
         }
 
     }

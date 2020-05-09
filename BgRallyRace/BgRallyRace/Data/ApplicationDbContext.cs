@@ -22,11 +22,6 @@
 
         }
 
-        internal object AddAsunc(Competitions competitions)
-        {
-            throw new NotImplementedException();
-        }
-
         public DbSet<Opinions> Opinions { get; set; }
         public DbSet<PartsCars> PartsCars { get; set; }
         public DbSet<Competitions> Competitions { get; set; }

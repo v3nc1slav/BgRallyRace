@@ -28,7 +28,7 @@
             _logger.LogInformation("view car");
             var viewModel = new CarViewModels
             {
-                CarId = car.GetCarId(User.Identity.Name),
+                CarId = car.GetCarId(User.Identity.Name).Result,
                 Aerodynamics = car.GetAerodynamics(User.Identity.Name),
                 Brakes = car.GetBrakes(User.Identity.Name),
                 Engines = car.GetEngine(User.Identity.Name),
