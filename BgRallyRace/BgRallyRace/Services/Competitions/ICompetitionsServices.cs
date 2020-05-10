@@ -11,15 +11,15 @@
     {
         Task<DateTime> GetStartDate();
 
-        void AddTime(string team, DateTime time);
+        Task AddTime(string team, DateTime time);
 
-        public int GetCompetitionId();
+        Task<int> GetCompetitionId();
 
-        public void HasIsStartedAsync();
+        void HasIsStartedAsync();
 
-        public string RallyЕntry(TeamViewModels input);
+        Task<string> RallyЕntry(TeamViewModels input);
 
-       public  Task <string> GetCompetitionName();
+       Task <string> GetCompetitionName();
 
         void StartRally();
 
@@ -30,5 +30,7 @@
         Task<List<Competitions>> GetAllCompetitions(int page);
 
         int TotalPage();
+
+        Task<decimal> GetCompetitionPrizeFund();
     }
 }

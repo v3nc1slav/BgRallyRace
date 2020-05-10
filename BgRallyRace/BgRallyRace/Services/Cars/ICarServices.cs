@@ -15,7 +15,9 @@
 
         Task<Cars> GetCar(int id);
 
-        Aerodynamics GetAerodynamics(string user);
+        Task<Aerodynamics> GetAerodynamics(string user);
+
+        Task<Aerodynamics> GetAerodynamics(int id);
 
         Brakes GetBrakes(string user);
 

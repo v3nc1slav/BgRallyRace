@@ -56,22 +56,22 @@
             var car = await dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars).FirstOrDefaultAsync();
             return car;
         }
-
+        
         public async Task<Cars> GetCar(int id)
         {
             var car = await dbContext.Cars.Where(x => x.Id == id).FirstOrDefaultAsync();
             return car;
         }
         
-        public Aerodynamics GetAerodynamics(string user)
+        public async Task<Aerodynamics> GetAerodynamics(string user)
         {
-            var variable = dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars.Aerodynamics).First();
+            var variable = await dbContext.Teams.Where(x => x.User == user).Select(c => c.Cars.Aerodynamics).FirstAsync();
             return variable;
         }
 
-        public Aerodynamics GetAerodynamics(int id)
+        public async Task <Aerodynamics> GetAerodynamics(int id)
         {
-            var variable = dbContext.Cars.Where(x => x.AerodynamicsId == id).Select(x => x.Aerodynamics).First();
+            var variable = await dbContext.Cars.Where(x => x.AerodynamicsId == id).Select(x => x.Aerodynamics).FirstAsync();
             return variable;
         }
 
@@ -149,7 +149,7 @@
 
         public decimal GetMaxSpeed(string user)
         {
-            var Aerodynamics = GetAerodynamics(user);
+            var Aerodynamics = GetAerodynamics(user).Result;
             var Brakes = GetBrakes(user);
             var Engines = GetEngine(user);
             var Gearboxs = GetGearboxs(user);
@@ -161,7 +161,7 @@
 
         public void GetNewAerodynamics(PartsCars part, Cars car)
         {
-            var oldPart = GetAerodynamics(car.AerodynamicsId);
+            var oldPart = GetAerodynamics(car.AerodynamicsId).Result;
             Substitution(part, oldPart).GetAwaiter();
         }
 
@@ -209,7 +209,7 @@
 
         public decimal GetMaxCurrentSpeed(string user)
         {
-            var Aerodynamics = GetAerodynamics(user);
+            var Aerodynamics = GetAerodynamics(user).Result;
             var Brakes = GetBrakes(user);
             var Engines = GetEngine(user);
             var Gearboxs = GetGearboxs(user);
