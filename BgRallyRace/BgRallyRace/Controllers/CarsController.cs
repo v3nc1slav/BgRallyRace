@@ -29,7 +29,7 @@
             var viewModel = new CarViewModels
             {
                 CarId = car.GetCarId(User.Identity.Name).Result,
-                Aerodynamics = car.GetAerodynamics(User.Identity.Name),
+                Aerodynamics = car.GetAerodynamics(User.Identity.Name).Result,
                 Brakes = car.GetBrakes(User.Identity.Name),
                 Engines = car.GetEngine(User.Identity.Name),
                 Gearboxs = car.GetGearboxs(User.Identity.Name),

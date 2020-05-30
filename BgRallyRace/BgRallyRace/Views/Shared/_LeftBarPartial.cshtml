@@ -21,9 +21,9 @@
 @{
     if (User.IsInRole("Admin"))
     {
-    <div class="leftBackgroundAdmin">
-        <a class="nav-link " asp-controller="Admin" asp-action="Opinions">
-            Оторизация на мнения
+        <div class="leftBackgroundAdmin">
+            <a class="nav-link " asp-controller="Admin" asp-action="Opinions">
+                Оторизация на мнения
                 <span>
                     <marcheswidget>
                         <div id="marchesWidgets">
@@ -35,11 +35,11 @@
                         </div>
                     </marcheswidget>
                 </span>
-        </a>
-        <a class="nav-link " asp-controller="Runway" asp-action="Runway">Писти </a>
-        <a class="nav-link " asp-controller="Admin" asp-action="Pilots">Пилоти </a>
-        <a class="nav-link " asp-controller="Admin" asp-action="Navigator">Навигатори </a>
-        <a class="nav-link " asp-controller="Admin" asp-action="Competitions">Състезания </a>
-    </div>
+            </a>
+            <a class="nav-link " asp-controller="Runway" asp-action="Runway">Писти </a>
+            <a class="nav-link " asp-controller="Admin" asp-action="Pilots">Пилоти </a>
+            <a class="nav-link " asp-controller="Admin" asp-action="Navigator">Навигатори </a>
+            <a class="nav-link " asp-controller="Admin" asp-action="Competitions">Състезания </a>
+        </div>
     }
 }

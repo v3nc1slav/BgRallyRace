@@ -18,29 +18,33 @@
 
     function drawChart() {
 
-        //var a = @Model.MoneExpense;
-        //var bbb = @Model.MoneRevenue;
         var data = new google.visualization.DataTable();
         data.addColumn('number', 'Дни');
         data.addColumn('number', 'Приходи   ');
         data.addColumn('number', 'Разходи   ');
 
-       //for (let i = 1; i <= 31; i++) {
-       //    data.addRows([
-       //        [i, a[i], a[i]]
-       //        ]);
-       //}
+      //var revenue = @Model.MoneRevenue;
+      // const expense = @Model.MoneExpense;
+      //
+      // let arr = [];
+      //
+      // for (let i = 1; i <= revenue.length; i++) {
+      //      arr.push([i, revenue[i-1], expense[i-1]]);
+      // }
+
+      // data.addRows([arr]);
+
         data.addRows([
-            [1, @Model.MoneRevenue[0],  @Model.MoneExpense[0]], 
-            [2, @Model.MoneRevenue[1],  @Model.MoneExpense[1]], 
-            [3, @Model.MoneRevenue[2],  @Model.MoneExpense[2]], 
-            [4, @Model.MoneRevenue[3],  @Model.MoneExpense[3]], 
-            [5, @Model.MoneRevenue[4],  @Model.MoneExpense[4]], 
-            [6, @Model.MoneRevenue[5],  @Model.MoneExpense[5]], 
-            [7, @Model.MoneRevenue[6],  @Model.MoneExpense[6]], 
-            [8, @Model.MoneRevenue[7],  @Model.MoneExpense[7]], 
-            [9, @Model.MoneRevenue[8],  @Model.MoneExpense[8]], 
-            [10,@Model.MoneRevenue[9],  @Model.MoneExpense[9]], 
+            [1, @Model.MoneRevenue[0],  @Model.MoneExpense[0]],
+            [2, @Model.MoneRevenue[1],  @Model.MoneExpense[1]],
+            [3, @Model.MoneRevenue[2],  @Model.MoneExpense[2]],
+            [4, @Model.MoneRevenue[3],  @Model.MoneExpense[3]],
+            [5, @Model.MoneRevenue[4],  @Model.MoneExpense[4]],
+            [6, @Model.MoneRevenue[5],  @Model.MoneExpense[5]],
+            [7, @Model.MoneRevenue[6],  @Model.MoneExpense[6]],
+            [8, @Model.MoneRevenue[7],  @Model.MoneExpense[7]],
+            [9, @Model.MoneRevenue[8],  @Model.MoneExpense[8]],
+            [10,@Model.MoneRevenue[9],  @Model.MoneExpense[9]],
             [11,@Model.MoneRevenue[10], @Model.MoneExpense[10]],
             [12,@Model.MoneRevenue[11], @Model.MoneExpense[11]],
             [13,@Model.MoneRevenue[12], @Model.MoneExpense[12]],
@@ -61,7 +65,7 @@
             [28,@Model.MoneRevenue[27], @Model.MoneExpense[27]],
             [29,@Model.MoneRevenue[28], @Model.MoneExpense[28]],
             [30,@Model.MoneRevenue[29], @Model.MoneExpense[29]]
-        ]);                                                
+        ]);
 
         var options = {
             chart: {

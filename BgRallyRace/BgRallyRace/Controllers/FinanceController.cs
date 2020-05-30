@@ -27,8 +27,8 @@
             _logger.LogInformation("view financial statistics");
             var viewModel = new FinanceViewModels
             {
-                MoneExpense = finance.GetExpense(User.Identity.Name),
-                MoneRevenue = finance.GetRevenue(User.Identity.Name),
+                MoneExpense = finance.GetExpense(User.Identity.Name).ToArray(),
+                MoneRevenue = finance.GetRevenue(User.Identity.Name).ToArray(),
                 TotalExpense = finance.GetTotalExpense(User.Identity.Name),
                 TotalRevenue = finance.GetTotalRevenue(User.Identity.Name),
             };

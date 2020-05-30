@@ -51,7 +51,7 @@
                 RallyNavigators = navigators.GetNavigators(user),
                 Runway = await runways.GetRunwayForCurrentRaceAsync(),
                 TeamId = await teams.GetTeamIdAsync(user),
-                CompetitionId = competitions.GetCompetitionId(),
+                CompetitionId = competitions.GetCompetitionId().Result,
                 CompetitionName = competitions.GetCompetitionName().Result,
                 Text = input,
             };

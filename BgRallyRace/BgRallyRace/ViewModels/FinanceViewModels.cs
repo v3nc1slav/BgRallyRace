@@ -3,9 +3,9 @@
     using System.Collections.Generic;
     public class FinanceViewModels
     {
-        public List<decimal> MoneExpense { get; set; }
+        public decimal[] MoneExpense { get; set; }
        
-        public List<decimal> MoneRevenue { get; set; }
+        public decimal[] MoneRevenue { get; set; }
 
         public decimal TotalRevenue { get; set; }
 
