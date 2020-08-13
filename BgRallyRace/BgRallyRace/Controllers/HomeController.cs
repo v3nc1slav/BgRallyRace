@@ -128,6 +128,7 @@
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+
         public async Task<IActionResult> Error()
         {
             Response.StatusCode = (int)HttpStatusCode.NotFound;

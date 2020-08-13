@@ -15,6 +15,7 @@
         {
             this.dbContext = dbContext;
         }
+
         public async Task< List<RallyRunway>> GetAllRunwaysAsync()
         {
             var runways = dbContext.RallyRunways.Where(x => x.IsDeleted == false).ToListAsync();

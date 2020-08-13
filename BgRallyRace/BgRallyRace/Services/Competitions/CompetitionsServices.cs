@@ -56,7 +56,7 @@
         {
             var times = await dbContext.CompetitionsTeam
                 .Where(x => x.Team.Name == team && x.Competition.Applicable == true)
-                .FirstOrDefaultAsync();
+                .FirstAsync();
             times.Time = time;
             await dbContext.SaveChangesAsync();
         }
@@ -77,7 +77,7 @@
                 .Competitions
                 .Where(x => x.Applicable == true)
                 .Select(x => x.Id)
-                .FirstOrDefaultAsync();
+                .FirstAsync();
             return date;
         }
 
@@ -124,7 +124,7 @@
                 .Competitions
                 .Where(x => x.Applicable == true)
                 .Select(x => x.Name)
-                .FirstOrDefaultAsync();
+                .FirstAsync();
             return date;
         }
 

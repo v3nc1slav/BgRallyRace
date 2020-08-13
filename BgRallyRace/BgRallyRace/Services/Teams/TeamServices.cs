@@ -66,7 +66,7 @@
 
         public async Task<int> GetTeamIdAsync(string user)
         {
-            var findUser =  dbContext.Teams.FirstOrDefaultAsync(a => a.User == user).Id;
+            var findUser =  dbContext.Teams.FirstAsync(a => a.User == user).Id;
             return findUser;
         }
     }
